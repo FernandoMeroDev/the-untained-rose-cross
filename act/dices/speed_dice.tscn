@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://vs4w3bduli26"]
+
+[ext_resource type="Texture2D" uid="uid://c1vlvn6la8x0o" path="res://media/actors/dices/speed/normal.png" id="1_lmf87"]
+[ext_resource type="Script" uid="uid://b6xn004xmmryh" path="res://act/dices/speed_dice.gd" id="2_j8ra2"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="3_70lrc"]
+
+[node name="SpeedDice" type="TextureButton" unique_id=870011555]
+offset_right = 110.0
+offset_bottom = 124.0
+texture_normal = ExtResource("1_lmf87")
+script = ExtResource("2_j8ra2")
+
+[node name="Random" type="Label" parent="." unique_id=700889842]
+modulate = Color(1, 1, 1, 0.24705882)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -97.0
+offset_right = 15.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.78039217, 0.78039217, 0.78039217, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_70lrc")
+theme_override_font_sizes/font_size = 140
+text = "1"
+
+[node name="Interval" type="Timer" parent="Random" unique_id=1061093731]
+wait_time = 0.05
+autostart = true
+
+[node name="Number" type="Label" parent="." unique_id=337480417]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.5
+offset_top = -44.5
+offset_right = 31.5
+offset_bottom = 44.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.78039217, 0.78039217, 0.78039217, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_70lrc")
+theme_override_font_sizes/font_size = 70
+text = "10"
+horizontal_alignment = 1

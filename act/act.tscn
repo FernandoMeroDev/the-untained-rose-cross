@@ -1,0 +1,1469 @@
+[gd_scene format=3 uid="uid://brmf6gwuln6ll"]
+
+[ext_resource type="Script" uid="uid://tuilwwtj6ibp" path="res://act/main.gd" id="1_6ehe1"]
+[ext_resource type="Texture2D" uid="uid://i7qvfudsti7s" path="res://media/scenary/background.png" id="1_cp0on"]
+[ext_resource type="Texture2D" uid="uid://caejgslbruqts" path="res://media/scenary/floor.png" id="2_ju8jb"]
+[ext_resource type="Texture2D" uid="uid://dq56ka65tlvt5" path="res://media/scenary/phase_1_example2.png" id="4_spgw1"]
+[ext_resource type="Script" uid="uid://kq3sl74mdiq2" path="res://act/actors/actors.gd" id="6_mrvvv"]
+[ext_resource type="Script" uid="uid://vvwhnt75srmd" path="res://act/hud/actors.gd" id="6_spgw1"]
+[ext_resource type="Script" uid="uid://dsls45k80kx1k" path="res://act/hud/actor.gd" id="8_2o32w"]
+[ext_resource type="Texture2D" uid="uid://behrjtqrtvg3g" path="res://media/hud/frame.png" id="8_4vtqw"]
+[ext_resource type="Texture2D" uid="uid://buees31o660og" path="res://media/hud/actors/background.png" id="8_w51yu"]
+[ext_resource type="Texture2D" uid="uid://cvxubrjvufsi6" path="res://media/hud/actors/under.png" id="9_40rrg"]
+[ext_resource type="Texture2D" uid="uid://dtuh3qyj4evb1" path="res://media/hud/actors/progress.png" id="10_w51yu"]
+[ext_resource type="Texture2D" uid="uid://cm81q8eof2n2t" path="res://media/hud/actors/ring.png" id="11_ljjky"]
+[ext_resource type="Texture2D" uid="uid://cygnoa4prqsgy" path="res://media/actors/sprites/juline/default.png" id="11_ypm1a"]
+[ext_resource type="Texture2D" uid="uid://d14b2cgut24iu" path="res://media/hud/actors/portrait_cover.png" id="12_qyrho"]
+[ext_resource type="Script" uid="uid://8rvpvu05r7lk" path="res://act/hud/actor_details/main.gd" id="14_ail3q"]
+[ext_resource type="Texture2D" uid="uid://c4vhs720j30h" path="res://media/hud/actor_details/background.png" id="14_ulcc2"]
+[ext_resource type="Texture2D" uid="uid://cseg45hf11w0y" path="res://media/hud/actor_details/ring_inner_glow.png" id="15_8tsxx"]
+[ext_resource type="Texture2D" uid="uid://4gcpo33y5ghh" path="res://media/actors/sprites/lucine/default.png" id="15_pngcx"]
+[ext_resource type="Texture2D" uid="uid://dpldy8cxlkphu" path="res://media/hud/actor_details/ring_covered.png" id="17_gyggq"]
+[ext_resource type="Texture2D" uid="uid://bpvsyvlcxb17j" path="res://media/hud/actor_details/ring_outer_glow.png" id="18_eg7tm"]
+[ext_resource type="Texture2D" uid="uid://4takt346co7h" path="res://media/icons/resistences/normal_slash_damage.png" id="19_drnin"]
+[ext_resource type="Texture2D" uid="uid://cxpafmgphqa26" path="res://media/hud/actor_details/base_name.png" id="19_eg7tm"]
+[ext_resource type="Texture2D" uid="uid://v1nr3uvyah8q" path="res://media/icons/resistences/normal_slash_resist.png" id="20_j84ka"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="20_k8d45"]
+[ext_resource type="Texture2D" uid="uid://b4mbl2ndcbw41" path="res://media/icons/resistences/normal_pierce_damage.png" id="21_fscxe"]
+[ext_resource type="Texture2D" uid="uid://dcw1wj8kthoqe" path="res://media/hud/actor_details/gauges/health_left.png" id="21_k8d45"]
+[ext_resource type="Texture2D" uid="uid://cmnrvguani4ie" path="res://media/hud/actor_details/gauges/resist_left.png" id="22_qunjq"]
+[ext_resource type="Texture2D" uid="uid://uj2i0qqt6tjv" path="res://media/icons/resistences/normal_pierce_resist.png" id="22_x5nus"]
+[ext_resource type="Texture2D" uid="uid://d1eokrrdposjk" path="res://media/hud/actor_details/gauges/health_right.png" id="23_7bo04"]
+[ext_resource type="Texture2D" uid="uid://be5oskns7de3q" path="res://media/icons/resistences/normal_blunt_damage.png" id="23_22tc4"]
+[ext_resource type="Texture2D" uid="uid://t8rq7ig3jw7e" path="res://media/hud/actor_details/gauges/resist_right.png" id="24_7bo04"]
+[ext_resource type="Texture2D" uid="uid://pb7n1llo3dqn" path="res://media/icons/resistences/normal_blunt_resist.png" id="24_jcb8f"]
+[ext_resource type="Texture2D" uid="uid://772agfapxh3d" path="res://media/hud/dice_roller/frame.png" id="31_fscxe"]
+[ext_resource type="Script" uid="uid://dm0ixlbs4252e" path="res://act/hud/dice_roller.gd" id="32_4ce7a"]
+[ext_resource type="Texture2D" uid="uid://cqcspiry7g3r5" path="res://media/hud/dice_roller/glow.png" id="32_22tc4"]
+[ext_resource type="Texture2D" uid="uid://cnte135fpabho" path="res://media/hud/dice_roller/dices.png" id="32_x5nus"]
+[ext_resource type="AudioStream" uid="uid://cn1womypgp70i" path="res://media/music/sfx/select_actor.wav" id="33_1qlvn"]
+[ext_resource type="AudioStream" uid="uid://b0ccr0k1ciywd" path="res://media/music/ost.mp3" id="34_22tc4"]
+[ext_resource type="Texture2D" uid="uid://do05nb76wxqo4" path="res://media/hud/scene_number_base.png" id="34_jcb8f"]
+[ext_resource type="Script" uid="uid://cyaaciqn0d5ij" path="res://act/hud/scene_number.gd" id="35_5kprs"]
+[ext_resource type="AudioStream" uid="uid://cftn8qk84rin8" path="res://media/music/sfx/act_start.wav" id="35_rkifs"]
+[ext_resource type="AudioStream" uid="uid://c3xrn2r12b4na" path="res://media/music/sfx/dice_roll.wav" id="42_lskxy"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ljjky"]
+load_path = "res://.godot/imported/default.png-e3a13022060083fd5c97beea4f39b26b.ctex"
+
+[node name="Act" type="Node" unique_id=1240358674]
+script = ExtResource("1_6ehe1")
+
+[node name="Scenary" type="Node2D" parent="." unique_id=1272571393]
+
+[node name="Background" type="Sprite2D" parent="Scenary" unique_id=178421837]
+texture = ExtResource("1_cp0on")
+centered = false
+
+[node name="Floor" type="Sprite2D" parent="Scenary" unique_id=1797074240]
+position = Vector2(0, 589)
+texture = ExtResource("2_ju8jb")
+centered = false
+
+[node name="FinalExample" type="Sprite2D" parent="Scenary" unique_id=157744761]
+visible = false
+texture = ExtResource("4_spgw1")
+centered = false
+
+[node name="Positions" type="Node2D" parent="Scenary" unique_id=18634042]
+
+[node name="Position1" type="Marker2D" parent="Scenary/Positions" unique_id=1319946291 groups=["left_team_positions"]]
+position = Vector2(616, 629)
+
+[node name="Position2" type="Marker2D" parent="Scenary/Positions" unique_id=145921490 groups=["left_team_positions"]]
+position = Vector2(645, 765)
+
+[node name="Position3" type="Marker2D" parent="Scenary/Positions" unique_id=1575465906 groups=["left_team_positions"]]
+position = Vector2(489, 706)
+
+[node name="Position4" type="Marker2D" parent="Scenary/Positions" unique_id=164385378 groups=["left_team_positions"]]
+position = Vector2(380, 638)
+
+[node name="Position5" type="Marker2D" parent="Scenary/Positions" unique_id=1970725329 groups=["left_team_positions"]]
+position = Vector2(320, 768)
+
+[node name="Position6" type="Marker2D" parent="Scenary/Positions" unique_id=1533242997 groups=["right_team_positions"]]
+position = Vector2(1111, 625)
+
+[node name="Position7" type="Marker2D" parent="Scenary/Positions" unique_id=1162328924 groups=["right_team_positions"]]
+position = Vector2(1140, 789)
+
+[node name="Position8" type="Marker2D" parent="Scenary/Positions" unique_id=1865357103 groups=["right_team_positions"]]
+position = Vector2(1305, 706.03)
+
+[node name="Position9" type="Marker2D" parent="Scenary/Positions" unique_id=769131202 groups=["right_team_positions"]]
+position = Vector2(1430, 638)
+
+[node name="Position10" type="Marker2D" parent="Scenary/Positions" unique_id=901219726 groups=["right_team_positions"]]
+position = Vector2(1490, 768)
+
+[node name="Actors" type="Node2D" parent="Scenary" unique_id=2118499075]
+script = ExtResource("6_mrvvv")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=216121873]
+
+[node name="Actors" type="Control" parent="HUD" unique_id=564579883]
+layout_mode = 3
+anchor_top = 0.633
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.35998535
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("6_spgw1")
+
+[node name="Actor10" type="TextureRect" parent="HUD/Actors" unique_id=785652229]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 1643.0
+offset_top = -36.0
+offset_right = 1949.0
+offset_bottom = 121.0
+mouse_filter = 2
+texture = ExtResource("8_w51yu")
+flip_h = true
+script = ExtResource("8_2o32w")
+
+[node name="Name" type="Label" parent="HUD/Actors/Actor10" unique_id=876485137]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 43.0
+offset_right = 251.0
+offset_bottom = 66.0
+text = "Actor 1 Name Label"
+horizontal_alignment = 1
+
+[node name="HP" type="Label" parent="HUD/Actors/Actor10" unique_id=624537501]
+layout_mode = 0
+offset_left = 205.0
+offset_top = 61.0
+offset_right = 242.0
+offset_bottom = 106.0
+theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
+theme_override_font_sizes/font_size = 28
+text = "30"
+
+[node name="HealthBar" type="TextureProgressBar" parent="HUD/Actors/Actor10" unique_id=1985054057]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 72.0
+offset_right = 199.0
+offset_bottom = 112.0
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("9_40rrg")
+texture_progress = ExtResource("10_w51yu")
+
+[node name="Portrait" type="Control" parent="HUD/Actors/Actor10" unique_id=2012714712]
+clip_contents = true
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 50.0
+offset_right = 86.0
+offset_bottom = 92.0
+scale = Vector2(1.4, 1.4)
+
+[node name="Avatar" type="TextureRect" parent="HUD/Actors/Actor10/Portrait" unique_id=594532978]
+layout_mode = 1
+offset_right = 438.0
+offset_bottom = 677.0
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_ljjky")
+
+[node name="Cover" type="TextureRect" parent="HUD/Actors/Actor10/Portrait" unique_id=1252022289]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 279.0
+offset_bottom = 282.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("12_qyrho")
+
+[node name="Ring" type="TextureRect" parent="HUD/Actors/Actor10/Portrait" unique_id=631146921]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("11_ljjky")
+
+[node name="Box" type="Control" parent="HUD/Actors/Actor10" unique_id=1695047174]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -30.0
+offset_right = 105.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Actor9" type="TextureRect" parent="HUD/Actors" unique_id=425067771]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 1642.0
+offset_top = 40.0
+offset_right = 1948.0
+offset_bottom = 197.0
+mouse_filter = 2
+texture = ExtResource("8_w51yu")
+flip_h = true
+script = ExtResource("8_2o32w")
+
+[node name="Name" type="Label" parent="HUD/Actors/Actor9" unique_id=164272478]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 43.0
+offset_right = 251.0
+offset_bottom = 66.0
+text = "Actor 1 Name Label"
+horizontal_alignment = 1
+
+[node name="HP" type="Label" parent="HUD/Actors/Actor9" unique_id=1894880366]
+layout_mode = 0
+offset_left = 205.0
+offset_top = 61.0
+offset_right = 242.0
+offset_bottom = 106.0
+theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
+theme_override_font_sizes/font_size = 28
+text = "30"
+
+[node name="HealthBar" type="TextureProgressBar" parent="HUD/Actors/Actor9" unique_id=579998474]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 72.0
+offset_right = 199.0
+offset_bottom = 112.0
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("9_40rrg")
+texture_progress = ExtResource("10_w51yu")
+
+[node name="Portrait" type="Control" parent="HUD/Actors/Actor9" unique_id=2129530712]
+clip_contents = true
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 50.0
+offset_right = 86.0
+offset_bottom = 92.0
+scale = Vector2(1.4, 1.4)
+
+[node name="Avatar" type="TextureRect" parent="HUD/Actors/Actor9/Portrait" unique_id=1791874165]
+layout_mode = 1
+offset_right = 438.0
+offset_bottom = 677.0
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_ljjky")
+
+[node name="Cover" type="TextureRect" parent="HUD/Actors/Actor9/Portrait" unique_id=1646314523]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 279.0
+offset_bottom = 282.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("12_qyrho")
+
+[node name="Ring" type="TextureRect" parent="HUD/Actors/Actor9/Portrait" unique_id=2087113104]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("11_ljjky")
+
+[node name="Box" type="Control" parent="HUD/Actors/Actor9" unique_id=1872525263]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -30.0
+offset_right = 105.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Actor8" type="TextureRect" parent="HUD/Actors" unique_id=1966076473]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 1637.0
+offset_top = 111.0
+offset_right = 1943.0
+offset_bottom = 268.0
+mouse_filter = 2
+texture = ExtResource("8_w51yu")
+flip_h = true
+script = ExtResource("8_2o32w")
+
+[node name="Name" type="Label" parent="HUD/Actors/Actor8" unique_id=1406273639]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 43.0
+offset_right = 251.0
+offset_bottom = 66.0
+text = "Actor 1 Name Label"
+horizontal_alignment = 1
+
+[node name="HP" type="Label" parent="HUD/Actors/Actor8" unique_id=1322342807]
+layout_mode = 0
+offset_left = 205.0
+offset_top = 61.0
+offset_right = 242.0
+offset_bottom = 106.0
+theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
+theme_override_font_sizes/font_size = 28
+text = "30"
+
+[node name="HealthBar" type="TextureProgressBar" parent="HUD/Actors/Actor8" unique_id=1454174979]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 72.0
+offset_right = 199.0
+offset_bottom = 112.0
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("9_40rrg")
+texture_progress = ExtResource("10_w51yu")
+
+[node name="Portrait" type="Control" parent="HUD/Actors/Actor8" unique_id=1992143772]
+clip_contents = true
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 50.0
+offset_right = 86.0
+offset_bottom = 92.0
+scale = Vector2(1.4, 1.4)
+
+[node name="Avatar" type="TextureRect" parent="HUD/Actors/Actor8/Portrait" unique_id=1699723879]
+layout_mode = 1
+offset_right = 438.0
+offset_bottom = 677.0
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_ljjky")
+
+[node name="Cover" type="TextureRect" parent="HUD/Actors/Actor8/Portrait" unique_id=296764428]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 279.0
+offset_bottom = 282.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("12_qyrho")
+
+[node name="Ring" type="TextureRect" parent="HUD/Actors/Actor8/Portrait" unique_id=1113842967]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("11_ljjky")
+
+[node name="Box" type="Control" parent="HUD/Actors/Actor8" unique_id=890798269]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -30.0
+offset_right = 105.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Actor7" type="TextureRect" parent="HUD/Actors" unique_id=1159205600]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 1608.0
+offset_top = 174.0
+offset_right = 1914.0
+offset_bottom = 331.0
+mouse_filter = 2
+texture = ExtResource("8_w51yu")
+flip_h = true
+script = ExtResource("8_2o32w")
+
+[node name="Name" type="Label" parent="HUD/Actors/Actor7" unique_id=902597167]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 43.0
+offset_right = 251.0
+offset_bottom = 66.0
+text = "Actor 1 Name Label"
+horizontal_alignment = 1
+
+[node name="HP" type="Label" parent="HUD/Actors/Actor7" unique_id=2001981816]
+layout_mode = 0
+offset_left = 205.0
+offset_top = 61.0
+offset_right = 242.0
+offset_bottom = 106.0
+theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
+theme_override_font_sizes/font_size = 28
+text = "30"
+
+[node name="HealthBar" type="TextureProgressBar" parent="HUD/Actors/Actor7" unique_id=162763219]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 72.0
+offset_right = 199.0
+offset_bottom = 112.0
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("9_40rrg")
+texture_progress = ExtResource("10_w51yu")
+
+[node name="Portrait" type="Control" parent="HUD/Actors/Actor7" unique_id=822371397]
+clip_contents = true
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 50.0
+offset_right = 86.0
+offset_bottom = 92.0
+scale = Vector2(1.4, 1.4)
+
+[node name="Avatar" type="TextureRect" parent="HUD/Actors/Actor7/Portrait" unique_id=1087516340]
+layout_mode = 1
+offset_right = 438.0
+offset_bottom = 677.0
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_ljjky")
+
+[node name="Cover" type="TextureRect" parent="HUD/Actors/Actor7/Portrait" unique_id=801327384]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 279.0
+offset_bottom = 282.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("12_qyrho")
+
+[node name="Ring" type="TextureRect" parent="HUD/Actors/Actor7/Portrait" unique_id=2039851208]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("11_ljjky")
+
+[node name="Box" type="Control" parent="HUD/Actors/Actor7" unique_id=1662084347]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -30.0
+offset_right = 105.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Actor6" type="TextureRect" parent="HUD/Actors" unique_id=392413004]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 1537.0
+offset_top = 245.0
+offset_right = 1843.0
+offset_bottom = 402.0
+mouse_filter = 2
+texture = ExtResource("8_w51yu")
+flip_h = true
+script = ExtResource("8_2o32w")
+
+[node name="Name" type="Label" parent="HUD/Actors/Actor6" unique_id=116780502]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 43.0
+offset_right = 251.0
+offset_bottom = 66.0
+text = "Actor 1 Name Label"
+horizontal_alignment = 1
+
+[node name="HP" type="Label" parent="HUD/Actors/Actor6" unique_id=157710018]
+layout_mode = 0
+offset_left = 205.0
+offset_top = 61.0
+offset_right = 242.0
+offset_bottom = 106.0
+theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
+theme_override_font_sizes/font_size = 28
+text = "30"
+
+[node name="HealthBar" type="TextureProgressBar" parent="HUD/Actors/Actor6" unique_id=1727764913]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 72.0
+offset_right = 199.0
+offset_bottom = 112.0
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("9_40rrg")
+texture_progress = ExtResource("10_w51yu")
+
+[node name="Portrait" type="Control" parent="HUD/Actors/Actor6" unique_id=412898238]
+clip_contents = true
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 50.0
+offset_right = 86.0
+offset_bottom = 92.0
+scale = Vector2(1.4, 1.4)
+
+[node name="Avatar" type="TextureRect" parent="HUD/Actors/Actor6/Portrait" unique_id=1539446640]
+layout_mode = 1
+offset_right = 438.0
+offset_bottom = 677.0
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_ljjky")
+
+[node name="Cover" type="TextureRect" parent="HUD/Actors/Actor6/Portrait" unique_id=1199296086]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 279.0
+offset_bottom = 282.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("12_qyrho")
+
+[node name="Ring" type="TextureRect" parent="HUD/Actors/Actor6/Portrait" unique_id=1882617803]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("11_ljjky")
+
+[node name="Box" type="Control" parent="HUD/Actors/Actor6" unique_id=523633404]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -30.0
+offset_right = 105.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Actor5" type="TextureRect" parent="HUD/Actors" unique_id=1015122422]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = -18.0
+offset_top = -36.0
+offset_right = 288.0
+offset_bottom = 121.0
+mouse_filter = 2
+texture = ExtResource("8_w51yu")
+script = ExtResource("8_2o32w")
+
+[node name="Name" type="Label" parent="HUD/Actors/Actor5" unique_id=105734154]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 43.0
+offset_right = 204.0
+offset_bottom = 66.0
+text = "Actor 1 Name Label"
+horizontal_alignment = 1
+
+[node name="HP" type="Label" parent="HUD/Actors/Actor5" unique_id=1532706728]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 61.0
+offset_right = 100.0
+offset_bottom = 106.0
+theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
+theme_override_font_sizes/font_size = 28
+text = "30"
+
+[node name="HealthBar" type="TextureProgressBar" parent="HUD/Actors/Actor5" unique_id=1874407756]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 76.0
+offset_right = 203.0
+offset_bottom = 116.0
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("9_40rrg")
+texture_progress = ExtResource("10_w51yu")
+
+[node name="Portrait" type="Control" parent="HUD/Actors/Actor5" unique_id=27840556]
+clip_contents = true
+anchors_preset = 0
+offset_left = 202.0
+offset_top = 50.0
+offset_right = 244.0
+offset_bottom = 92.0
+scale = Vector2(1.4, 1.4)
+
+[node name="Avatar" type="TextureRect" parent="HUD/Actors/Actor5/Portrait" unique_id=81624322]
+layout_mode = 1
+offset_right = 438.0
+offset_bottom = 677.0
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_ljjky")
+
+[node name="Cover" type="TextureRect" parent="HUD/Actors/Actor5/Portrait" unique_id=1259037778]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 279.0
+offset_bottom = 282.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("12_qyrho")
+
+[node name="Ring" type="TextureRect" parent="HUD/Actors/Actor5/Portrait" unique_id=892885016]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("11_ljjky")
+
+[node name="Box" type="Control" parent="HUD/Actors/Actor5" unique_id=222963302]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -30.0
+offset_right = 105.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Actor4" type="TextureRect" parent="HUD/Actors" unique_id=1241837923]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = -20.0
+offset_top = 40.0
+offset_right = 286.0
+offset_bottom = 197.0
+mouse_filter = 2
+texture = ExtResource("8_w51yu")
+script = ExtResource("8_2o32w")
+
+[node name="Name" type="Label" parent="HUD/Actors/Actor4" unique_id=1371918148]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 43.0
+offset_right = 204.0
+offset_bottom = 66.0
+text = "Actor 1 Name Label"
+horizontal_alignment = 1
+
+[node name="HP" type="Label" parent="HUD/Actors/Actor4" unique_id=1499372142]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 61.0
+offset_right = 100.0
+offset_bottom = 106.0
+theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
+theme_override_font_sizes/font_size = 28
+text = "30"
+
+[node name="HealthBar" type="TextureProgressBar" parent="HUD/Actors/Actor4" unique_id=1978407669]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 76.0
+offset_right = 203.0
+offset_bottom = 116.0
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("9_40rrg")
+texture_progress = ExtResource("10_w51yu")
+
+[node name="Portrait" type="Control" parent="HUD/Actors/Actor4" unique_id=917403306]
+clip_contents = true
+anchors_preset = 0
+offset_left = 202.0
+offset_top = 50.0
+offset_right = 244.0
+offset_bottom = 92.0
+scale = Vector2(1.4, 1.4)
+
+[node name="Avatar" type="TextureRect" parent="HUD/Actors/Actor4/Portrait" unique_id=2028319759]
+layout_mode = 1
+offset_right = 438.0
+offset_bottom = 677.0
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_ljjky")
+
+[node name="Cover" type="TextureRect" parent="HUD/Actors/Actor4/Portrait" unique_id=973575651]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 279.0
+offset_bottom = 282.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("12_qyrho")
+
+[node name="Ring" type="TextureRect" parent="HUD/Actors/Actor4/Portrait" unique_id=761026834]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("11_ljjky")
+
+[node name="Box" type="Control" parent="HUD/Actors/Actor4" unique_id=1634364077]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -30.0
+offset_right = 105.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Actor3" type="TextureRect" parent="HUD/Actors" unique_id=1183325382]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = -20.0
+offset_top = 111.0
+offset_right = 286.0
+offset_bottom = 268.0
+mouse_filter = 2
+texture = ExtResource("8_w51yu")
+script = ExtResource("8_2o32w")
+
+[node name="Name" type="Label" parent="HUD/Actors/Actor3" unique_id=46091412]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 43.0
+offset_right = 204.0
+offset_bottom = 66.0
+text = "Actor 1 Name Label"
+horizontal_alignment = 1
+
+[node name="HP" type="Label" parent="HUD/Actors/Actor3" unique_id=295406937]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 61.0
+offset_right = 100.0
+offset_bottom = 106.0
+theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
+theme_override_font_sizes/font_size = 28
+text = "30"
+
+[node name="HealthBar" type="TextureProgressBar" parent="HUD/Actors/Actor3" unique_id=1452082184]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 76.0
+offset_right = 203.0
+offset_bottom = 116.0
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("9_40rrg")
+texture_progress = ExtResource("10_w51yu")
+
+[node name="Portrait" type="Control" parent="HUD/Actors/Actor3" unique_id=1282243101]
+clip_contents = true
+anchors_preset = 0
+offset_left = 202.0
+offset_top = 50.0
+offset_right = 244.0
+offset_bottom = 92.0
+scale = Vector2(1.4, 1.4)
+
+[node name="Avatar" type="TextureRect" parent="HUD/Actors/Actor3/Portrait" unique_id=2042847034]
+layout_mode = 1
+offset_right = 438.0
+offset_bottom = 677.0
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_ljjky")
+
+[node name="Cover" type="TextureRect" parent="HUD/Actors/Actor3/Portrait" unique_id=133221618]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 279.0
+offset_bottom = 282.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("12_qyrho")
+
+[node name="Ring" type="TextureRect" parent="HUD/Actors/Actor3/Portrait" unique_id=1552042558]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("11_ljjky")
+
+[node name="Box" type="Control" parent="HUD/Actors/Actor3" unique_id=1890360575]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -30.0
+offset_right = 105.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Actor2" type="TextureRect" parent="HUD/Actors" unique_id=503017067]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 18.0
+offset_top = 174.0
+offset_right = 324.0
+offset_bottom = 331.0
+mouse_filter = 2
+texture = ExtResource("8_w51yu")
+script = ExtResource("8_2o32w")
+
+[node name="Name" type="Label" parent="HUD/Actors/Actor2" unique_id=593619915]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 43.0
+offset_right = 204.0
+offset_bottom = 66.0
+text = "Actor 1 Name Label"
+horizontal_alignment = 1
+
+[node name="HP" type="Label" parent="HUD/Actors/Actor2" unique_id=528884941]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 61.0
+offset_right = 100.0
+offset_bottom = 106.0
+theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
+theme_override_font_sizes/font_size = 28
+text = "30"
+
+[node name="HealthBar" type="TextureProgressBar" parent="HUD/Actors/Actor2" unique_id=1872892576]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 76.0
+offset_right = 203.0
+offset_bottom = 116.0
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("9_40rrg")
+texture_progress = ExtResource("10_w51yu")
+
+[node name="Portrait" type="Control" parent="HUD/Actors/Actor2" unique_id=693007543]
+clip_contents = true
+anchors_preset = 0
+offset_left = 202.0
+offset_top = 50.0
+offset_right = 244.0
+offset_bottom = 92.0
+scale = Vector2(1.4, 1.4)
+
+[node name="Avatar" type="TextureRect" parent="HUD/Actors/Actor2/Portrait" unique_id=1902734529]
+layout_mode = 1
+offset_right = 438.0
+offset_bottom = 677.0
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_ljjky")
+
+[node name="Cover" type="TextureRect" parent="HUD/Actors/Actor2/Portrait" unique_id=441593810]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 279.0
+offset_bottom = 282.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("12_qyrho")
+
+[node name="Ring" type="TextureRect" parent="HUD/Actors/Actor2/Portrait" unique_id=26026102]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("11_ljjky")
+
+[node name="Box" type="Control" parent="HUD/Actors/Actor2" unique_id=1137593639]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -30.0
+offset_right = 105.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Actor1" type="TextureRect" parent="HUD/Actors" unique_id=174580969]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 78.0
+offset_top = 245.0
+offset_right = 384.0
+offset_bottom = 402.0
+mouse_filter = 2
+texture = ExtResource("8_w51yu")
+script = ExtResource("8_2o32w")
+
+[node name="Name" type="Label" parent="HUD/Actors/Actor1" unique_id=1787228106]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 43.0
+offset_right = 204.0
+offset_bottom = 66.0
+text = "Actor 1 Name Label"
+horizontal_alignment = 1
+
+[node name="HP" type="Label" parent="HUD/Actors/Actor1" unique_id=1255612299]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 61.0
+offset_right = 100.0
+offset_bottom = 106.0
+theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
+theme_override_font_sizes/font_size = 28
+text = "30"
+
+[node name="HealthBar" type="TextureProgressBar" parent="HUD/Actors/Actor1" unique_id=796658589]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 76.0
+offset_right = 203.0
+offset_bottom = 116.0
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("9_40rrg")
+texture_progress = ExtResource("10_w51yu")
+
+[node name="Portrait" type="Control" parent="HUD/Actors/Actor1" unique_id=1329726873]
+clip_contents = true
+anchors_preset = 0
+offset_left = 201.99998
+offset_top = 49.999996
+offset_right = 243.99998
+offset_bottom = 92.0
+scale = Vector2(1.4, 1.4)
+
+[node name="Avatar" type="TextureRect" parent="HUD/Actors/Actor1/Portrait" unique_id=1203108261]
+layout_mode = 1
+offset_right = 438.0
+offset_bottom = 677.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("11_ypm1a")
+
+[node name="Cover" type="TextureRect" parent="HUD/Actors/Actor1/Portrait" unique_id=1731136202]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 279.0
+offset_bottom = 282.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("12_qyrho")
+
+[node name="Ring" type="TextureRect" parent="HUD/Actors/Actor1/Portrait" unique_id=1173781690]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("11_ljjky")
+
+[node name="Box" type="Control" parent="HUD/Actors/Actor1" unique_id=668221906]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -30.0
+offset_right = 105.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Frame" type="TextureRect" parent="HUD" unique_id=798413686]
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+texture = ExtResource("8_4vtqw")
+
+[node name="ActorDetails" type="Control" parent="HUD" unique_id=556442317]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 464.0
+mouse_filter = 2
+script = ExtResource("14_ail3q")
+
+[node name="Left" type="TextureRect" parent="HUD/ActorDetails" unique_id=1882568075]
+layout_mode = 1
+offset_top = -520.0
+offset_right = 578.0
+texture = ExtResource("14_ulcc2")
+
+[node name="Portrait" type="Control" parent="HUD/ActorDetails/Left" unique_id=468403197]
+clip_contents = true
+anchors_preset = 0
+offset_left = -25.0
+offset_top = 20.0
+offset_right = 145.0
+offset_bottom = 190.0
+
+[node name="InnerGlow" type="TextureRect" parent="HUD/ActorDetails/Left/Portrait" unique_id=1991516379]
+layout_mode = 0
+offset_right = 170.0
+offset_bottom = 170.0
+texture = ExtResource("15_8tsxx")
+
+[node name="Actor" type="TextureRect" parent="HUD/ActorDetails/Left/Portrait" unique_id=510726500]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -77.5
+offset_right = 50.0
+offset_bottom = 77.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("15_pngcx")
+
+[node name="Ring" type="TextureRect" parent="HUD/ActorDetails/Left/Portrait" unique_id=664911025]
+clip_contents = true
+layout_mode = 0
+offset_right = 170.0
+offset_bottom = 170.0
+texture = ExtResource("17_gyggq")
+
+[node name="PortraitOuterGlow" type="TextureRect" parent="HUD/ActorDetails/Left" unique_id=1215208072]
+layout_mode = 1
+offset_left = -131.0
+offset_top = -86.0
+offset_right = 251.0
+offset_bottom = 296.0
+texture = ExtResource("18_eg7tm")
+
+[node name="Resistences" type="GridContainer" parent="HUD/ActorDetails/Left" unique_id=191553193]
+layout_mode = 0
+offset_left = 265.0
+offset_top = 62.0
+offset_right = 389.0
+offset_bottom = 280.0
+scale = Vector2(0.7, 0.7)
+columns = 2
+
+[node name="SlashDamage" type="TextureRect" parent="HUD/ActorDetails/Left/Resistences" unique_id=74030180]
+layout_mode = 2
+texture = ExtResource("19_drnin")
+
+[node name="SlashResist" type="TextureRect" parent="HUD/ActorDetails/Left/Resistences" unique_id=2091431763]
+layout_mode = 2
+texture = ExtResource("20_j84ka")
+
+[node name="PierceDamage" type="TextureRect" parent="HUD/ActorDetails/Left/Resistences" unique_id=226033954]
+layout_mode = 2
+texture = ExtResource("21_fscxe")
+
+[node name="PierceResist" type="TextureRect" parent="HUD/ActorDetails/Left/Resistences" unique_id=1569304589]
+layout_mode = 2
+texture = ExtResource("22_x5nus")
+
+[node name="BluntDamage" type="TextureRect" parent="HUD/ActorDetails/Left/Resistences" unique_id=2087685162]
+layout_mode = 2
+texture = ExtResource("23_22tc4")
+
+[node name="BluntResist" type="TextureRect" parent="HUD/ActorDetails/Left/Resistences" unique_id=2104428601]
+layout_mode = 2
+texture = ExtResource("24_jcb8f")
+
+[node name="Name" type="TextureRect" parent="HUD/ActorDetails/Left" unique_id=1398794189]
+layout_mode = 0
+offset_left = 115.0
+offset_top = 3.0
+offset_right = 424.0
+offset_bottom = 117.0
+mouse_filter = 2
+texture = ExtResource("19_eg7tm")
+
+[node name="Text" type="Label" parent="HUD/ActorDetails/Left/Name" unique_id=799476592]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 24.000002
+offset_right = 164.0
+offset_bottom = 70.0
+rotation = -0.13962634
+theme_override_fonts/font = ExtResource("20_k8d45")
+theme_override_font_sizes/font_size = 36
+text = "Lucine"
+
+[node name="Gauges" type="Control" parent="HUD/ActorDetails/Left" unique_id=1448882676]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Health" type="TextureProgressBar" parent="HUD/ActorDetails/Left/Gauges" unique_id=1732458352]
+layout_mode = 0
+offset_left = -35.0
+offset_top = 11.0
+offset_right = 165.0
+offset_bottom = 211.0
+value = 30.0
+fill_mode = 5
+radial_initial_angle = 175.0
+radial_fill_degrees = 95.0
+texture_under = ExtResource("21_k8d45")
+texture_progress = ExtResource("21_k8d45")
+tint_under = Color(1.3139695e-05, 0.023147473, 0.44712096, 1)
+tint_progress = Color(0, 0.09019608, 0.9019608, 1)
+
+[node name="Number" type="Label" parent="HUD/ActorDetails/Left/Gauges/Health" unique_id=1688802239]
+layout_direction = 3
+layout_mode = 1
+offset_left = 97.0
+offset_top = 172.0
+offset_right = 137.0
+offset_bottom = 213.0
+theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("20_k8d45")
+theme_override_font_sizes/font_size = 32
+text = "12"
+text_direction = 2
+
+[node name="Resist" type="TextureProgressBar" parent="HUD/ActorDetails/Left/Gauges" unique_id=182261865]
+layout_mode = 0
+offset_left = -54.0
+offset_top = -11.0
+offset_right = 196.0
+offset_bottom = 239.0
+value = 31.0
+fill_mode = 5
+radial_initial_angle = 179.0
+radial_fill_degrees = 101.0
+texture_under = ExtResource("22_qunjq")
+texture_progress = ExtResource("22_qunjq")
+tint_under = Color(0.56078434, 0.56078434, 0.56078434, 1)
+
+[node name="Number" type="Label" parent="HUD/ActorDetails/Left/Gauges/Resist" unique_id=130864835]
+layout_direction = 3
+layout_mode = 1
+offset_left = 129.0
+offset_top = 222.0
+offset_right = 169.0
+offset_bottom = 263.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("20_k8d45")
+theme_override_font_sizes/font_size = 32
+text = "15"
+text_direction = 2
+
+[node name="Right" type="TextureRect" parent="HUD/ActorDetails" unique_id=985105968]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -578.0
+offset_top = -520.0
+grow_horizontal = 0
+texture = ExtResource("14_ulcc2")
+flip_h = true
+
+[node name="Portrait" type="Control" parent="HUD/ActorDetails/Right" unique_id=1599387808]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -145.0
+offset_top = 20.0
+offset_right = 25.0
+offset_bottom = 190.0
+grow_horizontal = 0
+
+[node name="InnerGlow" type="TextureRect" parent="HUD/ActorDetails/Right/Portrait" unique_id=1304586823]
+layout_mode = 0
+offset_right = 170.0
+offset_bottom = 170.0
+texture = ExtResource("15_8tsxx")
+
+[node name="Actor" type="TextureRect" parent="HUD/ActorDetails/Right/Portrait" unique_id=1555760935]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -77.5
+offset_right = 50.0
+offset_bottom = 77.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("11_ypm1a")
+flip_h = true
+
+[node name="Ring" type="TextureRect" parent="HUD/ActorDetails/Right/Portrait" unique_id=2135581352]
+clip_contents = true
+layout_mode = 0
+offset_right = 170.0
+offset_bottom = 170.0
+texture = ExtResource("17_gyggq")
+
+[node name="PortraitOuterGlow" type="TextureRect" parent="HUD/ActorDetails/Right" unique_id=946922999]
+layout_mode = 1
+offset_left = 327.0
+offset_top = -86.0
+offset_right = 709.0
+offset_bottom = 296.0
+texture = ExtResource("18_eg7tm")
+
+[node name="Resistences" type="GridContainer" parent="HUD/ActorDetails/Right" unique_id=99378507]
+layout_mode = 0
+offset_left = 229.0
+offset_top = 62.0
+offset_right = 353.0
+offset_bottom = 280.0
+scale = Vector2(0.7, 0.7)
+columns = 2
+
+[node name="SlashDamage" type="TextureRect" parent="HUD/ActorDetails/Right/Resistences" unique_id=2125328299]
+layout_mode = 2
+texture = ExtResource("19_drnin")
+
+[node name="SlashResist" type="TextureRect" parent="HUD/ActorDetails/Right/Resistences" unique_id=188540286]
+layout_mode = 2
+texture = ExtResource("20_j84ka")
+
+[node name="PierceDamage" type="TextureRect" parent="HUD/ActorDetails/Right/Resistences" unique_id=904281334]
+layout_mode = 2
+texture = ExtResource("21_fscxe")
+
+[node name="PierceResist" type="TextureRect" parent="HUD/ActorDetails/Right/Resistences" unique_id=1626957779]
+layout_mode = 2
+texture = ExtResource("22_x5nus")
+
+[node name="BluntDamage" type="TextureRect" parent="HUD/ActorDetails/Right/Resistences" unique_id=1964710095]
+layout_mode = 2
+texture = ExtResource("23_22tc4")
+
+[node name="BluntResist" type="TextureRect" parent="HUD/ActorDetails/Right/Resistences" unique_id=1696244324]
+layout_mode = 2
+texture = ExtResource("24_jcb8f")
+
+[node name="Name" type="TextureRect" parent="HUD/ActorDetails/Right" unique_id=844628240]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.002
+offset_left = -424.0
+offset_top = 3.0
+offset_right = -115.0
+offset_bottom = 115.96
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("19_eg7tm")
+flip_h = true
+
+[node name="Text" type="Label" parent="HUD/ActorDetails/Right/Name" unique_id=256303624]
+layout_direction = 3
+layout_mode = 0
+offset_left = 36.93103
+offset_top = 10.999999
+offset_right = 127.0
+offset_bottom = 57.0
+rotation = 0.13962634
+theme_override_fonts/font = ExtResource("20_k8d45")
+theme_override_font_sizes/font_size = 36
+text = "Juline"
+text_direction = 2
+
+[node name="Gauges" type="Control" parent="HUD/ActorDetails/Right" unique_id=1108593583]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Health" type="TextureProgressBar" parent="HUD/ActorDetails/Right/Gauges" unique_id=898095212]
+layout_mode = 0
+offset_left = 411.0
+offset_top = 10.0
+offset_right = 611.0
+offset_bottom = 210.0
+value = 30.0
+fill_mode = 4
+radial_initial_angle = 185.0
+radial_fill_degrees = 95.0
+texture_under = ExtResource("23_7bo04")
+texture_progress = ExtResource("23_7bo04")
+tint_under = Color(1.3139695e-05, 0.023147473, 0.44712096, 1)
+tint_progress = Color(0, 0.09019608, 0.9019608, 1)
+
+[node name="Number" type="Label" parent="HUD/ActorDetails/Right/Gauges/Health" unique_id=1951771278]
+layout_direction = 2
+layout_mode = 1
+offset_left = 97.0
+offset_top = 172.0
+offset_right = 137.0
+offset_bottom = 213.0
+theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("20_k8d45")
+theme_override_font_sizes/font_size = 32
+text = "12"
+text_direction = 2
+
+[node name="Resist" type="TextureProgressBar" parent="HUD/ActorDetails/Right/Gauges" unique_id=770754687]
+layout_mode = 0
+offset_left = 383.0
+offset_top = -12.0
+offset_right = 633.0
+offset_bottom = 238.0
+value = 30.0
+fill_mode = 4
+radial_initial_angle = 181.0
+radial_fill_degrees = 101.0
+texture_under = ExtResource("24_7bo04")
+texture_progress = ExtResource("24_7bo04")
+tint_under = Color(0.56078434, 0.56078434, 0.56078434, 1)
+
+[node name="Number" type="Label" parent="HUD/ActorDetails/Right/Gauges/Resist" unique_id=1441510616]
+layout_direction = 2
+layout_mode = 1
+offset_left = 125.0
+offset_top = 225.0
+offset_right = 165.0
+offset_bottom = 266.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("20_k8d45")
+theme_override_font_sizes/font_size = 32
+text = "15"
+text_direction = 2
+
+[node name="SelectActor" type="AudioStreamPlayer" parent="HUD/ActorDetails" unique_id=501084756]
+stream = ExtResource("33_1qlvn")
+
+[node name="DiceRoller" type="TextureRect" parent="HUD" unique_id=1411462064]
+offset_left = 790.5
+offset_top = 6.0
+offset_right = 1129.5
+offset_bottom = 163.0
+tooltip_text = "Click to Start the Battle"
+texture = ExtResource("31_fscxe")
+script = ExtResource("32_4ce7a")
+
+[node name="Glow" type="TextureRect" parent="HUD/DiceRoller" unique_id=800134460]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -107.5
+offset_right = 107.5
+offset_bottom = 157.0
+grow_horizontal = 2
+texture = ExtResource("32_22tc4")
+
+[node name="Dices" type="TextureButton" parent="HUD/DiceRoller" unique_id=1305814778]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = -47.5
+offset_right = 49.5
+offset_bottom = 47.5
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("32_x5nus")
+
+[node name="SceneNumber" type="TextureRect" parent="HUD" unique_id=1927978684]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -796.0
+offset_top = -409.0
+offset_right = 810.0
+offset_bottom = 434.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("34_jcb8f")
+script = ExtResource("35_5kprs")
+
+[node name="Number" type="Label" parent="HUD/SceneNumber" unique_id=1771531262]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -261.0
+offset_top = -126.0
+offset_right = 261.0
+offset_bottom = 126.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0.08627451, 0.88235295, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("20_k8d45")
+theme_override_font_sizes/font_size = 200
+text = "Scene 1"
+
+[node name="ActStart" type="AudioStreamPlayer" parent="HUD/SceneNumber" unique_id=394970357]
+stream = ExtResource("35_rkifs")
+autoplay = true
+
+[node name="Presentation" type="Timer" parent="HUD/SceneNumber" unique_id=483976468]
+wait_time = 2.3
+one_shot = true
+autostart = true
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=2050507547]
+stream = ExtResource("34_22tc4")
+autoplay = true
+parameters/looping = false
+
+[node name="DiceRoll" type="AudioStreamPlayer" parent="Music" unique_id=547001003]
+stream = ExtResource("42_lskxy")
+
+[connection signal="gui_input" from="HUD/Actors/Actor10/Box" to="HUD/Actors/Actor10" method="_on_box_gui_input"]
+[connection signal="gui_input" from="HUD/Actors/Actor9/Box" to="HUD/Actors/Actor9" method="_on_box_gui_input"]
+[connection signal="gui_input" from="HUD/Actors/Actor8/Box" to="HUD/Actors/Actor8" method="_on_box_gui_input"]
+[connection signal="gui_input" from="HUD/Actors/Actor7/Box" to="HUD/Actors/Actor7" method="_on_box_gui_input"]
+[connection signal="gui_input" from="HUD/Actors/Actor6/Box" to="HUD/Actors/Actor6" method="_on_box_gui_input"]
+[connection signal="gui_input" from="HUD/Actors/Actor5/Box" to="HUD/Actors/Actor5" method="_on_box_gui_input"]
+[connection signal="gui_input" from="HUD/Actors/Actor4/Box" to="HUD/Actors/Actor4" method="_on_box_gui_input"]
+[connection signal="gui_input" from="HUD/Actors/Actor3/Box" to="HUD/Actors/Actor3" method="_on_box_gui_input"]
+[connection signal="gui_input" from="HUD/Actors/Actor2/Box" to="HUD/Actors/Actor2" method="_on_box_gui_input"]
+[connection signal="gui_input" from="HUD/Actors/Actor1/Box" to="HUD/Actors/Actor1" method="_on_box_gui_input"]
+[connection signal="pressed" from="HUD/DiceRoller/Dices" to="HUD/DiceRoller" method="_on_dices_pressed"]
+[connection signal="timeout" from="HUD/SceneNumber/Presentation" to="." method="_on_scene_presentation_timeout"]
