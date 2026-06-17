@@ -161,21 +161,21 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 		dependencies['actor_details'].select_actor(id)
 
 func _on_dice_mouse_entered(dice):
-	dependencies['hand'].handle_dice_mouse_entered(self, dice)
 	dependencies['actor_details'].hover_tracer = 'control'
 	dependencies['actor_details'].actor_hovered = self
 	dependencies['actor_details'].show_details(id)
 	dependencies['actor_details'].actor_control_hovered = actor_control
+	dependencies['hand'].handle_dice_mouse_entered(self, dice)
 	dependencies['arrows'].handle_dice_mouse_entered(dice)
 
 func _on_dice_mouse_exited(dice):
-	dependencies['hand'].handle_dice_mouse_exited(self, dice)
 	dependencies['actor_details'].hover_tracer = 'area2d'
 	dependencies['actor_details'].actor_hovered = null
 	dependencies['actor_details'].hide_details(id)
 	dependencies['actor_details'].actor_control_hovered = null
+	dependencies['hand'].handle_dice_mouse_exited(self, dice)
 	dependencies['arrows'].handle_dice_mouse_exited(dice)
 
 func _on_dice_pressed(dice):
-	dependencies['hand'].handle_dice_pressed(self, dice)
 	dependencies['actor_details'].select_actor(id)
+	dependencies['hand'].handle_dice_pressed(self, dice)

@@ -5,8 +5,10 @@ const ActorControl = preload('res://act/hud/actors/actor_control/actor_control.g
 ## Announce that this control was pressed
 signal actor_control_pressed(control: ActorControl)
 
+## Announce that mouse entered into this control
 signal actor_control_mouse_entered(control: ActorControl)
 
+## Announce that mouse exited from this control
 signal actor_control_mouse_exited(control: ActorControl)
 
 ## Owner Actor ID
