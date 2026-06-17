@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://cg4bptch5w2c8"]
+
+[ext_resource type="Script" uid="uid://cprnyoijuhug1" path="res://database/resources/dice_resource.gd" id="1_5hbb6"]
+[ext_resource type="Script" uid="uid://tl3k1itad7g0" path="res://database/resources/card_resource.gd" id="2_exg2g"]
+
+[sub_resource type="Resource" id="Resource_5hbb6"]
+script = ExtResource("1_5hbb6")
+min = 1
+max = 3
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_exg2g"]
+script = ExtResource("1_5hbb6")
+min = 1
+max = 2
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[resource]
+script = ExtResource("2_exg2g")
+name = "Upper Slashes"
+code = "upper_slashes"
+cost = 2
+dices = Array[ExtResource("1_5hbb6")]([SubResource("Resource_5hbb6"), SubResource("Resource_exg2g")])
+metadata/_custom_type_script = "uid://tl3k1itad7g0"

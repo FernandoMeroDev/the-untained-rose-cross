@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bgpkknghc7q0s"]
+
+[ext_resource type="Texture2D" uid="uid://cw3hpwqd8q2qv" path="res://media/icons/dice_types/slash.png" id="1_7as5g"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="2_kcmvp"]
+
+[node name="Dice" type="HBoxContainer" unique_id=205451696]
+
+[node name="Icon" type="TextureRect" parent="." unique_id=1417857059]
+layout_mode = 2
+texture = ExtResource("1_7as5g")
+
+[node name="Detail" type="Label" parent="." unique_id=1965268891]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kcmvp")
+theme_override_font_sizes/font_size = 60
+text = "1-10"

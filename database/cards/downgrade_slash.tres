@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://cblec7n2mvi2h"]
+
+[ext_resource type="Script" uid="uid://cprnyoijuhug1" path="res://database/resources/dice_resource.gd" id="1_ai7vk"]
+[ext_resource type="Script" uid="uid://tl3k1itad7g0" path="res://database/resources/card_resource.gd" id="1_ui8q6"]
+
+[sub_resource type="Resource" id="Resource_ai7vk"]
+script = ExtResource("1_ai7vk")
+type = null
+min = 1
+max = 3
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[resource]
+script = ExtResource("1_ui8q6")
+name = "Downgrade Slash"
+code = "downgrade_slash"
+cost = 1
+dices = Array[ExtResource("1_ai7vk")]([SubResource("Resource_ai7vk")])
+metadata/_custom_type_script = "uid://tl3k1itad7g0"

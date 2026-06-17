@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://bf83pfsduxlh7"]
+
+[ext_resource type="Script" uid="uid://1jaq64tnhgyd" path="res://act/hud/hand/card/card.gd" id="1_58i1t"]
+[ext_resource type="Texture2D" uid="uid://ch6vny38higvh" path="res://media/hud/hand/card_back.png" id="1_stldj"]
+[ext_resource type="Texture2D" uid="uid://cfw8du5ju3yo8" path="res://media/hud/hand/card.png" id="2_58i1t"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="3_1agi1"]
+[ext_resource type="Script" uid="uid://bi6h0gtv2mniq" path="res://act/hud/hand/card/back/back.gd" id="3_ppvv5"]
+[ext_resource type="Texture2D" uid="uid://bia7pfqayeq5b" path="res://media/cards/quick_thrust.png" id="4_fraja"]
+
+[node name="Card" type="Button" unique_id=946812670]
+offset_right = 120.0
+offset_bottom = 160.0
+script = ExtResource("1_58i1t")
+
+[node name="Back" type="TextureRect" parent="." unique_id=715640793]
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 480.0
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("1_stldj")
+script = ExtResource("3_ppvv5")
+
+[node name="Dices" type="VBoxContainer" parent="Back" unique_id=1106386002]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 26.0
+offset_right = -22.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Front" type="TextureRect" parent="." unique_id=1839556384]
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 480.0
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("2_58i1t")
+
+[node name="Name" type="Label" parent="Front" unique_id=875877999]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -159.0
+offset_top = 27.0
+offset_right = 160.0
+offset_bottom = 120.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = -9
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("3_1agi1")
+theme_override_font_sizes/font_size = 37
+text = "Strategy"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
+text_overrun_behavior = 5
+
+[node name="Art" type="TextureRect" parent="Front" unique_id=1507808291]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 142.0
+offset_right = 250.0
+offset_bottom = 315.0
+scale = Vector2(1.39, 1.39)
+texture = ExtResource("4_fraja")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

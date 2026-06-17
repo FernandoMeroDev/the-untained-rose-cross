@@ -1,4 +1,4 @@
-extends Node
+extends TextureRect
 
 var actor_id
 

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c5ffw84l61tot"]
+
+[ext_resource type="Script" uid="uid://by7t7yljon0bc" path="res://act/hud/hand/arrows/events/clash.gd" id="1_sdln0"]
+
+[node name="ClashArrow" type="Node2D" unique_id=2144579324]
+script = ExtResource("1_sdln0")

@@ -1,10 +1,10 @@
 extends TextureRect
 
 
-var system
+var dependencies = {}
 
-func init(main_system):
-	system = main_system
+func init(dice_roller_dependencies):
+	dependencies = dice_roller_dependencies
 	animate_glow()
 
 func animate_glow():
@@ -17,4 +17,4 @@ func animate_glow():
 
 
 func _on_dices_pressed() -> void:
-	system.roll_speed_dices()
+	dependencies['system'].roll_speed_dices()

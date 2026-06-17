@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://bfpd0ls5on8d"]
+
+[ext_resource type="Script" uid="uid://cprnyoijuhug1" path="res://database/resources/dice_resource.gd" id="1_cjgy4"]
+[ext_resource type="Script" uid="uid://tl3k1itad7g0" path="res://database/resources/card_resource.gd" id="2_n568i"]
+
+[sub_resource type="Resource" id="Resource_cjgy4"]
+script = ExtResource("1_cjgy4")
+min = 1
+max = 3
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_n568i"]
+script = ExtResource("1_cjgy4")
+min = 2
+max = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_6esn0"]
+script = ExtResource("1_cjgy4")
+type = 3
+min = 1
+max = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[resource]
+script = ExtResource("2_n568i")
+name = "Strategy"
+code = "strategy"
+cost = 2
+dices = Array[ExtResource("1_cjgy4")]([SubResource("Resource_cjgy4"), SubResource("Resource_n568i"), SubResource("Resource_6esn0")])
+metadata/_custom_type_script = "uid://tl3k1itad7g0"

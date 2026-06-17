@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://vs4w3bduli26"]
 
 [ext_resource type="Texture2D" uid="uid://c1vlvn6la8x0o" path="res://media/actors/dices/speed/normal.png" id="1_lmf87"]
-[ext_resource type="Script" uid="uid://b6xn004xmmryh" path="res://act/dices/speed_dice.gd" id="2_j8ra2"]
+[ext_resource type="Script" uid="uid://b6xn004xmmryh" path="res://act/actors/dices/speed_dice.gd" id="2_j8ra2"]
 [ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="3_70lrc"]
 
 [node name="SpeedDice" type="TextureButton" unique_id=870011555]
@@ -55,3 +55,7 @@ theme_override_fonts/font = ExtResource("3_70lrc")
 theme_override_font_sizes/font_size = 70
 text = "10"
 horizontal_alignment = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

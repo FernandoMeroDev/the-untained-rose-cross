@@ -14,7 +14,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="The Untained Rose Cross"
+config/name="Untained Rose"
 run/main_scene="uid://brmf6gwuln6ll"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 JsonUtils="*res://utils/json_utils.gd"
+Helpers="*uid://ywidgxnasl8m"
 
 [display]
 
