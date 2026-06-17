@@ -1,5 +1,7 @@
 extends Node
 
+const ActorControl = preload("res://act/hud/actors/actor_control/actor_control.gd")
+
 enum Phases  { 
 	INITIAL, 
 	PREPARATION_A, 
@@ -9,13 +11,14 @@ enum Phases  {
 
 var phase = null
 
-var current_team
+## 'left' | 'right'
+var current_team: String
 
 var eventCreator: EventCreator
 
 func _ready() -> void:
 	eventCreator = EventCreator.new()
-	var config = JsonUtils.load_json('res://act/config.json')
+	var config: Dictionary = JsonUtils.load_json('res://act/config.json')
 	current_team = ['left', 'right'].pick_random()
 	$Scenary/Actors.init(
 		config,
@@ -34,13 +37,7 @@ func _ready() -> void:
 		'arrows': $HUD/Arrows,
 		'sfx': { 'selected': $Music/SFX/Selected }
 	})
-	$HUD/Actors.init(
-		config,
-		{
-			'actor_details': $HUD/ActorDetails,
-			'scenary.actors': $Scenary/Actors,
-		}
-	)
+	init_actor_controls(config)
 	$HUD/SceneNumber.init(config)
 	$HUD/DiceRoller.init({ 'system': self })
 	$HUD/Hand.init({
@@ -74,3 +71,18 @@ func createBattleEvent(attacker_dice, target_dice, card_resource):
 func removeBattleEvent(event, remove_by = null):
 	eventCreator.remove(event, remove_by)
 	$Music/SFX/Selected.play()
+
+func init_actor_controls(config):
+	$HUD/Actors.init(
+		config, { 'scenary.actors': $Scenary/Actors }
+	)
+	for actor_control: ActorControl in $HUD/Actors.get_children():
+		actor_control.actor_control_pressed.connect(
+			$HUD/ActorDetails._on_actor_control_pressed
+		)
+		actor_control.actor_control_mouse_entered.connect(
+			$HUD/ActorDetails._on_actor_control_mouse_entered
+		)
+		actor_control.actor_control_mouse_exited.connect(
+			$HUD/ActorDetails._on_actor_control_mouse_exited
+		)

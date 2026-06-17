@@ -2,7 +2,10 @@ extends Area2D
 
 var team
 
-var id; var code
+## Unique ID
+var id: int
+
+var code
 
 var actor_name
 

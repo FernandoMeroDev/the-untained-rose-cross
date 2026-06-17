@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://5vbn6jgkw5hg"]
+
+[ext_resource type="Texture2D" uid="uid://buees31o660og" path="res://media/hud/actors/background.png" id="1_h15o5"]
+[ext_resource type="Texture2D" uid="uid://cvxubrjvufsi6" path="res://media/hud/actors/under.png" id="2_edsvy"]
+[ext_resource type="Script" uid="uid://dsls45k80kx1k" path="res://act/hud/actors/actor_control/actor_control.gd" id="2_xwfkh"]
+[ext_resource type="Texture2D" uid="uid://dtuh3qyj4evb1" path="res://media/hud/actors/progress.png" id="3_t7n7r"]
+[ext_resource type="Texture2D" uid="uid://d14b2cgut24iu" path="res://media/hud/actors/portrait_cover.png" id="4_6l1pi"]
+[ext_resource type="Texture2D" uid="uid://cm81q8eof2n2t" path="res://media/hud/actors/ring.png" id="5_uyepq"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nfu38"]
+load_path = "res://.godot/imported/default.png-e3a13022060083fd5c97beea4f39b26b.ctex"
+
+[node name="LeftActorControl" type="TextureRect" unique_id=1415523283]
+self_modulate = Color(0, 0, 0, 1)
+mouse_filter = 2
+texture = ExtResource("1_h15o5")
+script = ExtResource("2_xwfkh")
+
+[node name="Name" type="Label" parent="." unique_id=1310114250]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 43.0
+offset_right = 251.0
+offset_bottom = 66.0
+text = "Actor 1 Name Label"
+horizontal_alignment = 1
+
+[node name="HP" type="Label" parent="." unique_id=1520109607]
+layout_mode = 0
+offset_left = 205.0
+offset_top = 61.0
+offset_right = 242.0
+offset_bottom = 106.0
+theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
+theme_override_font_sizes/font_size = 28
+text = "30"
+
+[node name="HealthBar" type="TextureProgressBar" parent="." unique_id=798351551]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 72.0
+offset_right = 199.0
+offset_bottom = 112.0
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("2_edsvy")
+texture_progress = ExtResource("3_t7n7r")
+
+[node name="Portrait" type="Control" parent="." unique_id=1949679349]
+clip_contents = true
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 50.0
+offset_right = 86.0
+offset_bottom = 92.0
+scale = Vector2(1.4, 1.4)
+
+[node name="Avatar" type="TextureRect" parent="Portrait" unique_id=1430080792]
+layout_mode = 1
+offset_right = 438.0
+offset_bottom = 677.0
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_nfu38")
+
+[node name="Cover" type="TextureRect" parent="Portrait" unique_id=670382699]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 279.0
+offset_bottom = 282.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("4_6l1pi")
+
+[node name="Ring" type="TextureRect" parent="Portrait" unique_id=1577390681]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("5_uyepq")
+
+[node name="Box" type="Button" parent="." unique_id=1314119958]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -30.0
+offset_right = 105.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="mouse_entered" from="Box" to="." method="_on_box_mouse_entered"]
+[connection signal="mouse_exited" from="Box" to="." method="_on_box_mouse_exited"]
+[connection signal="pressed" from="Box" to="." method="_on_box_pressed"]

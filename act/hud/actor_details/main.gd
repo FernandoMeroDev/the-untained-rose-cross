@@ -1,5 +1,6 @@
 extends Control
 
+const ActorControl = preload("res://act/hud/actors/actor_control/actor_control.gd")
 
 var actors: Node2D
 
@@ -9,7 +10,8 @@ var hover_tracer = 'area2d'
 
 var actor_hovered = null
 
-var actor_control_hovered = null
+## Actor Control currently hovered
+var actor_control_hovered: ActorControl = null
 
 ## Valid status values
 enum States { HIDE, VISIBLE, MOVING_UP, MOVING_DOWN, OVERPOSITION }
@@ -34,6 +36,19 @@ var panels = {
 }
 
 var dependencies = {}
+
+func _on_actor_control_pressed(control: ActorControl):
+	select_actor(control.actor_id)
+	
+func _on_actor_control_mouse_entered(control: ActorControl):
+	hover_tracer = 'control'
+	show_details(control.actor_id)
+	actor_control_hovered = control
+
+func _on_actor_control_mouse_exited(control: ActorControl):
+	hover_tracer = 'area2d'
+	hide_details(control.actor_id)
+	actor_control_hovered = null
 
 func _ready():
 	panels['left']['node'] = $Left
