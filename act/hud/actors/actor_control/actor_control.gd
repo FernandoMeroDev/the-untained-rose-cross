@@ -14,6 +14,9 @@ signal actor_control_mouse_exited(control: ActorControl)
 ## Owner Actor ID
 var actor_id: int
 
+## Reference to owner actor
+var parent_actor: Actor
+
 func _on_box_pressed() -> void:
 	actor_control_pressed.emit(self)
 
@@ -24,15 +27,16 @@ func _on_box_mouse_exited() -> void:
 	actor_control_mouse_exited.emit(self)
 
 ## Initialize the Actor Control
-func init(actor_data: Dictionary) -> void:
-	var max_hp: int = int(actor_data['stats']['max_hp'])
+func init(actor: Actor) -> void:
 	# Load Data
-	actor_id = int(actor_data['id'])
-	$Portrait/Avatar.texture = load('res://media/actors/sprites/' + actor_data['code'] + '/' + 'default.png')
-	$Name.text = actor_data['name']
-	$HP.text = str(max_hp)
-	$HealthBar.max_value = max_hp
-	$HealthBar.value = max_hp
+	actor_id = int(actor.id)
+	$Portrait/Avatar.texture = load('res://media/actors/sprites/' + actor.code + '/' + 'default.png')
+	$Name.text = actor.actor_name
+	$HP.text = str(actor.max_hp)
+	$HealthBar.max_value = actor.max_hp
+	$HealthBar.value = actor.max_hp
+	parent_actor = actor
+	actor.actor_control = self
 
 ## Focus Actor Control
 func focus() -> void:

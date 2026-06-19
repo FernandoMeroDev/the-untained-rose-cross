@@ -7,8 +7,9 @@
 [ext_resource type="Script" uid="uid://kq3sl74mdiq2" path="res://act/actors/actors.gd" id="6_mrvvv"]
 [ext_resource type="Script" uid="uid://vvwhnt75srmd" path="res://act/hud/actors/actors.gd" id="6_spgw1"]
 [ext_resource type="Texture2D" uid="uid://behrjtqrtvg3g" path="res://media/hud/frame.png" id="8_4vtqw"]
+[ext_resource type="Script" uid="uid://6pvvh3msxf4y" path="res://act/hud/actor_details/panels/panel.gd" id="10_uykt8"]
 [ext_resource type="Texture2D" uid="uid://cygnoa4prqsgy" path="res://media/actors/sprites/juline/default.png" id="11_ypm1a"]
-[ext_resource type="Script" uid="uid://8rvpvu05r7lk" path="res://act/hud/actor_details/main.gd" id="14_ail3q"]
+[ext_resource type="Script" uid="uid://8rvpvu05r7lk" path="res://act/hud/actor_details/actor_details.gd" id="14_ail3q"]
 [ext_resource type="Texture2D" uid="uid://c4vhs720j30h" path="res://media/hud/actor_details/background.png" id="14_ulcc2"]
 [ext_resource type="Texture2D" uid="uid://cseg45hf11w0y" path="res://media/hud/actor_details/ring_inner_glow.png" id="15_8tsxx"]
 [ext_resource type="Texture2D" uid="uid://4gcpo33y5ghh" path="res://media/actors/sprites/lucine/default.png" id="15_pngcx"]
@@ -40,7 +41,7 @@
 [ext_resource type="Script" uid="uid://cyaaciqn0d5ij" path="res://act/hud/scene_number.gd" id="35_5kprs"]
 [ext_resource type="AudioStream" uid="uid://cftn8qk84rin8" path="res://media/music/sfx/act_start.wav" id="35_rkifs"]
 [ext_resource type="Script" uid="uid://bu3d4ckus6vp0" path="res://act/hud/hand/arrows/arrows.gd" id="41_00mj1"]
-[ext_resource type="Script" uid="uid://bvf4jlnutvh6l" path="res://act/hud/hand/main.gd" id="41_uykt8"]
+[ext_resource type="Script" uid="uid://bvf4jlnutvh6l" path="res://act/hud/hand/hand.gd" id="41_uykt8"]
 [ext_resource type="AudioStream" uid="uid://c3xrn2r12b4na" path="res://media/music/sfx/dice_roll.wav" id="42_lskxy"]
 
 [node name="Act" type="Node" unique_id=1240358674]
@@ -130,6 +131,7 @@ layout_mode = 1
 offset_top = -520.0
 offset_right = 600.0
 texture = ExtResource("14_ulcc2")
+script = ExtResource("10_uykt8")
 
 [node name="Portrait" type="Control" parent="HUD/ActorDetails/Left" unique_id=468403197]
 clip_contents = true
@@ -363,6 +365,9 @@ offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ActorSelected" type="AudioStreamPlayer" parent="HUD/ActorDetails/Left" unique_id=1218712455]
+stream = ExtResource("33_1qlvn")
+
 [node name="Right" type="TextureRect" parent="HUD/ActorDetails" unique_id=985105968]
 layout_mode = 1
 anchors_preset = 1
@@ -373,6 +378,7 @@ offset_top = -520.0
 grow_horizontal = 0
 texture = ExtResource("14_ulcc2")
 flip_h = true
+script = ExtResource("10_uykt8")
 
 [node name="Portrait" type="Control" parent="HUD/ActorDetails/Right" unique_id=1599387808]
 clip_contents = true
@@ -618,6 +624,9 @@ offset_right = -22.0
 offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ActorSelected" type="AudioStreamPlayer" parent="HUD/ActorDetails/Right" unique_id=1820224283]
+stream = ExtResource("33_1qlvn")
 
 [node name="DiceRoller" type="TextureRect" parent="HUD" unique_id=1411462064]
 offset_left = 790.5

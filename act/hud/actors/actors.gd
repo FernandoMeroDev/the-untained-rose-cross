@@ -22,30 +22,30 @@ const positions: Dictionary[String, Array] = {
 	],
 }
 
-var dependencies = {}
+## Index for left positions
+var i_left: int = 0
 
-func init(config, actor_dependencies):
-	dependencies = actor_dependencies
+## Index for right positions
+var i_right: int = 0
+
+func init(actors: Array[Actor]):
 	var actor_control: ActorControl
-	var i: int
-	for team in ['left', 'right']:
-		i = 0
-		for actor_data in config['teams'][team]:
-			match team:
-				'left':
-					actor_control = (
-						LeftActorControlScene.instantiate() as ActorControl
-					)
-				'right':
-					actor_control = (
-						RightActorControlScene.instantiate() as ActorControl
-					)
-			actor_control.init(actor_data)
-			add_child(actor_control)
-			actor_control.position = positions[team][i]
-			actor_control.z_index = 5 - i
-			dependencies['scenary.actors'].find(actor_data['id']).actor_control = actor_control
-			i += 1
+	for actor: Actor in actors:
+		var i: int = get('i_' + actor.team)
+		match actor.team:
+			'left':
+				actor_control = (
+					LeftActorControlScene.instantiate() as ActorControl
+				)
+			'right':
+				actor_control = (
+					RightActorControlScene.instantiate() as ActorControl
+				)
+		actor_control.init(actor)
+		add_child(actor_control)
+		actor_control.position = positions[actor.team][i]
+		actor_control.z_index = 5 - i
+		set('i_' + actor.team, i + 1)
 
 ## Search Actor Control by Actor ID
 func find_actor(id) -> ActorControl:
