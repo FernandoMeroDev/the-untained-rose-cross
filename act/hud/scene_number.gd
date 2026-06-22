@@ -1,13 +1,18 @@
 extends TextureRect
 
+var turn_manager: TurnManager
 
-func init(config):
-	$Number.text = 'Scene ' + str(int(config['scene_number']))
+func init(scene_number: int) -> void:
+	$Number.text = 'Scene ' + str(scene_number)
 	animate_fade(self)
 	animate_fade($Number)
 	animate_shake($Number)
+	$Team.show()
+	$Team.text = turn_manager.get_readable_team() + ' team starts'
+	animate_fade($Team)
+	animate_shake($Team)
 
-func animate_fade(node):
+func animate_fade(node: Control) -> void:
 	node.modulate.a = 0.0
 	var tween = create_tween()
 	tween.tween_property(node, "modulate:a", 1.0, 0.3)
@@ -15,7 +20,9 @@ func animate_fade(node):
 	tween.tween_property(node, "modulate:a", 0, 0.5)
 	tween.finished.connect(hide)
 
-func animate_shake(node, duration = 1.8, strength = 8.0):
+func animate_shake(
+	node: Control, duration: float = 1.8, strength: float = 8.0
+) -> void:
 	var original_pos = node.position
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_SINE)

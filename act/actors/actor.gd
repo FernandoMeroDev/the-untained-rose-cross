@@ -9,8 +9,11 @@ signal actor_mouse_exited(actor: Actor)
 
 signal actor_pressed(actor: Actor)
 
-## 'left' | 'right'
-var team: String
+## Turn Manager reference
+var turn_manager: TurnManager
+
+## Actor Team
+var team: TurnManager.Teams
 
 ## Unique ID
 var id: int
@@ -58,12 +61,27 @@ var dependencies: Dictionary = {}
 # Reference to UI control title
 var actor_control: ActorControl
 
+func _on_mouse_entered() -> void:
+	actor_mouse_entered.emit(self)
+
+func _on_mouse_exited() -> void:
+	actor_mouse_exited.emit(self)
+
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	# Handle pressed Left Click
+	if event.is_action_pressed("left_click"):
+		actor_pressed.emit(self)
+
 func _ready():
 	$CollisionShape.shape = $CollisionShape.shape.duplicate()
 
 func init(actor_data: Dictionary, actor_dependencies) -> void:
 	dependencies = actor_dependencies
-	team = actor_data['team']
+	team = (
+		turn_manager.Teams.LEFT if (
+			actor_data['team'] == 'left'
+		) else turn_manager.Teams.RIGHT
+	)
 	id = int(actor_data['id'])
 	code = actor_data['code']
 	actor_name = actor_data["name"]
@@ -120,7 +138,7 @@ func init_speed_dices(count: int) -> void:
 		speed_dice.scale = Vector2(0.85, 0.85)
 		speed_dice.self_positionate(i, get_actor_height(), count)
 		speed_dice.parent_actor = self
-		speed_dice.init(speed, (id * 1000) + i, dependencies)
+		speed_dice.init(speed, (id * 1000) + (i + 1), dependencies)
 
 func init_light(count: int):
 	for i: int in count:
@@ -161,12 +179,23 @@ func init_status_effects():
 func flip_h_sprite(value: bool):
 	$Sprite.flip_h = value
 
+## Check if actor is in current turn
+func is_my_turn() -> bool:
+	return turn_manager.is_current_turn_of(self)
+
 ## Get Actor's current frame height in pixels
 func get_actor_height() -> float:
 	return $Sprite.sprite_frames.get_frame_texture(
 		$Sprite.animation,
 		$Sprite.frame
 	).get_height() as float
+
+## Get Actor Speed Dices
+func get_speed_dices() -> Array[SpeedDice]:
+	var speed_dices: Array[SpeedDice]
+	for speed_dice: SpeedDice in $SpeedDices.get_children():
+		speed_dices.append(speed_dice)
+	return speed_dices
 
 ## Focus Actor
 func focus_self():
@@ -180,23 +209,11 @@ func unfocus_self():
 	$Gauges/Health.z_index = 0
 	$Gauges/Resist.z_index = 0
 
-func roll_speed_dice():
+## Roll Actor Speed Dices
+func roll_speed_dices() -> void:
 	for dice: SpeedDice in $SpeedDices.get_children():
-		var n: int = randi_range(speed['min'], speed['max'])
-		dice.set_speed(n)
-		dice.dice_mouse_entered.connect(_on_dice_mouse_entered)
-		dice.dice_mouse_exited.connect(_on_dice_mouse_exited)
-		dice.dice_pressed.connect(_on_dice_pressed)
-
-func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event.is_action_pressed("left_click"):
-		actor_pressed.emit(self)
-
-func _on_mouse_entered() -> void:
-	actor_mouse_entered.emit(self)
-
-func _on_mouse_exited() -> void:
-	actor_mouse_exited.emit(self)
+		var speed_value: int = randi_range(speed['min'], speed['max'])
+		dice.set_speed(speed_value)
 
 func _on_dice_mouse_entered(_dice):
 	pass

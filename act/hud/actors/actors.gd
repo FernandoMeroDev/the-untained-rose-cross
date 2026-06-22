@@ -31,8 +31,13 @@ var i_right: int = 0
 func init(actors: Array[Actor]):
 	var actor_control: ActorControl
 	for actor: Actor in actors:
-		var i: int = get('i_' + actor.team)
-		match actor.team:
+		var team: String = (
+			'left' if (
+				actor.team == actor.turn_manager.Teams.LEFT
+			) else 'right'
+		)
+		var i: int = get('i_' + team)
+		match team:
 			'left':
 				actor_control = (
 					LeftActorControlScene.instantiate() as ActorControl
@@ -43,9 +48,9 @@ func init(actors: Array[Actor]):
 				)
 		actor_control.init(actor)
 		add_child(actor_control)
-		actor_control.position = positions[actor.team][i]
+		actor_control.position = positions[team][i]
 		actor_control.z_index = 5 - i
-		set('i_' + actor.team, i + 1)
+		set('i_' + team, i + 1)
 
 ## Search Actor Control by Actor ID
 func find_actor(id) -> ActorControl:

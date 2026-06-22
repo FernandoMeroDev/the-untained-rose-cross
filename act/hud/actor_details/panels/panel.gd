@@ -6,8 +6,8 @@ enum States { HIDE, VISIBLE, MOVING_UP, MOVING_DOWN, ACTOR_SELECTED }
 ## Panel current status
 var status: States = States.HIDE
 
-## Panel Team. 'left' | 'right'
-var team: String
+## Panel Team
+var team: TurnManager.Teams
 
 ## Temporal tween
 var tween: Tween
@@ -24,9 +24,27 @@ var actor_selected: Actor
 ## Actor currently Hovered in this panel
 var actor_hovered: Actor
 
-func init(p_team: String) -> void:
+func init(p_team: TurnManager.Teams) -> void:
 	team = p_team
 	original_position = position
+
+# --- Right Click pressed Event Handler
+func handle_right_click_pressed():
+	if status == States.ACTOR_SELECTED:
+		hide_panel(actor_selected)
+		deselect_actor()
+		if actor_hovered:
+			handle_actor_mouse_entered(actor_hovered)
+
+# --- Actor Events Handlers
+func handle_actor_pressed(actor: Actor):
+	if status == States.ACTOR_SELECTED:
+		if actor_selected.id != actor.id:
+			actor_selected.unfocus_self()
+			actor_selected.actor_control.unfocus()
+			select_actor(actor)
+	else:
+		select_actor(actor)
 
 func handle_actor_mouse_entered(actor: Actor) -> void:
 	actor_hovered = actor
@@ -56,6 +74,21 @@ func handle_actor_mouse_entered(actor: Actor) -> void:
 		# Outline Actor Control
 		actor.actor_control.outline()
 
+func handle_actor_mouse_exited(actor: Actor):
+	actor_hovered = null
+	if status == States.VISIBLE or status == States.MOVING_DOWN:
+		hide_panel(actor)
+	elif status == States.ACTOR_SELECTED:
+		# Restore Data temporally overwrited
+		fill_actor_details(actor_selected)
+		# Unoutline Actor Control
+		actor.actor_control.unoutline()
+
+# --- Speed Dice Events Handlers
+func handle_speed_dice_pressed(speed_dice: SpeedDice) -> void:
+	pass
+
+## Create Animation (Tween) Moving Down
 func create_moving_down_tween() -> void:
 	tween = create_tween()
 	var new_position: Vector2 = original_position + Vector2(0, size.y)
@@ -67,25 +100,7 @@ func create_moving_down_tween() -> void:
 			status = States.VISIBLE
 	)
 
-func handle_actor_mouse_exited(actor: Actor):
-	actor_hovered = null
-	if status == States.VISIBLE or status == States.MOVING_DOWN:
-		hide_panel(actor)
-	elif status == States.ACTOR_SELECTED:
-		# Restore Data temporally overwrited
-		fill_actor_details(actor_selected)
-		# Unoutline Actor Control
-		actor.actor_control.unoutline()
-
-func hide_panel(current_actor: Actor) -> void:
-	if tween: tween.kill()
-	# Unoutline Actor Control
-	current_actor.actor_control.unoutline()
-	# Create Animation Moving Up (Tween)
-	create_moving_up_tween()
-	# Change Status
-	status = States.MOVING_UP
-
+## Create Animation (Tween) Moving Up
 func create_moving_up_tween() -> void:
 	tween = create_tween()
 	var new_position: Vector2 = original_position - Vector2(0, size.y)
@@ -94,6 +109,22 @@ func create_moving_up_tween() -> void:
 		status = States.HIDE
 	)
 
+## Select Actor
+func select_actor(actor: Actor):
+	actor.focus_self()
+	actor.actor_control.focus()
+	actor_selected = actor
+	$ActorSelected.play()
+	status = States.ACTOR_SELECTED
+
+## Deselect Actor
+func deselect_actor() -> void:
+	actor_selected.unfocus_self()
+	actor_selected.actor_control.unfocus()
+	# $ActorDeselected.play()
+	actor_selected = null
+
+## Set Actor Data
 func fill_actor_details(actor: Actor):
 	# Texture
 	$Portrait/Actor.texture = load('res://media/actors/sprites/' + actor.code + '/default.png')
@@ -116,33 +147,12 @@ func fill_actor_details(actor: Actor):
 	$Gauges/Resist.value = actor.resist
 	$Gauges/Resist/Number.text = str(actor.resist)
 
-func handle_actor_pressed(actor: Actor):
-	#var hand = dependencies['hand']
-	# Prevents select another actor when the card is being focused
-	#if hand.status == hand.States.CARD_FOCUSED: return
-	if status == States.ACTOR_SELECTED:
-		if actor_selected.id != actor.id:
-			actor_selected.unfocus_self()
-			actor_selected.actor_control.unfocus()
-			select_actor(actor)
-	else:
-		select_actor(actor)
-
-func select_actor(actor: Actor):
-	actor.focus_self()
-	actor.actor_control.focus()
-	actor_selected = actor
-	$ActorSelected.play()
-	status = States.ACTOR_SELECTED
-
-func handle_right_click_pressed():
-	if status == States.ACTOR_SELECTED:
-		deselect_actor()
-		if actor_hovered:
-			handle_actor_mouse_entered(actor_hovered)
-
-func deselect_actor() -> void:
-	actor_selected.unfocus_self()
-	actor_selected.actor_control.unfocus()
-	hide_panel(actor_selected)
-	actor_selected = null
+## Hide panel
+func hide_panel(current_actor: Actor) -> void:
+	if tween: tween.kill()
+	# Unoutline Actor Control
+	current_actor.actor_control.unoutline()
+	# Create Animation Moving Up (Tween)
+	create_moving_up_tween()
+	# Change Status
+	status = States.MOVING_UP

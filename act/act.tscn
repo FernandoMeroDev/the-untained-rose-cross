@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://brmf6gwuln6ll"]
 
-[ext_resource type="Script" uid="uid://tuilwwtj6ibp" path="res://act/main.gd" id="1_6ehe1"]
+[ext_resource type="Script" uid="uid://tuilwwtj6ibp" path="res://act/act.gd" id="1_6ehe1"]
 [ext_resource type="Texture2D" uid="uid://i7qvfudsti7s" path="res://media/scenary/background.png" id="1_cp0on"]
 [ext_resource type="Texture2D" uid="uid://caejgslbruqts" path="res://media/scenary/floor.png" id="2_ju8jb"]
 [ext_resource type="Texture2D" uid="uid://dq56ka65tlvt5" path="res://media/scenary/phase_1_example2.png" id="4_spgw1"]
@@ -680,7 +680,6 @@ texture = ExtResource("34_jcb8f")
 script = ExtResource("35_5kprs")
 
 [node name="Number" type="Label" parent="HUD/SceneNumber" unique_id=1771531262]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -699,6 +698,25 @@ theme_override_constants/outline_size = 2
 theme_override_fonts/font = ExtResource("20_k8d45")
 theme_override_font_sizes/font_size = 200
 text = "Scene 1"
+
+[node name="Team" type="Label" parent="HUD/SceneNumber" unique_id=841216592]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 92.0
+offset_right = 100.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("20_k8d45")
+theme_override_font_sizes/font_size = 26
+text = "Left team starts"
 
 [node name="ActStart" type="AudioStreamPlayer" parent="HUD/SceneNumber" unique_id=394970357]
 stream = ExtResource("35_rkifs")
@@ -743,5 +761,3 @@ stream = ExtResource("42_lskxy")
 
 [connection signal="pressed" from="HUD/DiceRoller/Dices" to="HUD/DiceRoller" method="_on_dices_pressed"]
 [connection signal="timeout" from="HUD/SceneNumber/Presentation" to="." method="_on_scene_presentation_timeout"]
-[connection signal="card_focused" from="HUD/Hand" to="HUD/Arrows" method="_on_hand_card_focused"]
-[connection signal="card_unfocused" from="HUD/Hand" to="HUD/Arrows" method="_on_hand_card_unfocused"]

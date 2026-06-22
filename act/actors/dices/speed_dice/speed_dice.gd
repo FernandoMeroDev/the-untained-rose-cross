@@ -1,10 +1,12 @@
 class_name SpeedDice extends TextureButton
 
-signal speed_dice_mouse_entered(dice)
+signal speed_dice_pressed(speed_dice: SpeedDice)
 
-signal dice_mouse_exited(dice)
+signal speed_dice_mouse_entered(speed_dice: SpeedDice)
 
-signal dice_pressed(dice)
+signal speed_dice_mouse_exited(speed_dice: SpeedDice)
+
+#signal dice_pressed(dice)
 
 enum States { UNDETERMINED, DETERMINED, FOCUSED }
 
@@ -24,9 +26,6 @@ var status: States = States.UNDETERMINED
 ## Speed Dice textures
 var textures: Dictionary[String, Texture];
 
-## Animation (Tween) for undetermined status
-var animation_shake: Tween
-
 ## Battle Event living in this dice
 var battle_event: Event
 
@@ -41,29 +40,28 @@ var targeted_by_enemies: Array[SpeedDice] = []
 
 var dependencies = {}
 
-func init(speed, dice_id: int, speed_dice_dependencies):
+func _on_mouse_entered() -> void:
+	speed_dice_mouse_entered.emit(self)
+
+func _on_mouse_exited() -> void:
+	speed_dice_mouse_exited.emit(self)
+
+func _on_pressed() -> void:
+	speed_dice_pressed.emit(self)
+
+func init(speed, dice_id: int, speed_dice_dependencies) -> void:
 	dependencies = speed_dice_dependencies
 	id = dice_id
-	$Random/Interval.timeout.connect(change_random_number)
-	$Number.text = str(speed['min']) + '~' + str(speed['max'])
-	init_animate_shake()
+	$Roulette.init()
+	$Number.init(
+		int(speed['min']),
+		int(speed['max'])
+	)
 	init_textures()
 
-func init_animate_shake(duration = 1.8, strength = 2.0):
-	var original_pos = $Number.position
-	var tween = $Number.create_tween()
-	tween.set_trans(Tween.TRANS_SINE)
-	tween.set_ease(Tween.EASE_IN_OUT)
-	var steps = 6
-	for i in steps:
-		var offset = Vector2(
-			randf_range(-strength, strength),
-			randf_range(-strength, strength)
-		)
-		tween.tween_property($Number, "position", original_pos + offset, duration / steps)
-	tween.tween_property($Number, "position", original_pos, duration / steps)
-	tween.set_loops()
-	animation_shake = tween
+func init_textures() -> void:
+	textures['normal'] = texture_normal
+	textures['active'] = preload("res://media/actors/dices/speed/active.png")
 
 ## Positionate dice relative to its siblings and parent Actor
 func self_positionate(
@@ -74,40 +72,24 @@ func self_positionate(
 	position.x -= (get_rect().size.x * total_dices_count) / 2
 	position.x += i * get_rect().size.x
 
-func init_textures():
-	textures['normal'] = texture_normal
-	textures['active'] = preload("res://media/actors/dices/speed/active.png")
-
-func change_random_number():
-	if status == States.UNDETERMINED:
-		var n = int($Random.text)
-		if n == 9: n = 0
-		n += 1
-		$Random.text = str(n)
-
-func set_speed(n):
-	value = n
-	animation_shake.kill()
+## Set Dice Speed to determine its value
+func set_speed(speed_value: int) -> void:
+	value = speed_value
+	$Number.stop_animation_shaking()
+	$Number.set_value(speed_value)
+	$Roulette.stop()
 	status = States.DETERMINED
-	$Number.text = str(value)
 
+## Focus Speed Dice
 func focus() -> void:
-	self.status = self.States.FOCUSED
 	texture_normal = textures['active']
 	$Selected.play()
+	status = States.FOCUSED
 
+## Unfocus Speed Dice
 func unfocus() -> void:
-	self.status = self.States.DETERMINED
 	texture_normal = textures['normal']
-
-func _on_mouse_entered() -> void:
-	speed_dice_mouse_entered.emit(self)
-
-func _on_mouse_exited() -> void:
-	dice_mouse_exited.emit(self)
-
-func _on_pressed() -> void:
-	dice_pressed.emit(self)
+	status = States.DETERMINED
 
 func _gui_input(input_event):
 	if input_event is InputEventMouseButton:

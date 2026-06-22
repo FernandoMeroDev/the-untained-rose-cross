@@ -1,13 +1,9 @@
 extends TextureRect
 
+signal dice_roller_pressed
 
-var dependencies = {}
-
-func init(dice_roller_dependencies):
-	dependencies = dice_roller_dependencies
-	animate_glow()
-
-func animate_glow():
+func init():
+	# Animate Glow
 	$Glow.modulate.a = 0.0
 	var tween = create_tween()
 	tween.tween_property($Glow, "modulate:a", 1.0, 0.5)
@@ -15,6 +11,5 @@ func animate_glow():
 	tween.tween_property($Glow, "modulate:a", 0.0, 0.5)
 	tween.set_loops()
 
-
 func _on_dices_pressed() -> void:
-	dependencies['system'].roll_speed_dices()
+	dice_roller_pressed.emit()

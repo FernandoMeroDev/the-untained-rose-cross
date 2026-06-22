@@ -16,13 +16,24 @@ var original: Dictionary = {
 	'z_index': null
 }
 
-func init(card_resource: CardResource) -> void:
+func _on_button_down() -> void:
+	selected.emit(self)
+
+func _on_mouse_entered() -> void:
+	card_mouse_entered.emit(self)
+
+func _on_mouse_exited() -> void:
+	if not focused:
+		unfocus()
+
+func init(card_resource: CardResource, position_x: float) -> void:
 	$Front/Name.text = card_resource.name
 	var image: Texture2D = load('res://media/cards/' + card_resource.code + '.png')
 	$Front/Art.texture = image
 	init_dices(card_resource.dices)
 	$Back.init(card_resource)
 	resource = card_resource
+	animate_moving_right(position_x)
 
 func init_dices(dices: Array[DiceResource]) -> void:
 	var count: int = dices.size()
@@ -46,12 +57,16 @@ func init_dices(dices: Array[DiceResource]) -> void:
 		add_child(dice)
 		i += 1
 
-func _on_mouse_entered() -> void:
-	card_mouse_entered.emit(self)
+## Animate (Tween) card moving right
+func animate_moving_right(x: float) -> void:
+	var card_position = Vector2(x, position.y)
+	create_tween().tween_property(
+		self, "position", card_position, 0.25
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
-func _on_mouse_exited() -> void:
-	if not focused:
-		unfocus()
+func backup_original(property: String) -> void:
+	if original[property] == null:
+		original[property] = self[property]
 
 func focus() -> void:
 	var new_scale: Vector2 = Vector2(1.2, 1.2)
@@ -77,11 +92,6 @@ func focus() -> void:
 	z_index = new_z_index
 	$Back.focus(size.x)
 
-func backup_original(property: String) -> void:
-	if original[property] == null:
-		original[property] = self[property]
-
-
 func unfocus() -> void:
 	var tween: Tween = create_tween()
 	backup_original('scale')
@@ -95,6 +105,3 @@ func unfocus() -> void:
 	backup_original('z_index')
 	z_index = original['z_index']
 	$Back.unfocus()
-
-func _on_button_down() -> void:
-	selected.emit(self)

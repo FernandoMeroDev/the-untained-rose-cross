@@ -36,6 +36,6 @@ func find(id) -> Actor:
 			result = actor
 	return result
 
-func roll_speed_dices():
+func roll_everyone_speed_dices():
 	for actor in get_children():
-		actor.roll_speed_dice()
+		actor.roll_speed_dices()
