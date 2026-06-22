@@ -1,5 +1,7 @@
 extends TextureRect
 
+const ActorControl = preload("res://act/hud/actors/actor_control/actor_control.gd")
+
 ## Panel states
 enum States { HIDE, VISIBLE, MOVING_UP, MOVING_DOWN, ACTOR_SELECTED }
 
@@ -27,6 +29,41 @@ var actor_hovered: Actor
 func init(p_team: TurnManager.Teams) -> void:
 	team = p_team
 	original_position = position
+
+# --- Right Click Pressed Event Obsever
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("right_click"):
+		handle_right_click_pressed()
+
+# --- Actor Events Observers
+func _on_actor_pressed(actor: Actor) -> void:
+	handle_actor_pressed(actor)
+
+func _on_actor_mouse_entered(actor: Actor) -> void:
+	handle_actor_mouse_entered(actor)
+
+func _on_actor_mouse_exited(actor: Actor) -> void:
+	handle_actor_mouse_exited(actor)
+
+# --- Actor Control Events Observers
+func _on_actor_control_pressed(control: ActorControl) -> void:
+	handle_actor_pressed(control.parent_actor)
+
+func _on_actor_control_mouse_entered(control: ActorControl) -> void:
+	handle_actor_mouse_entered(control.parent_actor)
+
+func _on_actor_control_mouse_exited(control: ActorControl) -> void:
+	handle_actor_mouse_exited(control.parent_actor)
+
+# --- Actor Speed Dices Events Observers
+func _on_speed_dice_pressed(speed_dice: SpeedDice) -> void:
+	handle_actor_pressed(speed_dice.parent_actor)
+
+func _on_speed_dice_mouse_entered(speed_dice: SpeedDice) -> void:
+	handle_actor_mouse_entered(speed_dice.parent_actor)
+
+func _on_speed_dice_mouse_exited(speed_dice: SpeedDice) -> void:
+	handle_actor_mouse_exited(speed_dice.parent_actor)
 
 # --- Right Click pressed Event Handler
 func handle_right_click_pressed():

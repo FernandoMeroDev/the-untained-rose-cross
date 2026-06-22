@@ -1,6 +1,7 @@
 class_name Act extends Node
 
 const ActorControl = preload("res://act/hud/actors/actor_control/actor_control.gd")
+const DetailsPanel = preload("res://act/hud/actor_details/panels/panel.gd")
 
 ## Act Phases
 enum Phases  { 
@@ -35,13 +36,10 @@ func _input(event: InputEvent) -> void:
 func _ready() -> void:
 	var config: Dictionary = JsonUtils.load_json('res://act/config.json')
 	turn_manager.randomize_team()
+	# Init ActorDetails (Panels)
+	$HUD/ActorDetails.init(turn_manager)
 	# Init Actors
-	var actors: Array[Actor] = init_actors(config)
-	# Init Actor Controls
-	init_actor_controls(actors)
-	# Init ActorDetails
-	$HUD/ActorDetails.turn_manager = turn_manager
-	$HUD/ActorDetails.init()
+	init_actors(config)
 	# Init Scene Number
 	$HUD/SceneNumber.turn_manager = turn_manager
 	$HUD/SceneNumber.init(int(config['scene_number']))
@@ -52,7 +50,8 @@ func _ready() -> void:
 	# Init Arrows
 	$HUD/Arrows.init({ 'hand': $HUD/Hand })
 
-func init_actors(config: Dictionary) -> Array[Actor]:
+## Init Actors, ActorControls, SpeedDices and connect them
+func init_actors(config: Dictionary) -> void:
 	var actors: Array[Actor] = $Scenary/Actors.init(
 		config,
 		{
@@ -63,29 +62,35 @@ func init_actors(config: Dictionary) -> Array[Actor]:
 			'sfx': { 'selected': $Music/SFX/Selected }
 		}
 	)
+	# Init Actor Controls
+	$HUD/Actors.init(actors)
+	# Connect Actor Signals
 	for actor: Actor in actors:
 		# Set TurnManager reference
 		actor.turn_manager = turn_manager
-		# ActorN -> ActorDetails (Panels) events listeners
-		actor.actor_pressed.connect(
-			$HUD/ActorDetails._on_actor_pressed
-		)
-		actor.actor_mouse_entered.connect(
-			$HUD/ActorDetails._on_actor_mouse_entered
-		)
-		actor.actor_mouse_exited.connect(
-			$HUD/ActorDetails._on_actor_mouse_exited
-		)
+		# Find Actor panel
+		var panel: DetailsPanel
+		match actor.team:
+			turn_manager.Teams.LEFT: panel = $HUD/ActorDetails/Left
+			turn_manager.Teams.RIGHT: panel = $HUD/ActorDetails/Right
+		# ActorN -> Panels events listeners
+		actor.actor_pressed.connect(panel._on_actor_pressed)
+		actor.actor_mouse_entered.connect(panel._on_actor_mouse_entered)
+		actor.actor_mouse_exited.connect(panel._on_actor_mouse_exited)
+		# ActorControlN -> Panels events listeners
+		actor.actor_control.actor_control_pressed.connect(panel._on_actor_control_pressed)
+		actor.actor_control.actor_control_mouse_entered.connect(panel._on_actor_control_mouse_entered)
+		actor.actor_control.actor_control_mouse_exited.connect(panel._on_actor_control_mouse_exited)
 		for speed_dice: SpeedDice in actor.get_speed_dices():
 			# SpeedDiceN -> ActorDetails (Panels) events listeners
 			speed_dice.speed_dice_pressed.connect(
-				$HUD/ActorDetails._on_speed_dice_pressed
+				panel._on_speed_dice_pressed
 			)
 			speed_dice.speed_dice_mouse_entered.connect(
-				$HUD/ActorDetails._on_speed_dice_mouse_entered
+				panel._on_speed_dice_mouse_entered
 			)
 			speed_dice.speed_dice_mouse_exited.connect(
-				$HUD/ActorDetails._on_speed_dice_mouse_exited
+				panel._on_speed_dice_mouse_exited
 			)
 			# SpeedDiceN -> Hand events listeners
 			speed_dice.speed_dice_pressed.connect(
@@ -97,20 +102,6 @@ func init_actors(config: Dictionary) -> Array[Actor]:
 			speed_dice.speed_dice_mouse_exited.connect(
 				$HUD/Hand._on_speed_dice_mouse_exited
 			)
-	return actors
-
-func init_actor_controls(actors: Array[Actor]) -> void:
-	$HUD/Actors.init(actors)
-	for actor_control: ActorControl in $HUD/Actors.get_children():
-		actor_control.actor_control_pressed.connect(
-			$HUD/ActorDetails._on_actor_control_pressed
-		)
-		actor_control.actor_control_mouse_entered.connect(
-			$HUD/ActorDetails._on_actor_control_mouse_entered
-		)
-		actor_control.actor_control_mouse_exited.connect(
-			$HUD/ActorDetails._on_actor_control_mouse_exited
-		)
 
 func init_dice_roller() -> void:
 	$HUD/DiceRoller.init()
