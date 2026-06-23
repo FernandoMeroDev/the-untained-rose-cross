@@ -1,6 +1,6 @@
 class_name Actor extends Area2D
 
-const SpeedDiceScene: PackedScene = preload('res://act/actors/dices/speed_dice/speed_dice.tscn')
+const SpeedDiceScene: PackedScene = preload('res://act/scenary/actors/dices/speed_dice/speed_dice.tscn')
 const ActorControl = preload('res://act/hud/actors/actor_control/actor_control.gd')
 
 signal actor_mouse_entered(actor: Actor)
@@ -165,7 +165,7 @@ func init_gauges():
 func init_status_effects():
 	var i: int = 0
 	for effect_data in status_effects:
-		var effect: TextureRect = preload("res://act/actors/status_effect.tscn").instantiate()
+		var effect: TextureRect = preload("res://act/scenary/actors/status_effect.tscn").instantiate()
 		effect.texture = load("res://media/actors/status_effects/" + effect_data['code'] + ".png")
 		effect.get_node("Stacks").text = str(int(effect_data["stacks"]))
 		$StatusEffects.add_child(effect)
@@ -214,26 +214,3 @@ func roll_speed_dices() -> void:
 	for dice: SpeedDice in $SpeedDices.get_children():
 		var speed_value: int = randi_range(speed['min'], speed['max'])
 		dice.set_speed(speed_value)
-
-func _on_dice_mouse_entered(_dice):
-	pass
-	#dependencies['actor_details'].hover_tracer = 'control'
-	#dependencies['actor_details'].actor_hovered = self
-	#dependencies['actor_details'].show_details(id)
-	#dependencies['actor_details'].actor_control_hovered = actor_control
-	#dependencies['hand'].handle_dice_mouse_entered(self, dice)
-	#dependencies['arrows'].handle_dice_mouse_entered(dice)
-
-func _on_dice_mouse_exited(_dice):
-	pass
-	#dependencies['actor_details'].hover_tracer = 'area2d'
-	#dependencies['actor_details'].actor_hovered = null
-	#dependencies['actor_details'].hide_details(id)
-	#dependencies['actor_details'].actor_control_hovered = null
-	#dependencies['hand'].handle_dice_mouse_exited(self, dice)
-	#dependencies['arrows'].handle_dice_mouse_exited(dice)
-
-func _on_dice_pressed(_dice):
-	pass
-	#dependencies['actor_details'].select_actor(id)
-	#dependencies['hand'].handle_dice_pressed(self, dice)

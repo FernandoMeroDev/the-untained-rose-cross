@@ -1,6 +1,6 @@
 extends Node2D
 
-const ActorScene: PackedScene = preload("res://act/actors/actor.tscn")
+const ActorScene: PackedScene = preload("res://act/scenary/actors/actor.tscn")
 
 
 func init(config: Dictionary, dependencies) -> Array[Actor]:

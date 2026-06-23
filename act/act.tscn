@@ -4,12 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://i7qvfudsti7s" path="res://media/scenary/background.png" id="1_cp0on"]
 [ext_resource type="Texture2D" uid="uid://caejgslbruqts" path="res://media/scenary/floor.png" id="2_ju8jb"]
 [ext_resource type="Texture2D" uid="uid://dq56ka65tlvt5" path="res://media/scenary/phase_1_example2.png" id="4_spgw1"]
-[ext_resource type="Script" uid="uid://kq3sl74mdiq2" path="res://act/actors/actors.gd" id="6_mrvvv"]
+[ext_resource type="Script" uid="uid://kq3sl74mdiq2" path="res://act/scenary/actors/actors.gd" id="6_mrvvv"]
 [ext_resource type="Script" uid="uid://vvwhnt75srmd" path="res://act/hud/actors/actors.gd" id="6_spgw1"]
+[ext_resource type="Script" uid="uid://djdmpvmd0cd7x" path="res://act/system/input_manager.gd" id="6_uykt8"]
+[ext_resource type="Script" uid="uid://bplsbtid0bexk" path="res://act/scenary/arrows/arrows.gd" id="7_00mj1"]
 [ext_resource type="Texture2D" uid="uid://behrjtqrtvg3g" path="res://media/hud/frame.png" id="8_4vtqw"]
 [ext_resource type="Script" uid="uid://6pvvh3msxf4y" path="res://act/hud/actor_details/panels/panel.gd" id="10_uykt8"]
 [ext_resource type="Texture2D" uid="uid://cygnoa4prqsgy" path="res://media/actors/sprites/juline/default.png" id="11_ypm1a"]
-[ext_resource type="Script" uid="uid://8rvpvu05r7lk" path="res://act/hud/actor_details/actor_details.gd" id="14_ail3q"]
 [ext_resource type="Texture2D" uid="uid://c4vhs720j30h" path="res://media/hud/actor_details/background.png" id="14_ulcc2"]
 [ext_resource type="Texture2D" uid="uid://cseg45hf11w0y" path="res://media/hud/actor_details/ring_inner_glow.png" id="15_8tsxx"]
 [ext_resource type="Texture2D" uid="uid://4gcpo33y5ghh" path="res://media/actors/sprites/lucine/default.png" id="15_pngcx"]
@@ -46,6 +47,9 @@
 
 [node name="Act" type="Node" unique_id=1240358674]
 script = ExtResource("1_6ehe1")
+
+[node name="InputManager" type="Node" parent="." unique_id=2073800841]
+script = ExtResource("6_uykt8")
 
 [node name="Scenary" type="Node2D" parent="." unique_id=1272571393]
 
@@ -98,6 +102,9 @@ position = Vector2(1490, 768)
 [node name="Actors" type="Node2D" parent="Scenary" unique_id=2118499075]
 script = ExtResource("6_mrvvv")
 
+[node name="Arrows" type="Node2D" parent="Scenary" unique_id=597794501]
+script = ExtResource("7_00mj1")
+
 [node name="HUD" type="CanvasLayer" parent="." unique_id=216121873]
 
 [node name="Actors" type="Control" parent="HUD" unique_id=564579883]
@@ -124,7 +131,6 @@ anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 464.0
 mouse_filter = 2
-script = ExtResource("14_ail3q")
 
 [node name="Left" type="TextureRect" parent="HUD/ActorDetails" unique_id=1882568075]
 layout_mode = 1

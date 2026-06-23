@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c2gd7vet5p651"]
+
+[ext_resource type="Script" uid="uid://bbp2ru3xwp1ox" path="res://act/scenary/arrows/arrow.gd" id="1_ggyhe"]
+
+[node name="Arrow" type="Node2D" unique_id=1049154941]
+script = ExtResource("1_ggyhe")

@@ -1,5 +1,7 @@
 class_name SpeedDice extends TextureButton
 
+signal speed_dice_right_click_pressed(speed_dice: SpeedDice)
+
 signal speed_dice_pressed(speed_dice: SpeedDice)
 
 signal speed_dice_mouse_entered(speed_dice: SpeedDice)
@@ -39,6 +41,11 @@ var enemy_dice_targeting: SpeedDice
 var targeted_by_enemies: Array[SpeedDice] = []
 
 var dependencies = {}
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			speed_dice_right_click_pressed.emit(self)
 
 func _on_mouse_entered() -> void:
 	speed_dice_mouse_entered.emit(self)
@@ -90,32 +97,3 @@ func focus() -> void:
 func unfocus() -> void:
 	texture_normal = textures['normal']
 	status = States.DETERMINED
-
-func _gui_input(input_event):
-	if input_event is InputEventMouseButton:
-		if input_event.button_index == MOUSE_BUTTON_RIGHT and input_event.pressed:
-			# Handle Input Event: 
-			# speed_dice_mouse_button_right_pressed
-			pass
-			## Si hay evento y estamos en el turno actual
-			#if event != null and current_turn():
-				## Remueve el evento del dado de velocidad
-				#var card: CardResource = event.get_card(id)
-				#parent_actor.hand.append(card)
-				#dependencies['actor_details'].unload_card(parent_actor.team)
-				## Handle Enemy dice unset
-				#if (
-					#dependencies['hand'].enemy_status 
-					#== dependencies['hand'].EnemyStates.DICE_FOCUSED
-				#):
-					#dependencies['actor_details'].unload_card(
-						#'left' if parent_actor.team == 'right' else 'right'
-					#)
-				#dependencies['system'].removeBattleEvent(event, parent_actor)
-				#dependencies['hand'].clear_hand()
-				#dependencies['hand'].show_hand(parent_actor)
-				#if dependencies['hand'].status == dependencies['hand'].States.IDLE:
-					#dependencies['arrows'].remove_event_arrows()
-
-#func current_turn():
-	#return dependencies['system'].current_team == parent_actor.team

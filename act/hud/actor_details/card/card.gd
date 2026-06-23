@@ -4,7 +4,8 @@ var team: String
 
 var resource: CardResource
 
-func load_card(card_resource: CardResource):
+## Load Card Resource
+func load_card_resource(card_resource: CardResource) -> void:
 	$Front/Name.text = card_resource.name
 	var image: Texture2D = load('res://media/cards/' + card_resource.code + '.png')
 	$Front/Art.texture = image
@@ -12,12 +13,17 @@ func load_card(card_resource: CardResource):
 	init_back(card_resource)
 	resource = card_resource
 
-func unload_card():
-	var dices: Array = get_tree().get_nodes_in_group(team + '_card_dices')
-	for dice in dices:
-		remove_child(dice)
-	for dice in $Back/Dices.get_children():
-		$Back/Dices.remove_child(dice)
+## Unload Card Resource
+func unload_card_resource() -> void:
+	var dices: Array = get_children().filter(
+		func (node):
+			return node.name != 'Front' and node.name != 'Back'
+	)
+	if dices.size() > 0:
+		for dice in dices:
+			remove_child(dice)
+		for dice in $Back/Dices.get_children():
+			$Back/Dices.remove_child(dice)
 
 func init_dices(dices: Array[DiceResource]) -> void:
 	var count: int = dices.size()

@@ -6,7 +6,7 @@ const DetailsPanel = preload("res://act/hud/actor_details/panels/panel.gd")
 ## Act Phases
 enum Phases  { 
 	PRESENTATION,
-	INITIAL, 
+	UNDETERMINED_SPEED, 
 	PREPARATION,
 	BATTLE 
 }
@@ -20,24 +20,24 @@ var enemy_team_prepared: bool = false
 ## Turn Manager instance
 var turn_manager: TurnManager = TurnManager.new()
 
-var eventCreator: EventCreator = EventCreator.new()
+var event_manager: EventManager = EventManager.new()
 
+# --- Presentation Event Observer
 func _on_scene_presentation_timeout() -> void:
-	phase = Phases.INITIAL
+	phase = Phases.UNDETERMINED_SPEED
 
+# --- Dice Roller Event Observer
 func _on_dice_roller_pressed() -> void:
 	roll_dices()
 
-func _input(event: InputEvent) -> void:
-	# Handle input pressed space
-	if event.is_action_pressed("space"):
-		roll_dices()
-
 func _ready() -> void:
 	var config: Dictionary = JsonUtils.load_json('res://act/config.json')
+	# Init Input Manager
+	$InputManager.act = self
+	# Init Turn Manager
 	turn_manager.randomize_team()
 	# Init ActorDetails (Panels)
-	$HUD/ActorDetails.init(turn_manager)
+	init_actor_details()
 	# Init Actors
 	init_actors(config)
 	# Init Scene Number
@@ -47,8 +47,19 @@ func _ready() -> void:
 	init_dice_roller()
 	# Init Hand
 	init_hand()
+	# Init Event Creator [sytem]
+	init_event_manager()
 	# Init Arrows
-	$HUD/Arrows.init({ 'hand': $HUD/Hand })
+	init_arrows()
+
+## Init Actor Details (Panels)
+func init_actor_details() -> void:
+	$HUD/ActorDetails/Left.turn_manager = turn_manager
+	$HUD/ActorDetails/Left.team = turn_manager.Teams.LEFT
+	$HUD/ActorDetails/Left.act = self
+	$HUD/ActorDetails/Right.turn_manager = turn_manager
+	$HUD/ActorDetails/Right.team = turn_manager.Teams.RIGHT
+	$HUD/ActorDetails/Right.act = self
 
 ## Init Actors, ActorControls, SpeedDices and connect them
 func init_actors(config: Dictionary) -> void:
@@ -102,20 +113,91 @@ func init_actors(config: Dictionary) -> void:
 			speed_dice.speed_dice_mouse_exited.connect(
 				$HUD/Hand._on_speed_dice_mouse_exited
 			)
+			# SpeedDiceN -> Event Manager events listeners
+			speed_dice.speed_dice_right_click_pressed.connect(
+				event_manager._on_speed_dice_right_click_pressed
+			)
+			# SpeedDiceN -> Arrows events listeners
+			speed_dice.speed_dice_right_click_pressed.connect(
+				$Scenary/Arrows._on_speed_dice_right_click_pressed
+			)
+			speed_dice.speed_dice_mouse_entered.connect(
+				$Scenary/Arrows._on_speed_dice_mouse_entered
+			)
+			speed_dice.speed_dice_mouse_exited.connect(
+				$Scenary/Arrows._on_speed_dice_mouse_exited
+			)
 
+## Init Dice Roller
 func init_dice_roller() -> void:
 	$HUD/DiceRoller.init()
-	$HUD/DiceRoller.dice_roller_pressed.connect(
-		_on_dice_roller_pressed
-	)
+	$HUD/DiceRoller.dice_roller_pressed.connect(_on_dice_roller_pressed)
 
+## Init Hand
 func init_hand() -> void:
 	$HUD/Hand.act = self
 	$HUD/Hand.turn_manager = turn_manager
+	# Hand -> Left (panel) events listeners
+	$HUD/Hand.enemy_speed_dice_targeted.connect(
+		$HUD/ActorDetails/Left._on_enemy_speed_dice_targeted
+	)
+	$HUD/Hand.left_card_selected.connect(
+		$HUD/ActorDetails/Left._on_card_selected
+	)
+	$HUD/Hand.left_card_deselected.connect(
+		$HUD/ActorDetails/Left._on_card_deselected
+	)
+	# Hand -> Right (panel) events listeners
+	$HUD/Hand.enemy_speed_dice_targeted.connect(
+		$HUD/ActorDetails/Right._on_enemy_speed_dice_targeted
+	)
+	$HUD/Hand.right_card_selected.connect(
+		$HUD/ActorDetails/Right._on_card_selected
+	)
+	$HUD/Hand.right_card_deselected.connect(
+		$HUD/ActorDetails/Right._on_card_deselected
+	)
+
+## Init Event Manager
+func init_event_manager() -> void:
+	event_manager.selected = $Music/SFX/Selected
+	# Hand -> Event Manager events listeners
+	$HUD/Hand.enemy_speed_dice_targeted.connect(
+		event_manager._on_enemy_speed_dice_targeted
+	)
+	# Event Manager -> Hand event listeners
+	event_manager.battle_event_removed.connect(
+		$HUD/Hand._on_battle_event_removed
+	)
+	# Event Manager -> Left, Right (panel) event listeners
+	event_manager.battle_event_removed.connect(
+		$HUD/ActorDetails/Left._on_battle_event_removed
+	)
+	event_manager.battle_event_removed.connect(
+		$HUD/ActorDetails/Right._on_battle_event_removed
+	)
+
+## Init Arrows
+func init_arrows() -> void:
+	$Scenary/Arrows.left_panel = $HUD/ActorDetails/Left
+	$Scenary/Arrows.right_panel = $HUD/ActorDetails/Right
+	# Hand -> Arrows events listeners
+	$HUD/Hand.enemy_speed_dice_targeted.connect(
+		$Scenary/Arrows._on_enemy_speed_dice_targeted
+	)
+	$HUD/Hand.card_selected.connect($Scenary/Arrows._on_card_selected)
+	$HUD/Hand.card_deselected.connect($Scenary/Arrows._on_card_deselected)
+	# Panels (Left, Right) -> Arrows events listeners
+	$HUD/ActorDetails/Left.speed_dice_focused_changed.connect(
+		$Scenary/Arrows._on_left_panel_speed_dice_focused_changed
+	)
+	$HUD/ActorDetails/Right.speed_dice_focused_changed.connect(
+		$Scenary/Arrows._on_right_panel_speed_dice_focused_changed
+	)
 
 ## Roll Speed Dices to go next Phase
 func roll_dices() -> void:
-	if phase == Phases.INITIAL:
+	if phase == Phases.UNDETERMINED_SPEED:
 		$Scenary/Actors.roll_everyone_speed_dices()
 		$Music/SFX/DiceRoll.play()
 		phase = Phases.PREPARATION
@@ -126,11 +208,3 @@ func roll_dices() -> void:
 			enemy_team_prepared = true
 		else:
 			phase = Phases.BATTLE
-
-func createBattleEvent(attacker_dice, target_dice, card_resource):
-	eventCreator.create(attacker_dice, target_dice, card_resource)
-	$Music/SFX/Selected.play()
-
-func removeBattleEvent(event, remove_by = null):
-	eventCreator.remove(event, remove_by)
-	$Music/SFX/Selected.play()

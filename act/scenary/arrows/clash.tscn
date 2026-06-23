@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dswniqx7v17rn"]
+
+[ext_resource type="Script" uid="uid://blyu7q8h8ftd8" path="res://act/scenary/arrows/clash.gd" id="1_2yjd8"]
+
+[node name="Clash" type="Node2D" unique_id=55597829]
+script = ExtResource("1_2yjd8")

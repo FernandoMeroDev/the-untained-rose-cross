@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b48ytxqobcok1"]
+
+[ext_resource type="Script" uid="uid://criyombsfhite" path="res://act/scenary/arrows/arrow_pointer.gd" id="1_jt82p"]
+
+[node name="Pointer" type="Node2D" unique_id=1049154941]
+script = ExtResource("1_jt82p")

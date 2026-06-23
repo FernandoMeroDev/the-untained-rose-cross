@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://rv8wbabbb7ga"]
 
 [ext_resource type="Texture2D" uid="uid://c1vlvn6la8x0o" path="res://media/actors/dices/speed/normal.png" id="1_8rvfj"]
-[ext_resource type="Script" uid="uid://by6yyyrs8qw84" path="res://act/actors/dices/speed_dice/speed_dice.gd" id="2_je2il"]
+[ext_resource type="Script" uid="uid://by6yyyrs8qw84" path="res://act/scenary/actors/dices/speed_dice/speed_dice.gd" id="2_je2il"]
 [ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="3_72lqa"]
-[ext_resource type="Script" uid="uid://b4kxs4hmpknxy" path="res://act/actors/dices/speed_dice/roulette.gd" id="4_72lqa"]
+[ext_resource type="Script" uid="uid://b4kxs4hmpknxy" path="res://act/scenary/actors/dices/speed_dice/roulette.gd" id="4_72lqa"]
 [ext_resource type="AudioStream" uid="uid://cn1womypgp70i" path="res://media/music/sfx/selected.wav" id="4_as2xm"]
-[ext_resource type="Script" uid="uid://bta8tvevgkwsl" path="res://act/actors/dices/speed_dice/number.gd" id="4_je2il"]
+[ext_resource type="Script" uid="uid://bta8tvevgkwsl" path="res://act/scenary/actors/dices/speed_dice/number.gd" id="4_je2il"]
 
 [node name="SpeedDice" type="TextureButton" unique_id=870011555]
 offset_right = 110.0
@@ -58,6 +58,7 @@ script = ExtResource("4_je2il")
 [node name="Selected" type="AudioStreamPlayer" parent="." unique_id=1654007460]
 stream = ExtResource("4_as2xm")
 
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="." to="." method="_on_pressed"]

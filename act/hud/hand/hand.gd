@@ -3,14 +3,29 @@ extends Control
 const CardScene: PackedScene = preload('res://act/hud/hand/card/card.tscn')
 const Card = preload('res://act/hud/hand/card/card.gd')
 
-#signal card_focused(dice)
-#
-#signal card_unfocused()
+## Card Selected
+signal card_selected(card: Card, speed_dice: SpeedDice)
 
-#enum States { IDLE, DICE_FOCUSED, CARD_FOCUSED }
+signal left_card_selected(card: Card, speed_dice: SpeedDice)
+
+signal right_card_selected(card: Card, speed_dice: SpeedDice)
+
+## Card Deselected
+signal card_deselected(card: Card)
+
+signal left_card_deselected(card: Card)
+
+signal right_card_deselected(card: Card)
+
+## Enemy Speed Dice targeted
+signal enemy_speed_dice_targeted(
+	speed_dice: SpeedDice,
+	enemy_speed_dice: SpeedDice,
+	card_resource: CardResource
+)
 
 ## Hand states
-enum States { HIDDEN, VISIBLE, FOCUSING_DICE }
+enum States { HIDDEN, VISIBLE, FOCUSING_DICE, CARD_SELECTED }
 
 ##  Hand current status
 var status = States.HIDDEN
@@ -25,34 +40,13 @@ var turn_manager: TurnManager
 var gap: int = 5
 
 ## Speed Dice currently focused
-var focused_speed_dice: SpeedDice
+var speed_dice_focused: SpeedDice
 
 ## Speed Dice currently hovered
 var hovered_speed_dice: SpeedDice
 
-## ------- OLD code down
-
-## Is showing the hand in the screen?
-var active: bool = false
-
-## Actor currently focused
-## @var Area2D | null
-var focused_actor: Variant = null
-
-## Card currently focused
-## @var Button | null
-var focused_card: Variant = null
-
-## Enemy dice currently focused
-## @var Node2D | null
-var focused_enemy_dice: Variant = null
-
-var card_scene: PackedScene
-
-# --- Right Click Pressed Event Observer
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("right_click"):
-		handle_right_click_pressed()
+## Card currently selected
+var current_card_selected: Card
 
 # --- Speed Dice Events Observers
 func _on_speed_dice_pressed(speed_dice: SpeedDice) -> void:
@@ -64,78 +58,145 @@ func _on_speed_dice_mouse_entered(speed_dice: SpeedDice) -> void:
 func _on_speed_dice_mouse_exited(speed_dice: SpeedDice) -> void:
 	handle_speed_dice_mouse_exited(speed_dice)
 
+# --- Card Events Observers
+func _on_card_pressed(card: Card) -> void:
+	handle_card_pressed(card)
+	
+func _on_card_mouse_entered(card: Card) -> void:
+	handle_card_mouse_entered(card)
+	
+func _on_card_mouse_exited(card: Card) -> void:
+	handle_card_mouse_exited(card)
+
+# --- Event Manager Events Observers
+func _on_battle_event_removed(speed_dice: SpeedDice) -> void:
+	handle_battle_event_removed(speed_dice)
+
 # --- Right Click Pressed Event Handler
 func handle_right_click_pressed() -> void:
-	if(
-		status == States.FOCUSING_DICE 
-		and act.phase == act.Phases.PREPARATION
-	):
-		# Unfocus speed dice
-		focused_speed_dice.unfocus()
-		focused_speed_dice = null
-		# Hide Hand
-		hide_hand()
-		status = States.HIDDEN
-		# Handle the hovered dice
-		if hovered_speed_dice:
-			handle_speed_dice_mouse_entered(hovered_speed_dice)
+	if act.phase == act.Phases.PREPARATION:
+		if status == States.FOCUSING_DICE:
+			unfocus_dice()
+		elif status == States.CARD_SELECTED:
+			deselect_card()
 
 # --- Speed Dice Events Handlers
 func handle_speed_dice_pressed(speed_dice: SpeedDice) -> void:
 	if(
-		status == States.VISIBLE
-		and speed_dice.parent_actor.is_my_turn()
+		speed_dice.parent_actor.is_my_turn()
 		and act.phase == act.Phases.PREPARATION
 	):
-		# Focus speed dice
-		speed_dice.focus()
-		focused_speed_dice = speed_dice
-		# Change Status
-		status = States.FOCUSING_DICE
-	elif(
-		status == States.FOCUSING_DICE
-		and speed_dice.parent_actor.is_my_turn()
-		and act.phase == act.Phases.PREPARATION
-	):
-		if speed_dice.id == focused_speed_dice.id:
-			# Unfocus speed dice
-			speed_dice.unfocus()
-			focused_speed_dice = null
+		if status == States.VISIBLE:
+			# Set Focus speed dice (Panel handles focus Styling)
+			speed_dice_focused = speed_dice
 			# Change Status
-			status = States.VISIBLE
-		else:
-			# Unfocus old speed dice
-			focused_speed_dice.unfocus()
-			focused_speed_dice = null
-			# Hide Hand
-			hide_hand()
-			# Change focus to new speed dice
-			speed_dice.focus()
-			focused_speed_dice = speed_dice
-			# Show Hand
-			show_hand(speed_dice.parent_actor)
+			status = States.FOCUSING_DICE
+		elif status == States.FOCUSING_DICE:
+			if speed_dice.id != speed_dice_focused.id:
+				# Unset old focused speed dice (Panel handles unfocus Styling)
+				speed_dice_focused = null
+				# Hide Hand
+				hide_hand()
+				# Change focus to new speed dice
+				speed_dice_focused = speed_dice
+				# Show Hand
+				show_hand(speed_dice.parent_actor)
+			else:
+				# Unset focus speed dice (Panel handles unfocus Styling)
+				speed_dice_focused = null
+				# Change Status
+				status = States.VISIBLE
+	elif(
+		not speed_dice.parent_actor.is_my_turn()
+		and act.phase == act.Phases.PREPARATION
+	):
+		if status == States.CARD_SELECTED:
+			# Target enemy Speed Dice
+			enemy_speed_dice_targeted.emit(
+				speed_dice_focused,
+				speed_dice,
+				current_card_selected.resource
+			)
+			deselect_card()
+			unfocus_dice()
 
 func handle_speed_dice_mouse_entered(speed_dice: SpeedDice) -> void:
 	if(
-		status == States.HIDDEN 
-		and speed_dice.parent_actor.is_my_turn()
+		speed_dice.parent_actor.is_my_turn()
 		and act.phase == act.Phases.PREPARATION
 	):
 		# Set Hovered Speed Dice
 		hovered_speed_dice = speed_dice
-		# Show Hand
-		show_hand(speed_dice.parent_actor)
-		# Change Status
-		status = States.VISIBLE
+		if status == States.HIDDEN:
+			# Show Hand
+			show_hand(speed_dice.parent_actor)
+			# Change Status
+			status = States.VISIBLE
 
 func handle_speed_dice_mouse_exited(_speed_dice: SpeedDice) -> void:
+	# Unset Hovered Speed Dice
+	hovered_speed_dice = null
 	if status == States.VISIBLE:
-		# Unset Hovered Speed Dice
-		hovered_speed_dice = null
 		# Hide Hand
 		hide_hand()
 		# Change Status
 		status = States.HIDDEN
+
+# --- Card Events Handlers
+func handle_card_pressed(card: Card) -> void:
+	if status == States.FOCUSING_DICE:
+		# Select Card
+		current_card_selected = card
+		# Emit Signals
+		card_selected.emit(card, speed_dice_focused)
+		match speed_dice_focused.parent_actor.team:
+			TurnManager.Teams.LEFT:
+				left_card_selected.emit(card, speed_dice_focused)
+			TurnManager.Teams.RIGHT:
+				right_card_selected.emit(card, speed_dice_focused)
+		# Change Status
+		status = States.CARD_SELECTED
+
+func handle_card_mouse_entered(card: Card) -> void:
+	if status == States.FOCUSING_DICE:
+		card.focus()
+
+func handle_card_mouse_exited(card: Card) -> void:
+	if status == States.FOCUSING_DICE:
+		card.unfocus()
+
+# --- Event Manager Events Handlers
+func handle_battle_event_removed(speed_dice: SpeedDice) -> void:
+	speed_dice.parent_actor.hand.append(
+		speed_dice.battle_event.get_card_of_speed_dice(speed_dice)
+	)
+	refresh_hand(speed_dice.parent_actor)
+
+## Deselect Card
+func deselect_card() -> void:
+	# Emit Signals
+	card_deselected.emit(current_card_selected)
+	match speed_dice_focused.parent_actor.team:
+		TurnManager.Teams.LEFT:
+			left_card_deselected.emit(current_card_selected)
+		TurnManager.Teams.RIGHT:
+			right_card_deselected.emit(current_card_selected)
+	# Unfocus Card
+	current_card_selected.unfocus()
+	current_card_selected = null
+	# Change status
+	status = States.FOCUSING_DICE
+
+## Unfocus Speed Dice
+func unfocus_dice() -> void:
+	# Unfocus speed dice (Panel handles unfocus Styling)
+	speed_dice_focused = null
+	# Hide Hand
+	hide_hand()
+	status = States.HIDDEN
+	# Handle the hovered dice
+	if hovered_speed_dice:
+		handle_speed_dice_mouse_entered(hovered_speed_dice)
 
 ## Show Actor Hand
 func show_hand(actor: Actor) -> void:
@@ -154,9 +215,18 @@ func show_hand(actor: Actor) -> void:
 			start_x + i * (card_width + gap)
 		)
 		add_child(card)
+		# Setup signals
+		card.card_pressed.connect(_on_card_pressed)
+		card.card_mouse_entered.connect(_on_card_mouse_entered)
+		card.card_mouse_exited.connect(_on_card_mouse_exited)
 		i += 1
 
 ## Hide current visible hand
 func hide_hand() -> void:
 	for card: Card in get_children():
 		remove_child(card)
+
+## Refresh Hand
+func refresh_hand(actor: Actor) -> void:
+	hide_hand()
+	show_hand(actor)

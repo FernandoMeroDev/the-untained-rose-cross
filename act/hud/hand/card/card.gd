@@ -1,30 +1,30 @@
 extends Button
 
+const Card = preload('res://act/hud/hand/card/card.gd')
 
-signal selected(card)
+signal card_pressed(card: Card)
 
-signal card_mouse_entered(card)
+signal card_mouse_entered(card: Card)
+
+signal card_mouse_exited(card: Card)
 
 var resource: CardResource
 
-## Is this card currently being focused?
-var focused: bool = false
-
+## Original Backup of property values for animation purposes
 var original: Dictionary = {
 	'scale': null,
 	'position': null,
 	'z_index': null
 }
 
-func _on_button_down() -> void:
-	selected.emit(self)
+func _on_pressed() -> void:
+	card_pressed.emit(self)
 
 func _on_mouse_entered() -> void:
 	card_mouse_entered.emit(self)
 
 func _on_mouse_exited() -> void:
-	if not focused:
-		unfocus()
+	card_mouse_exited.emit(self)
 
 func init(card_resource: CardResource, position_x: float) -> void:
 	$Front/Name.text = card_resource.name
@@ -57,17 +57,7 @@ func init_dices(dices: Array[DiceResource]) -> void:
 		add_child(dice)
 		i += 1
 
-## Animate (Tween) card moving right
-func animate_moving_right(x: float) -> void:
-	var card_position = Vector2(x, position.y)
-	create_tween().tween_property(
-		self, "position", card_position, 0.25
-	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-
-func backup_original(property: String) -> void:
-	if original[property] == null:
-		original[property] = self[property]
-
+## Focus Card
 func focus() -> void:
 	var new_scale: Vector2 = Vector2(1.2, 1.2)
 	var new_y_offset: int = -40
@@ -92,6 +82,7 @@ func focus() -> void:
 	z_index = new_z_index
 	$Back.focus(size.x)
 
+## Unfocus Card
 func unfocus() -> void:
 	var tween: Tween = create_tween()
 	backup_original('scale')
@@ -105,3 +96,15 @@ func unfocus() -> void:
 	backup_original('z_index')
 	z_index = original['z_index']
 	$Back.unfocus()
+
+## Animate (Tween) card moving right
+func animate_moving_right(x: float) -> void:
+	var card_position = Vector2(x, position.y)
+	create_tween().tween_property(
+		self, "position", card_position, 0.25
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+## Backup the value of a property for animation purposes
+func backup_original(property: String) -> void:
+	if original[property] == null:
+		original[property] = self[property]

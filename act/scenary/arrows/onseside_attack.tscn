@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bd6rdie4otfl4"]
+
+[ext_resource type="Script" uid="uid://bpd1tv3htlo07" path="res://act/scenary/arrows/onseside_attack.gd" id="1_t2a87"]
+
+[node name="OnsesideAttackArrow" type="Node2D" unique_id=28541399]
+script = ExtResource("1_t2a87")

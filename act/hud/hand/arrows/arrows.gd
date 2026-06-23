@@ -1,10 +1,10 @@
 extends Node2D
 
-var pointer_arrow_scene: PackedScene = preload('res://act/hud/hand/arrows/arrow/pointer.tscn')
+const pointer_arrow_scene: PackedScene = preload('res://act/hud/hand/arrows/arrow/pointer.tscn')
 
-var oneside_arrow_scene: PackedScene = preload('res://act/hud/hand/arrows/events/oneside.tscn')
+const oneside_arrow_scene: PackedScene = preload('res://act/hud/hand/arrows/events/oneside.tscn')
 
-var clash_arrow_scene: PackedScene = preload('res://act/hud/hand/arrows/events/clash.tscn')
+const clash_arrow_scene: PackedScene = preload('res://act/hud/hand/arrows/events/clash.tscn')
 
 var pointer_arrow: Node2D = null
 

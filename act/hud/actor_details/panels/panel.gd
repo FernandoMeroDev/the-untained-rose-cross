@@ -1,14 +1,23 @@
 extends TextureRect
 
 const ActorControl = preload("res://act/hud/actors/actor_control/actor_control.gd")
+const Card = preload('res://act/hud/hand/card/card.gd')
+
+signal speed_dice_focused_changed(speed_dice: SpeedDice)
 
 ## Panel states
-enum States { HIDE, VISIBLE, MOVING_UP, MOVING_DOWN, ACTOR_SELECTED }
+enum States { HIDE, VISIBLE, MOVING_UP, MOVING_DOWN, ACTOR_FOCUSED }
 
 ## Panel current status
 var status: States = States.HIDE
 
-## Panel Team
+## Act reference
+var act: Act
+
+## Turn Manager reference
+var turn_manager: TurnManager
+
+## Panel's Team
 var team: TurnManager.Teams
 
 ## Temporal tween
@@ -21,19 +30,22 @@ var actor_id: int
 var original_position: Vector2
 
 ## Actor currently selected in this panel
-var actor_selected: Actor
+var actor_focused: Actor
 
 ## Actor currently Hovered in this panel
 var actor_hovered: Actor
 
-func init(p_team: TurnManager.Teams) -> void:
-	team = p_team
-	original_position = position
+## Speed Dice currently selected in this panel
+var speed_dice_focused: SpeedDice
 
-# --- Right Click Pressed Event Obsever
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("right_click"):
-		handle_right_click_pressed()
+## Speed Dice currently Hovered in this panel
+var speed_dice_hovered: SpeedDice
+
+## Used to block the panel when the hand is selecting a Card
+var panel_blocked: bool = false
+
+func _ready():
+	original_position = position
 
 # --- Actor Events Observers
 func _on_actor_pressed(actor: Actor) -> void:
@@ -58,27 +70,87 @@ func _on_actor_control_mouse_exited(control: ActorControl) -> void:
 # --- Actor Speed Dices Events Observers
 func _on_speed_dice_pressed(speed_dice: SpeedDice) -> void:
 	handle_actor_pressed(speed_dice.parent_actor)
+	handle_speed_dice_pressed(speed_dice)
 
 func _on_speed_dice_mouse_entered(speed_dice: SpeedDice) -> void:
 	handle_actor_mouse_entered(speed_dice.parent_actor)
+	handle_speed_dice_mouse_entered(speed_dice)
 
 func _on_speed_dice_mouse_exited(speed_dice: SpeedDice) -> void:
 	handle_actor_mouse_exited(speed_dice.parent_actor)
+	handle_speed_dice_mouse_exited(speed_dice)
+
+# --- Hand Events Observers
+func _on_enemy_speed_dice_targeted(
+	speed_dice: SpeedDice,
+	enemy_speed_dice: SpeedDice,
+	card_resource: CardResource
+) -> void:
+	handle_enemy_speed_dice_targeted(
+		speed_dice, enemy_speed_dice, card_resource
+	)
+
+func _on_card_selected(card: Card, _speed_dice: SpeedDice) -> void:
+	handle_card_selected(card)
+
+func _on_card_deselected(card: Card) -> void:
+	handle_card_deselected(card)
+
+# --- Event Manager Events Observers
+func _on_battle_event_removed(speed_dice: SpeedDice) -> void:
+	handle_battle_event_removed(speed_dice)
 
 # --- Right Click pressed Event Handler
 func handle_right_click_pressed():
-	if status == States.ACTOR_SELECTED:
-		hide_panel(actor_selected)
-		deselect_actor()
-		if actor_hovered:
-			handle_actor_mouse_entered(actor_hovered)
+	# Exit if panel is blocked
+	if panel_blocked: return
+	# Handle Actor Status
+	if status == States.ACTOR_FOCUSED:
+		unfocus_actor()
+	# Handle Focused Speed Dice
+	if speed_dice_focused:
+		# Unfocus speed dice
+		speed_dice_focused.unfocus()
+		speed_dice_focused = null
+
+# --- Hand Events Handlers
+func handle_enemy_speed_dice_targeted(
+	_speed_dice: SpeedDice,
+	_enemy_speed_dice: SpeedDice,
+	_card_resource: CardResource
+) -> void:
+	# Handle Actor Status
+	if status == States.ACTOR_FOCUSED:
+		unfocus_actor()
+	# Handle Focused Speed Dice
+	if speed_dice_focused:
+		# Unfocus speed dice
+		speed_dice_focused.unfocus()
+		speed_dice_focused = null
+
+func handle_card_selected(card: Card) -> void:
+	panel_blocked = true
+	clear_card()
+	load_card_resource(card.resource)
+
+func handle_card_deselected(_card: Card) -> void:
+	panel_blocked = false
+	clear_card()
+	if speed_dice_hovered:
+		if speed_dice_hovered.battle_event:
+			load_card_from_speed_dice(speed_dice_hovered)
+	elif speed_dice_focused:
+		if speed_dice_focused.battle_event:
+			load_card_from_speed_dice(speed_dice_focused)
 
 # --- Actor Events Handlers
 func handle_actor_pressed(actor: Actor):
-	if status == States.ACTOR_SELECTED:
-		if actor_selected.id != actor.id:
-			actor_selected.unfocus_self()
-			actor_selected.actor_control.unfocus()
+	# Exit if panel is blocked
+	if panel_blocked: return
+	if status == States.ACTOR_FOCUSED:
+		if actor_focused.id != actor.id:
+			actor_focused.unfocus_self()
+			actor_focused.actor_control.unfocus()
 			select_actor(actor)
 	else:
 		select_actor(actor)
@@ -105,7 +177,7 @@ func handle_actor_mouse_entered(actor: Actor) -> void:
 		position = original_position + Vector2(0, size.y)
 		# Change Status
 		status = States.VISIBLE
-	elif status == States.ACTOR_SELECTED:
+	elif status == States.ACTOR_FOCUSED:
 		# Set Data temporally
 		fill_actor_details(actor)
 		# Outline Actor Control
@@ -115,15 +187,73 @@ func handle_actor_mouse_exited(actor: Actor):
 	actor_hovered = null
 	if status == States.VISIBLE or status == States.MOVING_DOWN:
 		hide_panel(actor)
-	elif status == States.ACTOR_SELECTED:
+	elif status == States.ACTOR_FOCUSED:
 		# Restore Data temporally overwrited
-		fill_actor_details(actor_selected)
+		fill_actor_details(actor_focused)
 		# Unoutline Actor Control
 		actor.actor_control.unoutline()
 
 # --- Speed Dice Events Handlers
 func handle_speed_dice_pressed(speed_dice: SpeedDice) -> void:
-	pass
+	# Exit if panel is blocked
+	if panel_blocked: return
+	if act.phase == act.Phases.PREPARATION:
+		if not speed_dice_focused:
+			# Focus speed dice
+			speed_dice.focus()
+			speed_dice_focused = speed_dice
+		else:
+			if speed_dice.id != speed_dice_focused.id:
+				# Unfocus old speed dice
+				speed_dice_focused.unfocus()
+				# Focus new speed dice
+				speed_dice.focus()
+				# Emit signal
+				speed_dice_focused_changed.emit(speed_dice)
+				# Clear Old Card
+				clear_card()
+				# Load new Card
+				if speed_dice.battle_event:
+					load_card_from_speed_dice(speed_dice)
+				# Change Status
+				speed_dice_focused = speed_dice
+			else:
+				# Unfocus speed dice
+				speed_dice_focused.unfocus()
+				speed_dice_focused = null
+
+func handle_speed_dice_mouse_entered(speed_dice: SpeedDice) -> void:
+	speed_dice_hovered = speed_dice
+	# Exit if panel is blocked
+	if panel_blocked: return
+	clear_card()
+	if speed_dice.battle_event:
+		load_card_from_speed_dice(speed_dice)
+
+func handle_speed_dice_mouse_exited(speed_dice: SpeedDice) -> void:
+	speed_dice_hovered = null
+	# Exit if panel is blocked
+	if panel_blocked: return
+	if speed_dice_focused:
+		if speed_dice_focused.id != speed_dice.id:
+			clear_card()
+			if speed_dice_focused.battle_event:
+				load_card_from_speed_dice(speed_dice_focused)
+	else:
+		if speed_dice.battle_event:
+			clear_card()
+
+# --- Event Manager Events Handlers
+func handle_battle_event_removed(speed_dice: SpeedDice) -> void:
+	if speed_dice.parent_actor.team == team:
+		clear_card()
+
+## Unfocus Actor
+func unfocus_actor() -> void:
+	hide_panel(actor_focused)
+	deselect_actor()
+	if actor_hovered:
+		handle_actor_mouse_entered(actor_hovered)
 
 ## Create Animation (Tween) Moving Down
 func create_moving_down_tween() -> void:
@@ -133,7 +263,7 @@ func create_moving_down_tween() -> void:
 	tween.finished.connect(func():
 		# Prevents overwrite ACTOR_SELECTED status if user
 		# selects an actor while the panel is moving down
-		if status != States.ACTOR_SELECTED:
+		if status != States.ACTOR_FOCUSED:
 			status = States.VISIBLE
 	)
 
@@ -150,16 +280,16 @@ func create_moving_up_tween() -> void:
 func select_actor(actor: Actor):
 	actor.focus_self()
 	actor.actor_control.focus()
-	actor_selected = actor
+	actor_focused = actor
 	$ActorSelected.play()
-	status = States.ACTOR_SELECTED
+	status = States.ACTOR_FOCUSED
 
 ## Deselect Actor
 func deselect_actor() -> void:
-	actor_selected.unfocus_self()
-	actor_selected.actor_control.unfocus()
+	actor_focused.unfocus_self()
+	actor_focused.actor_control.unfocus()
 	# $ActorDeselected.play()
-	actor_selected = null
+	actor_focused = null
 
 ## Set Actor Data
 func fill_actor_details(actor: Actor):
@@ -193,3 +323,19 @@ func hide_panel(current_actor: Actor) -> void:
 	create_moving_up_tween()
 	# Change Status
 	status = States.MOVING_UP
+
+## Load Card Resource from dice
+func load_card_from_speed_dice(speed_dice: SpeedDice) -> void:
+	load_card_resource(
+		speed_dice.battle_event.get_card_of_speed_dice(speed_dice)
+	)
+
+## Load Card Resource
+func load_card_resource(card_resource: CardResource) -> void:
+	$Card.load_card_resource(card_resource)
+	$Card.show()
+
+## Clear Card and hide
+func clear_card() -> void:
+	$Card.unload_card_resource()
+	$Card.hide()
