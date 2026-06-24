@@ -69,11 +69,13 @@ func handle_right_click_pressed() -> void:
 
 # --- Hand Events Handlers
 func handle_enemy_speed_dice_targeted(
-	_speed_dice: SpeedDice,
+	speed_dice: SpeedDice,
 	enemy_speed_dice: SpeedDice,
 	_card_resource: CardResource
 ) -> void:
-	handle_speed_dice_mouse_entered(enemy_speed_dice)
+	# Refresh Arrows of Speed Dices
+	refresh_speed_dice_arrows(speed_dice)
+	refresh_speed_dice_arrows(enemy_speed_dice)
 
 func handle_card_selected(_card: Card, speed_dice: SpeedDice) -> void:
 	var arrow: ArrowPointer = ArrowPointerScene.instantiate()
@@ -92,38 +94,10 @@ func handle_card_deselected(_card: Card) -> void:
 
 # --- Speed Dice Events Handlers
 func handle_speed_dice_right_click_pressed(speed_dice: SpeedDice) -> void:
-	for arrow: Arrow in get_children():
-		# Remove arrows of speed dice
-		if arrow.is_in_group(
-			'event_arrows_for_' + str(speed_dice.id)
-		): remove_child(arrow)
-	handle_speed_dice_mouse_entered(speed_dice)
+	refresh_speed_dice_arrows(speed_dice)
 
 func handle_speed_dice_mouse_entered(speed_dice: SpeedDice) -> void:
-	if speed_dice.enemy_dice_targeting:
-		if speed_dice.targeted_by_enemies.size() > 0:
-			var has_clash: bool = false
-			for enemy_speed_dice: SpeedDice in speed_dice.targeted_by_enemies:
-				if enemy_speed_dice.id == speed_dice.enemy_dice_targeting.id:
-					create_clash(speed_dice, enemy_speed_dice)
-					has_clash = true
-				else:
-					create_oneside_attack(speed_dice, enemy_speed_dice)
-			if not has_clash:
-				create_oneside_attack(
-					speed_dice,
-					speed_dice.enemy_dice_targeting
-				)
-		else:
-			# Speed Dice is targeting but isn't being targeted
-			create_oneside_attack(
-				speed_dice,
-				speed_dice.enemy_dice_targeting
-			)
-	else:
-		if speed_dice.targeted_by_enemies.size() > 0:
-			for enemy_speed_dice: SpeedDice in speed_dice.targeted_by_enemies:
-				create_oneside_attack(enemy_speed_dice, speed_dice)
+	draw_speed_dice_arrows(speed_dice)
 
 func handle_speed_dice_mouse_exited(_speed_dice: SpeedDice) -> void:
 	for arrow: Arrow in get_children():
@@ -153,6 +127,46 @@ func handle_right_panel_speed_dice_focused_changed(speed_dice: SpeedDice) -> voi
 			build_focused_dice_group_name('right')
 		): remove_child(arrow)
 	handle_speed_dice_mouse_entered(speed_dice)
+
+## Refresh Speed Dice Arrows
+func refresh_speed_dice_arrows(speed_dice: SpeedDice) -> void:
+	clear_speed_dice_arrows(speed_dice)
+	draw_speed_dice_arrows(speed_dice)
+
+## Draw Speed Dice Arrows
+func draw_speed_dice_arrows(speed_dice: SpeedDice) -> void:
+	if speed_dice.enemy_dice_targeting:
+		if speed_dice.targeted_by_enemies.size() > 0:
+			var has_clash: bool = false
+			for enemy_speed_dice: SpeedDice in speed_dice.targeted_by_enemies:
+				if enemy_speed_dice.id == speed_dice.enemy_dice_targeting.id:
+					create_clash(speed_dice, enemy_speed_dice)
+					has_clash = true
+				else:
+					create_oneside_attack(enemy_speed_dice, speed_dice)
+			if not has_clash:
+				create_oneside_attack(
+					speed_dice,
+					speed_dice.enemy_dice_targeting
+				)
+		else:
+			# Speed Dice is targeting but isn't being targeted
+			create_oneside_attack(
+				speed_dice,
+				speed_dice.enemy_dice_targeting
+			)
+	else:
+		if speed_dice.targeted_by_enemies.size() > 0:
+			for enemy_speed_dice: SpeedDice in speed_dice.targeted_by_enemies:
+				create_oneside_attack(enemy_speed_dice, speed_dice)
+
+## Clear Arrows
+func clear_speed_dice_arrows(speed_dice: SpeedDice) -> void:
+	for arrow: Arrow in get_children():
+		# Remove arrows of speed dice
+		if arrow.is_in_group(
+			'event_arrows_for_' + str(speed_dice.id)
+		): remove_child(arrow)
 
 ## Build group name for speed dice focused in a panel
 func build_focused_dice_group_name(side: String) -> String:

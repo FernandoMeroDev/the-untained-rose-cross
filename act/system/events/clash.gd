@@ -41,6 +41,17 @@ func get_card_of_speed_dice(speed_dice: SpeedDice) -> CardResource:
 			result = card_resource_b
 	return result
 
+## Get Enemy Speed Dice of a Speed Dice in this Event
+func get_enemy_of_speed_dice(speed_dice: SpeedDice) -> SpeedDice:
+	var result: SpeedDice
+	match speed_dice.id:
+		speed_dice_a.id:
+			result = speed_dice_b
+		speed_dice_b.id:
+			result = speed_dice_a
+	return result
+
+
 ## Derive oneside attack
 func derive_oneside_attack(enemy_speed_dice: SpeedDice) -> Dictionary:
 	var attacker_dice: SpeedDice
