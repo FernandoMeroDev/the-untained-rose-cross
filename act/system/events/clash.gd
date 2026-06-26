@@ -51,7 +51,6 @@ func get_enemy_of_speed_dice(speed_dice: SpeedDice) -> SpeedDice:
 			result = speed_dice_a
 	return result
 
-
 ## Derive oneside attack
 func derive_oneside_attack(enemy_speed_dice: SpeedDice) -> Dictionary:
 	var attacker_dice: SpeedDice

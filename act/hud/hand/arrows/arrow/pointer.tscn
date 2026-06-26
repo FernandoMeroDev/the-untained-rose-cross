@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://dpdykyrvt7516"]
-
-[ext_resource type="Script" uid="uid://bcdq0dd0fmvsc" path="res://act/hud/hand/arrows/arrow/pointer.gd" id="1_hlgt1"]
-
-[node name="Pointer" type="Node2D" unique_id=1049154941]
-script = ExtResource("1_hlgt1")

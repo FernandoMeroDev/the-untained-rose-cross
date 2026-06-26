@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://bh8tolifisd3i"]
-
-[ext_resource type="Script" uid="uid://de3sep2laonkr" path="res://act/hud/hand/arrows/events/oneside.gd" id="1_2nuw6"]
-
-[node name="OnesideArrow" type="Node2D" unique_id=251254275]
-script = ExtResource("1_2nuw6")

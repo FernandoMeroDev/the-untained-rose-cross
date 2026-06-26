@@ -41,7 +41,6 @@
 [ext_resource type="Texture2D" uid="uid://do05nb76wxqo4" path="res://media/hud/scene_number_base.png" id="34_jcb8f"]
 [ext_resource type="Script" uid="uid://cyaaciqn0d5ij" path="res://act/hud/scene_number.gd" id="35_5kprs"]
 [ext_resource type="AudioStream" uid="uid://cftn8qk84rin8" path="res://media/music/sfx/act_start.wav" id="35_rkifs"]
-[ext_resource type="Script" uid="uid://bu3d4ckus6vp0" path="res://act/hud/hand/arrows/arrows.gd" id="41_00mj1"]
 [ext_resource type="Script" uid="uid://bvf4jlnutvh6l" path="res://act/hud/hand/hand.gd" id="41_uykt8"]
 [ext_resource type="AudioStream" uid="uid://c3xrn2r12b4na" path="res://media/music/sfx/dice_roll.wav" id="42_lskxy"]
 
@@ -746,11 +745,6 @@ offset_right = 300.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("41_uykt8")
-
-[node name="Arrows" type="Node2D" parent="HUD" unique_id=1746769060]
-script = ExtResource("41_00mj1")
-
-[node name="EventArrows" type="Node2D" parent="HUD/Arrows" unique_id=2096615047]
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=2050507547]
 stream = ExtResource("34_22tc4")

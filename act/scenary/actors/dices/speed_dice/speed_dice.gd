@@ -40,8 +40,6 @@ var enemy_dice_targeting: SpeedDice
 ## Enemy dices targeting this dice
 var targeted_by_enemies: Array[SpeedDice] = []
 
-var dependencies = {}
-
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
@@ -56,8 +54,7 @@ func _on_mouse_exited() -> void:
 func _on_pressed() -> void:
 	speed_dice_pressed.emit(self)
 
-func init(speed, dice_id: int, speed_dice_dependencies) -> void:
-	dependencies = speed_dice_dependencies
+func init(speed, dice_id: int) -> void:
 	id = dice_id
 	$Roulette.init()
 	$Number.init(

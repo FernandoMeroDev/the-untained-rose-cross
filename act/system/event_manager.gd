@@ -114,6 +114,7 @@ func create_clash_event(
 	enemy_speed_dice.battle_event = event
 	return event
 
+## Create Interception
 func create_interception(
 	speed_dice: SpeedDice,
 	enemy_speed_dice: SpeedDice,

@@ -117,7 +117,11 @@ func handle_left_panel_speed_dice_focused_changed(speed_dice: SpeedDice) -> void
 		# Remove arrows of speed dice focused
 		if arrow.is_in_group(
 			build_focused_dice_group_name('left')
-		): remove_child(arrow)
+		):
+			remove_child(arrow)
+			# Redraw other's panel arrows if any
+			if right_panel.speed_dice_focused:
+				draw_speed_dice_arrows(right_panel.speed_dice_focused)
 	handle_speed_dice_mouse_entered(speed_dice)
 
 func handle_right_panel_speed_dice_focused_changed(speed_dice: SpeedDice) -> void:
@@ -125,7 +129,11 @@ func handle_right_panel_speed_dice_focused_changed(speed_dice: SpeedDice) -> voi
 		# Remove arrows of speed dice focused
 		if arrow.is_in_group(
 			build_focused_dice_group_name('right')
-		): remove_child(arrow)
+		):
+			remove_child(arrow)
+			# Redraw other's panel arrows if any
+			if right_panel.speed_dice_focused:
+				draw_speed_dice_arrows(right_panel.speed_dice_focused)
 	handle_speed_dice_mouse_entered(speed_dice)
 
 ## Refresh Speed Dice Arrows

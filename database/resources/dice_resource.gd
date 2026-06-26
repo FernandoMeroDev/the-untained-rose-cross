@@ -8,8 +8,6 @@ enum Types { SLASH, PIERCE, BLUNT, BLOCK, EVADE }
 
 @export var max_value: int
 
-var code: String
-
 func _init(
 	p_type = Types.SLASH,
 	p_min = 1,
@@ -19,9 +17,11 @@ func _init(
 	min_value = p_min
 	max_value = p_max
 
+## Get Dice Type code.
+## For example: slash | blunt | pierce | block | evade
 func get_type_code() -> String:
+	var result: String
 	for type_name: String in Types:
 		if Types[type_name] == type:
-			return type_name.to_lower()
-	Helpers.fatal_error("Dice type didn't found")
-	return "";
+			result = type_name.to_lower()
+	return result;

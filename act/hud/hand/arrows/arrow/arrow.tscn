@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://brklp1vkie802"]
-
-[ext_resource type="Script" uid="uid://cetk10ogmg42g" path="res://act/hud/hand/arrows/arrow/arrow.gd" id="1_bsrew"]
-
-[node name="Arrow" type="Node2D" unique_id=1049154941]
-script = ExtResource("1_bsrew")

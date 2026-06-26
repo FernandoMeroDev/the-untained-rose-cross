@@ -44,19 +44,19 @@ var speed: Dictionary[String, int]
 ## Max Light
 var max_light: int
 
-## [PROVISIONAL] Actor Status Effects.
+## Actor Status Effects [TODO: transform into Resource]
 ## Temporally: [ { "id": 1, "name": "Paralysis", "code": "paralysis", "stacks": 4 }, ... ]
 var status_effects: Array
 
-## [PROVISIONAL] Actor Resistences.
+## Actor Resistences. [TODO: Improve this]
 ## Temporally: { "slash_damage": "normal", "slash_resist": "normal", "pierce_damage": "normal", "pierce_resist": "normal", "blunt_damage": "normal", "blunt_resist": "normal" }
 var resistences: Dictionary
 
+## Actor Deck
 var deck: Array[CardResource] = []
 
+## Actor Hand
 var hand: Array[CardResource] = []
-
-var dependencies: Dictionary = {}
 
 # Reference to UI control title
 var actor_control: ActorControl
@@ -75,8 +75,7 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 func _ready():
 	$CollisionShape.shape = $CollisionShape.shape.duplicate()
 
-func init(actor_data: Dictionary, actor_dependencies) -> void:
-	dependencies = actor_dependencies
+func init(actor_data: Dictionary) -> void:
 	team = (
 		turn_manager.Teams.LEFT if (
 			actor_data['team'] == 'left'
@@ -102,11 +101,11 @@ func init(actor_data: Dictionary, actor_dependencies) -> void:
 	status_effects = stats['status_effects']
 	init_status_effects()
 	transform = transform.scaled(Vector2(0.55, 0.55))
-	print(
-		'Inited Actor: ' + actor_data["name"] 
-		+ '; ID: ' + str(int(actor_data["id"])) 
-		+ '; Code: ' + actor_data['code']
-	)
+	#print(
+		#'Inited Actor: ' + actor_data["name"] 
+		#+ '; ID: ' + str(int(actor_data["id"])) 
+		#+ '; Code: ' + actor_data['code']
+	#)
 
 func init_deck(deck_data: Array) -> void:
 	var i: int = 1
@@ -138,7 +137,7 @@ func init_speed_dices(count: int) -> void:
 		speed_dice.scale = Vector2(0.85, 0.85)
 		speed_dice.self_positionate(i, get_actor_height(), count)
 		speed_dice.parent_actor = self
-		speed_dice.init(speed, (id * 1000) + (i + 1), dependencies)
+		speed_dice.init(speed, (id * 1000) + (i + 1))
 
 func init_light(count: int):
 	for i: int in count:

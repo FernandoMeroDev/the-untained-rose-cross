@@ -1,0 +1,204 @@
+{
+	"scene_number": 1,
+	"teams": {
+		"left": [
+			{
+				"id": 1,
+				"code": "juline",
+				"name": "Juline 1",
+				"stats": {
+					"max_hp": 35,
+					"max_resist": 15,
+					"speed": { "min": 2, "max": 4 },
+					"speed_dices": 2,
+					"light": 4,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "normal",
+					"pierce_resist": "normal",
+					"blunt_damage": "normal",
+					"blunt_resist": "normal",
+				},
+				"deck": [
+					"downgrade_slash",
+					"outburst",
+					"penetrate",
+					"quick_thrust",
+					"strategy",
+					"upper_slashes"
+				]
+			},
+			{
+				"id": 2,
+				"code": "juline",
+				"name": "Juline 2",
+				"stats": {
+					"max_hp": 25,
+					"max_resist": 10,
+					"speed": { "min": 1, "max": 3 },
+					"speed_dices": 1,
+					"light": 1,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "normal",
+					"pierce_resist": "normal",
+					"blunt_damage": "normal",
+					"blunt_resist": "normal",
+				},
+				"deck": [
+					"downgrade_slash",
+					"outburst",
+					"penetrate",
+					"quick_thrust",
+					"strategy",
+					"upper_slashes"
+				]
+			},
+			{
+				"id": 3,
+				"code": "juline",
+				"name": "Juline 3",
+				"stats": {
+					"max_hp": 25,
+					"max_resist": 10,
+					"speed": { "min": 1, "max": 3 },
+					"speed_dices": 3,
+					"light": 1,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "normal",
+					"pierce_resist": "normal",
+					"blunt_damage": "normal",
+					"blunt_resist": "normal",
+				},
+				"deck": [
+					"downgrade_slash",
+					"outburst",
+					"penetrate",
+					"quick_thrust",
+					"strategy",
+					"upper_slashes"
+				]
+			},
+		],
+		"right": [
+			{
+				"id": 4,
+				"code": "lucine",
+				"name": "Lucine 1",
+				"stats": {
+					"max_hp": 25,
+					"max_resist": 10,
+					"speed": { "min": 1, "max": 3 },
+					"speed_dices": 3,
+					"light": 3,
+					"status_effects": [
+						{
+							"id": 1,
+							"name": "Paralysis",
+							"code": "paralysis",
+							"stacks": 4
+						}
+					]
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "normal",
+					"pierce_resist": "normal",
+					"blunt_damage": "normal",
+					"blunt_resist": "normal",
+				},
+				"deck": [
+					"downgrade_slash",
+					"outburst",
+					"penetrate",
+					"quick_thrust",
+					"strategy",
+					"upper_slashes"
+				]
+			},
+			{
+				"id": 5,
+				"code": "lucine",
+				"name": "Lucine 2",
+				"stats": {
+					"max_hp": 25,
+					"max_resist": 10,
+					"speed": { "min": 1, "max": 3 },
+					"speed_dices": 3,
+					"light": 3,
+					"status_effects": [
+						{
+							"id": 1,
+							"name": "Paralysis",
+							"code": "paralysis",
+							"stacks": 4
+						}
+					]
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "normal",
+					"pierce_resist": "normal",
+					"blunt_damage": "normal",
+					"blunt_resist": "normal",
+				},
+				"deck": [
+					"downgrade_slash",
+					"outburst",
+					"penetrate",
+					"quick_thrust",
+					"strategy",
+					"upper_slashes"
+				]
+			},
+			{
+				"id": 6,
+				"code": "lucine",
+				"name": "Lucine 3",
+				"stats": {
+					"max_hp": 25,
+					"max_resist": 10,
+					"speed": { "min": 1, "max": 3 },
+					"speed_dices": 4,
+					"light": 3,
+					"status_effects": [
+						{
+							"id": 1,
+							"name": "Paralysis",
+							"code": "paralysis",
+							"stacks": 4
+						}
+					]
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "normal",
+					"pierce_resist": "normal",
+					"blunt_damage": "normal",
+					"blunt_resist": "normal",
+				},
+				"deck": [
+					"downgrade_slash",
+					"outburst",
+					"penetrate",
+					"quick_thrust",
+					"strategy",
+					"upper_slashes"
+				]
+			},
+		]
+	}
+}

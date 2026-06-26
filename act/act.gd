@@ -1,6 +1,5 @@
 class_name Act extends Node
 
-const ActorControl = preload("res://act/hud/actors/actor_control/actor_control.gd")
 const DetailsPanel = preload("res://act/hud/actor_details/panels/panel.gd")
 
 ## Act Phases
@@ -20,13 +19,14 @@ var enemy_team_prepared: bool = false
 ## Turn Manager instance
 var turn_manager: TurnManager = TurnManager.new()
 
+## Event Manager instance
 var event_manager: EventManager = EventManager.new()
 
-# --- Presentation Event Observer
+# --- Presentation Events Observers
 func _on_scene_presentation_timeout() -> void:
 	phase = Phases.UNDETERMINED_SPEED
 
-# --- Dice Roller Event Observer
+# --- Dice Roller Events Observers
 func _on_dice_roller_pressed() -> void:
 	roll_dices()
 
@@ -63,16 +63,7 @@ func init_actor_details() -> void:
 
 ## Init Actors, ActorControls, SpeedDices and connect them
 func init_actors(config: Dictionary) -> void:
-	var actors: Array[Actor] = $Scenary/Actors.init(
-		config,
-		{
-			'actor_details': $HUD/ActorDetails,
-			'hand': $HUD/Hand,
-			'arrows': $HUD/Arrows,
-			'system': self,
-			'sfx': { 'selected': $Music/SFX/Selected }
-		}
-	)
+	var actors: Array[Actor] = $Scenary/Actors.init(config)
 	# Init Actor Controls
 	$HUD/Actors.init(actors)
 	# Connect Actor Signals
