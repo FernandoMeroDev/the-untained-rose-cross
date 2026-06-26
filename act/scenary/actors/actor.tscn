@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bxhuf0u214f2" path="res://media/actors/gauges/circle.png" id="2_8j2rx"]
 [ext_resource type="Texture2D" uid="uid://4gcpo33y5ghh" path="res://media/actors/sprites/lucine/default.png" id="2_f7i5f"]
 [ext_resource type="Texture2D" uid="uid://lpk102dnc3xh" path="res://media/actors/sprites/glow.png" id="3_utamp"]
+[ext_resource type="Script" uid="uid://boj4p4m6sppp5" path="res://act/scenary/actors/dices/lights/lights.gd" id="4_d0a38"]
 [ext_resource type="Texture2D" uid="uid://ba8a8theakpns" path="res://media/actors/gauges/right.png" id="4_f7i5f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f7i5f"]
@@ -37,6 +38,7 @@ texture = ExtResource("3_utamp")
 [node name="SpeedDices" type="Node2D" parent="." unique_id=332901636]
 
 [node name="Lights" type="Node2D" parent="." unique_id=703264124]
+script = ExtResource("4_d0a38")
 
 [node name="Gauges" type="Control" parent="." unique_id=1212697300]
 layout_mode = 3

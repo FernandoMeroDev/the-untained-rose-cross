@@ -32,6 +32,7 @@ func init(card_resource: CardResource, position_x: float) -> void:
 	$Front/Art.texture = image
 	init_dices(card_resource.dices)
 	$Back.init(card_resource)
+	$Front/Light/Number.text = str(card_resource.cost)
 	resource = card_resource
 	animate_moving_right(position_x)
 

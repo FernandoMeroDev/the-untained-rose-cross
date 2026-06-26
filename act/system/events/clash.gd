@@ -23,12 +23,10 @@ func _init(
 	speed_dice_b = p_target_speed_dice
 	card_resource_b = p_target_card_resource
 	# Set Speed Dice A references
-	speed_dice_a.enemy_dice_targeting = speed_dice_b
-	speed_dice_a.enemy_dice_intended = speed_dice_b
+	speed_dice_a.set_enemy_dice_target(speed_dice_b)
 	speed_dice_a.targeted_by_enemies.append(speed_dice_b)
 	# Set Speed Dice B references
-	speed_dice_b.enemy_dice_targeting = speed_dice_a
-	speed_dice_b.enemy_dice_intended = speed_dice_a
+	speed_dice_b.set_enemy_dice_target(speed_dice_a)
 	speed_dice_b.targeted_by_enemies.append(speed_dice_a)
 
 ## Get Card Resource of a Speed Dice in this Event
@@ -79,6 +77,5 @@ func clear_speed_dice_refereces(
 		if speed_dice.id == attacker_speed_dice.id:
 			target_speed_dice.targeted_by_enemies.erase(speed_dice)
 			break
-	attacker_speed_dice.enemy_dice_intended = null
-	attacker_speed_dice.enemy_dice_targeting = null	
+	attacker_speed_dice.remove_enemy_dice_target()
 	attacker_speed_dice.battle_event = null

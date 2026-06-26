@@ -31,7 +31,7 @@ func _on_dice_roller_pressed() -> void:
 	roll_dices()
 
 func _ready() -> void:
-	var config: Dictionary = JsonUtils.load_json('res://act/config.json')
+	var config: Dictionary = JsonUtils.load_json('res://act/debug_config.json')
 	# Init Input Manager
 	$InputManager.act = self
 	# Init Turn Manager
@@ -191,11 +191,20 @@ func roll_dices() -> void:
 	if phase == Phases.UNDETERMINED_SPEED:
 		$Scenary/Actors.roll_everyone_speed_dices()
 		$Music/SFX/DiceRoll.play()
+		$HUD/ActorDetails.reset_panels_status()
 		phase = Phases.PREPARATION
+		$HUD/Hand.check_hovered_speed_dice()
 	elif phase == Phases.PREPARATION:
 		$Music/SFX/DiceRoll.play()
+		$HUD/ActorDetails.reset_panels_status()
+		$HUD/Hand.reset_status()
 		if not enemy_team_prepared:
 			turn_manager.toggle_team()
+			$HUD/Hand.check_hovered_speed_dice()
 			enemy_team_prepared = true
 		else:
 			phase = Phases.BATTLE
+
+## Play SFX
+func play_sfx(sfx_name: String) -> void:
+	get_node('Music/SFX/' + sfx_name.capitalize()).play()

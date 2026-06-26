@@ -41,9 +41,6 @@ var resist: int
 ## For example: { "min": 2, "max": 4 }
 var speed: Dictionary[String, int]
 
-## Max Light
-var max_light: int
-
 ## Actor Status Effects [TODO: transform into Resource]
 ## Temporally: [ { "id": 1, "name": "Paralysis", "code": "paralysis", "stacks": 4 }, ... ]
 var status_effects: Array
@@ -95,7 +92,6 @@ func init(actor_data: Dictionary) -> void:
 	init_deck(actor_data['deck'])
 	init_sprites()
 	init_speed_dices(int(stats["speed_dices"]))
-	max_light = stats['light']
 	init_light(int(stats['light']))
 	init_gauges()
 	status_effects = stats['status_effects']
@@ -140,18 +136,8 @@ func init_speed_dices(count: int) -> void:
 		speed_dice.init(speed, (id * 1000) + (i + 1))
 
 func init_light(count: int):
-	for i: int in count:
-		var light: TextureRect = TextureRect.new()
-		light.texture = preload('res://media/actors/light.png')
-		light.scale = Vector2(0.60, 0.60)
-		$Lights.add_child(light)
-		var gap: float = 10.00
-		light.position.y -= get_actor_height() / 2
-		light.position.y -= $SpeedDices.get_child(0).get_rect().size.y
-		light.position.y -= light.get_rect().size.y + 10
-		var total_width: float = (light.get_rect().size.x * count) + (gap * (count - 1))
-		light.position.x -= total_width / 2
-		light.position.x += (light.get_rect().size.x + gap) * i
+	$Lights.parent_actor = self
+	$Lights.set_max_value(count)
 
 func init_gauges():
 	$Gauges/Health.max_value = max_hp
@@ -175,7 +161,22 @@ func init_status_effects():
 		effect.position.x += effect.get_rect().size.x * i
 		i += 1
 
-func flip_h_sprite(value: bool):
+## Checks for light for use a card
+func can_use_card(card: CardResource) -> bool:
+	return $Lights.value >= card.cost
+
+## Refound card to hand
+func refound_card_to_hand(card: CardResource) -> void:
+	hand.append(card)
+	$Lights.add_lights(card.cost)
+
+## Use card from hand
+func use_card_from_hand(card: CardResource) -> void:
+	hand.erase(card)
+	$Lights.sub_lights(card.cost)
+
+## Set Sprite.flip_h: bool value
+func flip_h_sprite(value: bool) -> void:
 	$Sprite.flip_h = value
 
 ## Check if actor is in current turn
@@ -197,13 +198,13 @@ func get_speed_dices() -> Array[SpeedDice]:
 	return speed_dices
 
 ## Focus Actor
-func focus_self():
+func focus_self() -> void:
 	$Glow.show()
 	$Gauges/Health.z_index = 1
 	$Gauges/Resist.z_index = 1
 
 ## Unfocus Actor
-func unfocus_self():
+func unfocus_self() -> void:
 	$Glow.hide()
 	$Gauges/Health.z_index = 0
 	$Gauges/Resist.z_index = 0

@@ -74,11 +74,7 @@ func _on_battle_event_removed(speed_dice: SpeedDice) -> void:
 
 # --- Right Click Pressed Event Handler
 func handle_right_click_pressed() -> void:
-	if act.phase == act.Phases.PREPARATION:
-		if status == States.FOCUSING_DICE:
-			unfocus_dice()
-		elif status == States.CARD_SELECTED:
-			deselect_card()
+	back_action()
 
 # --- Speed Dice Events Handlers
 func handle_speed_dice_pressed(speed_dice: SpeedDice) -> void:
@@ -111,22 +107,30 @@ func handle_speed_dice_pressed(speed_dice: SpeedDice) -> void:
 		and act.phase == act.Phases.PREPARATION
 	):
 		if status == States.CARD_SELECTED:
-			# Target enemy Speed Dice
-			enemy_speed_dice_targeted.emit(
-				speed_dice_focused,
-				speed_dice,
-				current_card_selected.resource
-			)
-			deselect_card()
-			unfocus_dice()
+			# Check if actor has enough light
+			if(
+				speed_dice_focused.parent_actor.can_use_card(
+					current_card_selected.resource
+				)
+			):
+				# Target enemy Speed Dice
+				enemy_speed_dice_targeted.emit(
+					speed_dice_focused,
+					speed_dice,
+					current_card_selected.resource
+				)
+				deselect_card()
+				unfocus_dice()
+			else:
+				act.play_sfx('cancel')
 
 func handle_speed_dice_mouse_entered(speed_dice: SpeedDice) -> void:
+	# Set Hovered Speed Dice
+	hovered_speed_dice = speed_dice
 	if(
 		speed_dice.parent_actor.is_my_turn()
 		and act.phase == act.Phases.PREPARATION
 	):
-		# Set Hovered Speed Dice
-		hovered_speed_dice = speed_dice
 		if status == States.HIDDEN:
 			# Show Hand
 			show_hand(speed_dice.parent_actor)
@@ -167,10 +171,30 @@ func handle_card_mouse_exited(card: Card) -> void:
 
 # --- Event Manager Events Handlers
 func handle_battle_event_removed(speed_dice: SpeedDice) -> void:
-	speed_dice.parent_actor.hand.append(
+	speed_dice.parent_actor.refound_card_to_hand(
 		speed_dice.battle_event.get_card_of_speed_dice(speed_dice)
 	)
 	refresh_hand(speed_dice.parent_actor)
+
+## Reset Status
+func reset_status() -> void:
+	# Exit CARD_SELECTED if any
+	back_action()
+	# Exit FOCUSIN_DICE if any
+	back_action()
+
+## Check Hovered Speed Dice
+func check_hovered_speed_dice() -> void:
+	if hovered_speed_dice:
+		handle_speed_dice_mouse_entered(hovered_speed_dice)
+
+## Back Action
+func back_action() -> void:
+	if act.phase == act.Phases.PREPARATION:
+		if status == States.FOCUSING_DICE:
+			unfocus_dice()
+		elif status == States.CARD_SELECTED:
+			deselect_card()
 
 ## Deselect Card
 func deselect_card() -> void:
@@ -195,8 +219,7 @@ func unfocus_dice() -> void:
 	hide_hand()
 	status = States.HIDDEN
 	# Handle the hovered dice
-	if hovered_speed_dice:
-		handle_speed_dice_mouse_entered(hovered_speed_dice)
+	check_hovered_speed_dice()
 
 ## Show Actor Hand
 func show_hand(actor: Actor) -> void:

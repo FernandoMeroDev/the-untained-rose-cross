@@ -10,7 +10,7 @@ signal speed_dice_mouse_exited(speed_dice: SpeedDice)
 
 #signal dice_pressed(dice)
 
-enum States { UNDETERMINED, DETERMINED, FOCUSED }
+enum States { UNDETERMINED, DETERMINED, TARGETING, FOCUSED }
 
 ## Reference to owner actor
 var parent_actor: Actor
@@ -65,7 +65,8 @@ func init(speed, dice_id: int) -> void:
 
 func init_textures() -> void:
 	textures['normal'] = texture_normal
-	textures['active'] = preload("res://media/actors/dices/speed/active.png")
+	textures['targeting'] = preload("res://media/actors/dices/speed/targeting.png")
+	textures['focused'] = preload("res://media/actors/dices/speed/focused.png")
 
 ## Positionate dice relative to its siblings and parent Actor
 func self_positionate(
@@ -84,13 +85,31 @@ func set_speed(speed_value: int) -> void:
 	$Roulette.stop()
 	status = States.DETERMINED
 
+## Set enemy Dpeed Dice targeting
+func set_enemy_dice_target(target_speed_dice: SpeedDice) -> void:
+	enemy_dice_intended = target_speed_dice
+	enemy_dice_targeting = target_speed_dice
+	texture_normal = textures['targeting']
+	status = States.TARGETING
+
+## Unset enemy dice targeting
+func remove_enemy_dice_target() -> void:
+	enemy_dice_intended = null
+	enemy_dice_targeting = null	
+	texture_normal = textures['normal']
+	status = States.DETERMINED
+
 ## Focus Speed Dice
 func focus() -> void:
-	texture_normal = textures['active']
+	texture_normal = textures['focused']
 	$Selected.play()
 	status = States.FOCUSED
 
 ## Unfocus Speed Dice
 func unfocus() -> void:
-	texture_normal = textures['normal']
-	status = States.DETERMINED
+	if enemy_dice_targeting:
+		texture_normal = textures['targeting']
+		status = States.TARGETING
+	else:
+		texture_normal = textures['normal']
+		status = States.DETERMINED

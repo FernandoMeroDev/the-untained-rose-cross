@@ -39,8 +39,8 @@ func handle_enemy_speed_dice_targeted(
 		battle_event_removed.emit(speed_dice)
 		remove_battle_event(speed_dice)
 	var event: Event
-	# Remove Card from hand
-	speed_dice.parent_actor.hand.erase(card_resource)
+	# Use Card from hand
+	speed_dice.parent_actor.use_card_from_hand(card_resource)
 	# Create Event
 	#print('/* --- Create Event')
 	#print(

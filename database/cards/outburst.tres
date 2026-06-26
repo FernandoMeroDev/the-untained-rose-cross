@@ -6,8 +6,6 @@
 [sub_resource type="Resource" id="Resource_yejju"]
 script = ExtResource("1_yejju")
 type = 2
-min = 1
-max = 4
 metadata/_custom_type_script = "uid://cprnyoijuhug1"
 
 [resource]

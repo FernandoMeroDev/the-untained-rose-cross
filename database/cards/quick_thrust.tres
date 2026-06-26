@@ -6,15 +6,11 @@
 [sub_resource type="Resource" id="Resource_ok0im"]
 script = ExtResource("1_ok0im")
 type = 3
-min = 1
-max = 2
 metadata/_custom_type_script = "uid://cprnyoijuhug1"
 
 [sub_resource type="Resource" id="Resource_pfy6r"]
 script = ExtResource("1_ok0im")
 type = 1
-min = 2
-max = 3
 metadata/_custom_type_script = "uid://cprnyoijuhug1"
 
 [resource]

@@ -9,6 +9,7 @@ func load_card_resource(card_resource: CardResource) -> void:
 	$Front/Name.text = card_resource.name
 	var image: Texture2D = load('res://media/cards/' + card_resource.code + '.png')
 	$Front/Art.texture = image
+	$Front/Light/Number.text = str(card_resource.cost)
 	init_dices(card_resource.dices)
 	init_back(card_resource)
 	resource = card_resource

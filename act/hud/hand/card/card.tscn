@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="3_1agi1"]
 [ext_resource type="Script" uid="uid://bi6h0gtv2mniq" path="res://act/hud/hand/card/back/back.gd" id="3_ppvv5"]
 [ext_resource type="Texture2D" uid="uid://bia7pfqayeq5b" path="res://media/cards/quick_thrust.png" id="4_fraja"]
+[ext_resource type="Texture2D" uid="uid://64j7vhqkg757" path="res://media/hud/hand/light-slot.png" id="7_3n3rm"]
 
 [node name="Card" type="Button" unique_id=946812670]
 offset_right = 120.0
@@ -54,7 +55,7 @@ theme_override_constants/line_spacing = -9
 theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("3_1agi1")
 theme_override_font_sizes/font_size = 37
-text = "Strategy"
+text = "Strategy "
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -69,6 +70,37 @@ offset_right = 250.0
 offset_bottom = 315.0
 scale = Vector2(1.39, 1.39)
 texture = ExtResource("4_fraja")
+
+[node name="Light" type="TextureRect" parent="Front" unique_id=213456279]
+layout_mode = 0
+offset_left = -15.151513
+offset_top = -15.151515
+offset_right = 44.848488
+offset_bottom = 54.848484
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("7_3n3rm")
+
+[node name="Number" type="Label" parent="Front/Light" unique_id=2083944018]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.939396
+offset_top = -26.919191
+offset_right = 16.060604
+offset_bottom = 22.08081
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.78039217, 0.78039217, 0.78039217, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_1agi1")
+theme_override_font_sizes/font_size = 50
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

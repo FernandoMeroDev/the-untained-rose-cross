@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://djdmpvmd0cd7x" path="res://act/system/input_manager.gd" id="6_uykt8"]
 [ext_resource type="Script" uid="uid://bplsbtid0bexk" path="res://act/scenary/arrows/arrows.gd" id="7_00mj1"]
 [ext_resource type="Texture2D" uid="uid://behrjtqrtvg3g" path="res://media/hud/frame.png" id="8_4vtqw"]
+[ext_resource type="Script" uid="uid://c3l0i2fjx573r" path="res://act/hud/actor_details/actor_details.gd" id="10_te41o"]
 [ext_resource type="Script" uid="uid://6pvvh3msxf4y" path="res://act/hud/actor_details/panels/panel.gd" id="10_uykt8"]
 [ext_resource type="Texture2D" uid="uid://cygnoa4prqsgy" path="res://media/actors/sprites/juline/default.png" id="11_ypm1a"]
 [ext_resource type="Texture2D" uid="uid://c4vhs720j30h" path="res://media/hud/actor_details/background.png" id="14_ulcc2"]
@@ -28,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://be5oskns7de3q" path="res://media/icons/resistences/normal_blunt_damage.png" id="23_22tc4"]
 [ext_resource type="Texture2D" uid="uid://t8rq7ig3jw7e" path="res://media/hud/actor_details/gauges/resist_right.png" id="24_7bo04"]
 [ext_resource type="Texture2D" uid="uid://pb7n1llo3dqn" path="res://media/icons/resistences/normal_blunt_resist.png" id="24_jcb8f"]
+[ext_resource type="Texture2D" uid="uid://64j7vhqkg757" path="res://media/hud/hand/light-slot.png" id="29_00mj1"]
 [ext_resource type="Script" uid="uid://p8ix30fcijff" path="res://act/hud/actor_details/card/card.gd" id="31_e5byc"]
 [ext_resource type="Texture2D" uid="uid://cfw8du5ju3yo8" path="res://media/hud/hand/card.png" id="31_e5tnr"]
 [ext_resource type="Texture2D" uid="uid://772agfapxh3d" path="res://media/hud/dice_roller/frame.png" id="31_fscxe"]
@@ -43,6 +45,7 @@
 [ext_resource type="AudioStream" uid="uid://cftn8qk84rin8" path="res://media/music/sfx/act_start.wav" id="35_rkifs"]
 [ext_resource type="Script" uid="uid://bvf4jlnutvh6l" path="res://act/hud/hand/hand.gd" id="41_uykt8"]
 [ext_resource type="AudioStream" uid="uid://c3xrn2r12b4na" path="res://media/music/sfx/dice_roll.wav" id="42_lskxy"]
+[ext_resource type="AudioStream" uid="uid://cvntqu3grpnv2" path="res://media/music/sfx/ui_cacel.wav" id="46_82ofw"]
 
 [node name="Act" type="Node" unique_id=1240358674]
 script = ExtResource("1_6ehe1")
@@ -130,6 +133,7 @@ anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 464.0
 mouse_filter = 2
+script = ExtResource("10_te41o")
 
 [node name="Left" type="TextureRect" parent="HUD/ActorDetails" unique_id=1882568075]
 layout_mode = 1
@@ -349,6 +353,37 @@ offset_right = 250.0
 offset_bottom = 315.0
 scale = Vector2(1.39, 1.39)
 texture = ExtResource("32_e5tnr")
+
+[node name="Light" type="TextureRect" parent="HUD/ActorDetails/Left/Card/Front" unique_id=1431295878]
+layout_mode = 0
+offset_left = -15.151513
+offset_top = -15.151515
+offset_right = 44.848488
+offset_bottom = 54.848484
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("29_00mj1")
+
+[node name="Number" type="Label" parent="HUD/ActorDetails/Left/Card/Front/Light" unique_id=1041271879]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.939396
+offset_top = -26.919191
+offset_right = 16.060604
+offset_bottom = 22.08081
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.78039217, 0.78039217, 0.78039217, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("20_k8d45")
+theme_override_font_sizes/font_size = 50
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Back" type="TextureRect" parent="HUD/ActorDetails/Left/Card" unique_id=1958061239]
 layout_mode = 0
@@ -610,6 +645,37 @@ offset_bottom = 315.0
 scale = Vector2(1.39, 1.39)
 texture = ExtResource("32_e5tnr")
 
+[node name="Light" type="TextureRect" parent="HUD/ActorDetails/Right/Card/Front" unique_id=1100244806]
+layout_mode = 0
+offset_left = -15.151513
+offset_top = -15.151515
+offset_right = 44.848488
+offset_bottom = 54.848484
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("29_00mj1")
+
+[node name="Number" type="Label" parent="HUD/ActorDetails/Right/Card/Front/Light" unique_id=2135690648]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.939396
+offset_top = -26.919191
+offset_right = 16.060604
+offset_bottom = 22.08081
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.78039217, 0.78039217, 0.78039217, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("20_k8d45")
+theme_override_font_sizes/font_size = 50
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Back" type="TextureRect" parent="HUD/ActorDetails/Right/Card" unique_id=444548110]
 layout_mode = 0
 offset_left = 216.0
@@ -758,6 +824,9 @@ stream = ExtResource("33_1qlvn")
 
 [node name="DiceRoll" type="AudioStreamPlayer" parent="Music/SFX" unique_id=547001003]
 stream = ExtResource("42_lskxy")
+
+[node name="Cancel" type="AudioStreamPlayer" parent="Music/SFX" unique_id=2016705719]
+stream = ExtResource("46_82ofw")
 
 [connection signal="pressed" from="HUD/DiceRoller/Dices" to="HUD/DiceRoller" method="_on_dices_pressed"]
 [connection signal="timeout" from="HUD/SceneNumber/Presentation" to="." method="_on_scene_presentation_timeout"]
