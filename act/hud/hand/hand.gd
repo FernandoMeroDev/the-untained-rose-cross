@@ -72,6 +72,9 @@ func _on_card_mouse_exited(card: Card) -> void:
 func _on_battle_event_removed(speed_dice: SpeedDice) -> void:
 	handle_battle_event_removed(speed_dice)
 
+func _on_battle_event_created(battle_event: Event) -> void:
+	handle_battle_event_created(battle_event)
+
 # --- Right Click Pressed Event Handler
 func handle_right_click_pressed() -> void:
 	back_action()
@@ -107,22 +110,15 @@ func handle_speed_dice_pressed(speed_dice: SpeedDice) -> void:
 		and act.phase == act.Phases.PREPARATION
 	):
 		if status == States.CARD_SELECTED:
-			# Check if actor has enough light
-			if(
-				speed_dice_focused.parent_actor.can_use_card(
-					current_card_selected.resource
-				)
-			):
-				# Target enemy Speed Dice
-				enemy_speed_dice_targeted.emit(
-					speed_dice_focused,
-					speed_dice,
-					current_card_selected.resource
-				)
-				deselect_card()
-				unfocus_dice()
-			else:
-				act.play_sfx('cancel')
+			# Separate reference from 'focused logic'.
+			# Prevents null value on event listeners
+			var focused_dice_reference: SpeedDice = speed_dice_focused
+			# Target enemy Speed Dice
+			enemy_speed_dice_targeted.emit(
+				focused_dice_reference,
+				speed_dice,
+				current_card_selected.resource
+			)
 
 func handle_speed_dice_mouse_entered(speed_dice: SpeedDice) -> void:
 	# Set Hovered Speed Dice
@@ -172,6 +168,14 @@ func handle_card_mouse_exited(card: Card) -> void:
 # --- Event Manager Events Handlers
 func handle_battle_event_removed(speed_dice: SpeedDice) -> void:
 	refresh_hand(speed_dice.parent_actor)
+
+func handle_battle_event_created(_event: Event) -> void:
+	if(
+		status == States.CARD_SELECTED 
+		and act.phase == act.Phases.PREPARATION
+	):
+		deselect_card()
+		unfocus_dice()
 
 ## Reset Status
 func reset_status() -> void:

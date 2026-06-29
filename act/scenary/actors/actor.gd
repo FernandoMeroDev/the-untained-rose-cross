@@ -161,9 +161,10 @@ func init_status_effects():
 		effect.position.x += effect.get_rect().size.x * i
 		i += 1
 
-## Checks for light for use a card
-func can_use_card(card: CardResource) -> bool:
-	return $Lights.value >= card.cost
+## Checks for light for use a card.
+## Extra light is when the actor is already holding a card
+func can_use_card(card: CardResource, extra_light: int = 0) -> bool:
+	return $Lights.value + extra_light >= card.cost
 
 ## Refound card to hand
 func refound_card_to_hand(card: CardResource) -> void:

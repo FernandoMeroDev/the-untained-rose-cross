@@ -2,8 +2,13 @@ class_name EventManager extends RefCounted
 
 signal battle_event_removed(speed_dice: SpeedDice)
 
+signal battle_event_created(battle_event: Event)
+
 ## Selected Sound
-var selected: AudioStreamPlayer
+var selected_sfx: AudioStreamPlayer
+
+## Cancel Sound
+var cancel_sfx: AudioStreamPlayer
 
 ## Event Queue
 var event_queue: EventQueue = EventQueue.new()
@@ -35,7 +40,10 @@ func handle_enemy_speed_dice_targeted(
 	card_resource: CardResource
 ) -> void:
 	# Validate Light
-	
+	if not validate_light(speed_dice, card_resource):
+		cancel_sfx.play()
+		return
+	# Create Event
 	var event: Event
 	# Remove old Event if any
 	if speed_dice.battle_event:
@@ -51,8 +59,10 @@ func handle_enemy_speed_dice_targeted(
 	# Add Event to Queue
 	event_queue.add(event)
 	# Play Selected
-	selected.play()
-	# Create Event
+	selected_sfx.play()
+	# Emit Signal
+	battle_event_created.emit(event)
+	# Log console
 	#print('/* --- Create Event')
 	#print(
 		#speed_dice.parent_actor.actor_name
@@ -63,6 +73,21 @@ func handle_enemy_speed_dice_targeted(
 		#+ "'s dice "
 		#+ str(enemy_speed_dice.id)
 	#)
+
+## Validate Light
+func validate_light(
+	speed_dice: SpeedDice,
+	card_resource: CardResource
+) -> bool:
+	# Check for extra light of any card in use
+	var extra_light: int = 0
+	if speed_dice.battle_event:
+		var card_in_use: CardResource = speed_dice.battle_event.get_card_of_speed_dice(
+			speed_dice
+		)
+		extra_light += card_in_use.cost
+	# Check if Actor can use this card
+	return speed_dice.parent_actor.can_use_card(card_resource, extra_light)
 
 ## Create Battle Event
 func create_battle_event(

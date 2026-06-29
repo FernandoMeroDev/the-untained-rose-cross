@@ -81,15 +81,6 @@ func _on_speed_dice_mouse_exited(speed_dice: SpeedDice) -> void:
 	handle_speed_dice_mouse_exited(speed_dice)
 
 # --- Hand Events Observers
-func _on_enemy_speed_dice_targeted(
-	speed_dice: SpeedDice,
-	enemy_speed_dice: SpeedDice,
-	card_resource: CardResource
-) -> void:
-	handle_enemy_speed_dice_targeted(
-		speed_dice, enemy_speed_dice, card_resource
-	)
-
 func _on_card_selected(card: Card, _speed_dice: SpeedDice) -> void:
 	handle_card_selected(card)
 
@@ -97,6 +88,9 @@ func _on_card_deselected(card: Card) -> void:
 	handle_card_deselected(card)
 
 # --- Event Manager Events Observers
+func _on_battle_event_created(battle_event: Event) -> void:
+	handle_battle_event_created(battle_event)
+
 func _on_battle_event_removed(speed_dice: SpeedDice) -> void:
 	handle_battle_event_removed(speed_dice)
 
@@ -107,20 +101,6 @@ func handle_right_click_pressed():
 	reset_status()
 
 # --- Hand Events Handlers
-func handle_enemy_speed_dice_targeted(
-	_speed_dice: SpeedDice,
-	_enemy_speed_dice: SpeedDice,
-	_card_resource: CardResource
-) -> void:
-	# Handle Actor Status
-	if status == States.ACTOR_FOCUSED:
-		unfocus_actor()
-	# Handle Focused Speed Dice
-	if speed_dice_focused:
-		# Unfocus speed dice
-		speed_dice_focused.unfocus()
-		speed_dice_focused = null
-
 func handle_card_selected(card: Card) -> void:
 	panel_blocked = true
 	clear_card()
@@ -240,6 +220,16 @@ func handle_speed_dice_mouse_exited(speed_dice: SpeedDice) -> void:
 func handle_battle_event_removed(speed_dice: SpeedDice) -> void:
 	if speed_dice.parent_actor.team == team:
 		clear_card()
+
+func handle_battle_event_created(_battle_event: Event) -> void:
+	# Handle Actor Status
+	if status == States.ACTOR_FOCUSED:
+		unfocus_actor()
+	# Handle Focused Speed Dice
+	if speed_dice_focused:
+		# Unfocus speed dice
+		speed_dice_focused.unfocus()
+		speed_dice_focused = null
 
 ## Reset Status
 func reset_status() -> void:

@@ -144,9 +144,6 @@ func init_hand() -> void:
 	$HUD/Hand.act = self
 	$HUD/Hand.turn_manager = turn_manager
 	# Hand -> Left (panel) events listeners
-	$HUD/Hand.enemy_speed_dice_targeted.connect(
-		$HUD/ActorDetails/Left._on_enemy_speed_dice_targeted
-	)
 	$HUD/Hand.left_card_selected.connect(
 		$HUD/ActorDetails/Left._on_card_selected
 	)
@@ -154,9 +151,6 @@ func init_hand() -> void:
 		$HUD/ActorDetails/Left._on_card_deselected
 	)
 	# Hand -> Right (panel) events listeners
-	$HUD/Hand.enemy_speed_dice_targeted.connect(
-		$HUD/ActorDetails/Right._on_enemy_speed_dice_targeted
-	)
 	$HUD/Hand.right_card_selected.connect(
 		$HUD/ActorDetails/Right._on_card_selected
 	)
@@ -166,7 +160,8 @@ func init_hand() -> void:
 
 ## Init Event Manager
 func init_event_manager() -> void:
-	event_manager.selected = $Music/SFX/Selected
+	event_manager.selected_sfx = $Music/SFX/Selected
+	event_manager.cancel_sfx = $Music/SFX/Cancel
 	# Hand -> Event Manager events listeners
 	$HUD/Hand.enemy_speed_dice_targeted.connect(
 		event_manager._on_enemy_speed_dice_targeted
@@ -175,12 +170,22 @@ func init_event_manager() -> void:
 	event_manager.battle_event_removed.connect(
 		$HUD/Hand._on_battle_event_removed
 	)
+	event_manager.battle_event_created.connect(
+		$HUD/Hand._on_battle_event_created
+	)
 	# Event Manager -> Left, Right (panel) event listeners
 	event_manager.battle_event_removed.connect(
 		$HUD/ActorDetails/Left._on_battle_event_removed
 	)
 	event_manager.battle_event_removed.connect(
 		$HUD/ActorDetails/Right._on_battle_event_removed
+	)
+	# Event Manager -> Left, Right (panel) events listeners
+	event_manager.battle_event_created.connect(
+		$HUD/ActorDetails/Left._on_battle_event_created
+	)
+	event_manager.battle_event_created.connect(
+		$HUD/ActorDetails/Right._on_battle_event_created
 	)
 
 ## Init Arrows
@@ -219,7 +224,3 @@ func roll_dices() -> void:
 			enemy_team_prepared = true
 		else:
 			phase = Phases.BATTLE
-
-## Play SFX
-func play_sfx(sfx_name: String) -> void:
-	get_node('Music/SFX/' + sfx_name.capitalize()).play()
