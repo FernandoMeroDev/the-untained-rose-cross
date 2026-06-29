@@ -24,7 +24,7 @@ var event_manager: EventManager = EventManager.new()
 
 # --- Presentation Events Observers
 func _on_scene_presentation_timeout() -> void:
-	phase = Phases.UNDETERMINED_SPEED
+	handle_scene_presentation_timeout()
 
 # --- Dice Roller Events Observers
 func _on_dice_roller_pressed() -> void:
@@ -35,7 +35,7 @@ func _ready() -> void:
 	# Init Input Manager
 	$InputManager.act = self
 	# Init Turn Manager
-	turn_manager.randomize_team()
+	init_turn_manager(config)
 	# Init ActorDetails (Panels)
 	init_actor_details()
 	# Init Actors
@@ -51,6 +51,21 @@ func _ready() -> void:
 	init_event_manager()
 	# Init Arrows
 	init_arrows()
+
+# --- Presentation Events Handlers
+func handle_scene_presentation_timeout() -> void:
+	phase = Phases.UNDETERMINED_SPEED
+
+## Init Turn Manager
+func init_turn_manager(config: Dictionary) -> void:
+	if config['randomize_first_turn']:
+		turn_manager.randomize_team()
+	else:
+		match config['first_turn_for']:
+			'right':
+				turn_manager.current_team = turn_manager.Teams.RIGHT
+			'left':
+				turn_manager.current_team = turn_manager.Teams.LEFT
 
 ## Init Actor Details (Panels)
 func init_actor_details() -> void:

@@ -26,7 +26,6 @@ func _on_enemy_speed_dice_targeted(
 func handle_speed_dice_right_click_pressed(speed_dice: SpeedDice) -> void:
 	if speed_dice.parent_actor.is_my_turn():
 		if speed_dice.battle_event:
-			battle_event_removed.emit(speed_dice)
 			remove_battle_event(speed_dice)
 
 # --- Hand Events Handlers
@@ -35,12 +34,24 @@ func handle_enemy_speed_dice_targeted(
 	enemy_speed_dice: SpeedDice,
 	card_resource: CardResource
 ) -> void:
-	if speed_dice.battle_event:
-		battle_event_removed.emit(speed_dice)
-		remove_battle_event(speed_dice)
+	# Validate Light
+	
 	var event: Event
+	# Remove old Event if any
+	if speed_dice.battle_event:
+		remove_battle_event(speed_dice)
 	# Use Card from hand
 	speed_dice.parent_actor.use_card_from_hand(card_resource)
+	# Create Event
+	event = create_battle_event(
+		speed_dice,
+		enemy_speed_dice,
+		card_resource
+	)
+	# Add Event to Queue
+	event_queue.add(event)
+	# Play Selected
+	selected.play()
 	# Create Event
 	#print('/* --- Create Event')
 	#print(
@@ -52,13 +63,6 @@ func handle_enemy_speed_dice_targeted(
 		#+ "'s dice "
 		#+ str(enemy_speed_dice.id)
 	#)
-	event = create_battle_event(
-		speed_dice,
-		enemy_speed_dice,
-		card_resource
-	)
-	event_queue.add(event)
-	selected.play()
 
 ## Create Battle Event
 func create_battle_event(
@@ -86,6 +90,14 @@ func create_battle_event(
 			speed_dice, enemy_speed_dice, card_resource
 		)
 	return event
+
+## Remove Battle Event
+func remove_battle_event(speed_dice: SpeedDice) -> void:
+	battle_event_removed.emit(speed_dice)
+	speed_dice.parent_actor.refound_card_to_hand(
+		speed_dice.battle_event.get_card_of_speed_dice(speed_dice)
+	)
+	roll_back_battle_event(speed_dice)
 
 ## Create Oneside Attack Event
 func create_oneside_attack_event(
@@ -138,7 +150,7 @@ func create_interception(
 		var enemy_dice_intented: SpeedDice = enemy_speed_dice\
 			.enemy_dice_intended as SpeedDice
 		# Remove old enemy speed dice battle event
-		remove_battle_event(enemy_speed_dice)
+		roll_back_battle_event(enemy_speed_dice)
 		# Create Interception
 		event = Interception.new(
 			speed_dice,
@@ -171,8 +183,8 @@ func is_targeting_back(
 		)
 	return result
 
-## Remove Battle Event
-func remove_battle_event(speed_dice: SpeedDice) -> void:
+## Roll Back Battle Event
+func roll_back_battle_event(speed_dice: SpeedDice) -> void:
 	var battle_event: Event = speed_dice.battle_event
 	if battle_event:
 		if is_instance_of(battle_event, OnesideAttack):

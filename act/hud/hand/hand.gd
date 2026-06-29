@@ -171,9 +171,6 @@ func handle_card_mouse_exited(card: Card) -> void:
 
 # --- Event Manager Events Handlers
 func handle_battle_event_removed(speed_dice: SpeedDice) -> void:
-	speed_dice.parent_actor.refound_card_to_hand(
-		speed_dice.battle_event.get_card_of_speed_dice(speed_dice)
-	)
 	refresh_hand(speed_dice.parent_actor)
 
 ## Reset Status
