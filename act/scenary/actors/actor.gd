@@ -176,6 +176,17 @@ func use_card_from_hand(card: CardResource) -> void:
 	hand.erase(card)
 	$Lights.sub_lights(card.cost)
 
+## Pick random usable card. This doesnt erase the card from hand
+func pick_random_usable_card() -> CardResource:
+	var usable_cards: Array[CardResource]
+	for card: CardResource in hand:
+		if can_use_card(card):
+			usable_cards.append(card)
+	if usable_cards.size() > 0:
+		return usable_cards.pick_random()
+	else:
+		return null
+
 ## Set Sprite.flip_h: bool value
 func flip_h_sprite(value: bool) -> void:
 	$Sprite.flip_h = value

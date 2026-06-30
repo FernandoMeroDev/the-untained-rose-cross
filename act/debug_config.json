@@ -1,10 +1,10 @@
 {
 	"scene_number": 1,
 	"randomize_first_turn": false,
-	"first_turn_for": "left",
+	"first_turn_for": "right",
 	"controllers": {
-		"left_team": "CPU",
-		"right_team": "PLAYER",
+		"left_team": "AI",
+		"right_team": "AI",
 	},
 	"teams": {
 		"left": [

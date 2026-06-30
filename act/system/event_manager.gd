@@ -4,6 +4,9 @@ signal battle_event_removed(speed_dice: SpeedDice)
 
 signal battle_event_created(battle_event: Event)
 
+## Act reference
+var act: Act
+
 ## Selected Sound
 var selected_sfx: AudioStreamPlayer
 
@@ -27,9 +30,22 @@ func _on_enemy_speed_dice_targeted(
 		speed_dice, enemy_speed_dice, card_resource
 	)
 
+# --- AI Team Controller Event Listeners
+func _on_ai_enemy_speed_dice_targeted(
+	speed_dice: SpeedDice,
+	enemy_speed_dice: SpeedDice,
+	card_resource: CardResource
+) -> void:
+	handle_enemy_speed_dice_targeted(
+		speed_dice, enemy_speed_dice, card_resource
+	)
+
 # --- Speed Dice Events Handlers
 func handle_speed_dice_right_click_pressed(speed_dice: SpeedDice) -> void:
-	if speed_dice.parent_actor.is_my_turn():
+	if(
+		speed_dice.parent_actor.is_my_turn()
+		and act.phase == act.Phases.PREPARATION
+	):
 		if speed_dice.battle_event:
 			remove_battle_event(speed_dice)
 
@@ -98,6 +114,7 @@ func create_battle_event(
 	var event: Event
 	if enemy_speed_dice.battle_event:
 		if is_targeting_back(speed_dice, enemy_speed_dice):
+			event_queue.remove(enemy_speed_dice.battle_event)
 			event = create_clash_event(
 				speed_dice, enemy_speed_dice, card_resource
 			)
@@ -131,7 +148,6 @@ func create_oneside_attack_event(
 	card_resource: CardResource
 ) -> OnesideAttack:
 	var event: OnesideAttack = OnesideAttack.new(speed_dice, enemy_speed_dice, card_resource)
-	event_queue.add(event)
 	speed_dice.battle_event = event
 	return event
 	
@@ -158,7 +174,7 @@ func create_interception(
 	card_resource: CardResource
 ) -> Event:
 	var event: Event
-	if is_instance_of(speed_dice.battle_event, Interception):
+	if speed_dice.battle_event is Interception:
 		# If dice was already being intercepted
 		# just create a Oneside for now
 		# Eventually it can implement target choose with TAB key
@@ -193,12 +209,12 @@ func is_targeting_back(
 	speed_dice: SpeedDice, enemy_speed_dice: SpeedDice
 ) -> bool:
 	var result: bool
-	if is_instance_of(enemy_speed_dice.battle_event, OnesideAttack):
+	if enemy_speed_dice.battle_event is OnesideAttack:
 		result = (
 			enemy_speed_dice.battle_event.target_speed_dice.id
 			== speed_dice.id
 		)
-	elif is_instance_of(enemy_speed_dice.battle_event, Clash):
+	elif enemy_speed_dice.battle_event is Clash:
 		# If event is a Clash, search this dice in both targets
 		result = (
 			enemy_speed_dice.battle_event.speed_dice_a.enemy_dice_targeting.id
@@ -212,11 +228,11 @@ func is_targeting_back(
 func roll_back_battle_event(speed_dice: SpeedDice) -> void:
 	var battle_event: Event = speed_dice.battle_event
 	if battle_event:
-		if is_instance_of(battle_event, OnesideAttack):
+		if battle_event is OnesideAttack:
 			battle_event.clear_speed_dices_references()
-		elif is_instance_of(battle_event, Interception):
+		elif battle_event is Interception:
 			rollback_interception(speed_dice)
-		elif is_instance_of(battle_event, Clash):
+		elif battle_event is Clash:
 			rollback_clash(speed_dice)
 		event_queue.remove(battle_event)
 

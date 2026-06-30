@@ -6,6 +6,42 @@ enum Teams { LEFT, RIGHT }
 ## team in current turn
 var current_team: Teams
 
+## Left team Controller reference
+var left_team_controller: TeamController
+
+## Right team Controller reference
+var right_team_controller: TeamController
+
+## Get lower case team name
+static func get_lowercase_team(team: Teams) -> String:
+	return (
+		'left' if team == Teams.LEFT else 'right'
+	)
+
+func ai_target_enemies() -> void:
+	var ai_team_controller: AITeamController = get_current_controller() as AITeamController
+	ai_team_controller.target_enemies()
+
+## Current Team is controlled by AI?
+func is_current_team_controlled_by_ai() -> bool:
+	var result: bool
+	match current_team:
+		Teams.LEFT:
+			result = left_team_controller.is_controlled_by_ai()
+		Teams.RIGHT:
+			result = right_team_controller.is_controlled_by_ai()
+	return result
+
+## Get current Team Controller
+func get_current_controller() -> TeamController:
+	var controller: TeamController
+	match current_team:
+		Teams.LEFT:
+			controller = left_team_controller
+		Teams.RIGHT:
+			controller = right_team_controller
+	return controller
+
 ## Randomize team
 func randomize_team() -> void:
 	current_team = Teams.values().pick_random()

@@ -16,9 +16,18 @@ func init(config: Dictionary) -> Array[Actor]:
 			actor.global_position = position_node.global_position
 			actor.flip_h_sprite(team == 'right')
 			actor.add_to_group('actors')
+			actor.add_to_group(team + '_team_actors')
 			actors.append(actor)
 			i += 1
 	#print('Inited Actors')
+	return actors
+
+func get_team_actors(team: TurnManager.Teams) -> Array[Actor]:
+	var actors: Array[Actor]
+	for node: Node in get_tree().get_nodes_in_group(
+		TurnManager.get_lowercase_team(team) + '_team_actors'
+	):
+		actors.append(node)
 	return actors
 
 ## Search the Marker2D nodes of a team

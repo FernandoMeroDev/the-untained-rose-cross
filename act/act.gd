@@ -22,6 +22,12 @@ var turn_manager: TurnManager = TurnManager.new()
 ## Event Manager instance
 var event_manager: EventManager = EventManager.new()
 
+## Left team Controller instance
+var left_team_controller: TeamController
+
+## Right team Controller instance
+var right_team_controller: TeamController
+
 # --- Presentation Events Observers
 func _on_scene_presentation_timeout() -> void:
 	handle_scene_presentation_timeout()
@@ -51,6 +57,8 @@ func _ready() -> void:
 	init_event_manager()
 	# Init Arrows
 	init_arrows()
+	# Init Team Controllers
+	init_team_controllers(config)
 
 # --- Presentation Events Handlers
 func handle_scene_presentation_timeout() -> void:
@@ -160,6 +168,7 @@ func init_hand() -> void:
 
 ## Init Event Manager
 func init_event_manager() -> void:
+	event_manager.act = self
 	event_manager.selected_sfx = $Music/SFX/Selected
 	event_manager.cancel_sfx = $Music/SFX/Cancel
 	# Hand -> Event Manager events listeners
@@ -206,6 +215,44 @@ func init_arrows() -> void:
 		$Scenary/Arrows._on_right_panel_speed_dice_focused_changed
 	)
 
+## Init Team Controllers
+func init_team_controllers(config: Dictionary) -> void:
+	if config['controllers']['left_team'] == 'AI':
+		left_team_controller = init_enemy_ai(
+			TurnManager.Teams.LEFT,
+			TurnManager.Teams.RIGHT,
+		)
+	else:
+		left_team_controller = PlayerTeamController.new(
+			TurnManager.Teams.LEFT
+		)
+	if config['controllers']['right_team'] == 'AI':
+		right_team_controller = init_enemy_ai(
+			TurnManager.Teams.RIGHT,
+			TurnManager.Teams.LEFT
+		)
+	else:
+		right_team_controller = PlayerTeamController.new(
+			TurnManager.Teams.RIGHT
+		)
+	turn_manager.left_team_controller = left_team_controller
+	turn_manager.right_team_controller = right_team_controller
+
+## Init Enemy AI
+func init_enemy_ai(
+	team: TurnManager.Teams, enemy_team: TurnManager.Teams
+) -> AITeamController:
+	var ai_team_controller: AITeamController = AITeamController.new(
+		team,
+		$Scenary/Actors.get_team_actors(team),
+		$Scenary/Actors.get_team_actors(enemy_team),
+	)
+	# AI Team Controller -> Event Manager Listeners
+	ai_team_controller.ai_enemy_speed_dice_targeted.connect(
+		event_manager._on_ai_enemy_speed_dice_targeted
+	)
+	return ai_team_controller
+
 ## Roll Speed Dices to go next Phase
 func roll_dices() -> void:
 	if phase == Phases.UNDETERMINED_SPEED:
@@ -214,13 +261,39 @@ func roll_dices() -> void:
 		$HUD/ActorDetails.reset_panels_status()
 		phase = Phases.PREPARATION
 		$HUD/Hand.check_hovered_speed_dice()
+		if turn_manager.is_current_team_controlled_by_ai():
+			# IA takes first turn
+			turn_manager.ai_target_enemies()
+			turn_manager.toggle_team()
+			enemy_team_prepared = true
+			# Other IA takes second turn and battle starts
+			if turn_manager.is_current_team_controlled_by_ai():
+				turn_manager.ai_target_enemies()
+				phase = Phases.BATTLE
+				start_battle()
 	elif phase == Phases.PREPARATION:
+		# Player takes first/second turn
 		$Music/SFX/DiceRoll.play()
 		$HUD/ActorDetails.reset_panels_status()
 		$HUD/Hand.reset_status()
 		if not enemy_team_prepared:
 			turn_manager.toggle_team()
-			$HUD/Hand.check_hovered_speed_dice()
-			enemy_team_prepared = true
+			if turn_manager.is_current_team_controlled_by_ai():
+				# IA takes second turn and battle starts
+				turn_manager.ai_target_enemies()
+				phase = Phases.BATTLE
+				start_battle()
+			else:
+				# Other Player takes second turn
+				$HUD/Hand.check_hovered_speed_dice()
+				enemy_team_prepared = true
 		else:
+			# Player starts the Battle
 			phase = Phases.BATTLE
+			start_battle()
+
+## Start Battle
+func start_battle() -> void:
+	# Log Events for Debug
+	event_manager.event_queue.log_in_console()
+	

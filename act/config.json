@@ -1,5 +1,11 @@
 {
 	"scene_number": 1,
+	"randomize_first_turn": false,
+	"first_turn_for": "right",
+	"controllers": {
+		"left_team": "PLAYER",
+		"right_team": "AI",
+	},
 	"teams": {
 		"left": [
 			{
