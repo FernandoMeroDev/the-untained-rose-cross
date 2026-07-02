@@ -28,6 +28,10 @@ func _init(
 	# Set Speed Dice B references
 	speed_dice_b.set_enemy_dice_target(speed_dice_a)
 	speed_dice_b.targeted_by_enemies.append(speed_dice_a)
+	# Set Higher Speed in this event
+	higher_speed = speed_dice_a.value if (
+		speed_dice_a.value >= speed_dice_b.value
+	) else speed_dice_b.value
 
 ## Get Card Resource of a Speed Dice in this Event
 func get_card_of_speed_dice(speed_dice: SpeedDice) -> CardResource:

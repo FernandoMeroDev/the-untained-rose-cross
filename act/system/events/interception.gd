@@ -21,3 +21,5 @@ func _init(
 	)
 	# Restore Speed Dice intended due Clash constructor overwirte it
 	target_speed_dice.enemy_dice_intended = p_target_speed_dice_intented
+	# Set Higher Speed in this event
+	higher_speed = interceptor_speed_dice.value

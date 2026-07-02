@@ -13,6 +13,15 @@ func remove(target_event: Event):
 		if event == target_event:
 			events.erase(target_event)
 
+## Sort events by theirs Speed
+func order_by_speed() -> void:
+	events.sort_custom(
+		func(event_a: Event, event_b: Event):
+			if event_a.higher_speed > event_b.higher_speed:
+				return true
+			return false
+	)
+
 ## Log in console
 func log_in_console() -> void:
 	print(
@@ -23,6 +32,7 @@ func log_in_console() -> void:
 	for event: Event in events:
 		if event is Interception:
 			print("/* --- " + str(i) + ". INTERCEPTION")
+			print("Higher Speed: " + str(event.higher_speed))
 			print(
 				"Interceptor: "
 				+ event.interceptor_speed_dice.parent_actor.actor_name
@@ -46,6 +56,7 @@ func log_in_console() -> void:
 			)
 		elif event is Clash:
 			print("/* --- " + str(i) + ". CLASH")
+			print("Higher Speed: " + str(event.higher_speed))
 			print(
 				"Actor A: "
 				+ event.speed_dice_a.parent_actor.actor_name
@@ -62,6 +73,7 @@ func log_in_console() -> void:
 			)
 		elif event is OnesideAttack:
 			print("/* --- " + str(i) + ". ONESIDE")
+			print("Higher Speed: " + str(event.higher_speed))
 			print(
 				"Attacker: "
 				+ event.attacker_speed_dice.parent_actor.actor_name

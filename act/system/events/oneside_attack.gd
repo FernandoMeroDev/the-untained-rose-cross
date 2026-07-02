@@ -20,6 +20,8 @@ func _init(
 	# Set references in Speed Dices
 	target_speed_dice.targeted_by_enemies.append(attacker_speed_dice)
 	attacker_speed_dice.set_enemy_dice_target(target_speed_dice)
+	# Set Higher Speed in this event
+	higher_speed = attacker_speed_dice.value
 
 ## Get Card of Speed Dice
 func get_card_of_speed_dice(speed_dice: SpeedDice) -> CardResource:

@@ -295,5 +295,6 @@ func roll_dices() -> void:
 ## Start Battle
 func start_battle() -> void:
 	# Log Events for Debug
+	event_manager.event_queue.order_by_speed()
 	event_manager.event_queue.log_in_console()
 	
