@@ -22,6 +22,9 @@ var turn_manager: TurnManager = TurnManager.new()
 ## Event Manager instance
 var event_manager: EventManager = EventManager.new()
 
+## Battle Resolver instance
+var battle_resolver: BattleResolver = BattleResolver.new()
+
 ## Left team Controller instance
 var left_team_controller: TeamController
 
@@ -37,7 +40,7 @@ func _on_dice_roller_pressed() -> void:
 	roll_dices()
 
 func _ready() -> void:
-	var config: Dictionary = JsonUtils.load_json('res://act/debug_config.json')
+	var config: Dictionary = JsonUtils.load_json('res://act/config.json')
 	# Init Input Manager
 	$InputManager.act = self
 	# Init Turn Manager
@@ -59,6 +62,8 @@ func _ready() -> void:
 	init_arrows()
 	# Init Team Controllers
 	init_team_controllers(config)
+	# Init Battle Resolver
+	init_battle_resolver()
 
 # --- Presentation Events Handlers
 func handle_scene_presentation_timeout() -> void:
@@ -292,9 +297,17 @@ func roll_dices() -> void:
 			phase = Phases.BATTLE
 			start_battle()
 
+## Init Battle Resolver
+func init_battle_resolver() -> void:
+	battle_resolver.camera = $Scenary/Camera
+
 ## Start Battle
 func start_battle() -> void:
-	# Log Events for Debug
-	event_manager.event_queue.order_by_speed()
-	event_manager.event_queue.log_in_console()
-	
+	# Give Event Queue reference to Battle Resolver
+	battle_resolver.event_queue = event_manager.event_queue
+	# Hide Actors Dices and Light
+	$Scenary/Actors.hide_everyone_ui_components()
+	# Move Actors to their targets
+	$Scenary/Actors.rush_everyone_to_targets()
+	# Resolve Events
+	battle_resolver.resolve_events()

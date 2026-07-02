@@ -120,51 +120,54 @@ func handle_card_deselected(_card: Card) -> void:
 func handle_actor_pressed(actor: Actor):
 	# Exit if panel is blocked
 	if panel_blocked: return
-	if status == States.ACTOR_FOCUSED:
-		if actor_focused.id != actor.id:
-			actor_focused.unfocus_self()
-			actor_focused.actor_control.unfocus()
+	if act.phase != act.Phases.BATTLE:
+		if status == States.ACTOR_FOCUSED:
+			if actor_focused.id != actor.id:
+				actor_focused.unfocus_self()
+				actor_focused.actor_control.unfocus()
+				select_actor(actor)
+		else:
 			select_actor(actor)
-	else:
-		select_actor(actor)
 
 func handle_actor_mouse_entered(actor: Actor) -> void:
 	actor_hovered = actor
-	if status == States.HIDE:
-		if tween: tween.kill()
-		# Set Data
-		fill_actor_details(actor)
-		# Outline Actor Control
-		actor.actor_control.outline()
-		# Create Animation Moving Down (Tween)
-		create_moving_down_tween()
-		# Change Status
-		status = States.MOVING_DOWN
-	elif status == States.MOVING_UP or status == States.MOVING_DOWN:
-		if tween: tween.kill()
-		# Set Data
-		fill_actor_details(actor)
-		# Outline Actor Control
-		actor.actor_control.outline()
-		# Set Position
-		position = original_position + Vector2(0, size.y)
-		# Change Status
-		status = States.VISIBLE
-	elif status == States.ACTOR_FOCUSED:
-		# Set Data temporally
-		fill_actor_details(actor)
-		# Outline Actor Control
-		actor.actor_control.outline()
+	if act.phase != act.Phases.BATTLE:
+		if status == States.HIDE:
+			if tween: tween.kill()
+			# Set Data
+			fill_actor_details(actor)
+			# Outline Actor Control
+			actor.actor_control.outline()
+			# Create Animation Moving Down (Tween)
+			create_moving_down_tween()
+			# Change Status
+			status = States.MOVING_DOWN
+		elif status == States.MOVING_UP or status == States.MOVING_DOWN:
+			if tween: tween.kill()
+			# Set Data
+			fill_actor_details(actor)
+			# Outline Actor Control
+			actor.actor_control.outline()
+			# Set Position
+			position = original_position + Vector2(0, size.y)
+			# Change Status
+			status = States.VISIBLE
+		elif status == States.ACTOR_FOCUSED:
+			# Set Data temporally
+			fill_actor_details(actor)
+			# Outline Actor Control
+			actor.actor_control.outline()
 
 func handle_actor_mouse_exited(actor: Actor):
 	actor_hovered = null
-	if status == States.VISIBLE or status == States.MOVING_DOWN:
-		hide_panel(actor)
-	elif status == States.ACTOR_FOCUSED:
-		# Restore Data temporally overwrited
-		fill_actor_details(actor_focused)
-		# Unoutline Actor Control
-		actor.actor_control.unoutline()
+	if act.phase != act.Phases.BATTLE:
+		if status == States.VISIBLE or status == States.MOVING_DOWN:
+			hide_panel(actor)
+		elif status == States.ACTOR_FOCUSED:
+			# Restore Data temporally overwrited
+			fill_actor_details(actor_focused)
+			# Unoutline Actor Control
+			actor.actor_control.unoutline()
 
 # --- Speed Dice Events Handlers
 func handle_speed_dice_pressed(speed_dice: SpeedDice) -> void:

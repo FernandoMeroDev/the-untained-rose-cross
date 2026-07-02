@@ -16,6 +16,8 @@ var cancel_sfx: AudioStreamPlayer
 ## Event Queue
 var event_queue: EventQueue = EventQueue.new()
 
+## Current Event in the battle
+
 # --- Speed Dice Events Listeners
 func _on_speed_dice_right_click_pressed(speed_dice: SpeedDice) -> void:
 	handle_speed_dice_right_click_pressed(speed_dice)

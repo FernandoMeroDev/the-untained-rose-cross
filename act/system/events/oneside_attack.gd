@@ -38,3 +38,22 @@ func clear_speed_dices_references() -> void:
 			break
 	attacker_speed_dice.remove_enemy_dice_target()
 	attacker_speed_dice.battle_event = null
+
+## Get Target of Speed Dice
+func get_target_of_speed_dice(speed_dice) -> SpeedDice:
+	if speed_dice.id == attacker_speed_dice.id:
+		return target_speed_dice
+	else:
+		push_error(
+			"Speed Dice (ID " 
+			+ speed_dice.id 
+			+ ") doesn't has target in this Oneside Attack."
+		)
+		return null
+
+## Get Speed Dices from this Event. No particular order
+func get_speed_dices() -> Array[SpeedDice]:
+	return [
+		attacker_speed_dice,
+		target_speed_dice
+	]

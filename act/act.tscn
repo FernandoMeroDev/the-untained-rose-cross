@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://tuilwwtj6ibp" path="res://act/act.gd" id="1_6ehe1"]
 [ext_resource type="Texture2D" uid="uid://i7qvfudsti7s" path="res://media/scenary/background.png" id="1_cp0on"]
 [ext_resource type="Texture2D" uid="uid://caejgslbruqts" path="res://media/scenary/floor.png" id="2_ju8jb"]
+[ext_resource type="Script" uid="uid://pako7f2atdpg" path="res://act/scenary/camera/camera.gd" id="3_e5tnr"]
 [ext_resource type="Texture2D" uid="uid://dq56ka65tlvt5" path="res://media/scenary/phase_1_example2.png" id="4_spgw1"]
 [ext_resource type="Script" uid="uid://kq3sl74mdiq2" path="res://act/scenary/actors/actors.gd" id="6_mrvvv"]
 [ext_resource type="Script" uid="uid://vvwhnt75srmd" path="res://act/hud/actors/actors.gd" id="6_spgw1"]
@@ -54,6 +55,15 @@ script = ExtResource("1_6ehe1")
 script = ExtResource("6_uykt8")
 
 [node name="Scenary" type="Node2D" parent="." unique_id=1272571393]
+
+[node name="Camera" type="Camera2D" parent="Scenary" unique_id=935994892]
+position = Vector2(960, 540)
+limit_left = 0
+limit_top = 0
+limit_right = 1920
+limit_bottom = 1080
+position_smoothing_enabled = true
+script = ExtResource("3_e5tnr")
 
 [node name="Background" type="Sprite2D" parent="Scenary" unique_id=178421837]
 texture = ExtResource("1_cp0on")

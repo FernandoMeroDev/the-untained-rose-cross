@@ -38,6 +38,17 @@ func get_team_positions(team: String) -> Array[Marker2D]:
 	return markers
 
 ## Roll Everyone Speed Dices
-func roll_everyone_speed_dices():
-	for actor in get_children():
+func roll_everyone_speed_dices() -> void:
+	for actor: Actor in get_children():
 		actor.roll_speed_dices()
+
+## Hide Everyone Speed Dices and lights
+func hide_everyone_ui_components() -> void:
+	for actor: Actor in get_children():
+		actor.hide_speed_dices()
+		actor.hide_lights()
+
+## Every Actor rush to their targets
+func rush_everyone_to_targets() -> void:
+	for actor: Actor in get_children():
+		actor.rush_to_target()

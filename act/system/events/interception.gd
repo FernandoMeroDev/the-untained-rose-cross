@@ -23,3 +23,17 @@ func _init(
 	target_speed_dice.enemy_dice_intended = p_target_speed_dice_intented
 	# Set Higher Speed in this event
 	higher_speed = interceptor_speed_dice.value
+
+## Get Target of Speed Dice
+func get_target_of_speed_dice(speed_dice) -> SpeedDice:
+	match speed_dice.id:
+		speed_dice_a.id:
+			return speed_dice_b
+		speed_dice_b.id:
+			return speed_dice_a
+		_:
+			push_error(
+				"Speed Dice (ID " 
+				+ speed_dice.id 
+				+ ") doesn't has target in this Interception.")
+			return null

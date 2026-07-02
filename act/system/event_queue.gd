@@ -13,6 +13,10 @@ func remove(target_event: Event):
 		if event == target_event:
 			events.erase(target_event)
 
+## Get Event Queue size
+func size() -> int:
+	return events.size()
+
 ## Sort events by theirs Speed
 func order_by_speed() -> void:
 	events.sort_custom(

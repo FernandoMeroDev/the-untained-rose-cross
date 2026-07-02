@@ -4,7 +4,7 @@
 	"first_turn_for": "right",
 	"controllers": {
 		"left_team": "PLAYER",
-		"right_team": "AI",
+		"right_team": "PLAYER",
 	},
 	"teams": {
 		"left": [
@@ -34,10 +34,36 @@
 					"quick_thrust",
 				]
 			},
+			{
+				"id": 2,
+				"code": "juline",
+				"name": "Juline 2",
+				"stats": {
+					"max_hp": 25,
+					"max_resist": 10,
+					"speed": { "min": 1, "max": 3 },
+					"speed_dices": 1,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "normal",
+					"pierce_resist": "normal",
+					"blunt_damage": "normal",
+					"blunt_resist": "normal",
+				},
+				"deck": [
+					"downgrade_slash",
+					"upper_slashes",
+					"quick_thrust",
+				]
+			},
 		],
 		"right": [
 			{
-				"id": 2,
+				"id": 3,
 				"code": "lucine",
 				"name": "Lucine",
 				"stats": {

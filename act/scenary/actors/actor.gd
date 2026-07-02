@@ -25,6 +25,12 @@ var code: String
 ## Actor Name for UI
 var actor_name: String
 
+## Actor States
+enum States { IDLE, RUSHING }
+
+## Actor current status
+var status: States = States.IDLE
+
 ## Max HP
 var max_hp: int
 
@@ -55,6 +61,9 @@ var deck: Array[CardResource] = []
 ## Actor Hand
 var hand: Array[CardResource] = []
 
+## Target when Actor is rushing (RUSHING status)
+var target_actor: Actor
+
 # Reference to UI control title
 var actor_control: ActorControl
 
@@ -69,8 +78,20 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 	if event.is_action_pressed("left_click"):
 		actor_pressed.emit(self)
 
-func _ready():
+func _ready() -> void:
 	$CollisionShape.shape = $CollisionShape.shape.duplicate()
+
+func _process(delta: float) -> void:
+	if status == States.RUSHING:
+		var direction: Vector2 = (
+			target_actor.global_position - global_position
+		).normalized()
+		global_position += direction * 1200 * delta
+		if(
+			global_position.distance_to(target_actor.global_position) 
+			< 100
+		):
+			status = States.IDLE
 
 func init(actor_data: Dictionary) -> void:
 	team = (
@@ -118,6 +139,7 @@ func init_deck(deck_data: Array) -> void:
 func init_sprites() -> void:
 	$Sprite.sprite_frames = SpriteFrames.new()
 	load_animation('default')
+	load_animation('rushing')
 	# Here you can load more animations
 
 func load_animation(animation_name: String) ->void:
@@ -226,3 +248,23 @@ func roll_speed_dices() -> void:
 	for dice: SpeedDice in $SpeedDices.get_children():
 		var speed_value: int = randi_range(speed['min'], speed['max'])
 		dice.set_speed(speed_value)
+
+## Hide Speed Dices
+func hide_speed_dices() -> void:
+	for dice: SpeedDice in $SpeedDices.get_children():
+		dice.hide()
+
+## Hide Lights
+func hide_lights() -> void:
+	$Lights.hide()
+
+## Rush to target if any
+func rush_to_target() -> void:
+	var target_speed_dice: SpeedDice
+	for speed_dice: SpeedDice in $SpeedDices.get_ordered_by_speed():
+		if speed_dice.battle_event:
+			target_speed_dice = speed_dice.battle_event\
+				.get_target_of_speed_dice(speed_dice)
+			target_actor = target_speed_dice.parent_actor
+			$Sprite.play('rushing')
+			status = States.RUSHING
