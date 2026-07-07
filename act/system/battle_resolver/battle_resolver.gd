@@ -72,117 +72,60 @@ func resolve_event(event: Event) -> void:
 		card_resolver_a.queue_is_not_empty()
 		or card_resolver_b.queue_is_not_empty()
 	):
-		# If a team is controlled by a player, we wait for confirmation
+		# A and B has dices
 		if(
-			turn_manager.is_actor_controlled_by_ai(actor_a)
-			and turn_manager.is_actor_controlled_by_ai(actor_b)
+			card_resolver_a.has_dice()
+			and card_resolver_b.has_dice()
 		):
-			# A and B are controlled by AI
 			if(
-				card_resolver_a.has_dice()
-				and card_resolver_b.has_dice()
+				not is_controlled_by_ai(actor_a)
+				and is_controlled_by_ai(actor_b)
 			):
-				card_resolver_a.play_dice()
-				card_resolver_b.play_dice()
-				await card_resolver_b.dice_value_setted
-				resolve_clash_n(
-					card_resolver_a,
-					card_resolver_b,
-				)
-			elif card_resolver_a.has_dice():
-				card_resolver_a.play_dice()
-				await card_resolver_a.dice_value_setted
-				resolve_oneside()
-			elif card_resolver_b.has_dice():
-				card_resolver_b.play_dice()
-				await card_resolver_b.dice_value_setted
-				resolve_oneside()
-		elif(
-			turn_manager.is_actor_controlled_by_ai(actor_a)
-		):
-			# A is controlled by AI
-			if(
-				card_resolver_a.has_dice()
-				and card_resolver_b.has_dice()
-			):
-				# Plays A dice
-				card_resolver_a.play_dice()
-				# Wait for B confirmation
-				await player_confirmation()
-				card_resolver_b.play_dice()
-				await card_resolver_b.dice_value_setted
-				resolve_clash()
-			elif card_resolver_a.has_dice():
-				# Plays A dice, B is empty
-				card_resolver_a.play_dice()
-				resolve_oneside()
-			elif card_resolver_b.has_dice():
-				# Wait for B confirmation
-				await player_confirmation()
-				# Plays B dice, A is empty
-				card_resolver_b.play_dice()
-				resolve_oneside()
-		elif(
-			turn_manager.is_actor_controlled_by_ai(actor_b)
-		):
-			# B is controlled by AI
-			if(
-				card_resolver_a.has_dice()
-				and card_resolver_b.has_dice()
-			):
-				# Plays B dice and wait for A confirmation
 				card_resolver_b.play_dice()
 				await player_confirmation()
 				card_resolver_a.play_dice()
 				await card_resolver_a.dice_value_setted
-				resolve_clash()
-			elif card_resolver_a.has_dice():
-				# Plays B dice, A is empty
-				card_resolver_b.play_dice()
-				resolve_oneside()
-			elif card_resolver_b.has_dice():
-				# Wait for A confirmation
-				await player_confirmation()
-				# Plays A dice, B is empty
-				card_resolver_a.play_dice()
-				resolve_oneside()
-		else:
-			# A and B are controlled by Players
-			if(
-				card_resolver_a.has_dice()
-				and card_resolver_b.has_dice()
+			elif(
+				not is_controlled_by_ai(actor_b)
+				and is_controlled_by_ai(actor_a)
 			):
-				# Wait for A confirmation
-				await player_confirmation()
 				card_resolver_a.play_dice()
-				# Wait for B confirmation
 				await player_confirmation()
 				card_resolver_b.play_dice()
 				await card_resolver_b.dice_value_setted
-				resolve_clash()
-			elif card_resolver_a.has_dice():
-				# Wait for A confirmation
-				await player_confirmation()
-				# Plays A dice, B is empty
+			else:
+				if not is_controlled_by_ai(actor_a):
+					await player_confirmation()
 				card_resolver_a.play_dice()
-				resolve_oneside()
-			elif card_resolver_b.has_dice():
-				# Wait for B confirmation
-				await player_confirmation()
-				# Plays B dice, A is empty
+				if not is_controlled_by_ai(actor_b):
+					await player_confirmation()
 				card_resolver_b.play_dice()
-				resolve_oneside()
+				await card_resolver_b.dice_value_setted
+			resolve_clash(
+				card_resolver_a,
+				card_resolver_b,
+			)
+		# Only A has dice
+		elif card_resolver_a.has_dice():
+			if not is_controlled_by_ai(actor_a):
+				await player_confirmation()
+			card_resolver_a.play_dice()
+			await card_resolver_a.dice_value_setted
+			resolve_oneside()
+		# Only B has dice
+		elif card_resolver_b.has_dice():
+			if not is_controlled_by_ai(actor_b):
+				await player_confirmation()
+			card_resolver_b.play_dice()
+			await card_resolver_b.dice_value_setted
+			resolve_oneside()
 		await attack_resolved
 	# Await Event for resolve
 	await event.event_resolved
 	print('Event Resolved')
 
 ## Resolve Clash
-func resolve_clash() -> void:
-	print('Resolve Clash')
-
-## Resolve Clash
-func resolve_clash_n(
+func resolve_clash(
 	card_resolver_a: CardResolver,
 	card_resolver_b: CardResolver
 ) -> void:
@@ -240,3 +183,7 @@ func load_speed_dice_card(
 	if card_resource:
 		# Use Card
 		actor.use_card(card_resource)
+
+## Is Actor Controlled by AI?
+func is_controlled_by_ai(actor: Actor) -> bool:
+	return turn_manager.is_actor_controlled_by_ai(actor)
