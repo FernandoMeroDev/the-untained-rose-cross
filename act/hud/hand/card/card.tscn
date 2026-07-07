@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cfw8du5ju3yo8" path="res://media/hud/hand/card.png" id="2_58i1t"]
 [ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="3_1agi1"]
 [ext_resource type="Script" uid="uid://bi6h0gtv2mniq" path="res://act/hud/hand/card/back/back.gd" id="3_ppvv5"]
-[ext_resource type="Texture2D" uid="uid://bia7pfqayeq5b" path="res://media/cards/quick_thrust.png" id="4_fraja"]
+[ext_resource type="Texture2D" uid="uid://cfxx40iy1dht6" path="res://media/cards/quick_thrust.png" id="4_fraja"]
 [ext_resource type="Texture2D" uid="uid://64j7vhqkg757" path="res://media/hud/hand/light-slot.png" id="7_3n3rm"]
 
 [node name="Card" type="Button" unique_id=946812670]

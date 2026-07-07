@@ -40,7 +40,11 @@ func _on_dice_roller_pressed() -> void:
 	roll_dices()
 
 func _ready() -> void:
-	var config: Dictionary = JsonUtils.load_json('res://act/config.json')
+	var config: Dictionary = JsonUtils.load_json(
+		#'res://act/basic_config.json',
+		#'res://act/debug_config.json',
+		'res://act/battle_phase_config.json',
+	)
 	# Init Input Manager
 	$InputManager.act = self
 	# Init Turn Manager
@@ -64,6 +68,8 @@ func _ready() -> void:
 	init_team_controllers(config)
 	# Init Battle Resolver
 	init_battle_resolver()
+	# Init Camera
+	$Scenary/Camera.darkness = $Scenary/Darkness
 
 # --- Presentation Events Handlers
 func handle_scene_presentation_timeout() -> void:
@@ -258,6 +264,19 @@ func init_enemy_ai(
 	)
 	return ai_team_controller
 
+## Init Battle Resolver
+func init_battle_resolver() -> void:
+	# Camera reference
+	battle_resolver.camera = $Scenary/Camera
+	# Event Queue reference
+	battle_resolver.event_queue = event_manager.event_queue
+	# Actors reference
+	battle_resolver.actors = $Scenary/Actors
+	# Roll Dices SFX reference
+	battle_resolver.dice_roll_sfx = $Music/SFX/DiceRoll
+	# Turn Manager reference
+	battle_resolver.turn_manager = turn_manager
+
 ## Roll Speed Dices to go next Phase
 func roll_dices() -> void:
 	if phase == Phases.UNDETERMINED_SPEED:
@@ -297,17 +316,7 @@ func roll_dices() -> void:
 			phase = Phases.BATTLE
 			start_battle()
 
-## Init Battle Resolver
-func init_battle_resolver() -> void:
-	battle_resolver.camera = $Scenary/Camera
-
 ## Start Battle
 func start_battle() -> void:
-	# Give Event Queue reference to Battle Resolver
-	battle_resolver.event_queue = event_manager.event_queue
-	# Hide Actors Dices and Light
-	$Scenary/Actors.hide_everyone_ui_components()
-	# Move Actors to their targets
-	$Scenary/Actors.rush_everyone_to_targets()
 	# Resolve Events
 	battle_resolver.resolve_events()

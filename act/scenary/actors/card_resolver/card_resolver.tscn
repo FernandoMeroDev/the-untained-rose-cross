@@ -1,0 +1,159 @@
+[gd_scene format=3 uid="uid://dmf07fiqfrf30"]
+
+[ext_resource type="Script" uid="uid://b8n3rrhypbbi3" path="res://act/scenary/actors/card_resolver/card_resolver.gd" id="1_m6dfl"]
+[ext_resource type="Texture2D" uid="uid://bmp1kk605jmtr" path="res://media/actors/card/back_container.png" id="2_iqxfw"]
+[ext_resource type="Script" uid="uid://dt7kmdaq3btjm" path="res://act/scenary/actors/card_resolver/container/container.gd" id="3_803es"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="4_etw6n"]
+[ext_resource type="Script" uid="uid://bdu1jk2q5d7uj" path="res://act/scenary/actors/card_resolver/container/dice_queue/dice_queue.gd" id="5_j2gpx"]
+[ext_resource type="Texture2D" uid="uid://cnsjt7v7fs8wk" path="res://media/actors/card/current_dice.png" id="6_mb6pa"]
+[ext_resource type="Script" uid="uid://c0ixe5cpvtmg4" path="res://act/scenary/actors/card_resolver/container/current_dice/current_dice.gd" id="7_7l4if"]
+[ext_resource type="Texture2D" uid="uid://c2x537j2qkab4" path="res://media/icons/dice_types/block.png" id="8_0evua"]
+[ext_resource type="Script" uid="uid://xfo6u50w4c47" path="res://act/scenary/actors/card_resolver/container/current_dice/roulette.gd" id="9_5cqc4"]
+[ext_resource type="Texture2D" uid="uid://b0a86r70x8ae7" path="res://media/actors/card/portrait.png" id="9_bffi3"]
+[ext_resource type="Script" uid="uid://6lohxn7aiwvl" path="res://act/scenary/actors/card_resolver/container/current_dice/value.gd" id="10_2i8wl"]
+[ext_resource type="Script" uid="uid://c1q2istl02mmk" path="res://act/scenary/actors/card_resolver/portrait.gd" id="10_j0qnh"]
+[ext_resource type="Texture2D" uid="uid://qjgakkk3ogbk" path="res://media/cards/upper_slashes.png" id="11_uq0lj"]
+
+[node name="CardResolver" type="Control" unique_id=1253637074]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_m6dfl")
+
+[node name="Container" type="TextureRect" parent="." unique_id=2051151128]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = -380.00003
+offset_top = -229.00002
+offset_right = -74.00003
+offset_bottom = -72.000015
+rotation = 0.08726646
+texture = ExtResource("2_iqxfw")
+script = ExtResource("3_803es")
+
+[node name="Name" type="Label" parent="Container" unique_id=540417440]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 40.0
+offset_right = 210.0
+offset_bottom = 63.0
+theme_override_fonts/font = ExtResource("4_etw6n")
+text = "Downgrade Slash"
+horizontal_alignment = 2
+
+[node name="DiceQueue" type="HBoxContainer" parent="Container" unique_id=925731902]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 65.0
+offset_right = 390.0
+offset_bottom = 151.0
+scale = Vector2(0.5, 0.5)
+theme_override_constants/separation = 10
+alignment = 2
+script = ExtResource("5_j2gpx")
+
+[node name="CurrentDice" type="TextureRect" parent="Container" unique_id=742466105]
+layout_mode = 0
+offset_left = 225.0
+offset_top = 20.0
+offset_right = 285.0
+offset_bottom = 90.0
+texture = ExtResource("6_mb6pa")
+script = ExtResource("7_7l4if")
+
+[node name="Range" type="Label" parent="Container/CurrentDice" unique_id=761825137]
+layout_mode = 0
+offset_left = 3.1132078
+offset_top = -10.31057
+offset_right = 61.234028
+offset_bottom = 12.68943
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_etw6n")
+theme_override_font_sizes/font_size = 27
+text = "1~3 "
+horizontal_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Container/CurrentDice" unique_id=1083461554]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 86.0
+offset_bottom = 98.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_0evua")
+
+[node name="Roulette" type="Label" parent="Container/CurrentDice" unique_id=1870628771]
+visible = false
+modulate = Color(1, 1, 1, 0.4392157)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -11.468304
+offset_top = -25.111431
+offset_right = 4.5316963
+offset_bottom = 19.888569
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.78039217, 0.78039217, 0.78039217, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("4_etw6n")
+theme_override_font_sizes/font_size = 35
+text = "1"
+script = ExtResource("9_5cqc4")
+
+[node name="Interval" type="Timer" parent="Container/CurrentDice/Roulette" unique_id=935755873]
+wait_time = 0.05
+autostart = true
+
+[node name="Value" type="Label" parent="Container/CurrentDice" unique_id=2110003516]
+visible = false
+layout_mode = 0
+offset_left = -78.89577
+offset_top = -13.709871
+offset_right = 131.65858
+offset_bottom = 78.29013
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.78039217, 0.78039217, 0.78039217, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("4_etw6n")
+theme_override_font_sizes/font_size = 72
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("10_2i8wl")
+
+[node name="Portrait" type="TextureRect" parent="." unique_id=396849159]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -112.0
+offset_right = 60.0
+offset_bottom = 167.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.08726646
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_bffi3")
+script = ExtResource("10_j0qnh")
+
+[node name="Art" type="TextureRect" parent="Portrait" unique_id=1280786672]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 126.0
+offset_bottom = 100.0
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("11_uq0lj")
+
+[connection signal="timeout" from="Container/CurrentDice/Roulette/Interval" to="Container/CurrentDice/Roulette" method="_on_interval_timeout"]
+[connection signal="value_setted" from="Container/CurrentDice/Value" to="." method="_on_value_setted"]

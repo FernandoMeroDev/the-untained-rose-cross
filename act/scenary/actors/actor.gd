@@ -2,12 +2,17 @@ class_name Actor extends Area2D
 
 const SpeedDiceScene: PackedScene = preload('res://act/scenary/actors/dices/speed_dice/speed_dice.tscn')
 const ActorControl = preload('res://act/hud/actors/actor_control/actor_control.gd')
+const CardResolverScene: PackedScene = preload("res://act/scenary/actors/card_resolver/card_resolver.tscn")
+const CardResolver = preload("res://act/scenary/actors/card_resolver/card_resolver.gd")
 
 signal actor_mouse_entered(actor: Actor)
 
 signal actor_mouse_exited(actor: Actor)
 
 signal actor_pressed(actor: Actor)
+
+## Emitted when an enemy actor is physically reached
+signal enemy_reached(actor: Actor, enemy: Actor)
 
 ## Turn Manager reference
 var turn_manager: TurnManager
@@ -64,8 +69,14 @@ var hand: Array[CardResource] = []
 ## Target when Actor is rushing (RUSHING status)
 var target_actor: Actor
 
-# Reference to UI control title
+## Reference to UI control title
 var actor_control: ActorControl
+
+## Offensive Dice Queue
+var offensive_dice_queue: Array[DiceResource] = []
+
+## Defensive Dice Queue
+var defensive_dice_queue: Array[DiceResource] = []
 
 func _on_mouse_entered() -> void:
 	actor_mouse_entered.emit(self)
@@ -86,11 +97,12 @@ func _process(delta: float) -> void:
 		var direction: Vector2 = (
 			target_actor.global_position - global_position
 		).normalized()
-		global_position += direction * 1200 * delta
+		global_position += direction * 800 * delta
 		if(
 			global_position.distance_to(target_actor.global_position) 
 			< 100
 		):
+			enemy_reached.emit(self, target_actor)
 			status = States.IDLE
 
 func init(actor_data: Dictionary) -> void:
@@ -118,6 +130,7 @@ func init(actor_data: Dictionary) -> void:
 	status_effects = stats['status_effects']
 	init_status_effects()
 	transform = transform.scaled(Vector2(0.55, 0.55))
+	init_battle_card()
 	#print(
 		#'Inited Actor: ' + actor_data["name"] 
 		#+ '; ID: ' + str(int(actor_data["id"])) 
@@ -161,7 +174,7 @@ func init_light(count: int):
 	$Lights.parent_actor = self
 	$Lights.set_max_value(count)
 
-func init_gauges():
+func init_gauges() -> void:
 	$Gauges/Health.max_value = max_hp
 	$Gauges/Health.value = max_hp
 	$Gauges/Health/HP.text = str(max_hp)
@@ -169,7 +182,7 @@ func init_gauges():
 	$Gauges/Resist.value = max_resist
 	$Gauges/Resist/RP.text = str(max_resist)
 
-func init_status_effects():
+func init_status_effects() -> void:
 	var i: int = 0
 	for effect_data in status_effects:
 		var effect: TextureRect = preload("res://act/scenary/actors/status_effect.tscn").instantiate()
@@ -182,6 +195,10 @@ func init_status_effects():
 		effect.position.x -= total_width / 2
 		effect.position.x += effect.get_rect().size.x * i
 		i += 1
+
+func init_battle_card() -> void:
+	var battle_card: CardResolver = CardResolverScene.instantiate()
+	add_child(battle_card)
 
 ## Checks for light for use a card.
 ## Extra light is when the actor is already holding a card
@@ -209,9 +226,10 @@ func pick_random_usable_card() -> CardResource:
 	else:
 		return null
 
-## Set Sprite.flip_h: bool value
-func flip_h_sprite(value: bool) -> void:
-	$Sprite.flip_h = value
+## Flip Horizontally Sprite and Card
+func flip_h(flip: bool) -> void:
+	$Sprite.flip_h = flip
+	$CardResolver.flip_h_card(flip)
 
 ## Check if actor is in current turn
 func is_my_turn() -> bool:
@@ -265,6 +283,19 @@ func rush_to_target() -> void:
 		if speed_dice.battle_event:
 			target_speed_dice = speed_dice.battle_event\
 				.get_target_of_speed_dice(speed_dice)
-			target_actor = target_speed_dice.parent_actor
-			$Sprite.play('rushing')
-			status = States.RUSHING
+			rush_to_enemy(target_speed_dice.parent_actor)
+
+## Rush to a given enemy (Actor)
+func rush_to_enemy(enemy: Actor) -> void:
+	target_actor = enemy
+	$Sprite.play('rushing')
+	status = States.RUSHING
+
+## Loads Card in CardResolver
+func use_card(card_resource: CardResource) -> void:
+	$CardResolver.load_card(card_resource)
+	$CardResolver.show()
+
+## Get Card Resolver
+func get_card_resolver() -> CardResolver:
+	return $CardResolver

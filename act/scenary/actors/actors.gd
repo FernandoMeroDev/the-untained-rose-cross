@@ -14,7 +14,7 @@ func init(config: Dictionary) -> Array[Actor]:
 			actor.init(actor_data)
 			add_child(actor)
 			actor.global_position = position_node.global_position
-			actor.flip_h_sprite(team == 'right')
+			actor.flip_h(team == 'right')
 			actor.add_to_group('actors')
 			actor.add_to_group(team + '_team_actors')
 			actors.append(actor)
@@ -37,7 +37,7 @@ func get_team_positions(team: String) -> Array[Marker2D]:
 		markers.append(node as Marker2D)
 	return markers
 
-## Roll Everyone Speed Dices
+## Roll Everyone Speed Dices, except for first event
 func roll_everyone_speed_dices() -> void:
 	for actor: Actor in get_children():
 		actor.roll_speed_dices()
@@ -48,7 +48,7 @@ func hide_everyone_ui_components() -> void:
 		actor.hide_speed_dices()
 		actor.hide_lights()
 
-## Every Actor rush to their targets
+## Every Actor rush to their targets, due exceptions
 func rush_everyone_to_targets() -> void:
 	for actor: Actor in get_children():
 		actor.rush_to_target()

@@ -1,9 +1,18 @@
 class_name CardResource extends Resource
 
+## Unique Card ID. Set in runtime.
 @export var id: int
+
+## Card Name readable for user.
 @export var name: String
+
+## Card Code identifier
 @export var code: String
+
+## Card cost in Light units
 @export var cost: int
+
+## Card Dices
 @export var dices: Array[DiceResource]
 
 # Make sure that every parameter has a default value.

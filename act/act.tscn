@@ -37,7 +37,7 @@
 [ext_resource type="Script" uid="uid://dm0ixlbs4252e" path="res://act/hud/dice_roller.gd" id="32_4ce7a"]
 [ext_resource type="Texture2D" uid="uid://cqcspiry7g3r5" path="res://media/hud/dice_roller/glow.png" id="32_22tc4"]
 [ext_resource type="Texture2D" uid="uid://ch6vny38higvh" path="res://media/hud/hand/card_back.png" id="32_e5byc"]
-[ext_resource type="Texture2D" uid="uid://bia7pfqayeq5b" path="res://media/cards/quick_thrust.png" id="32_e5tnr"]
+[ext_resource type="Texture2D" uid="uid://cfxx40iy1dht6" path="res://media/cards/quick_thrust.png" id="32_e5tnr"]
 [ext_resource type="Texture2D" uid="uid://cnte135fpabho" path="res://media/hud/dice_roller/dices.png" id="32_x5nus"]
 [ext_resource type="AudioStream" uid="uid://cn1womypgp70i" path="res://media/music/sfx/selected.wav" id="33_1qlvn"]
 [ext_resource type="AudioStream" uid="uid://b0ccr0k1ciywd" path="res://media/music/ost.mp3" id="34_22tc4"]
@@ -116,6 +116,12 @@ script = ExtResource("6_mrvvv")
 
 [node name="Arrows" type="Node2D" parent="Scenary" unique_id=597794501]
 script = ExtResource("7_00mj1")
+
+[node name="Darkness" type="ColorRect" parent="Scenary" unique_id=704281478]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0.75686276)
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=216121873]
 

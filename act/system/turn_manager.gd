@@ -18,14 +18,29 @@ static func get_lowercase_team(team: Teams) -> String:
 		'left' if team == Teams.LEFT else 'right'
 	)
 
+## AI targets enemies
 func ai_target_enemies() -> void:
 	var ai_team_controller: AITeamController = get_current_controller() as AITeamController
 	ai_team_controller.target_enemies()
 
+## Is Actor controlled by AI?
+func is_actor_controlled_by_ai(actor: Actor) -> bool:
+	return is_team_controlled_by_ai(actor.team)
+	
 ## Current Team is controlled by AI?
 func is_current_team_controlled_by_ai() -> bool:
 	var result: bool
 	match current_team:
+		Teams.LEFT:
+			result = left_team_controller.is_controlled_by_ai()
+		Teams.RIGHT:
+			result = right_team_controller.is_controlled_by_ai()
+	return result
+
+## Is Team controlled by AI?
+func is_team_controlled_by_ai(team: Teams) -> bool:
+	var result: bool
+	match team:
 		Teams.LEFT:
 			result = left_team_controller.is_controlled_by_ai()
 		Teams.RIGHT:

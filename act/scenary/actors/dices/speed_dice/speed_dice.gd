@@ -113,3 +113,13 @@ func unfocus() -> void:
 	else:
 		texture_normal = textures['normal']
 		status = States.DETERMINED
+
+## Checks if this Speed Dice is targeting the given enemy (Actor)
+func is_targeting_enemy(enemy: Actor) -> bool:
+	var result: bool = false
+	if enemy_dice_targeting:
+		result = (
+			enemy_dice_targeting.parent_actor.id
+			== enemy.id
+		)
+	return result

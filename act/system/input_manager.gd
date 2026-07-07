@@ -7,6 +7,7 @@ var act: Act
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("space"):
 		act.roll_dices()
+		act.battle_resolver.handle_space_pressed()
 	if event.is_action_pressed("right_click"):
 		act.get_node("Scenary/Arrows").handle_right_click_pressed()
 		act.get_node("HUD/ActorDetails/Left").handle_right_click_pressed()

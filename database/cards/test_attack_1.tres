@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://cuqylrutnmemg"]
+
+[ext_resource type="Script" uid="uid://cprnyoijuhug1" path="res://database/resources/dice_resource.gd" id="1_xrp24"]
+[ext_resource type="Script" uid="uid://tl3k1itad7g0" path="res://database/resources/card_resource.gd" id="2_bl8c1"]
+
+[sub_resource type="Resource" id="Resource_xrp24"]
+script = ExtResource("1_xrp24")
+min_value = 4
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[resource]
+script = ExtResource("2_bl8c1")
+name = "Test Attack 1"
+code = "test_attack_1"
+cost = 1
+dices = Array[ExtResource("1_xrp24")]([SubResource("Resource_xrp24")])
+metadata/_custom_type_script = "uid://tl3k1itad7g0"
