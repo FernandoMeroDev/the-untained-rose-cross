@@ -85,6 +85,22 @@ func set_speed(speed_value: int) -> void:
 	$Roulette.stop()
 	status = States.DETERMINED
 
+## Reset Speed Dice
+func reset() -> void:
+	# Clear Event and Target if any
+	battle_event = null
+	enemy_dice_intended = null
+	enemy_dice_targeting = null
+	targeted_by_enemies = []
+	# Restore UI apperance
+	texture_normal = textures['normal']
+	$Roulette.start()
+	$Number.set_value_interval(
+		parent_actor.speed['min'],
+		parent_actor.speed['max']
+	)
+	status = States.UNDETERMINED
+
 ## Set enemy Dpeed Dice targeting
 func set_enemy_dice_target(target_speed_dice: SpeedDice) -> void:
 	enemy_dice_intended = target_speed_dice

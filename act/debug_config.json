@@ -1,5 +1,5 @@
 {
-	"scene_number": 1,
+	"act_number": 1,
 	"randomize_first_turn": false,
 	"first_turn_for": "right",
 	"controllers": {
@@ -12,6 +12,7 @@
 				"id": 1,
 				"code": "juline",
 				"name": "Juline 1",
+				"sharp_weapon": true,
 				"stats": {
 					"max_hp": 35,
 					"max_resist": 15,
@@ -41,6 +42,7 @@
 				"id": 2,
 				"code": "juline",
 				"name": "Juline 2",
+				"sharp_weapon": true,
 				"stats": {
 					"max_hp": 25,
 					"max_resist": 10,
@@ -70,6 +72,7 @@
 				"id": 3,
 				"code": "juline",
 				"name": "Juline 3",
+				"sharp_weapon": true,
 				"stats": {
 					"max_hp": 25,
 					"max_resist": 10,
@@ -101,6 +104,7 @@
 				"id": 4,
 				"code": "lucine",
 				"name": "Lucine 1",
+				"sharp_weapon": true,
 				"stats": {
 					"max_hp": 25,
 					"max_resist": 10,
@@ -137,6 +141,7 @@
 				"id": 5,
 				"code": "lucine",
 				"name": "Lucine 2",
+				"sharp_weapon": true,
 				"stats": {
 					"max_hp": 25,
 					"max_resist": 10,
@@ -173,6 +178,7 @@
 				"id": 6,
 				"code": "lucine",
 				"name": "Lucine 3",
+				"sharp_weapon": true,
 				"stats": {
 					"max_hp": 25,
 					"max_resist": 10,

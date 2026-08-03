@@ -41,9 +41,10 @@ func _on_dice_roller_pressed() -> void:
 
 func _ready() -> void:
 	var config: Dictionary = JsonUtils.load_json(
-		#'res://act/basic_config.json',
+		#'res://act/config.json',
 		#'res://act/debug_config.json',
 		'res://act/battle_phase_config.json',
+		#'res://act/debug_battle_phase_config.json',
 	)
 	# Init Input Manager
 	$InputManager.act = self
@@ -55,7 +56,7 @@ func _ready() -> void:
 	init_actors(config)
 	# Init Scene Number
 	$HUD/SceneNumber.turn_manager = turn_manager
-	$HUD/SceneNumber.init(int(config['scene_number']))
+	$HUD/SceneNumber.init()
 	# Init Dice Roller
 	init_dice_roller()
 	# Init Hand
@@ -74,6 +75,10 @@ func _ready() -> void:
 # --- Presentation Events Handlers
 func handle_scene_presentation_timeout() -> void:
 	phase = Phases.UNDETERMINED_SPEED
+
+# --- Battle Resolver Events Handlers
+func handle_scene_finished() -> void:
+	reset_scene()
 
 ## Init Turn Manager
 func init_turn_manager(config: Dictionary) -> void:
@@ -266,6 +271,8 @@ func init_enemy_ai(
 
 ## Init Battle Resolver
 func init_battle_resolver() -> void:
+	# Act Reference
+	battle_resolver.act = self
 	# Camera reference
 	battle_resolver.camera = $Scenary/Camera
 	# Event Queue reference
@@ -274,6 +281,8 @@ func init_battle_resolver() -> void:
 	battle_resolver.actors = $Scenary/Actors
 	# Roll Dices SFX reference
 	battle_resolver.dice_roll_sfx = $Music/SFX/DiceRoll
+	# Battle SFX reference
+	battle_resolver.battle_sfx = $Music/SFX/Battle
 	# Turn Manager reference
 	battle_resolver.turn_manager = turn_manager
 
@@ -320,3 +329,18 @@ func roll_dices() -> void:
 func start_battle() -> void:
 	# Resolve Events
 	battle_resolver.resolve_events()
+
+func reset_scene() -> void:
+	$Scenary/Darkness.hide()
+	# Repositionate Actors and show UI's elements
+	$Scenary/Actors.repositionate_everyone()
+	# Restart Speed Dices
+	$Scenary/Actors.restart_everyone_speed_dices()
+	# Reset Camera Zoom
+	await $Scenary/Camera.reset_zoom()
+	# Reset enemy team prepared variable
+	enemy_team_prepared = false
+	# Reiterate Act Phases
+	$HUD/SceneNumber/Presentation.start()
+	$HUD/SceneNumber.advance_next()
+	$Scenary/Actors.show_everyone_ui_components()

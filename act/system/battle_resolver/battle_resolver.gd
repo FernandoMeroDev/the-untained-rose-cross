@@ -4,8 +4,6 @@ const Camera = preload("res://act/scenary/camera/camera.gd")
 const Actors = preload("res://act/scenary/actors/actors.gd")
 const CardResolver = preload("res://act/scenary/actors/card_resolver/card_resolver.gd")
 
-signal attack_resolved
-
 signal roll_dices_confirmed
 
 ## Battle Resolver States
@@ -13,6 +11,9 @@ enum States { AUTOPLAY, AWAITING_CONFIRMATION }
 
 ## Battle Resolver current status
 var status: States = States.AUTOPLAY
+
+# Act Reference
+var act: Act
 
 ## Camera reference
 var camera: Camera
@@ -23,11 +24,17 @@ var event_queue: EventQueue
 ## Actors reference
 var actors: Actors
 
+## Original actors' z_index backup
+var actors_z_index: Dictionary[String, int] = { 'a': 0, 'b': 0}
+
 ## Turn Manager Reference
 var turn_manager: TurnManager
 
 ## Dice Roll SFX reference
 var dice_roll_sfx: AudioStreamPlayer
+
+## Battle SFX reference
+var battle_sfx: Node
 
 # --- --- Space Event Handlers
 func handle_space_pressed() -> void:
@@ -48,6 +55,8 @@ func resolve_events() -> void:
 		actors.rush_everyone_to_targets()
 		for event: Event in event_queue.events:
 			await resolve_event(event)
+	event_queue.remove_all()
+	act.handle_scene_finished()
 
 ## Resolve Battle Event
 func resolve_event(event: Event) -> void:
@@ -58,6 +67,10 @@ func resolve_event(event: Event) -> void:
 	var actor_b: Actor = speed_dice_b.parent_actor
 	# Zoom into current Event
 	camera.zoom_into_battle_event(event)
+	actors_z_index['a'] = actor_a.z_index
+	actors_z_index['b'] = actor_b.z_index
+	actor_a.z_index = 1000
+	actor_b.z_index = 1000
 	# Checks if Actor's Speed Dice is Targeting the enemy Actor in this Event
 	var a_is_rushing: bool = check_if_is_targeting_enemy(speed_dice_a, actor_b, event)
 	var b_is_rushing: bool = check_if_is_targeting_enemy(speed_dice_b, actor_a, event)
@@ -69,14 +82,18 @@ func resolve_event(event: Event) -> void:
 	var card_resolver_b: CardResolver = actor_b.get_card_resolver()
 	# Checks Dice Queues
 	while(
-		card_resolver_a.queue_is_not_empty()
-		or card_resolver_b.queue_is_not_empty()
+		card_resolver_a.has_dice()
+		or card_resolver_b.has_dice()
 	):
 		# A and B has dices
 		if(
 			card_resolver_a.has_dice()
 			and card_resolver_b.has_dice()
 		):
+			actor_a.rush_to_enemy(actor_b)
+			actor_b.rush_to_enemy(actor_a)
+			camera.zoom_into_battle_event(event)
+			await camera.zooming_finished
 			if(
 				not is_controlled_by_ai(actor_a)
 				and is_controlled_by_ai(actor_b)
@@ -84,7 +101,6 @@ func resolve_event(event: Event) -> void:
 				card_resolver_b.play_dice()
 				await player_confirmation()
 				card_resolver_a.play_dice()
-				await card_resolver_a.dice_value_setted
 			elif(
 				not is_controlled_by_ai(actor_b)
 				and is_controlled_by_ai(actor_a)
@@ -92,60 +108,99 @@ func resolve_event(event: Event) -> void:
 				card_resolver_a.play_dice()
 				await player_confirmation()
 				card_resolver_b.play_dice()
-				await card_resolver_b.dice_value_setted
 			else:
-				if not is_controlled_by_ai(actor_a):
+				if is_controlled_by_ai(actor_a):
+					await act.get_tree().create_timer(0.3).timeout
+					dice_roll_sfx.play()
+				else:
 					await player_confirmation()
 				card_resolver_a.play_dice()
-				if not is_controlled_by_ai(actor_b):
+				if is_controlled_by_ai(actor_b):
+					await act.get_tree().create_timer(0.3).timeout
+					dice_roll_sfx.play()
+				else:
 					await player_confirmation()
 				card_resolver_b.play_dice()
-				await card_resolver_b.dice_value_setted
-			resolve_clash(
+			await resolve_clash(
 				card_resolver_a,
 				card_resolver_b,
 			)
 		# Only A has dice
 		elif card_resolver_a.has_dice():
+			actor_a.rush_to_enemy(actor_b)
+			actor_b.face_enemy(actor_a)
+			camera.zoom_into_battle_event(event)
+			await camera.zooming_finished
 			if not is_controlled_by_ai(actor_a):
 				await player_confirmation()
 			card_resolver_a.play_dice()
-			await card_resolver_a.dice_value_setted
-			resolve_oneside()
+			await resolve_oneside(card_resolver_a, card_resolver_b.parent_actor)
 		# Only B has dice
 		elif card_resolver_b.has_dice():
+			actor_b.rush_to_enemy(actor_a)
+			actor_a.face_enemy(actor_b)
+			camera.zoom_into_battle_event(event)
+			await camera.zooming_finished
 			if not is_controlled_by_ai(actor_b):
 				await player_confirmation()
 			card_resolver_b.play_dice()
-			await card_resolver_b.dice_value_setted
-			resolve_oneside()
-		await attack_resolved
-	# Await Event for resolve
-	await event.event_resolved
-	print('Event Resolved')
+			await resolve_oneside(card_resolver_b, card_resolver_a.parent_actor)
+	actor_a.z_index = actors_z_index['a']
+	actor_a.idle()
+	actor_b.z_index = actors_z_index['b']
+	actor_b.idle()
 
 ## Resolve Clash
 func resolve_clash(
 	card_resolver_a: CardResolver,
 	card_resolver_b: CardResolver
 ) -> void:
-	print('Resolve Clash')
-	if(
-		card_resolver_a.get_dice_value() 
-		> card_resolver_b.get_dice_value()
-	):
-		print('A wins B')
-	elif(
-		card_resolver_a.get_dice_value() 
-		< card_resolver_b.get_dice_value()
-	):
-		print('B wins A')
+	var a_value: int = card_resolver_a.get_dice_value()
+	var b_value: int = card_resolver_b.get_dice_value()
+	var actor_a: Actor = card_resolver_a.parent_actor
+	var actor_b: Actor = card_resolver_b.parent_actor
+	var a_dice_type: String = card_resolver_a.get_dice_type_string() # SLASH, PIERCE, BLUNT, BLOCK, EVADE
+	var b_dice_type: String = card_resolver_b.get_dice_type_string() # SLASH, PIERCE, BLUNT, BLOCK, EVADE
+	camera.shake()
+	if a_value > b_value:
+		# A wins B
+		var attack_animation: String = actor_a.attack()
+		battle_sfx.play_attack(actor_a.sharp_weapon, attack_animation)
+		card_resolver_b.destroy_current_dice()
+		await actor_b.damaged(
+			a_value, a_dice_type, actor_a.global_position, attack_animation
+		)
+		card_resolver_a.dicard_current_dice()
+		card_resolver_b.dicard_current_dice()
+	elif a_value < b_value:
+		# B wins A
+		var attack_animation: String = actor_b.attack()
+		battle_sfx.play_attack(actor_b.sharp_weapon, attack_animation)
+		card_resolver_a.destroy_current_dice()
+		await actor_a.damaged(
+			b_value, b_dice_type, actor_b.global_position, attack_animation
+		)
+		card_resolver_b.dicard_current_dice()
+		card_resolver_a.dicard_current_dice()
 	else:
-		print('Equals')
+		# Equals
+		actor_a.attack(false)
+		actor_b.attack(false)
+		# [TODO] Show parry VFX with particles system
+		battle_sfx.play_parry()
 
 ## Resolve Oneside
-func resolve_oneside() -> void:
-	print('Resolve Oneside')
+func resolve_oneside(card_resolver: CardResolver, enemy: Actor) -> void:
+	var value: int = card_resolver.get_dice_value()
+	var actor: Actor = card_resolver.parent_actor
+	var dice_type: String = card_resolver.get_dice_type_string() # SLASH, PIERCE, BLUNT, BLOCK, EVADE
+	camera.shake()
+	var attack_animation: String = actor.attack()
+	battle_sfx.play_attack(actor.sharp_weapon, attack_animation)
+	await enemy.damaged(
+		value, dice_type, actor.global_position, attack_animation
+	)
+	card_resolver.dicard_current_dice()
 
 ## Await Player Confirmation
 func player_confirmation() -> void:

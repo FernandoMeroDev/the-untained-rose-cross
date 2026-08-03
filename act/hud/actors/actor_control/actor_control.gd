@@ -38,6 +38,12 @@ func init(actor: Actor) -> void:
 	parent_actor = actor
 	actor.actor_control = self
 
+## Set curren health value
+func set_health_value(value: int) -> void:
+	if value < 0: value = 0
+	$HP.text = str(value)
+	$HealthBar.value = value
+
 ## Focus Actor Control
 func focus() -> void:
 	self_modulate = Color(1.00, 1.00, 1.00)

@@ -9,10 +9,28 @@ min_value = 4
 max_value = 4
 metadata/_custom_type_script = "uid://cprnyoijuhug1"
 
+[sub_resource type="Resource" id="Resource_m7ab4"]
+script = ExtResource("1_xrp24")
+min_value = 4
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_gfdqv"]
+script = ExtResource("1_xrp24")
+min_value = 4
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_u70dq"]
+script = ExtResource("1_xrp24")
+min_value = 4
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
 [resource]
 script = ExtResource("2_bl8c1")
 name = "Test Attack 1"
 code = "test_attack_1"
 cost = 1
-dices = Array[ExtResource("1_xrp24")]([SubResource("Resource_xrp24")])
+dices = Array[ExtResource("1_xrp24")]([SubResource("Resource_xrp24"), SubResource("Resource_m7ab4"), SubResource("Resource_gfdqv"), SubResource("Resource_u70dq")])
 metadata/_custom_type_script = "uid://tl3k1itad7g0"

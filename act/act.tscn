@@ -47,6 +47,20 @@
 [ext_resource type="Script" uid="uid://bvf4jlnutvh6l" path="res://act/hud/hand/hand.gd" id="41_uykt8"]
 [ext_resource type="AudioStream" uid="uid://c3xrn2r12b4na" path="res://media/music/sfx/dice_roll.wav" id="42_lskxy"]
 [ext_resource type="AudioStream" uid="uid://cvntqu3grpnv2" path="res://media/music/sfx/ui_cacel.wav" id="46_82ofw"]
+[ext_resource type="AudioStream" uid="uid://daj8we7qnfuha" path="res://media/music/sfx/battle/attack/blow_hori.wav" id="48_5kcsk"]
+[ext_resource type="Script" uid="uid://dymob66oedkv2" path="res://act/music/sfx/battle.gd" id="48_7rfk8"]
+[ext_resource type="AudioStream" uid="uid://dfx75q7vhd2bq" path="res://media/music/sfx/battle/attack/blow_stab.wav" id="49_jutkt"]
+[ext_resource type="AudioStream" uid="uid://bs52g852r3kwj" path="res://media/music/sfx/battle/attack/blow_vert.wav" id="50_sp3pa"]
+[ext_resource type="AudioStream" uid="uid://btmk4ocafvgdj" path="res://media/music/sfx/battle/attack/sword_hori.wav" id="51_vhj7x"]
+[ext_resource type="AudioStream" uid="uid://dbpolk21dkte5" path="res://media/music/sfx/battle/attack/sword_stab.wav" id="52_8txjm"]
+[ext_resource type="AudioStream" uid="uid://b645rxk66gmap" path="res://media/music/sfx/battle/attack/sword_vert.wav" id="53_ym1af"]
+[ext_resource type="AudioStream" uid="uid://cqysmngrbfwpm" path="res://media/music/sfx/battle/attack/parry.wav" id="54_ocuck"]
+[ext_resource type="AudioStream" uid="uid://4m0oe645mcnh" path="res://media/music/sfx/battle/block/guarded.wav" id="55_sp3pa"]
+[ext_resource type="AudioStream" uid="uid://cekk2qc3gupy7" path="res://media/music/sfx/battle/block/guarded_win.wav" id="56_vhj7x"]
+[ext_resource type="AudioStream" uid="uid://0d6g7wgdekmw" path="res://media/music/sfx/battle/evade/defense.wav" id="57_ocuck"]
+[ext_resource type="AudioStream" uid="uid://cr8ioel5557te" path="res://media/music/sfx/battle/evade/hori.wav" id="58_7rfk8"]
+[ext_resource type="AudioStream" uid="uid://b6lwm85b2ramk" path="res://media/music/sfx/battle/evade/stab.wav" id="59_03e83"]
+[ext_resource type="AudioStream" uid="uid://dn50bab8m25bw" path="res://media/music/sfx/battle/evade/vert.wav" id="60_c8g2i"]
 
 [node name="Act" type="Node" unique_id=1240358674]
 script = ExtResource("1_6ehe1")
@@ -281,12 +295,12 @@ tint_under = Color(1.3139695e-05, 0.023147473, 0.44712096, 1)
 tint_progress = Color(0, 0.09019608, 0.9019608, 1)
 
 [node name="Number" type="Label" parent="HUD/ActorDetails/Left/Gauges/Health" unique_id=1688802239]
-layout_direction = 3
 layout_mode = 1
 offset_left = 97.0
 offset_top = 172.0
 offset_right = 137.0
 offset_bottom = 213.0
+layout_direction = 3
 theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
@@ -310,12 +324,12 @@ texture_progress = ExtResource("22_qunjq")
 tint_under = Color(0.56078434, 0.56078434, 0.56078434, 1)
 
 [node name="Number" type="Label" parent="HUD/ActorDetails/Left/Gauges/Resist" unique_id=130864835]
-layout_direction = 3
 layout_mode = 1
 offset_left = 129.0
 offset_top = 222.0
 offset_right = 169.0
 offset_bottom = 263.0
+layout_direction = 3
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("20_k8d45")
@@ -535,13 +549,13 @@ texture = ExtResource("19_eg7tm")
 flip_h = true
 
 [node name="Text" type="Label" parent="HUD/ActorDetails/Right/Name" unique_id=256303624]
-layout_direction = 3
 layout_mode = 0
 offset_left = 36.93103
 offset_top = 10.999999
 offset_right = 127.0
 offset_bottom = 57.0
 rotation = 0.13962634
+layout_direction = 3
 theme_override_fonts/font = ExtResource("20_k8d45")
 theme_override_font_sizes/font_size = 36
 text = "Juline"
@@ -572,12 +586,12 @@ tint_under = Color(1.3139695e-05, 0.023147473, 0.44712096, 1)
 tint_progress = Color(0, 0.09019608, 0.9019608, 1)
 
 [node name="Number" type="Label" parent="HUD/ActorDetails/Right/Gauges/Health" unique_id=1951771278]
-layout_direction = 2
 layout_mode = 1
 offset_left = 97.0
 offset_top = 172.0
 offset_right = 137.0
 offset_bottom = 213.0
+layout_direction = 2
 theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
@@ -601,12 +615,12 @@ texture_progress = ExtResource("24_7bo04")
 tint_under = Color(0.56078434, 0.56078434, 0.56078434, 1)
 
 [node name="Number" type="Label" parent="HUD/ActorDetails/Right/Gauges/Resist" unique_id=1441510616]
-layout_direction = 2
 layout_mode = 1
 offset_left = 125.0
 offset_top = 225.0
 offset_right = 165.0
 offset_bottom = 266.0
+layout_direction = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("20_k8d45")
@@ -805,9 +819,8 @@ theme_override_fonts/font = ExtResource("20_k8d45")
 theme_override_font_sizes/font_size = 26
 text = "Left team starts"
 
-[node name="ActStart" type="AudioStreamPlayer" parent="HUD/SceneNumber" unique_id=394970357]
+[node name="SceneStart" type="AudioStreamPlayer" parent="HUD/SceneNumber" unique_id=394970357]
 stream = ExtResource("35_rkifs")
-autoplay = true
 
 [node name="Presentation" type="Timer" parent="HUD/SceneNumber" unique_id=483976468]
 wait_time = 2.3
@@ -843,6 +856,56 @@ stream = ExtResource("42_lskxy")
 
 [node name="Cancel" type="AudioStreamPlayer" parent="Music/SFX" unique_id=2016705719]
 stream = ExtResource("46_82ofw")
+
+[node name="Battle" type="Node" parent="Music/SFX" unique_id=721164329]
+script = ExtResource("48_7rfk8")
+
+[node name="Attack" type="Node" parent="Music/SFX/Battle" unique_id=1475065026]
+
+[node name="BlowHori" type="AudioStreamPlayer" parent="Music/SFX/Battle/Attack" unique_id=471554607]
+stream = ExtResource("48_5kcsk")
+
+[node name="BlowStab" type="AudioStreamPlayer" parent="Music/SFX/Battle/Attack" unique_id=1982954254]
+stream = ExtResource("49_jutkt")
+
+[node name="BlowVert" type="AudioStreamPlayer" parent="Music/SFX/Battle/Attack" unique_id=1182384343]
+stream = ExtResource("50_sp3pa")
+
+[node name="SwordHori" type="AudioStreamPlayer" parent="Music/SFX/Battle/Attack" unique_id=17246677]
+stream = ExtResource("51_vhj7x")
+
+[node name="SwordStab" type="AudioStreamPlayer" parent="Music/SFX/Battle/Attack" unique_id=546141062]
+stream = ExtResource("52_8txjm")
+
+[node name="SwordVert" type="AudioStreamPlayer" parent="Music/SFX/Battle/Attack" unique_id=836603216]
+stream = ExtResource("53_ym1af")
+
+[node name="Parry" type="AudioStreamPlayer" parent="Music/SFX/Battle/Attack" unique_id=743230542]
+stream = ExtResource("54_ocuck")
+
+[node name="Block" type="Node" parent="Music/SFX/Battle" unique_id=365471882]
+
+[node name="DaeChi" type="AudioStreamPlayer" parent="Music/SFX/Battle/Block" unique_id=745262186]
+
+[node name="Guarded" type="AudioStreamPlayer" parent="Music/SFX/Battle/Block" unique_id=792066461]
+stream = ExtResource("55_sp3pa")
+
+[node name="GuardedWin" type="AudioStreamPlayer" parent="Music/SFX/Battle/Block" unique_id=1664947628]
+stream = ExtResource("56_vhj7x")
+
+[node name="Evade" type="Node" parent="Music/SFX/Battle" unique_id=468600988]
+
+[node name="Defense" type="AudioStreamPlayer" parent="Music/SFX/Battle/Evade" unique_id=43563521]
+stream = ExtResource("57_ocuck")
+
+[node name="Hori" type="AudioStreamPlayer" parent="Music/SFX/Battle/Evade" unique_id=686933248]
+stream = ExtResource("58_7rfk8")
+
+[node name="Stab" type="AudioStreamPlayer" parent="Music/SFX/Battle/Evade" unique_id=1302885359]
+stream = ExtResource("59_03e83")
+
+[node name="Vert" type="AudioStreamPlayer" parent="Music/SFX/Battle/Evade" unique_id=365084541]
+stream = ExtResource("60_c8g2i")
 
 [connection signal="pressed" from="HUD/DiceRoller/Dices" to="HUD/DiceRoller" method="_on_dices_pressed"]
 [connection signal="timeout" from="HUD/SceneNumber/Presentation" to="." method="_on_scene_presentation_timeout"]

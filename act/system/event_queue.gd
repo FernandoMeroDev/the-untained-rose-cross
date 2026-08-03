@@ -13,6 +13,11 @@ func remove(target_event: Event):
 		if event == target_event:
 			events.erase(target_event)
 
+## Remove all events
+func remove_all() -> void:
+	for event in events:
+		events.erase(event)
+
 ## Get Event Queue size
 func size() -> int:
 	return events.size()

@@ -1,9 +1,18 @@
 extends TextureRect
 
+## Turn Manager Reference
 var turn_manager: TurnManager
 
-func init(scene_number: int) -> void:
-	$Number.text = 'Scene ' + str(scene_number)
+## Scene Current Number
+var number: int = 1
+
+func init() -> void:
+	$Number.text = 'Scene ' + str(number)
+	presentate_scene()
+
+## Presentate Scene
+func presentate_scene() -> void:
+	$SceneStart.play()
 	animate_fade(self)
 	animate_fade($Number)
 	animate_shake($Number)
@@ -11,6 +20,17 @@ func init(scene_number: int) -> void:
 	$Team.text = turn_manager.get_readable_team() + ' team starts'
 	animate_fade($Team)
 	animate_shake($Team)
+
+## Set Scene Number
+func set_number(scene_number: int) -> void:
+	number = scene_number
+	$Number.text = 'Scene ' + str(number)
+
+## Advance to next Scene
+func advance_next() -> void:
+	set_number(number + 1)
+	show()
+	presentate_scene()
 
 func animate_fade(node: Control) -> void:
 	node.modulate.a = 0.0

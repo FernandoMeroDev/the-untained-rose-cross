@@ -13,6 +13,7 @@ func init(config: Dictionary) -> Array[Actor]:
 			actor_data['team'] = team
 			actor.init(actor_data)
 			add_child(actor)
+			actor.position_marker2d = position_node
 			actor.global_position = position_node.global_position
 			actor.flip_h(team == 'right')
 			actor.add_to_group('actors')
@@ -21,6 +22,13 @@ func init(config: Dictionary) -> Array[Actor]:
 			i += 1
 	#print('Inited Actors')
 	return actors
+
+## Repositionate Actors in theirs Markers 2D
+func repositionate_everyone() -> void:
+	var actors: Array[Node] = get_children()
+	for actor: Actor in actors:
+		actor.global_position = actor.position_marker2d.global_position
+		actor.flip_h(actor.team == TurnManager.Teams.RIGHT)
 
 func get_team_actors(team: TurnManager.Teams) -> Array[Actor]:
 	var actors: Array[Actor]
@@ -47,6 +55,17 @@ func hide_everyone_ui_components() -> void:
 	for actor: Actor in get_children():
 		actor.hide_speed_dices()
 		actor.hide_lights()
+
+## Show Everyone Speed Dices and lights
+func show_everyone_ui_components() -> void:
+	for actor: Actor in get_children():
+		actor.show_speed_dices()
+		actor.show_lights()
+
+## Restart Speed Dices
+func restart_everyone_speed_dices() -> void:
+	for actor: Actor in get_children():
+		actor.restart_speed_dices()
 
 ## Every Actor rush to their targets, due exceptions
 func rush_everyone_to_targets() -> void:

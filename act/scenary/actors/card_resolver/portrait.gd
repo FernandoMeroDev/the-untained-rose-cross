@@ -8,7 +8,7 @@ func _ready() -> void:
 ## Flip Portrait Horizontally
 func flip_h_portrait(flip: bool) -> void:
 	if flip:
-		position = position + Vector2(abs(original_position.x) + 100, 0)
+		position = original_position + Vector2(abs(original_position.x) + 100, 0)
 		rotation_degrees = -5.0
 	else:
 		position = original_position

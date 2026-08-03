@@ -1,21 +1,78 @@
 {
-	"scene_number": 1,
+	"act_number": 1,
 	"randomize_first_turn": false,
 	"first_turn_for": "right",
 	"controllers": {
-		"left_team": "AI",
-		"right_team": "AI",
+		"left_team": "PLAYER",
+		"right_team": "PLAYER",
 	},
 	"teams": {
 		"left": [
 			{
 				"id": 1,
-				"code": "juline",
-				"name": "Juline",
+				"code": "lucine",
+				"name": "Lucine 1",
+				"sharp_weapon": true,
 				"stats": {
 					"max_hp": 25,
 					"max_resist": 10,
 					"speed": { "min": 1, "max": 3 },
+					"speed_dices": 3,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "normal",
+					"pierce_resist": "normal",
+					"blunt_damage": "normal",
+					"blunt_resist": "normal",
+				},
+				"deck": [
+					"test_attack_1",
+					"test_attack_1",
+					"test_attack_1",
+				]
+			},
+			{
+				"id": 2,
+				"code": "lucine",
+				"name": "Lucine 2",
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 25,
+					"max_resist": 10,
+					"speed": { "min": 1, "max": 3 },
+					"speed_dices": 1,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "normal",
+					"pierce_resist": "normal",
+					"blunt_damage": "normal",
+					"blunt_resist": "normal",
+				},
+				"deck": [
+					"test_attack_1",
+					"test_attack_1",
+					"test_attack_1",
+				]
+			},
+		],
+		"right": [
+			{
+				"id": 3,
+				"code": "juline",
+				"name": "Juline 1",
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 30,
+					"max_resist": 15,
+					"speed": { "min": 2, "max": 4 },
 					"speed_dices": 1,
 					"light": 3,
 					"status_effects": []
@@ -34,12 +91,11 @@
 					"test_attack_0",
 				]
 			},
-		],
-		"right": [
 			{
-				"id": 2,
-				"code": "lucine",
-				"name": "Lucine",
+				"id": 4,
+				"code": "juline",
+				"name": "Juline 2",
+				"sharp_weapon": true,
 				"stats": {
 					"max_hp": 30,
 					"max_resist": 15,
@@ -57,9 +113,9 @@
 					"blunt_resist": "normal",
 				},
 				"deck": [
-					"test_attack_1",
-					"test_attack_1",
-					"test_attack_1",
+					"test_attack_0",
+					"test_attack_0",
+					"test_attack_0",
 				]
 			},
 		]

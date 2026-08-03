@@ -17,7 +17,7 @@ func _ready() -> void:
 ## Flip Container Horizontally
 func flip_h_container(flip: bool) -> void:
 	if flip:
-		position = position + Vector2(abs(original_position.x) + 50, 0)
+		position = original_position + Vector2(abs(original_position.x) + 50, 0)
 		rotation_degrees = -5.0
 		$Name.position = Vector2(96, name_original_position.y)
 		$Name.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT

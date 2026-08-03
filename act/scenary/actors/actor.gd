@@ -2,7 +2,6 @@ class_name Actor extends Area2D
 
 const SpeedDiceScene: PackedScene = preload('res://act/scenary/actors/dices/speed_dice/speed_dice.tscn')
 const ActorControl = preload('res://act/hud/actors/actor_control/actor_control.gd')
-const CardResolverScene: PackedScene = preload("res://act/scenary/actors/card_resolver/card_resolver.tscn")
 const CardResolver = preload("res://act/scenary/actors/card_resolver/card_resolver.gd")
 
 signal actor_mouse_entered(actor: Actor)
@@ -14,11 +13,23 @@ signal actor_pressed(actor: Actor)
 ## Emitted when an enemy actor is physically reached
 signal enemy_reached(actor: Actor, enemy: Actor)
 
+## Actor States
+enum States { IDLE, RUSHING }
+
+## Actor current status
+var status: States = States.IDLE
+
+## Actor Attack Types
+enum AttackTypes { HORI, VERT, STAB }
+
 ## Turn Manager reference
 var turn_manager: TurnManager
 
 ## Actor Team
 var team: TurnManager.Teams
+
+## Position Marker2D reference
+var position_marker2d: Marker2D
 
 ## Unique ID
 var id: int
@@ -30,11 +41,8 @@ var code: String
 ## Actor Name for UI
 var actor_name: String
 
-## Actor States
-enum States { IDLE, RUSHING }
-
-## Actor current status
-var status: States = States.IDLE
+## Actor Weapon Sharpness
+var sharp_weapon: bool
 
 ## Max HP
 var max_hp: int
@@ -78,6 +86,9 @@ var offensive_dice_queue: Array[DiceResource] = []
 ## Defensive Dice Queue
 var defensive_dice_queue: Array[DiceResource] = []
 
+## Is Actor horizontally flipped?
+var actor_flip_h: bool = false
+
 func _on_mouse_entered() -> void:
 	actor_mouse_entered.emit(self)
 
@@ -91,17 +102,38 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 
 func _ready() -> void:
 	$CollisionShape.shape = $CollisionShape.shape.duplicate()
+	$Sprite.material = $Sprite.material.duplicate()
 
 func _process(delta: float) -> void:
 	if status == States.RUSHING:
 		var direction: Vector2 = (
 			target_actor.global_position - global_position
 		).normalized()
-		global_position += direction * 800 * delta
+		# Flip according the movement direction
+		if direction.x >= 0.0:
+			if actor_flip_h:
+				flip_h(false)
+		else:
+			if not actor_flip_h:
+				flip_h(true)
+		var x_position = Vector2(global_position.x, 0)
+		var y_position = Vector2(0, global_position.y)
+		var target_x_position = Vector2(target_actor.global_position.x, 0)
+		var target_y_position = Vector2(0, target_actor.global_position.y)
 		if(
-			global_position.distance_to(target_actor.global_position) 
+			x_position.distance_to(target_x_position)
 			< 100
 		):
+			direction.x = 0
+		global_position += direction * 800 * delta
+		if(
+			x_position.distance_to(target_x_position) < 100
+			and y_position.distance_to(target_y_position) < 10
+		):
+		#if(
+			#global_position.distance_to(target_actor.global_position) 
+			#< 100
+		#):
 			enemy_reached.emit(self, target_actor)
 			status = States.IDLE
 
@@ -114,6 +146,7 @@ func init(actor_data: Dictionary) -> void:
 	id = int(actor_data['id'])
 	code = actor_data['code']
 	actor_name = actor_data["name"]
+	sharp_weapon = actor_data["sharp_weapon"]
 	var stats: Dictionary = actor_data["stats"]
 	max_hp = int(stats["max_hp"]); max_resist = int(stats["max_resist"])
 	hp = max_hp; resist = max_resist
@@ -130,7 +163,8 @@ func init(actor_data: Dictionary) -> void:
 	status_effects = stats['status_effects']
 	init_status_effects()
 	transform = transform.scaled(Vector2(0.55, 0.55))
-	init_battle_card()
+	init_card_resolver()
+	$DamageTags.resistences_values = resistences
 	#print(
 		#'Inited Actor: ' + actor_data["name"] 
 		#+ '; ID: ' + str(int(actor_data["id"])) 
@@ -153,6 +187,12 @@ func init_sprites() -> void:
 	$Sprite.sprite_frames = SpriteFrames.new()
 	load_animation('default')
 	load_animation('rushing')
+	load_animation('vert')
+	load_animation('stab')
+	load_animation('hori')
+	load_animation('block')
+	load_animation('evade')
+	load_animation('damaged')
 	# Here you can load more animations
 
 func load_animation(animation_name: String) ->void:
@@ -196,9 +236,8 @@ func init_status_effects() -> void:
 		effect.position.x += effect.get_rect().size.x * i
 		i += 1
 
-func init_battle_card() -> void:
-	var battle_card: CardResolver = CardResolverScene.instantiate()
-	add_child(battle_card)
+func init_card_resolver() -> void:
+	$CardResolver.parent_actor = self
 
 ## Checks for light for use a card.
 ## Extra light is when the actor is already holding a card
@@ -230,6 +269,17 @@ func pick_random_usable_card() -> CardResource:
 func flip_h(flip: bool) -> void:
 	$Sprite.flip_h = flip
 	$CardResolver.flip_h_card(flip)
+	$VFX.flip_h_vfx(flip)
+	$DamageTags.flip_h_tags(flip)
+	actor_flip_h = flip
+
+## Face enemy flipping horizontally
+func face_enemy(enemy: Actor) -> void:
+	flip_h(not enemy.actor_flip_h)
+
+## Get Actor Reach Point
+func get_reach_point() -> Vector2:
+	return $ReachPoint.global_position
 
 ## Check if actor is in current turn
 func is_my_turn() -> bool:
@@ -267,16 +317,30 @@ func roll_speed_dices() -> void:
 		var speed_value: int = randi_range(speed['min'], speed['max'])
 		dice.set_speed(speed_value)
 
+## Restart Actor Speed Dices
+func restart_speed_dices() -> void:
+	for dice: SpeedDice in $SpeedDices.get_children():
+		dice.reset()
+
 ## Hide Speed Dices
 func hide_speed_dices() -> void:
 	for dice: SpeedDice in $SpeedDices.get_children():
 		dice.hide()
 
+## Show Speed Dices
+func show_speed_dices() -> void:
+	for dice: SpeedDice in $SpeedDices.get_children():
+		dice.show()
+
 ## Hide Lights
 func hide_lights() -> void:
 	$Lights.hide()
 
-## Rush to target if any
+## Show Lights
+func show_lights() -> void:
+	$Lights.show()
+
+## Rush to some target if any
 func rush_to_target() -> void:
 	var target_speed_dice: SpeedDice
 	for speed_dice: SpeedDice in $SpeedDices.get_ordered_by_speed():
@@ -295,7 +359,104 @@ func rush_to_enemy(enemy: Actor) -> void:
 func use_card(card_resource: CardResource) -> void:
 	$CardResolver.load_card(card_resource)
 	$CardResolver.show()
+	$CardResolver.position = Vector2(0, 0)
+
+## Returns to IDLE status
+func idle() -> void:
+	$CardResolver.hide()
+	$Sprite.play('default')
+	status = States.IDLE
 
 ## Get Card Resolver
 func get_card_resolver() -> CardResolver:
 	return $CardResolver
+
+## Attack. Display animation and effects. Returns attack animation:
+## 'vert' | 'hori' | 'stab'
+func attack(draw_trail: bool = true) -> String:
+	## 'vert' | 'hori' | 'stab'
+	var attack_type: String = AttackTypes.keys().pick_random().to_lower()
+	$Sprite.play(attack_type)
+	if draw_trail: $VFX.show_attack_trail_of(attack_type)
+	return attack_type
+
+## Damaged. Display animation and effects
+func damaged(
+	value: int, 
+	damage_type: String,
+	attacker_position: Vector2, 
+	attack_type: String
+) -> void:
+	# Set red color
+	#$Sprite.modulate = Color(1.0, 0, 0)
+	# Take Damage
+	take_damage(value, damage_type)
+	# Change Sprite
+	$Sprite.play('damaged')
+	# Knockback
+	knockback(
+		(global_position - attacker_position).normalized()
+	)
+	# Show VFX
+	$VFX/HitTrail.hit(attack_type)
+	await $VFX/BloodSplash.splash()
+
+## Actor Knockback
+func knockback(direction: Vector2) -> void:
+	var distance: int = randi_range(80, 140)
+	var final_position: Vector2 = global_position + (direction * distance)
+	# Limits the movement area to Scenary's floor
+	final_position.x = clamp(final_position.x, 100, get_viewport_rect().size.x - 100)
+	final_position.y = clamp(final_position.y, 589.0, get_viewport_rect().size.y - 100)
+	# Animation
+	var tween = create_tween()
+	tween.tween_property(
+		self,
+		"global_position",
+		final_position,
+		0.15
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+## Take Damage
+func take_damage(value: int, damage_type: String) -> void:
+	# Calc damage in function of resistences
+	var normal_damage: int = int(
+		value * calc_resistence(damage_type + '_damage')
+	)
+	var stagger_damage: int = int(
+		value * calc_resistence(damage_type + '_resist')
+	)
+	hp -= normal_damage
+	resist -= stagger_damage
+	$Gauges.take_damage(normal_damage, stagger_damage)
+	actor_control.set_health_value(hp)
+	# Blood
+	$Sprite.material.set_shader_parameter(
+		"blood_amount",
+		calc_blood_amount()
+	)
+	# Damage Tags
+	$DamageTags.show_damage('normal', normal_damage, damage_type)
+	$DamageTags.show_damage('stagger', stagger_damage, damage_type)
+
+## Calc Resistence value
+func calc_resistence(resistence_name: String) -> float:
+	var resistence_value: String = resistences[resistence_name]
+	match resistence_value:
+		"fatal": return 2.0
+		"weak": return 1.5
+		"normal": return 1.0
+		"endured": return 0.5
+		"ineffective": return 0.25
+		_: return 0.0 # Immune
+
+## Calc Blood amount for blood shader
+func calc_blood_amount() -> float:
+	var hp_percentaje: float = 1.0 - clamp(1.0 - (float(hp) / float(max_hp)), 0.0, 1.0)
+	match hp_percentaje:
+		# HP < 25% => 100% blood
+		var p when p < 0.25: return 1.0
+		# HP < 50% => 50% blood
+		var p when p < 0.50: return 0.50
+		# HP >= 50% => 0% blood
+		_: return 0.0
