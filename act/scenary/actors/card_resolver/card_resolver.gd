@@ -123,3 +123,9 @@ func get_all_dices() -> Array[DiceResource]:
 		return queue
 	else:
 		return []
+
+## Clear Card Resolver
+func clear() -> void:
+	dice_queue = []
+	$Container/CurrentDice.clear_dice()
+	$Container/DiceQueue.clear()

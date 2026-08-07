@@ -13,11 +13,10 @@ func remove(target_event: Event):
 		if event == target_event:
 			events.erase(target_event)
 
-# [Un Used]
-### Clear all references in Events' Speed Dices
-#func clear_all_references() -> void:
-	#for event in events:
-		#event.clear_speed_dices_references()
+## Clear all references in Events' Speed Dices
+func clear_all_references() -> void:
+	for event in events:
+		event.clear_speed_dices_references()
 
 ## Remove all events
 func remove_all() -> void:

@@ -71,12 +71,22 @@ func resolve_events() -> void:
 	if event_queue.size() > 0:
 		actors.rush_everyone_to_targets()
 		for event: Event in event_queue.events:
-			await resolve_event(event)
-	# [Un Used]
-	#event_queue.clear_all_references()
+			var actors_alive: bool = check_actors_alive(event.get_actors())
+			actors.hide_dead_actors()
+			if actors_alive:
+				await resolve_event(event)
+			else:
+				continue
+	event_queue.clear_all_references()
 	event_queue.remove_all()
+	actors.clear_everyone_card_resolver()
+	actors.remove_dead_actors()
 	actors.clear_everyone_defensive_dice_queue()
 	act.handle_scene_finished()
+
+## Check Actor Alive
+func check_actors_alive(p_actors: Array[Actor]) -> bool:
+	return p_actors[0].alive and p_actors[1].alive
 
 ## Resolve Battle Event
 func resolve_event(event: Event) -> void:
@@ -105,6 +115,9 @@ func resolve_event(event: Event) -> void:
 		card_resolver_a.has_dice()
 		or card_resolver_b.has_dice()
 	):
+		## Check if actors are still alive
+		var actors_alive: bool = check_actors_alive(event.get_actors())
+		if not actors_alive: break
 		# A and B has dices
 		if(
 			card_resolver_a.has_dice()
@@ -123,8 +136,10 @@ func resolve_event(event: Event) -> void:
 			await handle_oneside_approach(event, actor_b, actor_a)
 	actor_a.z_index = actors_z_index['a']
 	actor_a.idle()
+	actor_a.clear_card_resolver()
 	actor_b.z_index = actors_z_index['b']
 	actor_b.idle()
+	actor_b.clear_card_resolver()
 
 ## Both has Dice
 func handle_clash_approach(

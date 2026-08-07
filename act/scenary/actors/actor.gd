@@ -50,6 +50,9 @@ var max_hp: int
 ## Max Resist
 var max_resist: int
 
+## Is Actor Alive?
+var alive: bool = true
+
 ## Current HP
 var hp: int
 
@@ -110,15 +113,26 @@ func handle_hit(
 ) -> void:
 	# Take Damage logic
 	take_damage(value, damage_type)
-	# Change Sprite
-	$Sprite.play('damaged')
 	# Knockback
 	knockback(
 		(global_position - attacker_position).normalized()
 	)
 	# Show VFX
 	$VFX/HitTrail.hit(attack_type)
-	await $VFX/BloodSplash.splash()
+	$VFX/BloodSplash.splash()
+	# Damage results
+	if hp <= 0:
+		hp = 0
+		# Actor Die
+		$Sprite.play('defeated')
+		die()
+	else:
+		# Change Sprite
+		$Sprite.play('damaged')
+	if resist <= 0:
+		resist = 0
+		# Set Staggered Status
+	await set_timeout(0.5)
 
 ## Handle Parry
 func handle_parry() -> void:
@@ -231,6 +245,7 @@ func init_sprites() -> void:
 	load_animation('block')
 	load_animation('evade')
 	load_animation('damaged')
+	load_animation('defeated')
 	# Here you can load more animations
 
 func load_animation(animation_name: String) ->void:
@@ -467,6 +482,11 @@ func knockback(direction: Vector2) -> void:
 		0.15
 	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
+## Actor saddly Die
+func die() -> void:
+	alive = false
+	#hide()
+
 ## Take Damage
 func take_damage(value: int, damage_type: String) -> void:
 	# Calc damage in function of resistences
@@ -488,6 +508,10 @@ func take_damage(value: int, damage_type: String) -> void:
 	# Damage Tags
 	$DamageTags.show_damage('normal', normal_damage, damage_type)
 	$DamageTags.show_damage('stagger', stagger_damage, damage_type)
+
+## Set timeout
+func set_timeout(time: float = 0.3) -> void:
+	await get_tree().create_timer(time).timeout
 
 ## Calc Resistence value
 func calc_resistence(resistence_name: String) -> float:
@@ -547,3 +571,7 @@ func recover_resist(value: int) -> void:
 	resist += value
 	$Gauges/Resist.recover(value)
 	$RecoverTags.show_resist(value)
+
+## Clear Card Resolver
+func clear_card_resolver() -> void:
+	$CardResolver.clear()

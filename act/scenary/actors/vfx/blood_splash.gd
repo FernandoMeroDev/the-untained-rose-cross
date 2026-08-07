@@ -19,4 +19,3 @@ func splash() -> void:
 			hide()
 			modulate.a = 1.0
 	)
-	await tween.finished

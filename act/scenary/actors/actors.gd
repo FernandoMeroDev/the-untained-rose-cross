@@ -86,3 +86,20 @@ func everyone_draw_cards() -> void:
 func clear_everyone_defensive_dice_queue() -> void:
 	for actor: Actor in get_children():
 		actor.defensive_dice_queue = []
+
+## Everyone clear their Card Resolver
+func clear_everyone_card_resolver() -> void:
+	for actor: Actor in get_children():
+		actor.clear_card_resolver()
+
+## Remove dead Actros
+func remove_dead_actors() -> void:
+	for actor: Actor in get_children():
+		if not actor.alive:
+			remove_child(actor)
+
+## Hide dead Actros
+func hide_dead_actors() -> void:
+	for actor: Actor in get_children():
+		if not actor.alive:
+			actor.hide()

@@ -23,12 +23,12 @@
 					"status_effects": []
 				},
 				"resistences": {
-					"slash_damage": "normal",
-					"slash_resist": "normal",
-					"pierce_damage": "normal",
-					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
+					"slash_damage": "fatal",
+					"slash_resist": "fatal",
+					"pierce_damage": "fatal",
+					"pierce_resist": "fatal",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
 				},
 				"deck": [
 					"downgrade_slash",
@@ -53,12 +53,12 @@
 					"status_effects": []
 				},
 				"resistences": {
-					"slash_damage": "normal",
-					"slash_resist": "normal",
-					"pierce_damage": "normal",
-					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
+					"slash_damage": "fatal",
+					"slash_resist": "fatal",
+					"pierce_damage": "fatal",
+					"pierce_resist": "fatal",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
 				},
 				"deck": [
 					"downgrade_slash",
@@ -83,12 +83,12 @@
 					"status_effects": []
 				},
 				"resistences": {
-					"slash_damage": "normal",
-					"slash_resist": "normal",
-					"pierce_damage": "normal",
-					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
+					"slash_damage": "fatal",
+					"slash_resist": "fatal",
+					"pierce_damage": "fatal",
+					"pierce_resist": "fatal",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
 				},
 				"deck": [
 					"downgrade_slash",
@@ -122,12 +122,12 @@
 					]
 				},
 				"resistences": {
-					"slash_damage": "normal",
-					"slash_resist": "normal",
-					"pierce_damage": "normal",
-					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
+					"slash_damage": "fatal",
+					"slash_resist": "fatal",
+					"pierce_damage": "fatal",
+					"pierce_resist": "fatal",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
 				},
 				"deck": [
 					"downgrade_slash",
@@ -159,12 +159,12 @@
 					]
 				},
 				"resistences": {
-					"slash_damage": "normal",
-					"slash_resist": "normal",
-					"pierce_damage": "normal",
-					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
+					"slash_damage": "fatal",
+					"slash_resist": "fatal",
+					"pierce_damage": "fatal",
+					"pierce_resist": "fatal",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
 				},
 				"deck": [
 					"downgrade_slash",
@@ -196,12 +196,12 @@
 					]
 				},
 				"resistences": {
-					"slash_damage": "normal",
-					"slash_resist": "normal",
-					"pierce_damage": "normal",
-					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
+					"slash_damage": "fatal",
+					"slash_resist": "fatal",
+					"pierce_damage": "fatal",
+					"pierce_resist": "fatal",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
 				},
 				"deck": [
 					"downgrade_slash",

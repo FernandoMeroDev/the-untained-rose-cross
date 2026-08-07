@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://ba8a8theakpns" path="res://media/actors/gauges/right.png" id="4_f7i5f"]
 [ext_resource type="Texture2D" uid="uid://dsqpyvv7cpap4" path="res://media/actors/sprites/lucine/vert.png" id="5_h0bp5"]
 [ext_resource type="Texture2D" uid="uid://bgl2n7rpl8kw7" path="res://media/actors/sprites/lucine/block.png" id="5_m7frv"]
+[ext_resource type="Texture2D" uid="uid://djpisc42nnyii" path="res://media/actors/sprites/lucine/defeated.png" id="7_m7frv"]
 [ext_resource type="Script" uid="uid://bfn7ah4y22qg0" path="res://act/scenary/actors/vfx/vfx.gd" id="9_hjph0"]
 [ext_resource type="Texture2D" uid="uid://bh4kbplqw7dkm" path="res://media/battle/vfx/blood/blood_1.png" id="10_5myf0"]
 [ext_resource type="Script" uid="uid://qxd8511g1ckf" path="res://act/scenary/actors/vfx/blood_splash.gd" id="11_di8le"]
@@ -61,6 +62,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("7_m7frv")
+}],
+"loop": 1,
+"name": &"defeated",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("3_5myf0")
 }],
 "loop": 1,
@@ -101,7 +110,7 @@ shape = SubResource("RectangleShape2D_f7i5f")
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=552609113]
 material = SubResource("ShaderMaterial_ym10n")
 sprite_frames = SubResource("SpriteFrames_51bhj")
-animation = &"block"
+animation = &"defeated"
 
 [node name="Glow" type="Sprite2D" parent="." unique_id=823803996]
 visible = false

@@ -38,3 +38,8 @@ func remove_dice(dice: DiceResource) -> void:
 			tween.finished.connect(
 				func(): remove_child(dice_node)
 			)
+
+## Clear Dice Queue
+func clear() -> void:
+	for dice_node: Dice in get_children():
+		remove_child(dice_node)
