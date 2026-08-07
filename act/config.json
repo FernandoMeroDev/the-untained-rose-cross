@@ -1,11 +1,11 @@
 {
 	"act_number": 1,
 	"randomize_first_turn": false,
-	"first_turn_for": "right",
+	"first_turn_for": "left",
 	"toggle_each_turn": false,
 	"controllers": {
-		"left_team": "PLAYER",
-		"right_team": "AI",
+		"left_team": "AI",
+		"right_team": "PLAYER"
 	},
 	"teams": {
 		"left": [

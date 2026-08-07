@@ -316,9 +316,8 @@ func roll_dices() -> void:
 		if not enemy_team_prepared:
 			turn_manager.toggle_team()
 			if turn_manager.is_current_team_controlled_by_ai():
-				# IA takes second turn and battle starts
+				# IA takes second turn and starts battle
 				turn_manager.ai_target_enemies()
-				phase = Phases.BATTLE
 				start_battle()
 			else:
 				# Other Player takes second turn
@@ -326,11 +325,14 @@ func roll_dices() -> void:
 				enemy_team_prepared = true
 		else:
 			# Player starts the Battle
-			phase = Phases.BATTLE
 			start_battle()
 
 ## Start Battle
 func start_battle() -> void:
+	phase = Phases.BATTLE
+	# Gives next first turn to original team
+	if not turn_manager.toggle_each_turn:
+		turn_manager.toggle_team()
 	# Resolve Events
 	battle_resolver.resolve_events()
 

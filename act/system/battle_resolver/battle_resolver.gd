@@ -66,7 +66,7 @@ func resolve_events() -> void:
 	# Order Event Queue
 	event_queue.order_by_speed()
 	# Log Events for Debug
-	event_queue.log_in_console()
+	#event_queue.log_in_console()
 	# Check for if any event
 	if event_queue.size() > 0:
 		actors.rush_everyone_to_targets()
