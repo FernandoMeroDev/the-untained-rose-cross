@@ -16,5 +16,8 @@ func flip_h_portrait(flip: bool) -> void:
 
 ## Load Card Resource
 func load_art(card_resource: CardResource) -> void:
-	var image: Texture2D = load('res://media/cards/' + card_resource.code + '.png')
-	$Art.texture = image
+	$Art.texture = load('res://media/cards/' + card_resource.code + '.png')
+
+## Load Counter Art
+func load_counter_art() -> void:
+	$Art.texture = preload('res://media/cards/counter.png')

@@ -39,6 +39,20 @@ func clear_dice() -> void:
 	$Value.hide()
 	dice_resource = null
 
+## Plays Fade Out animation
+func fade_out_dice() -> void:
+	var tween: Tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property($Icon, "modulate:a", 0.0, 0.3)
+	tween.tween_property($Range, "modulate:a", 0.0, 0.3)
+	tween.tween_property($Roulette, "modulate:a", 0.0, 0.3)
+	tween.finished.connect(
+		func():
+			$Icon.modulate.a = 1.0
+			$Range.modulate.a = 1.0
+			$Roulette.modulate.a = 0.7
+	)
+
 ## Destroy Dice
 func destroy_dice() -> void:
 	$Icon.hide()
@@ -60,3 +74,7 @@ func reset_destroyed_dice() -> void:
 	$Destroyed.hide()
 	$Destroyed.scale = Vector2(0.5, 0.5)
 	$Destroyed.modulate = Color(1, 1, 1, 1)
+
+## Recycle Dice
+func recycle_dice() -> void:
+	set_dice(dice_resource)

@@ -38,12 +38,13 @@ func _on_scene_presentation_timeout() -> void:
 # --- Dice Roller Events Observers
 func _on_dice_roller_pressed() -> void:
 	roll_dices()
+	battle_resolver.handle_dice_roller_pressed()
 
 func _ready() -> void:
 	var config: Dictionary = JsonUtils.load_json(
-		#'res://act/config.json',
+		'res://act/config.json',
 		#'res://act/debug_config.json',
-		'res://act/battle_phase_config.json',
+		#'res://act/battle_phase_config.json',
 		#'res://act/debug_battle_phase_config.json',
 	)
 	# Init Input Manager
@@ -90,6 +91,7 @@ func init_turn_manager(config: Dictionary) -> void:
 				turn_manager.current_team = turn_manager.Teams.RIGHT
 			'left':
 				turn_manager.current_team = turn_manager.Teams.LEFT
+	turn_manager.toggle_each_turn = config['toggle_each_turn']
 
 ## Init Actor Details (Panels)
 func init_actor_details() -> void:
@@ -285,6 +287,8 @@ func init_battle_resolver() -> void:
 	battle_resolver.battle_sfx = $Music/SFX/Battle
 	# Turn Manager reference
 	battle_resolver.turn_manager = turn_manager
+	# Init Battle Resolver
+	battle_resolver.init()
 
 ## Roll Speed Dices to go next Phase
 func roll_dices() -> void:
@@ -340,6 +344,10 @@ func reset_scene() -> void:
 	await $Scenary/Camera.reset_zoom()
 	# Reset enemy team prepared variable
 	enemy_team_prepared = false
+	# Refill Light
+	$Scenary/Actors.refill_everyone_light()
+	# Draw card
+	$Scenary/Actors.everyone_draw_cards()
 	# Reiterate Act Phases
 	$HUD/SceneNumber/Presentation.start()
 	$HUD/SceneNumber.advance_next()

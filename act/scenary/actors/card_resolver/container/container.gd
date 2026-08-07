@@ -16,6 +16,7 @@ func _ready() -> void:
 
 ## Flip Container Horizontally
 func flip_h_container(flip: bool) -> void:
+	$DiceQueue.flip_h_queue(flip)
 	if flip:
 		position = original_position + Vector2(abs(original_position.x) + 50, 0)
 		rotation_degrees = -5.0

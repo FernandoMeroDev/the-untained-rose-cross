@@ -33,7 +33,6 @@ func target_random_enemy(actor: Actor, speed_dice: SpeedDice) -> void:
 		.get_speed_dices().pick_random()
 	var card_resource: CardResource = actor.pick_random_usable_card()
 	if card_resource:
-		# [TODO] Connect Signal
 		ai_enemy_speed_dice_targeted.emit(
 			speed_dice,
 			enemy_speed_dice,

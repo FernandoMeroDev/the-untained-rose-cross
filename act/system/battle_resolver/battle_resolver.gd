@@ -1,8 +1,10 @@
 class_name BattleResolver extends RefCounted
 
+const BattleSFX = preload('res://act/music/sfx/battle.gd')
 const Camera = preload("res://act/scenary/camera/camera.gd")
 const Actors = preload("res://act/scenary/actors/actors.gd")
 const CardResolver = preload("res://act/scenary/actors/card_resolver/card_resolver.gd")
+const ClashResolver = preload('res://act/system/battle_resolver/clash_resolver.gd')
 
 signal roll_dices_confirmed
 
@@ -34,10 +36,25 @@ var turn_manager: TurnManager
 var dice_roll_sfx: AudioStreamPlayer
 
 ## Battle SFX reference
-var battle_sfx: Node
+var battle_sfx: BattleSFX
+
+var clash_resolver: ClashResolver
+
+func init() -> void:
+	clash_resolver = ClashResolver.new(
+		act, camera, battle_sfx
+	)
+
+# --- --- Dice Roller Event Handlers
+func handle_dice_roller_pressed() -> void:
+	roll_dices()
 
 # --- --- Space Event Handlers
 func handle_space_pressed() -> void:
+	roll_dices()
+
+## Roll Dices
+func roll_dices() -> void:
 	if status == States.AWAITING_CONFIRMATION:
 		roll_dices_confirmed.emit()
 		dice_roll_sfx.play()
@@ -49,13 +66,16 @@ func resolve_events() -> void:
 	# Order Event Queue
 	event_queue.order_by_speed()
 	# Log Events for Debug
-	#event_queue.log_in_console()
+	event_queue.log_in_console()
 	# Check for if any event
 	if event_queue.size() > 0:
 		actors.rush_everyone_to_targets()
 		for event: Event in event_queue.events:
 			await resolve_event(event)
+	# [Un Used]
+	#event_queue.clear_all_references()
 	event_queue.remove_all()
+	actors.clear_everyone_defensive_dice_queue()
 	act.handle_scene_finished()
 
 ## Resolve Battle Event
@@ -94,113 +114,123 @@ func resolve_event(event: Event) -> void:
 			actor_b.rush_to_enemy(actor_a)
 			camera.zoom_into_battle_event(event)
 			await camera.zooming_finished
-			if(
-				not is_controlled_by_ai(actor_a)
-				and is_controlled_by_ai(actor_b)
-			):
-				card_resolver_b.play_dice()
-				await player_confirmation()
-				card_resolver_a.play_dice()
-			elif(
-				not is_controlled_by_ai(actor_b)
-				and is_controlled_by_ai(actor_a)
-			):
-				card_resolver_a.play_dice()
-				await player_confirmation()
-				card_resolver_b.play_dice()
-			else:
-				if is_controlled_by_ai(actor_a):
-					await act.get_tree().create_timer(0.3).timeout
-					dice_roll_sfx.play()
-				else:
-					await player_confirmation()
-				card_resolver_a.play_dice()
-				if is_controlled_by_ai(actor_b):
-					await act.get_tree().create_timer(0.3).timeout
-					dice_roll_sfx.play()
-				else:
-					await player_confirmation()
-				card_resolver_b.play_dice()
-			await resolve_clash(
-				card_resolver_a,
-				card_resolver_b,
-			)
+			await handle_clash_approach(actor_a, actor_b)
 		# Only A has dice
 		elif card_resolver_a.has_dice():
-			actor_a.rush_to_enemy(actor_b)
-			actor_b.face_enemy(actor_a)
-			camera.zoom_into_battle_event(event)
-			await camera.zooming_finished
-			if not is_controlled_by_ai(actor_a):
-				await player_confirmation()
-			card_resolver_a.play_dice()
-			await resolve_oneside(card_resolver_a, card_resolver_b.parent_actor)
+			await handle_oneside_approach(event, actor_a, actor_b)
 		# Only B has dice
 		elif card_resolver_b.has_dice():
-			actor_b.rush_to_enemy(actor_a)
-			actor_a.face_enemy(actor_b)
-			camera.zoom_into_battle_event(event)
-			await camera.zooming_finished
-			if not is_controlled_by_ai(actor_b):
-				await player_confirmation()
-			card_resolver_b.play_dice()
-			await resolve_oneside(card_resolver_b, card_resolver_a.parent_actor)
+			await handle_oneside_approach(event, actor_b, actor_a)
 	actor_a.z_index = actors_z_index['a']
 	actor_a.idle()
 	actor_b.z_index = actors_z_index['b']
 	actor_b.idle()
+
+## Both has Dice
+func handle_clash_approach(
+	actor_a: Actor,
+	actor_b: Actor
+) -> void:
+	# Get Card Resolvers
+	var card_resolver_a: CardResolver = actor_a.get_card_resolver()
+	var card_resolver_b: CardResolver = actor_b.get_card_resolver()
+	if(
+		not is_controlled_by_ai(actor_a)
+		and is_controlled_by_ai(actor_b)
+	):
+		await set_timeout()
+		card_resolver_b.play_dice()
+		await player_confirmation()
+		card_resolver_a.play_dice()
+	elif(
+		not is_controlled_by_ai(actor_b)
+		and is_controlled_by_ai(actor_a)
+	):
+		await set_timeout()
+		card_resolver_a.play_dice()
+		await player_confirmation()
+		card_resolver_b.play_dice()
+	else:
+		if is_controlled_by_ai(actor_a):
+			await set_timeout()
+			dice_roll_sfx.play()
+		else:
+			await player_confirmation()
+		card_resolver_a.play_dice()
+		if is_controlled_by_ai(actor_b):
+			await set_timeout()
+			dice_roll_sfx.play()
+		else:
+			await player_confirmation()
+		card_resolver_b.play_dice()
+	await resolve_clash(
+		card_resolver_a,
+		card_resolver_b,
+	)
+
+## Only one has Dice
+func handle_oneside_approach(
+	event: Event,
+	attacker: Actor,
+	target: Actor
+) -> void:
+	var card_resolver: CardResolver = attacker.get_card_resolver()
+	attacker.rush_to_enemy(target)
+	target.face_enemy(attacker)
+	camera.zoom_into_battle_event(event)
+	await camera.zooming_finished
+	if target.defensive_dice_queue.is_empty():
+		if card_resolver.get_current_dice_resource().is_offensive():
+			# Dice is offensive
+			# Play dice
+			if not is_controlled_by_ai(attacker):
+				await player_confirmation()
+			else:
+				await set_timeout()
+			await resolve_oneside(
+				card_resolver, target
+			)
+		elif(
+			card_resolver.get_current_dice_resource().is_defensive()
+			and not attacker.using_defensive_dice_queue
+		):
+			# Dice is defensive
+			# Save dice in the defensive dice queue
+			var dices: Array[DiceResource]
+			dices.append(card_resolver.get_current_dice_resource())
+			card_resolver.fade_out_current_dice()
+			dices.append_array(card_resolver.pull_defensive_dices())
+			attacker.defensive_dice_queue.append_array(dices)
+			await set_timeout(0.5)
+			card_resolver.discard_current_dice()
+		else:
+			attacker.store_defensive_dice_queue()
+			await set_timeout(0.5)
+			card_resolver.discard_current_dice()
+	else:
+		target.use_defensive_dice_queue()
+		await handle_clash_approach(attacker, target)
 
 ## Resolve Clash
 func resolve_clash(
 	card_resolver_a: CardResolver,
 	card_resolver_b: CardResolver
 ) -> void:
-	var a_value: int = card_resolver_a.get_dice_value()
-	var b_value: int = card_resolver_b.get_dice_value()
-	var actor_a: Actor = card_resolver_a.parent_actor
-	var actor_b: Actor = card_resolver_b.parent_actor
-	var a_dice_type: String = card_resolver_a.get_dice_type_string() # SLASH, PIERCE, BLUNT, BLOCK, EVADE
-	var b_dice_type: String = card_resolver_b.get_dice_type_string() # SLASH, PIERCE, BLUNT, BLOCK, EVADE
-	camera.shake()
-	if a_value > b_value:
-		# A wins B
-		var attack_animation: String = actor_a.attack()
-		battle_sfx.play_attack(actor_a.sharp_weapon, attack_animation)
-		card_resolver_b.destroy_current_dice()
-		await actor_b.damaged(
-			a_value, a_dice_type, actor_a.global_position, attack_animation
-		)
-		card_resolver_a.dicard_current_dice()
-		card_resolver_b.dicard_current_dice()
-	elif a_value < b_value:
-		# B wins A
-		var attack_animation: String = actor_b.attack()
-		battle_sfx.play_attack(actor_b.sharp_weapon, attack_animation)
-		card_resolver_a.destroy_current_dice()
-		await actor_a.damaged(
-			b_value, b_dice_type, actor_b.global_position, attack_animation
-		)
-		card_resolver_b.dicard_current_dice()
-		card_resolver_a.dicard_current_dice()
-	else:
-		# Equals
-		actor_a.attack(false)
-		actor_b.attack(false)
-		# [TODO] Show parry VFX with particles system
-		battle_sfx.play_parry()
+	await clash_resolver.resolve(card_resolver_a, card_resolver_b)
 
 ## Resolve Oneside
 func resolve_oneside(card_resolver: CardResolver, enemy: Actor) -> void:
+	card_resolver.play_dice()
 	var value: int = card_resolver.get_dice_value()
 	var actor: Actor = card_resolver.parent_actor
 	var dice_type: String = card_resolver.get_dice_type_string() # SLASH, PIERCE, BLUNT, BLOCK, EVADE
+	var attack_animation: String = actor.play_attack_animation()
 	camera.shake()
-	var attack_animation: String = actor.attack()
 	battle_sfx.play_attack(actor.sharp_weapon, attack_animation)
-	await enemy.damaged(
+	await enemy.handle_hit(
 		value, dice_type, actor.global_position, attack_animation
 	)
-	card_resolver.dicard_current_dice()
+	card_resolver.discard_current_dice()
 
 ## Await Player Confirmation
 func player_confirmation() -> void:
@@ -242,3 +272,7 @@ func load_speed_dice_card(
 ## Is Actor Controlled by AI?
 func is_controlled_by_ai(actor: Actor) -> bool:
 	return turn_manager.is_actor_controlled_by_ai(actor)
+
+## Await timeout
+func set_timeout(time: float = 0.3):
+	await act.get_tree().create_timer(time).timeout

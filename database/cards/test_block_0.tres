@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://bwwdqmteqihyq"]
+
+[ext_resource type="Script" uid="uid://cprnyoijuhug1" path="res://database/resources/dice_resource.gd" id="1_mcn02"]
+[ext_resource type="Script" uid="uid://tl3k1itad7g0" path="res://database/resources/card_resource.gd" id="2_7o2v6"]
+
+[sub_resource type="Resource" id="Resource_wiiun"]
+script = ExtResource("1_mcn02")
+type = 3
+min_value = 4
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_bfcff"]
+script = ExtResource("1_mcn02")
+type = 3
+min_value = 4
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[resource]
+script = ExtResource("2_7o2v6")
+name = "Test Block 0"
+code = "test_block_0"
+cost = 1
+dices = Array[ExtResource("1_mcn02")]([SubResource("Resource_wiiun"), SubResource("Resource_bfcff")])
+metadata/_custom_type_script = "uid://tl3k1itad7g0"

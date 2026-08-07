@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://c771vxoetvgsd"]
+
+[ext_resource type="Script" uid="uid://cprnyoijuhug1" path="res://database/resources/dice_resource.gd" id="1_4ugyl"]
+[ext_resource type="Script" uid="uid://tl3k1itad7g0" path="res://database/resources/card_resource.gd" id="2_vg70e"]
+
+[sub_resource type="Resource" id="Resource_kk04s"]
+script = ExtResource("1_4ugyl")
+min_value = 4
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_etsei"]
+script = ExtResource("1_4ugyl")
+type = 1
+min_value = 4
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_06v3a"]
+script = ExtResource("1_4ugyl")
+type = 2
+min_value = 4
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_4ugyl"]
+script = ExtResource("1_4ugyl")
+type = 3
+min_value = 4
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[resource]
+script = ExtResource("2_vg70e")
+name = "Multi Attack 0"
+code = "multi_attack_0"
+cost = 1
+dices = Array[ExtResource("1_4ugyl")]([SubResource("Resource_kk04s"), SubResource("Resource_etsei"), SubResource("Resource_06v3a"), SubResource("Resource_4ugyl")])
+metadata/_custom_type_script = "uid://tl3k1itad7g0"

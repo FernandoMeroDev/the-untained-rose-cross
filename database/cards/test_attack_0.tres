@@ -5,14 +5,14 @@
 
 [sub_resource type="Resource" id="Resource_kk04s"]
 script = ExtResource("1_kk04s")
-min_value = 3
-max_value = 3
+min_value = 4
+max_value = 4
 metadata/_custom_type_script = "uid://cprnyoijuhug1"
 
 [sub_resource type="Resource" id="Resource_gfdqv"]
 script = ExtResource("1_kk04s")
-min_value = 3
-max_value = 3
+min_value = 4
+max_value = 4
 metadata/_custom_type_script = "uid://cprnyoijuhug1"
 
 [resource]

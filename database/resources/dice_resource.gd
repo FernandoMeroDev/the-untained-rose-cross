@@ -8,6 +8,14 @@ enum Types { SLASH, PIERCE, BLUNT, BLOCK, EVADE }
 
 @export var max_value: int
 
+## Checks is the dice is offensive
+func is_offensive() -> bool:
+	return (type == Types.SLASH or type == Types.PIERCE or type == Types.BLUNT)
+
+## Checks is the dice is defensive
+func is_defensive() -> bool:
+	return (type == Types.BLOCK or type == Types.EVADE)
+
 func _init(
 	p_type = Types.SLASH,
 	p_min = 1,

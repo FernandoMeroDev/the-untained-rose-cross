@@ -2,6 +2,7 @@
 	"act_number": 1,
 	"randomize_first_turn": false,
 	"first_turn_for": "right",
+	"toggle_each_turn": false,
 	"controllers": {
 		"left_team": "AI",
 		"right_team": "AI",

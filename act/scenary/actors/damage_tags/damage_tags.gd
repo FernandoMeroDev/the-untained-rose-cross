@@ -72,6 +72,19 @@ func show_damage(category: String, value: int, damage_type: String) -> void:
 	)
 	damage_tag.fade_animation_finished.connect(_on_fade_animation_finished)
 
+## Show Defelct Damage Tag
+func show_deflect_damage(value: int) -> void:
+	var i: int = get_child_count()
+	var damage_tag: DamageTag = StaggerDamageScene.instantiate()
+	var icon: Texture = resistences_icons['normal_slash_resist']
+	add_child(damage_tag)
+	damage_tag.init(value, 'Deflect', icon)
+	damage_tag.position = Vector2(
+		calc_random_offset(-150),
+		calc_random_offset(-80 * i)
+	)
+	damage_tag.fade_animation_finished.connect(_on_fade_animation_finished)
+
 ## Calc slight initial tag position variation
 func calc_random_offset(offset: int, variation: int = 20) -> int:
 	return randi_range(offset - variation, offset + variation)

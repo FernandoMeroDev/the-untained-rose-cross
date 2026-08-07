@@ -5,6 +5,10 @@ signal event_resolved(event: Event)
 ## Higher Speed
 var higher_speed: int
 
+## Clear Speed Dices references
+func clear_speed_dices_references() -> void:
+	push_error("Method not implemented")
+
 ## Get Card of Speed Dice
 func get_card_of_speed_dice(_speed_dice: SpeedDice) -> CardResource:
 	push_error("Method not implemented")

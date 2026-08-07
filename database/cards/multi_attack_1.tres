@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://6arc2cwp4x43"]
+
+[ext_resource type="Script" uid="uid://cprnyoijuhug1" path="res://database/resources/dice_resource.gd" id="1_ckp0y"]
+[ext_resource type="Script" uid="uid://tl3k1itad7g0" path="res://database/resources/card_resource.gd" id="2_s76b4"]
+
+[sub_resource type="Resource" id="Resource_kk04s"]
+script = ExtResource("1_ckp0y")
+min_value = 4
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_etsei"]
+script = ExtResource("1_ckp0y")
+type = 3
+min_value = 4
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_06v3a"]
+script = ExtResource("1_ckp0y")
+type = 2
+min_value = 4
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_4ugyl"]
+script = ExtResource("1_ckp0y")
+type = 4
+min_value = 4
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_ckp0y"]
+script = ExtResource("1_ckp0y")
+min_value = 4
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[resource]
+script = ExtResource("2_s76b4")
+name = "Multi Attack 1"
+code = "multi_attack_1"
+cost = 1
+dices = Array[ExtResource("1_ckp0y")]([SubResource("Resource_kk04s"), SubResource("Resource_etsei"), SubResource("Resource_06v3a"), SubResource("Resource_4ugyl"), SubResource("Resource_ckp0y")])
+metadata/_custom_type_script = "uid://tl3k1itad7g0"

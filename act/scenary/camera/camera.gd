@@ -7,7 +7,7 @@ signal zooming_finished
 signal zooming_out_finished
 
 ## Camera States
-enum States { IDLE, ZOOMING_IN, SHAKING, ZOOMING_OUT }
+enum States { IDLE, ZOOMING_IN, ZOOMING_OUT }
 
 ## Camera current status
 var status: States = States.IDLE
@@ -55,21 +55,20 @@ func _process(delta: float) -> void:
 		if zoom_value == 1.0:
 			zooming_out_finished.emit()
 			status = States.IDLE
-	if status == States.SHAKING:
-		if shake_strength > 0:
-			# 1. reduce smoothly the shake_strength (Decay)
-			shake_strength = lerp(shake_strength, 0.0, 5.0 * delta)
-			# 2. Set random offset
-			offset = Vector2(
-				randf_range(-shake_strength, shake_strength),
-				randf_range(-shake_strength, shake_strength)
-			)
-			# Avoid micro-shaking
-			if shake_strength < 0.1:
-				shake_strength = 0
-		else:
-			offset = Vector2.ZERO
-			status = States.IDLE
+	# Handle Camera Shake
+	if shake_strength > 0:
+		# 1. reduce smoothly the shake_strength (Decay)
+		shake_strength = lerp(shake_strength, 0.0, 5.0 * delta)
+		# 2. Set random offset
+		offset = Vector2(
+			randf_range(-shake_strength, shake_strength),
+			randf_range(-shake_strength, shake_strength)
+		)
+		# Avoid micro-shaking
+		if shake_strength < 0.1:
+			shake_strength = 0
+	else:
+		offset = Vector2.ZERO
 
 ## Zoom into Battle Event
 func zoom_into_battle_event(event: Event) -> void:
@@ -80,7 +79,6 @@ func zoom_into_battle_event(event: Event) -> void:
 ## Shake Camera
 func shake(strength: float = 10.0) -> void:
 	shake_strength = strength
-	status = States.SHAKING
 
 ## Restore Zoom value smoothingily
 func reset_zoom() -> void:

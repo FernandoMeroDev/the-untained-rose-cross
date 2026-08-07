@@ -12,6 +12,9 @@ var left_team_controller: TeamController
 ## Right team Controller reference
 var right_team_controller: TeamController
 
+## Toggle team each turn?
+var toggle_each_turn: bool = false
+
 ## Get lower case team name
 static func get_lowercase_team(team: Teams) -> String:
 	return (

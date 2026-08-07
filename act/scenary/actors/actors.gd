@@ -71,3 +71,18 @@ func restart_everyone_speed_dices() -> void:
 func rush_everyone_to_targets() -> void:
 	for actor: Actor in get_children():
 		actor.rush_to_target()
+
+## Refill Everyone Light
+func refill_everyone_light() -> void:
+	for actor: Actor in get_children():
+		actor.refill_light()
+
+## Everyone Draw Cards
+func everyone_draw_cards() -> void:
+	for actor: Actor in get_children():
+		actor.draw_cards()
+
+## Everyone clear Defensive Dice Queue
+func clear_everyone_defensive_dice_queue() -> void:
+	for actor: Actor in get_children():
+		actor.defensive_dice_queue = []

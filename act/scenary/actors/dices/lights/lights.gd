@@ -16,9 +16,10 @@ func set_max_value(count: int) -> void:
 
 ## Add light
 func add_lights(count: int) -> void:
-	remove_lights()
-	value += count
-	create_lights()
+	if value < max_light:
+		remove_lights()
+		value += count
+		create_lights()
 
 func sub_lights(count: int) -> void:
 	remove_lights()

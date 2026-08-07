@@ -80,11 +80,11 @@ var target_actor: Actor
 ## Reference to UI control title
 var actor_control: ActorControl
 
-## Offensive Dice Queue
-var offensive_dice_queue: Array[DiceResource] = []
-
 ## Defensive Dice Queue
 var defensive_dice_queue: Array[DiceResource] = []
+
+## Is using Defensive Dice Queue
+var using_defensive_dice_queue: bool = false
 
 ## Is Actor horizontally flipped?
 var actor_flip_h: bool = false
@@ -99,6 +99,43 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 	# Handle pressed Left Click
 	if event.is_action_pressed("left_click"):
 		actor_pressed.emit(self)
+
+# --- Battle Resolver Event Handlers
+## Handle Damaged logic, display animation and effects
+func handle_hit(
+	value: int, 
+	damage_type: String,
+	attacker_position: Vector2, 
+	attack_type: String
+) -> void:
+	# Take Damage logic
+	take_damage(value, damage_type)
+	# Change Sprite
+	$Sprite.play('damaged')
+	# Knockback
+	knockback(
+		(global_position - attacker_position).normalized()
+	)
+	# Show VFX
+	$VFX/HitTrail.hit(attack_type)
+	await $VFX/BloodSplash.splash()
+
+## Handle Parry
+func handle_parry() -> void:
+	play_attack_animation(false)
+
+## Handle deflected
+func handle_deflected(value: int, attacker_position: Vector2) -> void:
+	resist -= value
+	$Gauges.take_stagger_damage(value)
+	# Change Sprite
+	$Sprite.play('damaged')
+	# Knockback
+	knockback(
+		(global_position - attacker_position).normalized()
+	)
+	# Damage Tags
+	$DamageTags.show_deflect_damage(value)
 
 func _ready() -> void:
 	$CollisionShape.shape = $CollisionShape.shape.duplicate()
@@ -164,6 +201,7 @@ func init(actor_data: Dictionary) -> void:
 	init_status_effects()
 	transform = transform.scaled(Vector2(0.55, 0.55))
 	init_card_resolver()
+	init_vfx()
 	$DamageTags.resistences_values = resistences
 	#print(
 		#'Inited Actor: ' + actor_data["name"] 
@@ -239,6 +277,10 @@ func init_status_effects() -> void:
 func init_card_resolver() -> void:
 	$CardResolver.parent_actor = self
 
+func init_vfx() -> void:
+	$VFX.parent_actor = self
+	$VFX.init()
+
 ## Checks for light for use a card.
 ## Extra light is when the actor is already holding a card
 func can_use_card(card: CardResource, extra_light: int = 0) -> bool:
@@ -248,6 +290,18 @@ func can_use_card(card: CardResource, extra_light: int = 0) -> bool:
 func refound_card_to_hand(card: CardResource) -> void:
 	hand.append(card)
 	$Lights.add_lights(card.cost)
+
+## Refill Light
+func refill_light(count: int = 1) -> void:
+	$Lights.add_lights(count)
+
+## Draw Cards from Deck
+func draw_cards(count: int = 1) -> void:
+	for i in count:
+		if not deck.is_empty():
+			hand.append(
+				deck.pop_at(randi_range(0, deck.size() - 1))
+			)
 
 ## Use card from hand
 func use_card_from_hand(card: CardResource) -> void:
@@ -271,6 +325,7 @@ func flip_h(flip: bool) -> void:
 	$CardResolver.flip_h_card(flip)
 	$VFX.flip_h_vfx(flip)
 	$DamageTags.flip_h_tags(flip)
+	$RecoverTags.flip_h_tags(flip)
 	actor_flip_h = flip
 
 ## Face enemy flipping horizontally
@@ -357,9 +412,25 @@ func rush_to_enemy(enemy: Actor) -> void:
 
 ## Loads Card in CardResolver
 func use_card(card_resource: CardResource) -> void:
+	if using_defensive_dice_queue:
+		# Pulls defensive queue if actors was using it
+		store_defensive_dice_queue()
 	$CardResolver.load_card(card_resource)
 	$CardResolver.show()
 	$CardResolver.position = Vector2(0, 0)
+	deck.append(card_resource)
+	using_defensive_dice_queue = false
+
+## Use Defensive dice queue for clash against enemy oneside attack
+func use_defensive_dice_queue() -> void:
+	$CardResolver.load_defensive_dice_queue(defensive_dice_queue)
+	$CardResolver.show()
+	$CardResolver.position = Vector2(0, 0)
+	using_defensive_dice_queue = true
+
+## Store defensive dice queue
+func store_defensive_dice_queue() -> void:
+	defensive_dice_queue = $CardResolver.get_all_dices()
 
 ## Returns to IDLE status
 func idle() -> void:
@@ -373,33 +444,12 @@ func get_card_resolver() -> CardResolver:
 
 ## Attack. Display animation and effects. Returns attack animation:
 ## 'vert' | 'hori' | 'stab'
-func attack(draw_trail: bool = true) -> String:
+func play_attack_animation(draw_trail: bool = true) -> String:
 	## 'vert' | 'hori' | 'stab'
 	var attack_type: String = AttackTypes.keys().pick_random().to_lower()
 	$Sprite.play(attack_type)
 	if draw_trail: $VFX.show_attack_trail_of(attack_type)
 	return attack_type
-
-## Damaged. Display animation and effects
-func damaged(
-	value: int, 
-	damage_type: String,
-	attacker_position: Vector2, 
-	attack_type: String
-) -> void:
-	# Set red color
-	#$Sprite.modulate = Color(1.0, 0, 0)
-	# Take Damage
-	take_damage(value, damage_type)
-	# Change Sprite
-	$Sprite.play('damaged')
-	# Knockback
-	knockback(
-		(global_position - attacker_position).normalized()
-	)
-	# Show VFX
-	$VFX/HitTrail.hit(attack_type)
-	await $VFX/BloodSplash.splash()
 
 ## Actor Knockback
 func knockback(direction: Vector2) -> void:
@@ -460,3 +510,40 @@ func calc_blood_amount() -> float:
 		var p when p < 0.50: return 0.50
 		# HP >= 50% => 0% blood
 		_: return 0.0
+
+## Play Parry Sparks particles
+func play_parry_sparks(sparks_global_position: Vector2) -> void:
+	$VFX/ParrySparks.global_position = sparks_global_position
+	$VFX/ParrySparks.emitting = true
+
+## Block. Display animation and effects
+func play_block_animation(draw_vfx: bool = true) -> void:
+	$Sprite.play('block')
+	if draw_vfx:
+		# Show Guarded Shock
+		$VFX/GuardedShock.show_guarded_shock()
+
+## Display Evade animation
+func play_evade_animation(attacker_position: Vector2) -> void:
+	var direction: Vector2 = (global_position - attacker_position).normalized()
+	$Sprite.play('evade')
+	# Dodge Movement
+	var distance: int = randi_range(80, 140)
+	var final_position: Vector2 = global_position + (direction * distance)
+	# Limits the movement area to Scenary's floor
+	final_position.x = clamp(final_position.x, 100, get_viewport_rect().size.x - 100)
+	final_position.y = clamp(final_position.y, 589.0, get_viewport_rect().size.y - 100)
+	# Animation
+	var tween = create_tween()
+	tween.tween_property(
+		self,
+		"global_position",
+		final_position,
+		0.15
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+## Recovers Stagger Resist
+func recover_resist(value: int) -> void:
+	resist += value
+	$Gauges/Resist.recover(value)
+	$RecoverTags.show_resist(value)

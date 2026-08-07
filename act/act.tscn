@@ -56,6 +56,7 @@
 [ext_resource type="AudioStream" uid="uid://b645rxk66gmap" path="res://media/music/sfx/battle/attack/sword_vert.wav" id="53_ym1af"]
 [ext_resource type="AudioStream" uid="uid://cqysmngrbfwpm" path="res://media/music/sfx/battle/attack/parry.wav" id="54_ocuck"]
 [ext_resource type="AudioStream" uid="uid://4m0oe645mcnh" path="res://media/music/sfx/battle/block/guarded.wav" id="55_sp3pa"]
+[ext_resource type="AudioStream" uid="uid://bs1d82u0kyy01" path="res://media/music/sfx/battle/block/dae_chi.wav" id="56_03e83"]
 [ext_resource type="AudioStream" uid="uid://cekk2qc3gupy7" path="res://media/music/sfx/battle/block/guarded_win.wav" id="56_vhj7x"]
 [ext_resource type="AudioStream" uid="uid://0d6g7wgdekmw" path="res://media/music/sfx/battle/evade/defense.wav" id="57_ocuck"]
 [ext_resource type="AudioStream" uid="uid://cr8ioel5557te" path="res://media/music/sfx/battle/evade/hori.wav" id="58_7rfk8"]
@@ -886,6 +887,7 @@ stream = ExtResource("54_ocuck")
 [node name="Block" type="Node" parent="Music/SFX/Battle" unique_id=365471882]
 
 [node name="DaeChi" type="AudioStreamPlayer" parent="Music/SFX/Battle/Block" unique_id=745262186]
+stream = ExtResource("56_03e83")
 
 [node name="Guarded" type="AudioStreamPlayer" parent="Music/SFX/Battle/Block" unique_id=792066461]
 stream = ExtResource("55_sp3pa")
@@ -897,6 +899,7 @@ stream = ExtResource("56_vhj7x")
 
 [node name="Defense" type="AudioStreamPlayer" parent="Music/SFX/Battle/Evade" unique_id=43563521]
 stream = ExtResource("57_ocuck")
+volume_db = 10.0
 
 [node name="Hori" type="AudioStreamPlayer" parent="Music/SFX/Battle/Evade" unique_id=686933248]
 stream = ExtResource("58_7rfk8")

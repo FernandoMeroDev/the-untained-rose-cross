@@ -8,21 +8,27 @@
 [ext_resource type="Texture2D" uid="uid://bcvcwh8brh4b7" path="res://media/actors/sprites/lucine/hori.png" id="3_5myf0"]
 [ext_resource type="Texture2D" uid="uid://d0k2fna3mqjmp" path="res://media/battle/vfx/blood/dirty_mask.png" id="3_jm52p"]
 [ext_resource type="Texture2D" uid="uid://lpk102dnc3xh" path="res://media/actors/sprites/glow.png" id="3_utamp"]
+[ext_resource type="Texture2D" uid="uid://p8rq0ahkeolg" path="res://media/actors/sprites/juline/block.png" id="4_365rq"]
 [ext_resource type="Script" uid="uid://boj4p4m6sppp5" path="res://act/scenary/actors/dices/lights/lights.gd" id="4_d0a38"]
 [ext_resource type="Texture2D" uid="uid://c5awlcty38p5s" path="res://media/actors/sprites/lucine/stab.png" id="4_di8le"]
 [ext_resource type="Script" uid="uid://byt81nxq55by2" path="res://act/scenary/actors/dices/speed_dices.gd" id="4_dike1"]
 [ext_resource type="Texture2D" uid="uid://ba8a8theakpns" path="res://media/actors/gauges/right.png" id="4_f7i5f"]
 [ext_resource type="Texture2D" uid="uid://dsqpyvv7cpap4" path="res://media/actors/sprites/lucine/vert.png" id="5_h0bp5"]
+[ext_resource type="Texture2D" uid="uid://bgl2n7rpl8kw7" path="res://media/actors/sprites/lucine/block.png" id="5_m7frv"]
 [ext_resource type="Script" uid="uid://bfn7ah4y22qg0" path="res://act/scenary/actors/vfx/vfx.gd" id="9_hjph0"]
 [ext_resource type="Texture2D" uid="uid://bh4kbplqw7dkm" path="res://media/battle/vfx/blood/blood_1.png" id="10_5myf0"]
 [ext_resource type="Script" uid="uid://qxd8511g1ckf" path="res://act/scenary/actors/vfx/blood_splash.gd" id="11_di8le"]
+[ext_resource type="Texture2D" uid="uid://xxp8go2tqfut" path="res://media/actors/sprites/juline/effects/vert_trail.png" id="12_6g5kx"]
 [ext_resource type="Texture2D" uid="uid://dkt0v87dfknlb" path="res://media/battle/vfx/hit/slash_orange.png" id="12_h0bp5"]
 [ext_resource type="Script" uid="uid://b64b2s1fr48pa" path="res://act/scenary/actors/vfx/hit_trail.gd" id="13_j8dxc"]
 [ext_resource type="Script" uid="uid://sjrccaeul43o" path="res://act/scenary/actors/gauges/gauges.gd" id="14_e81nf"]
+[ext_resource type="Texture2D" uid="uid://c40b7y5li2ula" path="res://media/actors/sprites/lucine/effects/guarded.png" id="14_kiakc"]
+[ext_resource type="Script" uid="uid://ct8r5qbmo7k1f" path="res://act/scenary/actors/vfx/guarded_shock.gd" id="15_bl5pc"]
 [ext_resource type="PackedScene" uid="uid://dmf07fiqfrf30" path="res://act/scenary/actors/card_resolver/card_resolver.tscn" id="17_j8dxc"]
 [ext_resource type="Script" uid="uid://dmcjk7ejy0qg8" path="res://act/scenary/actors/gauges/health.gd" id="17_qw76x"]
 [ext_resource type="Script" uid="uid://bb8r5vyot2qop" path="res://act/scenary/actors/gauges/resist.gd" id="19_s36j8"]
 [ext_resource type="Script" uid="uid://4fmdm2i8e0og" path="res://act/scenary/actors/damage_tags/damage_tags.gd" id="23_q5ej8"]
+[ext_resource type="Script" uid="uid://bbpefkprg8qui" path="res://act/scenary/actors/recover_tags/recover_tags.gd" id="25_q5ej8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f7i5f"]
 size = Vector2(113, 159)
@@ -34,6 +40,17 @@ shader_parameter/blood_amount = 0.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_51bhj"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_365rq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_m7frv")
+}],
+"loop": 1,
+"name": &"block",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_f7i5f")
@@ -67,8 +84,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lt7tr"]
-load_path = "res://.godot/imported/vert_trail.png-e5f4c0139404b1cc814284bbfd8bf27e.ctex"
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tqu3q"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+radial_velocity_min = -1000.0
+radial_velocity_max = 999.99994
+gravity = Vector3(0, 98, 0)
+turbulence_enabled = true
 
 [node name="Actor" type="Area2D" unique_id=245545483]
 script = ExtResource("1_51bhj")
@@ -79,7 +101,7 @@ shape = SubResource("RectangleShape2D_f7i5f")
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=552609113]
 material = SubResource("ShaderMaterial_ym10n")
 sprite_frames = SubResource("SpriteFrames_51bhj")
-animation = &"vert"
+animation = &"block"
 
 [node name="Glow" type="Sprite2D" parent="." unique_id=823803996]
 visible = false
@@ -94,11 +116,16 @@ script = ExtResource("4_d0a38")
 [node name="VFX" type="Node2D" parent="." unique_id=40317870]
 script = ExtResource("9_hjph0")
 
+[node name="GuardedShock" type="Sprite2D" parent="VFX" unique_id=522101803]
+visible = false
+position = Vector2(50, 0)
+texture = ExtResource("14_kiakc")
+script = ExtResource("15_bl5pc")
+
 [node name="AttackTrail" type="Sprite2D" parent="VFX" unique_id=1760523110]
 visible = false
 position = Vector2(94, 0)
-texture = SubResource("CompressedTexture2D_lt7tr")
-flip_h = true
+texture = ExtResource("12_6g5kx")
 
 [node name="BloodSplash" type="Sprite2D" parent="VFX" unique_id=311527866]
 visible = false
@@ -110,6 +137,19 @@ visible = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("12_h0bp5")
 script = ExtResource("13_j8dxc")
+
+[node name="ParrySparks" type="GPUParticles2D" parent="VFX" unique_id=2134588197]
+position = Vector2(150, 0)
+emitting = false
+amount = 150
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+trail_enabled = true
+trail_lifetime = 0.01
+trail_sections = 2
+trail_section_subdivisions = 1
+process_material = SubResource("ParticleProcessMaterial_tqu3q")
 
 [node name="Gauges" type="Control" parent="." unique_id=1212697300]
 layout_mode = 3
@@ -203,6 +243,11 @@ mouse_filter = 2
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("23_q5ej8")
+
+[node name="RecoverTags" type="Control" parent="." unique_id=450347295]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("25_q5ej8")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
