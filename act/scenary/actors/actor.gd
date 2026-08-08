@@ -616,12 +616,14 @@ func stagger() -> void:
 
 ## Actor recover from Staggered
 func recover_from_staggered() -> void:
-	staggered_remain -= 1
-	if staggered_remain == 0:
+	if staggered_remain > 0:
+		staggered_remain -= 1
+	if staggered_remain == 0 and staggered:
 		staggered = false
 		resistences.clear()
 		resistences.merge(
 			original_resistences.duplicate()
 		)
 		$Sprite.play('default')
-		resist = max_resist
+		resist = int(max_resist)
+		$Gauges/Resist.recover(resist)

@@ -42,9 +42,9 @@ func _on_dice_roller_pressed() -> void:
 
 func _ready() -> void:
 	var config: Dictionary = JsonUtils.load_json(
-		#'res://act/config.json',
+		'res://act/config.json',
 		#'res://act/debug_config.json',
-		'res://act/battle_phase_config.json',
+		#'res://act/battle_phase_config.json',
 		#'res://act/debug_battle_phase_config.json',
 	)
 	# Init Input Manager

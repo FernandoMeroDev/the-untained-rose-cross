@@ -24,6 +24,7 @@ func _init(
 func target_enemies() -> void:
 	clear_dead_allies()
 	for ally: Actor in allies:
+		if ally.staggered: continue
 		for speed_dice: SpeedDice in ally.get_speed_dices():
 			target_random_enemy(ally, speed_dice)
 
