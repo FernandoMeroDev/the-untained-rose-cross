@@ -1,5 +1,11 @@
 extends Node2D
 
+## Destroy Dices
+func destroy_dices() -> void:
+	var speed_dices: Array[SpeedDice] = get_speed_dices()
+	for speed_dice: SpeedDice in speed_dices:
+		speed_dice.destroy_dice()
+
 ## Get SpeedDices typed Array
 func get_speed_dices() -> Array[SpeedDice]:
 	var speed_dices: Array[SpeedDice]

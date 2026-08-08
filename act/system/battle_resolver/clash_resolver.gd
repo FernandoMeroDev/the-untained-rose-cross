@@ -326,7 +326,8 @@ func handle_offensive_wins(
 		x_value, 
 		x_dice_resource.get_type_code(), 
 		actor_x.global_position, 
-		attack_animation
+		attack_animation,
+		card_resolver_x.get_current_dice_max_value()
 	)
 	card_resolver_y.discard_current_dice()
 	card_resolver_x.discard_current_dice()

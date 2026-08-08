@@ -173,7 +173,10 @@ func handle_actor_mouse_exited(actor: Actor):
 func handle_speed_dice_pressed(speed_dice: SpeedDice) -> void:
 	# Exit if panel is blocked
 	if panel_blocked: return
-	if act.phase == act.Phases.PREPARATION:
+	if(
+		act.phase == act.Phases.PREPARATION 
+		and not speed_dice.parent_actor.staggered
+	):
 		if not speed_dice_focused:
 			# Focus speed dice
 			speed_dice.focus()

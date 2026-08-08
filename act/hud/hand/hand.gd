@@ -84,6 +84,7 @@ func handle_speed_dice_pressed(speed_dice: SpeedDice) -> void:
 	if(
 		speed_dice.parent_actor.is_my_turn()
 		and act.phase == act.Phases.PREPARATION
+		and not speed_dice.parent_actor.staggered
 	):
 		if status == States.VISIBLE:
 			# Set Focus speed dice (Panel handles focus Styling)
@@ -126,6 +127,7 @@ func handle_speed_dice_mouse_entered(speed_dice: SpeedDice) -> void:
 	if(
 		speed_dice.parent_actor.is_my_turn()
 		and act.phase == act.Phases.PREPARATION
+		and not speed_dice.parent_actor.staggered
 	):
 		if status == States.HIDDEN:
 			# Show Hand

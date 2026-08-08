@@ -10,7 +10,7 @@ signal speed_dice_mouse_exited(speed_dice: SpeedDice)
 
 #signal dice_pressed(dice)
 
-enum States { UNDETERMINED, DETERMINED, TARGETING, FOCUSED }
+enum States { UNDETERMINED, DETERMINED, TARGETING, FOCUSED, DESTROYED }
 
 ## Reference to owner actor
 var parent_actor: Actor
@@ -67,6 +67,7 @@ func init_textures() -> void:
 	textures['normal'] = texture_normal
 	textures['targeting'] = preload("res://media/actors/dices/speed/targeting.png")
 	textures['focused'] = preload("res://media/actors/dices/speed/focused.png")
+	textures['destroyed'] = preload("res://media/actors/dices/speed/destroyed.png")
 
 ## Positionate dice relative to its siblings and parent Actor
 func self_positionate(
@@ -92,14 +93,24 @@ func reset() -> void:
 	enemy_dice_intended = null
 	enemy_dice_targeting = null
 	targeted_by_enemies = []
-	# Restore UI apperance
-	texture_normal = textures['normal']
-	$Roulette.start()
-	$Number.set_value_interval(
-		parent_actor.speed['min'],
-		parent_actor.speed['max']
-	)
-	status = States.UNDETERMINED
+	if parent_actor.staggered:
+		$Number.set_value(0)
+		texture_normal = textures['destroyed']
+	else:
+		# Restore UI apperance
+		texture_normal = textures['normal']
+		$Roulette.start()
+		$Number.set_value_interval(
+			parent_actor.speed['min'],
+			parent_actor.speed['max']
+		)
+		status = States.UNDETERMINED
+
+## Destroy Speed Dice
+func destroy_dice() -> void:
+	enemy_dice_targeting = null
+	texture_normal = textures['destroyed']
+	status = States.DESTROYED
 
 ## Set enemy Dpeed Dice targeting
 func set_enemy_dice_target(target_speed_dice: SpeedDice) -> void:

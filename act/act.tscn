@@ -46,10 +46,14 @@
 [ext_resource type="AudioStream" uid="uid://cftn8qk84rin8" path="res://media/music/sfx/act_start.wav" id="35_rkifs"]
 [ext_resource type="Script" uid="uid://bvf4jlnutvh6l" path="res://act/hud/hand/hand.gd" id="41_uykt8"]
 [ext_resource type="AudioStream" uid="uid://c3xrn2r12b4na" path="res://media/music/sfx/dice_roll.wav" id="42_lskxy"]
+[ext_resource type="Texture2D" uid="uid://cx2xfbt66pacv" path="res://media/hud/end.png" id="45_kqoxe"]
 [ext_resource type="AudioStream" uid="uid://cvntqu3grpnv2" path="res://media/music/sfx/ui_cacel.wav" id="46_82ofw"]
+[ext_resource type="Script" uid="uid://b1s1pmrogijqq" path="res://act/hud/result.gd" id="46_r8lvi"]
+[ext_resource type="AudioStream" uid="uid://c58fynm2oy387" path="res://media/music/result/end_down.wav" id="47_5misd"]
 [ext_resource type="AudioStream" uid="uid://daj8we7qnfuha" path="res://media/music/sfx/battle/attack/blow_hori.wav" id="48_5kcsk"]
 [ext_resource type="Script" uid="uid://dymob66oedkv2" path="res://act/music/sfx/battle.gd" id="48_7rfk8"]
 [ext_resource type="AudioStream" uid="uid://dfx75q7vhd2bq" path="res://media/music/sfx/battle/attack/blow_stab.wav" id="49_jutkt"]
+[ext_resource type="Script" uid="uid://bws3dwgpwyexe" path="res://act/music/music.gd" id="49_r8lvi"]
 [ext_resource type="AudioStream" uid="uid://bs52g852r3kwj" path="res://media/music/sfx/battle/attack/blow_vert.wav" id="50_sp3pa"]
 [ext_resource type="AudioStream" uid="uid://btmk4ocafvgdj" path="res://media/music/sfx/battle/attack/sword_hori.wav" id="51_vhj7x"]
 [ext_resource type="AudioStream" uid="uid://dbpolk21dkte5" path="res://media/music/sfx/battle/attack/sword_stab.wav" id="52_8txjm"]
@@ -778,6 +782,7 @@ offset_right = 810.0
 offset_bottom = 434.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("34_jcb8f")
 script = ExtResource("35_5kprs")
 
@@ -842,10 +847,51 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("41_uykt8")
 
+[node name="Result" type="TextureRect" parent="HUD" unique_id=1594237229]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -803.0
+offset_top = -421.5
+offset_right = 803.0
+offset_bottom = 421.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("45_kqoxe")
+script = ExtResource("46_r8lvi")
+
+[node name="Finished" type="Label" parent="HUD/Result" unique_id=570051565]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -254.0
+offset_top = -113.5
+offset_right = 268.0
+offset_bottom = 138.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0.08627451, 0.88235295, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("20_k8d45")
+theme_override_font_sizes/font_size = 200
+text = "Finished"
+
+[node name="EndDown" type="AudioStreamPlayer" parent="HUD/Result" unique_id=177750970]
+stream = ExtResource("47_5misd")
+
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=2050507547]
 stream = ExtResource("34_22tc4")
 autoplay = true
 parameters/looping = true
+script = ExtResource("49_r8lvi")
 
 [node name="SFX" type="Node" parent="Music" unique_id=1273025774]
 

@@ -4,8 +4,15 @@ extends Control
 signal fade_animation_finished(tag)
 
 func init(
-	value: int, resistence: String, icon_texture: Texture
+	value: int, 
+	resistence: String, 
+	icon_texture: Texture,
+	colors: Dictionary
 ) -> void:
+	$Value.add_theme_color_override("font_color", colors['font'])
+	$Value.add_theme_color_override("font_outline_color", colors['outline'])
+	$Resistence.add_theme_color_override("font_color", colors['font'])
+	$Resistence.add_theme_color_override("font_outline_color", colors['outline'])
 	$Value.text = str(value)
 	$Resistence.text = str(resistence)
 	$Icon.texture = icon_texture

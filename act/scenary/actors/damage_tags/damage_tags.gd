@@ -13,6 +13,24 @@ var resistences_values: Dictionary
 ## Resistences Icons
 var resistences_icons: Dictionary[String, Texture] = {}
 
+## Resistences Colors
+var resistences_colors: Dictionary = {
+	"damage": {
+		"fatal": { "font": Color("b1ddeb"), "outline": Color("b1ddeb") },
+		"weak": { "font": Color("86a8ee"), "outline": Color("1c3671") },
+		"normal": { "font": Color("557dd9"), "outline": Color("000000")},
+		"endured": { "font": Color("385a8a"), "outline": Color("000000")},
+		"ineffective": { "font": Color("112E45"), "outline": Color("000000")},
+	},
+	"resist": {
+		"fatal": { "font": Color("D4DFE0"), "outline": Color("fff") },
+		"weak": { "font": Color("376E8C"), "outline": Color("fff") },
+		"normal": { "font": Color("000"), "outline": Color("fff")},
+		"endured": { "font": Color("28405d"), "outline": Color("000000")},
+		"ineffective": { "font": Color("112E45"), "outline": Color("000000")},
+	}
+}
+
 func _on_fade_animation_finished(tag: DamageTag) -> void:
 	remove_child(tag)
 
@@ -58,14 +76,18 @@ func show_damage(category: String, value: int, damage_type: String) -> void:
 	var damage_tag: DamageTag
 	var resistence: String
 	var icon: Texture
+	var colors: Dictionary
 	damage_tag = NormalDamageScene.instantiate() if(
 		category == 'normal'
 	) else StaggerDamageScene.instantiate()
-	category = '_damage' if category == 'normal' else '_resist'
-	resistence = resistences_values[damage_type + category]
-	icon = resistences_icons[resistence + '_' + damage_type + category]
+	category = 'damage' if category == 'normal' else 'resist'
+	resistence = resistences_values[damage_type + '_' + category]
+	colors = resistences_colors[category][resistence]
+	icon = resistences_icons[resistence + '_' + damage_type + '_' + category]
 	add_child(damage_tag)
-	damage_tag.init(value, resistence.capitalize(), icon)
+	damage_tag.init(
+		value, resistence.capitalize(), icon, colors
+	)
 	damage_tag.position = Vector2(
 		calc_random_offset(-150),
 		calc_random_offset(-80 * i)
@@ -77,8 +99,11 @@ func show_deflect_damage(value: int) -> void:
 	var i: int = get_child_count()
 	var damage_tag: DamageTag = StaggerDamageScene.instantiate()
 	var icon: Texture = resistences_icons['normal_slash_resist']
+	var colors = resistences_colors['resist']['normal']
 	add_child(damage_tag)
-	damage_tag.init(value, 'Deflect', icon)
+	damage_tag.init(
+		value, 'Deflect', icon, colors
+	)
 	damage_tag.position = Vector2(
 		calc_random_offset(-150),
 		calc_random_offset(-80 * i)

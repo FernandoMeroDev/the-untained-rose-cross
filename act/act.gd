@@ -44,8 +44,8 @@ func _ready() -> void:
 	var config: Dictionary = JsonUtils.load_json(
 		#'res://act/config.json',
 		#'res://act/debug_config.json',
-		#'res://act/battle_phase_config.json',
-		'res://act/debug_battle_phase_config.json',
+		'res://act/battle_phase_config.json',
+		#'res://act/debug_battle_phase_config.json',
 	)
 	# Init Input Manager
 	$InputManager.act = self
@@ -79,7 +79,10 @@ func handle_scene_presentation_timeout() -> void:
 
 # --- Battle Resolver Events Handlers
 func handle_scene_finished() -> void:
-	reset_scene()
+	if $Scenary/Actors.check_teams_can_continue():
+		reset_scene()
+	else:
+		end_act()
 
 ## Init Turn Manager
 func init_turn_manager(config: Dictionary) -> void:
@@ -336,10 +339,13 @@ func start_battle() -> void:
 	# Resolve Events
 	battle_resolver.resolve_events()
 
+## Reset Scene and start next
 func reset_scene() -> void:
 	$Scenary/Darkness.hide()
 	# Repositionate Actors and show UI's elements
 	$Scenary/Actors.repositionate_everyone()
+	# Recover Staggered Actors
+	$Scenary/Actors.recover_everyone_staggered()
 	# Restart Speed Dices
 	$Scenary/Actors.restart_everyone_speed_dices()
 	# Reset Camera Zoom
@@ -354,3 +360,11 @@ func reset_scene() -> void:
 	$HUD/SceneNumber/Presentation.start()
 	$HUD/SceneNumber.advance_next()
 	$Scenary/Actors.show_everyone_ui_components()
+
+## Ends Act
+func end_act() -> void:
+	$Scenary/Darkness.hide()
+	$Music.end_smoothingly()
+	# Reset Camera Zoom
+	await $Scenary/Camera.reset_zoom()
+	$HUD/Result.presentate_result()

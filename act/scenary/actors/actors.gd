@@ -23,6 +23,20 @@ func init(config: Dictionary) -> Array[Actor]:
 	#print('Inited Actors')
 	return actors
 
+## Checksif teams can continue the fight
+func check_teams_can_continue() -> bool:
+	var left_can_continue: bool = false
+	var right_can_continue: bool = false
+	for left_actor: Actor in get_team_actors(TurnManager.Teams.LEFT):
+		if left_actor.alive:
+			left_can_continue = true
+			break
+	for right_actor: Actor in get_team_actors(TurnManager.Teams.RIGHT):
+		if right_actor.alive:
+			right_can_continue = true
+			break
+	return left_can_continue and right_can_continue
+
 ## Repositionate Actors in theirs Markers 2D
 func repositionate_everyone() -> void:
 	var actors: Array[Node] = get_children()
@@ -66,6 +80,11 @@ func show_everyone_ui_components() -> void:
 func restart_everyone_speed_dices() -> void:
 	for actor: Actor in get_children():
 		actor.restart_speed_dices()
+
+## Recover Everyone Staggered
+func recover_everyone_staggered() -> void:
+	for actor: Actor in get_children():
+		actor.recover_from_staggered()
 
 ## Every Actor rush to their targets, due exceptions
 func rush_everyone_to_targets() -> void:

@@ -5,6 +5,9 @@ signal event_resolved(event: Event)
 ## Higher Speed
 var higher_speed: int
 
+## Is this event completed?
+var completed: bool = false
+
 ## Clear Speed Dices references
 func clear_speed_dices_references() -> void:
 	push_error("Method not implemented")

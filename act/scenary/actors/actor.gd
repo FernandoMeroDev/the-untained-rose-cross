@@ -50,14 +50,20 @@ var max_hp: int
 ## Max Resist
 var max_resist: int
 
-## Is Actor Alive?
-var alive: bool = true
-
 ## Current HP
 var hp: int
 
 ## Current Resist
 var resist: int
+
+## Is Actor Alive?
+var alive: bool = true
+
+## Is Actor Staggered?
+var staggered: bool = false
+
+## Staggered Scenes Remain for recover
+var staggered_remain: int = 0
 
 ## Actor Speed for each Speed Dice.
 ## For example: { "min": 2, "max": 4 }
@@ -67,9 +73,13 @@ var speed: Dictionary[String, int]
 ## Temporally: [ { "id": 1, "name": "Paralysis", "code": "paralysis", "stacks": 4 }, ... ]
 var status_effects: Array
 
-## Actor Resistences. [TODO: Improve this]
+## Actor current Resistences. [TODO: Improve this]
 ## Temporally: { "slash_damage": "normal", "slash_resist": "normal", "pierce_damage": "normal", "pierce_resist": "normal", "blunt_damage": "normal", "blunt_resist": "normal" }
 var resistences: Dictionary
+
+## Actor original Resistences. [TODO: Improve this]
+## Temporally: { "slash_damage": "normal", "slash_resist": "normal", "pierce_damage": "normal", "pierce_resist": "normal", "blunt_damage": "normal", "blunt_resist": "normal" }
+var original_resistences: Dictionary
 
 ## Actor Deck
 var deck: Array[CardResource] = []
@@ -109,10 +119,11 @@ func handle_hit(
 	value: int, 
 	damage_type: String,
 	attacker_position: Vector2, 
-	attack_type: String
+	attack_type: String,
+	max_possible_value: int
 ) -> void:
 	# Take Damage logic
-	take_damage(value, damage_type)
+	take_damage(value, damage_type, max_possible_value)
 	# Knockback
 	knockback(
 		(global_position - attacker_position).normalized()
@@ -132,6 +143,8 @@ func handle_hit(
 	if resist <= 0:
 		resist = 0
 		# Set Staggered Status
+		if not staggered:
+			stagger()
 	await set_timeout(0.5)
 
 ## Handle Parry
@@ -206,6 +219,7 @@ func init(actor_data: Dictionary) -> void:
 		"max": int(stats["speed"]['max']),
 	}
 	resistences = actor_data['resistences']
+	original_resistences = resistences.duplicate_deep()
 	init_deck(actor_data['deck'])
 	init_sprites()
 	init_speed_dices(int(stats["speed_dices"]))
@@ -385,7 +399,8 @@ func unfocus_self() -> void:
 func roll_speed_dices() -> void:
 	for dice: SpeedDice in $SpeedDices.get_children():
 		var speed_value: int = randi_range(speed['min'], speed['max'])
-		dice.set_speed(speed_value)
+		if not staggered:
+			dice.set_speed(speed_value)
 
 ## Restart Actor Speed Dices
 func restart_speed_dices() -> void:
@@ -450,7 +465,10 @@ func store_defensive_dice_queue() -> void:
 ## Returns to IDLE status
 func idle() -> void:
 	$CardResolver.hide()
-	$Sprite.play('default')
+	if staggered:
+		$Sprite.play('damaged')
+	else:
+		$Sprite.play('default')
 	status = States.IDLE
 
 ## Get Card Resolver
@@ -485,10 +503,13 @@ func knockback(direction: Vector2) -> void:
 ## Actor saddly Die
 func die() -> void:
 	alive = false
-	#hide()
 
 ## Take Damage
-func take_damage(value: int, damage_type: String) -> void:
+func take_damage(
+	value: int, 
+	damage_type: String,
+	max_possible_value: int
+) -> void:
 	# Calc damage in function of resistences
 	var normal_damage: int = int(
 		value * calc_resistence(damage_type + '_damage')
@@ -505,6 +526,9 @@ func take_damage(value: int, damage_type: String) -> void:
 		"blood_amount",
 		calc_blood_amount()
 	)
+	# Max Damage
+	if value == max_possible_value:
+		$VFX.show_max_damage_vfx()
 	# Damage Tags
 	$DamageTags.show_damage('normal', normal_damage, damage_type)
 	$DamageTags.show_damage('stagger', stagger_damage, damage_type)
@@ -575,3 +599,29 @@ func recover_resist(value: int) -> void:
 ## Clear Card Resolver
 func clear_card_resolver() -> void:
 	$CardResolver.clear()
+
+## Actor is Staggered
+func stagger() -> void:
+	staggered = true
+	staggered_remain = 2
+	resistences.clear()
+	resistences.merge({ 
+		"slash_damage": "fatal", "slash_resist": "fatal", 
+		"pierce_damage": "fatal", "pierce_resist": "fatal", 
+		"blunt_damage": "fatal", "blunt_resist": "fatal" 
+	})
+	$SpeedDices.destroy_dices()
+	$CardResolver.clear()
+	$VFX.show_staggered_vfx()
+
+## Actor recover from Staggered
+func recover_from_staggered() -> void:
+	staggered_remain -= 1
+	if staggered_remain == 0:
+		staggered = false
+		resistences.clear()
+		resistences.merge(
+			original_resistences.duplicate()
+		)
+		$Sprite.play('default')
+		resist = max_resist

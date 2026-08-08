@@ -75,7 +75,9 @@ func resolve_events() -> void:
 			actors.hide_dead_actors()
 			if actors_alive:
 				await resolve_event(event)
+				event.completed = true
 			else:
+				event.completed = true
 				continue
 	event_queue.clear_all_references()
 	event_queue.remove_all()
@@ -243,7 +245,11 @@ func resolve_oneside(card_resolver: CardResolver, enemy: Actor) -> void:
 	camera.shake()
 	battle_sfx.play_attack(actor.sharp_weapon, attack_animation)
 	await enemy.handle_hit(
-		value, dice_type, actor.global_position, attack_animation
+		value, 
+		dice_type, 
+		actor.global_position, 
+		attack_animation,
+		card_resolver.get_current_dice_max_value()
 	)
 	card_resolver.discard_current_dice()
 

@@ -81,10 +81,10 @@
 				"resistences": {
 					"slash_damage": "normal",
 					"slash_resist": "normal",
-					"pierce_damage": "normal",
-					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
+					"pierce_damage": "endured",
+					"pierce_resist": "weak",
+					"blunt_damage": "ineffective",
+					"blunt_resist": "fatal",
 				},
 				"deck": [
 					"multi_attack_0",

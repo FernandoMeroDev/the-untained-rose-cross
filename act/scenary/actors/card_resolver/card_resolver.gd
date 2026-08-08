@@ -100,6 +100,10 @@ func destroy_current_dice() -> void:
 func get_dice_value() -> int:
 	return $Container/CurrentDice.value
 
+## Get current dice max value
+func get_current_dice_max_value() -> int:
+	return $Container/CurrentDice.dice_resource.max_value
+
 ## Get current dice type as String
 ## For example: slash | blunt | pierce | block | evade
 func get_dice_type_string() -> String:

@@ -6,6 +6,7 @@ var parent_actor: Actor
 func init() -> void:
 	$GuardedShock.init(parent_actor.code)
 
+## Flip VFX horizontally
 func flip_h_vfx(flip: bool) -> void:
 	if flip:
 		$AttackTrail.position = Vector2(-94, 0)
@@ -18,6 +19,7 @@ func flip_h_vfx(flip: bool) -> void:
 		$GuardedShock.position = Vector2(50, 0)
 		$GuardedShock.flip_h = false
 
+## Show Attack Trail of animation
 func show_attack_trail_of(animation: String) -> void:
 	var texture: Texture2D = load(
 		'res://media/actors/sprites/'
@@ -35,3 +37,11 @@ func show_attack_trail_of(animation: String) -> void:
 			$AttackTrail.hide()
 			$AttackTrail.modulate.a = 1.0
 	)
+
+## Show Staggered VFX
+func show_staggered_vfx() -> void:
+	$Staggered.show_vfx()
+
+## Show Max Damage VFX
+func show_max_damage_vfx() -> void:
+	$MaxDamage.show_vfx()
