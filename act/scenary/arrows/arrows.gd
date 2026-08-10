@@ -168,13 +168,18 @@ func draw_speed_dice_arrows(speed_dice: SpeedDice) -> void:
 			for enemy_speed_dice: SpeedDice in speed_dice.targeted_by_enemies:
 				create_oneside_attack(enemy_speed_dice, speed_dice)
 
-## Clear Arrows
+## Clear speed dice's Arrows
 func clear_speed_dice_arrows(speed_dice: SpeedDice) -> void:
 	for arrow: Arrow in get_children():
 		# Remove arrows of speed dice
 		if arrow.is_in_group(
 			'event_arrows_for_' + str(speed_dice.id)
 		): remove_child(arrow)
+
+## Clear all Arrows
+func clear_all_arrows() -> void:
+	for arrow: Arrow in get_children():
+		remove_child(arrow)
 
 ## Build group name for speed dice focused in a panel
 func build_focused_dice_group_name(side: String) -> String:

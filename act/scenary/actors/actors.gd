@@ -41,6 +41,7 @@ func check_teams_can_continue() -> bool:
 func repositionate_everyone() -> void:
 	var actors: Array[Node] = get_children()
 	for actor: Actor in actors:
+		actor.play_idle_animation()
 		actor.global_position = actor.position_marker2d.global_position
 		actor.flip_h(actor.team == TurnManager.Teams.RIGHT)
 

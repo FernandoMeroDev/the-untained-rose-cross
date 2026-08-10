@@ -118,15 +118,18 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 func handle_hit(
 	value: int, 
 	damage_type: String,
-	attacker_position: Vector2, 
 	attack_type: String,
-	max_possible_value: int
+	enemy: Actor
 ) -> void:
 	# Take Damage logic
-	take_damage(value, damage_type, max_possible_value)
+	take_damage(
+		value, 
+		damage_type, 
+		enemy.get_card_resolver().get_current_dice_max_value()
+	)
 	# Knockback
 	knockback(
-		(global_position - attacker_position).normalized()
+		(global_position - enemy.global_position).normalized()
 	)
 	# Show VFX
 	$VFX/HitTrail.hit(attack_type)
@@ -137,6 +140,8 @@ func handle_hit(
 		# Actor Die
 		$Sprite.play('defeated')
 		die()
+		# Enemy Refill 1 Light
+		enemy.refill_light(1)
 	else:
 		# Change Sprite
 		$Sprite.play('damaged')
@@ -145,6 +150,8 @@ func handle_hit(
 		# Set Staggered Status
 		if not staggered:
 			stagger()
+			# Enemy Refill 1 Light
+			enemy.refill_light(1)
 	await set_timeout(0.5)
 
 ## Handle Parry
@@ -152,17 +159,25 @@ func handle_parry() -> void:
 	play_attack_animation(false)
 
 ## Handle deflected
-func handle_deflected(value: int, attacker_position: Vector2) -> void:
+func handle_deflected(value: int, enemy: Actor) -> void:
 	resist -= value
 	$Gauges.take_stagger_damage(value)
 	# Change Sprite
 	$Sprite.play('damaged')
 	# Knockback
 	knockback(
-		(global_position - attacker_position).normalized()
+		(global_position - enemy.global_position).normalized()
 	)
 	# Damage Tags
 	$DamageTags.show_deflect_damage(value)
+	# Handle resist substraction
+	if resist <= 0:
+		resist = 0
+		# Set Staggered Status
+		if not staggered:
+			stagger()
+			# Enemy Refill 1 Light
+			enemy.refill_light(1)
 
 func _ready() -> void:
 	$CollisionShape.shape = $CollisionShape.shape.duplicate()
@@ -322,7 +337,8 @@ func refound_card_to_hand(card: CardResource) -> void:
 
 ## Refill Light
 func refill_light(count: int = 1) -> void:
-	$Lights.add_lights(count)
+	if not staggered:
+		$Lights.add_lights(count)
 
 ## Draw Cards from Deck
 func draw_cards(count: int = 1) -> void:
@@ -627,3 +643,7 @@ func recover_from_staggered() -> void:
 		$Sprite.play('default')
 		resist = int(max_resist)
 		$Gauges/Resist.recover(resist)
+
+## Play Idle Animation
+func play_idle_animation() -> void:
+	$Sprite.play('default')

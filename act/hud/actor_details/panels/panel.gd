@@ -242,6 +242,8 @@ func reset_status() -> void:
 	# Handle Actor Status
 	if status == States.ACTOR_FOCUSED:
 		unfocus_actor()
+	elif status == States.VISIBLE or status == States.MOVING_DOWN:
+		hide_panel(null)
 	# Handle Focused Speed Dice
 	if speed_dice_focused:
 		# Unfocus speed dice
@@ -317,8 +319,9 @@ func fill_actor_details(actor: Actor):
 ## Hide panel
 func hide_panel(current_actor: Actor) -> void:
 	if tween: tween.kill()
-	# Unoutline Actor Control
-	current_actor.actor_control.unoutline()
+	if current_actor:
+		# Unoutline Actor Control
+		current_actor.actor_control.unoutline()
 	# Create Animation Moving Up (Tween)
 	create_moving_up_tween()
 	# Change Status

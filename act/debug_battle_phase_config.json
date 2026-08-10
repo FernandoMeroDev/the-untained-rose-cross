@@ -4,7 +4,7 @@
 	"first_turn_for": "right",
 	"toggle_each_turn": false,
 	"controllers": {
-		"left_team": "AI",
+		"left_team": "PLAYER",
 		"right_team": "AI",
 	},
 	"teams": {
@@ -12,34 +12,37 @@
 			{
 				"id": 1,
 				"code": "lucine",
-				"name": "Lucine 1",
+				"name": "Lucine Commander",
 				"sharp_weapon": true,
 				"stats": {
-					"max_hp": 25,
-					"max_resist": 10,
-					"speed": { "min": 1, "max": 3 },
+					"max_hp": 35,
+					"max_resist": 15,
+					"speed": { "min": 2, "max": 4 },
 					"speed_dices": 3,
-					"light": 3,
+					"light": 4,
 					"status_effects": []
 				},
 				"resistences": {
 					"slash_damage": "normal",
 					"slash_resist": "normal",
-					"pierce_damage": "normal",
-					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
+					"pierce_damage": "weak",
+					"pierce_resist": "weak",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
 				},
 				"deck": [
-					"test_attack_1",
-					"test_attack_1",
-					"test_attack_1",
+					"downgrade_slash",
+					"outburst",
+					"penetrate",
+					"quick_thrust",
+					"strategy",
+					"upper_slashes"
 				]
 			},
 			{
 				"id": 2,
 				"code": "lucine",
-				"name": "Lucine 2",
+				"name": "Lucine Soldier 1",
 				"sharp_weapon": true,
 				"stats": {
 					"max_hp": 25,
@@ -50,23 +53,26 @@
 					"status_effects": []
 				},
 				"resistences": {
-					"slash_damage": "normal",
-					"slash_resist": "normal",
+					"slash_damage": "weak",
+					"slash_resist": "weak",
 					"pierce_damage": "normal",
 					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
 				},
 				"deck": [
-					"test_attack_1",
-					"test_attack_1",
-					"test_attack_1",
+					"downgrade_slash",
+					"outburst",
+					"penetrate",
+					"quick_thrust",
+					"strategy",
+					"upper_slashes"
 				]
 			},
 			{
 				"id": 3,
 				"code": "lucine",
-				"name": "Lucine 3",
+				"name": "Lucine Soldier 2",
 				"sharp_weapon": true,
 				"stats": {
 					"max_hp": 25,
@@ -77,208 +83,112 @@
 					"status_effects": []
 				},
 				"resistences": {
-					"slash_damage": "normal",
-					"slash_resist": "normal",
-					"pierce_damage": "normal",
-					"pierce_resist": "normal",
+					"slash_damage": "weak",
+					"slash_resist": "weak",
+					"pierce_damage": "fatal",
+					"pierce_resist": "fatal",
 					"blunt_damage": "normal",
 					"blunt_resist": "normal",
 				},
 				"deck": [
-					"test_attack_1",
-					"test_attack_1",
-					"test_attack_1",
-				]
-			},
-			{
-				"id": 4,
-				"code": "lucine",
-				"name": "Lucine 4",
-				"sharp_weapon": true,
-				"stats": {
-					"max_hp": 25,
-					"max_resist": 10,
-					"speed": { "min": 1, "max": 3 },
-					"speed_dices": 3,
-					"light": 3,
-					"status_effects": []
-				},
-				"resistences": {
-					"slash_damage": "normal",
-					"slash_resist": "normal",
-					"pierce_damage": "normal",
-					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
-				},
-				"deck": [
-					"test_attack_1",
-					"test_attack_1",
-					"test_attack_1",
-				]
-			},
-			{
-				"id": 5,
-				"code": "lucine",
-				"name": "Lucine 5",
-				"sharp_weapon": true,
-				"stats": {
-					"max_hp": 25,
-					"max_resist": 10,
-					"speed": { "min": 1, "max": 3 },
-					"speed_dices": 3,
-					"light": 3,
-					"status_effects": []
-				},
-				"resistences": {
-					"slash_damage": "normal",
-					"slash_resist": "normal",
-					"pierce_damage": "normal",
-					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
-				},
-				"deck": [
-					"test_attack_1",
-					"test_attack_1",
-					"test_attack_1",
+					"downgrade_slash",
+					"outburst",
+					"penetrate",
+					"quick_thrust",
+					"strategy",
+					"upper_slashes"
 				]
 			},
 		],
 		"right": [
 			{
+				"id": 4,
+				"code": "juline",
+				"name": "Juline Commander",
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 35,
+					"max_resist": 15,
+					"speed": { "min": 2, "max": 4 },
+					"speed_dices": 3,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "weak",
+					"pierce_resist": "weak",
+					"blunt_damage": "weak",
+					"blunt_resist": "weak",
+				},
+				"deck": [
+					"downgrade_slash",
+					"outburst",
+					"penetrate",
+					"quick_thrust",
+					"strategy",
+					"upper_slashes"
+				]
+			},
+			{
+				"id": 5,
+				"code": "juline",
+				"name": "Juline Soldier 1",
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 30,
+					"max_resist": 15,
+					"speed": { "min": 2, "max": 4 },
+					"speed_dices": 3,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "weak",
+					"slash_resist": "weak",
+					"pierce_damage": "normal",
+					"pierce_resist": "normal",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
+				},
+				"deck": [
+					"downgrade_slash",
+					"outburst",
+					"penetrate",
+					"quick_thrust",
+					"strategy",
+					"upper_slashes"
+				]
+			},
+			{
 				"id": 6,
 				"code": "juline",
-				"name": "Juline 1",
+				"name": "Juline Soldier 2",
 				"sharp_weapon": true,
 				"stats": {
-					"max_hp": 30,
-					"max_resist": 15,
-					"speed": { "min": 2, "max": 4 },
+					"max_hp": 25,
+					"max_resist": 10,
+					"speed": { "min": 1, "max": 3 },
 					"speed_dices": 3,
 					"light": 3,
 					"status_effects": []
 				},
 				"resistences": {
-					"slash_damage": "normal",
-					"slash_resist": "normal",
+					"slash_damage": "weak",
+					"slash_resist": "weak",
 					"pierce_damage": "normal",
 					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
 				},
 				"deck": [
-					"test_attack_0",
-					"test_attack_0",
-					"test_attack_0",
-				]
-			},
-			{
-				"id": 7,
-				"code": "juline",
-				"name": "Juline 2",
-				"sharp_weapon": true,
-				"stats": {
-					"max_hp": 30,
-					"max_resist": 15,
-					"speed": { "min": 2, "max": 4 },
-					"speed_dices": 3,
-					"light": 3,
-					"status_effects": []
-				},
-				"resistences": {
-					"slash_damage": "normal",
-					"slash_resist": "normal",
-					"pierce_damage": "normal",
-					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
-				},
-				"deck": [
-					"test_attack_0",
-					"test_attack_0",
-					"test_attack_0",
-				]
-			},
-			{
-				"id": 8,
-				"code": "juline",
-				"name": "Juline 3",
-				"sharp_weapon": true,
-				"stats": {
-					"max_hp": 30,
-					"max_resist": 15,
-					"speed": { "min": 2, "max": 4 },
-					"speed_dices": 3,
-					"light": 3,
-					"status_effects": []
-				},
-				"resistences": {
-					"slash_damage": "normal",
-					"slash_resist": "normal",
-					"pierce_damage": "normal",
-					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
-				},
-				"deck": [
-					"test_attack_0",
-					"test_attack_0",
-					"test_attack_0",
-				]
-			},
-			{
-				"id": 9,
-				"code": "juline",
-				"name": "Juline 4",
-				"sharp_weapon": true,
-				"stats": {
-					"max_hp": 30,
-					"max_resist": 15,
-					"speed": { "min": 2, "max": 4 },
-					"speed_dices": 3,
-					"light": 3,
-					"status_effects": []
-				},
-				"resistences": {
-					"slash_damage": "normal",
-					"slash_resist": "normal",
-					"pierce_damage": "normal",
-					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
-				},
-				"deck": [
-					"test_attack_0",
-					"test_attack_0",
-					"test_attack_0",
-				]
-			},
-			{
-				"id": 10,
-				"code": "juline",
-				"name": "Juline 5",
-				"sharp_weapon": true,
-				"stats": {
-					"max_hp": 30,
-					"max_resist": 15,
-					"speed": { "min": 2, "max": 4 },
-					"speed_dices": 3,
-					"light": 3,
-					"status_effects": []
-				},
-				"resistences": {
-					"slash_damage": "normal",
-					"slash_resist": "normal",
-					"pierce_damage": "normal",
-					"pierce_resist": "normal",
-					"blunt_damage": "normal",
-					"blunt_resist": "normal",
-				},
-				"deck": [
-					"test_attack_0",
-					"test_attack_0",
-					"test_attack_0",
+					"downgrade_slash",
+					"outburst",
+					"penetrate",
+					"quick_thrust",
+					"strategy",
+					"upper_slashes"
 				]
 			},
 		]

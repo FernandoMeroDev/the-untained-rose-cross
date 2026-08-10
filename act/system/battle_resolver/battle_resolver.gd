@@ -71,8 +71,8 @@ func resolve_events() -> void:
 	if event_queue.size() > 0:
 		actors.rush_everyone_to_targets()
 		for event: Event in event_queue.events:
-			var actors_alive: bool = check_actors_alive(event.get_actors())
 			actors.hide_dead_actors()
+			var actors_alive: bool = check_actors_alive(event.get_actors())
 			if actors_alive:
 				await resolve_event(event)
 				event.completed = true
@@ -247,9 +247,8 @@ func resolve_oneside(card_resolver: CardResolver, enemy: Actor) -> void:
 	await enemy.handle_hit(
 		value, 
 		dice_type, 
-		actor.global_position, 
 		attack_animation,
-		card_resolver.get_current_dice_max_value()
+		actor
 	)
 	card_resolver.discard_current_dice()
 

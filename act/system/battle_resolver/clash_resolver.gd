@@ -245,7 +245,7 @@ func block_wins_evade(
 	actor_x.play_block_animation()
 	actor_y.handle_deflected(
 		x_value,
-		actor_x.global_position
+		actor_x
 	)
 	await set_timeout(0.5)
 	card_resolver_y.discard_current_dice()
@@ -264,7 +264,7 @@ func block_wins_block(
 	actor_x.play_block_animation()
 	actor_y.handle_deflected(
 		x_value,
-		actor_x.global_position
+		actor_x,
 	)
 	await set_timeout(0.5)
 	card_resolver_y.discard_current_dice()
@@ -298,7 +298,7 @@ func block_wins_offensive(
 	actor_x.play_block_animation()
 	actor_y.handle_deflected(
 		x_value - y_value,
-		actor_x.global_position
+		actor_x
 	)
 	await set_timeout(0.5)
 	actor_y.get_card_resolver().discard_current_dice()
@@ -325,9 +325,8 @@ func handle_offensive_wins(
 	await actor_y.handle_hit(
 		x_value, 
 		x_dice_resource.get_type_code(), 
-		actor_x.global_position, 
 		attack_animation,
-		card_resolver_x.get_current_dice_max_value()
+		actor_x
 	)
 	card_resolver_y.discard_current_dice()
 	card_resolver_x.discard_current_dice()

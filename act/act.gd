@@ -42,10 +42,10 @@ func _on_dice_roller_pressed() -> void:
 
 func _ready() -> void:
 	var config: Dictionary = JsonUtils.load_json(
-		'res://act/config.json',
+		#'res://act/config.json',
 		#'res://act/debug_config.json',
 		#'res://act/battle_phase_config.json',
-		#'res://act/debug_battle_phase_config.json',
+		'res://act/debug_battle_phase_config.json',
 	)
 	# Init Input Manager
 	$InputManager.act = self
@@ -315,6 +315,10 @@ func roll_dices() -> void:
 		# Player takes first/second turn
 		$Music/SFX/DiceRoll.play()
 		$HUD/ActorDetails.reset_panels_status()
+		# Prevents show panels in battle
+		get_tree().create_timer(0.5).timeout.connect(
+			$HUD/ActorDetails.reset_panels_status
+		)
 		$HUD/Hand.reset_status()
 		if not enemy_team_prepared:
 			turn_manager.toggle_team()
@@ -333,6 +337,8 @@ func roll_dices() -> void:
 ## Start Battle
 func start_battle() -> void:
 	phase = Phases.BATTLE
+	# Clear any Arrow
+	$Scenary/Arrows.clear_all_arrows()
 	# Gives next first turn to original team
 	if not turn_manager.toggle_each_turn:
 		turn_manager.toggle_team()
@@ -346,14 +352,14 @@ func reset_scene() -> void:
 	$Scenary/Actors.repositionate_everyone()
 	# Recover Staggered Actors
 	$Scenary/Actors.recover_everyone_staggered()
+	# Refill Light
+	$Scenary/Actors.refill_everyone_light()
 	# Restart Speed Dices
 	$Scenary/Actors.restart_everyone_speed_dices()
 	# Reset Camera Zoom
 	await $Scenary/Camera.reset_zoom()
 	# Reset enemy team prepared variable
 	enemy_team_prepared = false
-	# Refill Light
-	$Scenary/Actors.refill_everyone_light()
 	# Draw card
 	$Scenary/Actors.everyone_draw_cards()
 	# Reiterate Act Phases
