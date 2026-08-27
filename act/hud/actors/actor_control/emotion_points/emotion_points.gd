@@ -32,7 +32,7 @@ func add_negative_points(count: int) -> void:
 		if count == 0: break
 
 ## Fill Emotion Points
-func fill(type: EmotionPoint) -> void:
+func fill(type: EmotionPoint.Types) -> void:
 	for point: Point in get_children():
 		if not point.filled:
 			match type:
