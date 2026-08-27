@@ -244,6 +244,9 @@ func reset_status() -> void:
 		unfocus_actor()
 	elif status == States.VISIBLE or status == States.MOVING_DOWN:
 		hide_panel(null)
+	# Handle Actor Hovered
+	if actor_hovered:
+		handle_actor_mouse_entered(actor_hovered)
 	# Handle Focused Speed Dice
 	if speed_dice_focused:
 		# Unfocus speed dice
