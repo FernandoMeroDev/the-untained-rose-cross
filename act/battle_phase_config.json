@@ -7,6 +7,10 @@
 		"left_team": "PLAYER",
 		"right_team": "PLAYER",
 	},
+	"max_emotion_level": {
+		"right": 5,
+		"left": 5,
+	},
 	"teams": {
 		"left": [
 			{

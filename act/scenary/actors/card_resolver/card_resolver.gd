@@ -1,5 +1,7 @@
 extends Control
 
+const EmotionPoint = preload("res://act/hud/actors/actor_control/emotion_points/point.gd")
+
 ## Emitted when dice value animation tween finished
 signal dice_value_setted(value: int)
 
@@ -91,6 +93,18 @@ func recycle_current_dice() -> void:
 ## Plays current dice
 func play_dice() -> void:
 	$Container/CurrentDice.play_dice()
+	var dice_value: int = get_dice_value()
+	var current_dice: DiceResource = get_current_dice_resource()
+	if(
+		dice_value == current_dice.max_value
+		and dice_value > current_dice.min_value
+	):
+		parent_actor.emotionalize(1, EmotionPoint.Types.POSITIVE)
+	if(
+		dice_value == current_dice.min_value
+		and dice_value < current_dice.max_value
+	):
+		parent_actor.emotionalize(1, EmotionPoint.Types.NEGATIVE)
 
 ## Destroy current Dice in card resolver
 func destroy_current_dice() -> void:

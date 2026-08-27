@@ -3,12 +3,17 @@ class_name Actor extends Area2D
 const SpeedDiceScene: PackedScene = preload('res://act/scenary/actors/dices/speed_dice/speed_dice.tscn')
 const ActorControl = preload('res://act/hud/actors/actor_control/actor_control.gd')
 const CardResolver = preload("res://act/scenary/actors/card_resolver/card_resolver.gd")
+const EmotionPoint = preload("res://act/hud/actors/actor_control/emotion_points/point.gd")
 
 signal actor_mouse_entered(actor: Actor)
 
 signal actor_mouse_exited(actor: Actor)
 
 signal actor_pressed(actor: Actor)
+
+signal actor_emotionalized()
+
+signal actor_died(actor: Actor)
 
 ## Emitted when an enemy actor is physically reached
 signal enemy_reached(actor: Actor, enemy: Actor)
@@ -21,6 +26,9 @@ var status: States = States.IDLE
 
 ## Actor Attack Types
 enum AttackTypes { HORI, VERT, STAB }
+
+## Act reference
+var act: Act
 
 ## Turn Manager reference
 var turn_manager: TurnManager
@@ -55,6 +63,15 @@ var hp: int
 
 ## Current Resist
 var resist: int
+
+## Max Emotion Level
+var max_emotion_level: int
+
+## Current Emotion Level
+var emotion_level: int = 0
+
+## Current Emotion Points
+var emotion_points: int = 0
 
 ## Is Actor Alive?
 var alive: bool = true
@@ -102,6 +119,9 @@ var using_defensive_dice_queue: bool = false
 ## Is Actor horizontally flipped?
 var actor_flip_h: bool = false
 
+## Count of Cards used in the last scene
+var cards_used_count: int = 0
+
 func _on_mouse_entered() -> void:
 	actor_mouse_entered.emit(self)
 
@@ -142,6 +162,8 @@ func handle_hit(
 		die()
 		# Enemy Refill 1 Light
 		enemy.refill_light(1)
+		# Enemy Emotionalize
+		enemy.emotionalize(3, EmotionPoint.Types.POSITIVE)
 	else:
 		# Change Sprite
 		$Sprite.play('damaged')
@@ -283,7 +305,7 @@ func load_animation(animation_name: String) ->void:
 		$Sprite.sprite_frames.add_animation(animation_name)
 	$Sprite.sprite_frames.add_frame(animation_name, texture)
 
-func init_speed_dices(count: int) -> void:
+func init_speed_dices(count: int, p_hidden: bool = false) -> void:
 	for i: int in count:
 		var speed_dice: SpeedDice = SpeedDiceScene.instantiate() as SpeedDice
 		$SpeedDices.add_child(speed_dice)
@@ -291,10 +313,12 @@ func init_speed_dices(count: int) -> void:
 		speed_dice.self_positionate(i, get_actor_height(), count)
 		speed_dice.parent_actor = self
 		speed_dice.init(speed, (id * 1000) + (i + 1))
+		if p_hidden: speed_dice.hide()
 
 func init_light(count: int):
 	$Lights.parent_actor = self
-	$Lights.set_max_value(count)
+	$Lights.max_light = count
+	$Lights.refill_max_value()
 
 func init_gauges() -> void:
 	$Gauges/Health.max_value = max_hp
@@ -340,8 +364,16 @@ func refill_light(count: int = 1) -> void:
 	if not staggered:
 		$Lights.add_lights(count)
 
+## Actor count cards used
+func count_cards_used() -> void:
+	for speed_dice: SpeedDice in $SpeedDices.get_children():
+		if speed_dice.battle_event:
+			cards_used_count += 1
+
 ## Draw Cards from Deck
 func draw_cards(count: int = 1) -> void:
+	if emotion_level == 5 and cards_used_count >= 2:
+		count = 2
 	for i in count:
 		if not deck.is_empty():
 			hand.append(
@@ -519,6 +551,7 @@ func knockback(direction: Vector2) -> void:
 ## Actor saddly Die
 func die() -> void:
 	alive = false
+	actor_died.emit(self)
 
 ## Take Damage
 func take_damage(
@@ -646,4 +679,59 @@ func recover_from_staggered() -> void:
 
 ## Play Idle Animation
 func play_idle_animation() -> void:
-	$Sprite.play('default')
+	if staggered:
+		$Sprite.play('damaged')
+	else:
+		$Sprite.play('default')
+
+## Give Emotion
+func emotionalize(points: int, type: EmotionPoint.Types) -> void:
+	if not alive: return
+	emotion_points += points
+	match emotion_level:
+		0:
+			if emotion_points >= 3 and max_emotion_level > 0:
+				increase_emotion_level(3, 3, type)
+				$Lights.increase_max(1)
+			else: actor_control.add_emotion_points(points, type)
+		1:
+			if emotion_points >= 3 and max_emotion_level > 1: 
+				increase_emotion_level(3, 5, type)
+				$Lights.increase_max(1)
+			else: actor_control.add_emotion_points(points, type)
+		2:
+			if emotion_points >= 5 and max_emotion_level > 2:
+				increase_emotion_level(5, 7, type)
+				$Lights.increase_max(1)
+			else: actor_control.add_emotion_points(points, type)
+		3:
+			if emotion_points >= 7 and max_emotion_level > 3:
+				increase_emotion_level(7, 9, type)
+				$Lights.increase_max(1)
+				var speed_dices_count: int = $SpeedDices.get_children().size()
+				$SpeedDices.remove_all()
+				init_speed_dices(speed_dices_count + 1, true)
+				act.init_actor_speed_dices(self)
+			else: actor_control.add_emotion_points(points, type)
+		4:
+			if emotion_points >= 9 and max_emotion_level > 4:
+				emotion_level += 1
+				actor_emotionalized.emit()
+				emotion_points = 9
+				actor_control.set_emotion_level(emotion_level)
+				actor_control.fill_emotion_points(type)
+				$Lights.increase_max(1)
+			else: actor_control.add_emotion_points(points, type)
+
+## Increase emotion level
+func increase_emotion_level(
+	limit: int, next_limit: int, type: EmotionPoint.Types
+) -> void:
+	var spare_points: int = emotion_points - limit
+	emotion_level += 1
+	actor_control.set_emotion_level(emotion_level)
+	emotion_points = 0
+	actor_control.set_max_emotion_points(next_limit)
+	if spare_points > 0:
+		actor_control.add_emotion_points(spare_points, type)
+	actor_emotionalized.emit()

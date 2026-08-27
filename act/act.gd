@@ -72,6 +72,8 @@ func _ready() -> void:
 	init_battle_resolver()
 	# Init Camera
 	$Scenary/Camera.darkness = $Scenary/Darkness
+	# Init Team Emotion Level
+	init_team_emotion_level()
 
 # --- Presentation Events Handlers
 func handle_scene_presentation_timeout() -> void:
@@ -112,6 +114,8 @@ func init_actors(config: Dictionary) -> void:
 	$HUD/Actors.init(actors)
 	# Connect Actor Signals
 	for actor: Actor in actors:
+		# Set Act reference
+		actor.act = self
 		# Set TurnManager reference
 		actor.turn_manager = turn_manager
 		# Find Actor panel
@@ -123,45 +127,57 @@ func init_actors(config: Dictionary) -> void:
 		actor.actor_pressed.connect(panel._on_actor_pressed)
 		actor.actor_mouse_entered.connect(panel._on_actor_mouse_entered)
 		actor.actor_mouse_exited.connect(panel._on_actor_mouse_exited)
+		# ActorN -> Scenary/Actors events listeners
+		actor.actor_died.connect($Scenary/Actors._on_actor_died)
+		# ActorN -> ActorControlN events listeners
+		actor.actor_died.connect(actor.actor_control._on_actor_died)
 		# ActorControlN -> Panels events listeners
 		actor.actor_control.actor_control_pressed.connect(panel._on_actor_control_pressed)
 		actor.actor_control.actor_control_mouse_entered.connect(panel._on_actor_control_mouse_entered)
 		actor.actor_control.actor_control_mouse_exited.connect(panel._on_actor_control_mouse_exited)
-		for speed_dice: SpeedDice in actor.get_speed_dices():
-			# SpeedDiceN -> ActorDetails (Panels) events listeners
-			speed_dice.speed_dice_pressed.connect(
-				panel._on_speed_dice_pressed
-			)
-			speed_dice.speed_dice_mouse_entered.connect(
-				panel._on_speed_dice_mouse_entered
-			)
-			speed_dice.speed_dice_mouse_exited.connect(
-				panel._on_speed_dice_mouse_exited
-			)
-			# SpeedDiceN -> Hand events listeners
-			speed_dice.speed_dice_pressed.connect(
-				$HUD/Hand._on_speed_dice_pressed
-			)
-			speed_dice.speed_dice_mouse_entered.connect(
-				$HUD/Hand._on_speed_dice_mouse_entered
-			)
-			speed_dice.speed_dice_mouse_exited.connect(
-				$HUD/Hand._on_speed_dice_mouse_exited
-			)
-			# SpeedDiceN -> Event Manager events listeners
-			speed_dice.speed_dice_right_click_pressed.connect(
-				event_manager._on_speed_dice_right_click_pressed
-			)
-			# SpeedDiceN -> Arrows events listeners
-			speed_dice.speed_dice_right_click_pressed.connect(
-				$Scenary/Arrows._on_speed_dice_right_click_pressed
-			)
-			speed_dice.speed_dice_mouse_entered.connect(
-				$Scenary/Arrows._on_speed_dice_mouse_entered
-			)
-			speed_dice.speed_dice_mouse_exited.connect(
-				$Scenary/Arrows._on_speed_dice_mouse_exited
-			)
+		init_actor_speed_dices(actor)
+
+func init_actor_speed_dices(actor: Actor) -> void:
+	# Find Actor panel
+	var panel: DetailsPanel
+	match actor.team:
+		turn_manager.Teams.LEFT: panel = $HUD/ActorDetails/Left
+		turn_manager.Teams.RIGHT: panel = $HUD/ActorDetails/Right
+	for speed_dice: SpeedDice in actor.get_speed_dices():
+		# SpeedDiceN -> ActorDetails (Panels) events listeners
+		speed_dice.speed_dice_pressed.connect(
+			panel._on_speed_dice_pressed
+		)
+		speed_dice.speed_dice_mouse_entered.connect(
+			panel._on_speed_dice_mouse_entered
+		)
+		speed_dice.speed_dice_mouse_exited.connect(
+			panel._on_speed_dice_mouse_exited
+		)
+		# SpeedDiceN -> Hand events listeners
+		speed_dice.speed_dice_pressed.connect(
+			$HUD/Hand._on_speed_dice_pressed
+		)
+		speed_dice.speed_dice_mouse_entered.connect(
+			$HUD/Hand._on_speed_dice_mouse_entered
+		)
+		speed_dice.speed_dice_mouse_exited.connect(
+			$HUD/Hand._on_speed_dice_mouse_exited
+		)
+		# SpeedDiceN -> Event Manager events listeners
+		speed_dice.speed_dice_right_click_pressed.connect(
+			event_manager._on_speed_dice_right_click_pressed
+		)
+		# SpeedDiceN -> Arrows events listeners
+		speed_dice.speed_dice_right_click_pressed.connect(
+			$Scenary/Arrows._on_speed_dice_right_click_pressed
+		)
+		speed_dice.speed_dice_mouse_entered.connect(
+			$Scenary/Arrows._on_speed_dice_mouse_entered
+		)
+		speed_dice.speed_dice_mouse_exited.connect(
+			$Scenary/Arrows._on_speed_dice_mouse_exited
+		)
 
 ## Init Dice Roller
 func init_dice_roller() -> void:
@@ -293,6 +309,22 @@ func init_battle_resolver() -> void:
 	# Init Battle Resolver
 	battle_resolver.init()
 
+## Init team emotion level
+func init_team_emotion_level() -> void:
+	$HUD/EmotionLevel/Left.side = TurnManager.Teams.LEFT
+	$HUD/EmotionLevel/Left.actors = $Scenary/Actors.get_team_actors(TurnManager.Teams.LEFT)
+	$HUD/EmotionLevel/Right.side = TurnManager.Teams.RIGHT
+	$HUD/EmotionLevel/Right.actors = $Scenary/Actors.get_team_actors(TurnManager.Teams.RIGHT)
+	# ActorN -> EmotionLevel Listeners
+	for actor: Actor in $HUD/EmotionLevel/Left.actors:
+		actor.actor_emotionalized.connect(
+			$HUD/EmotionLevel/Left._on_actor_emotionalized
+		)
+	for actor: Actor in $HUD/EmotionLevel/Right.actors:
+		actor.actor_emotionalized.connect(
+			$HUD/EmotionLevel/Right._on_actor_emotionalized
+		)
+
 ## Roll Speed Dices to go next Phase
 func roll_dices() -> void:
 	if phase == Phases.UNDETERMINED_SPEED:
@@ -369,6 +401,7 @@ func reset_scene() -> void:
 
 ## Ends Act
 func end_act() -> void:
+	$Scenary/Actors.repositionate_everyone()
 	$Scenary/Darkness.hide()
 	$Music.end_smoothingly()
 	# Reset Camera Zoom

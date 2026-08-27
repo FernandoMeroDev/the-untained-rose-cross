@@ -1,6 +1,16 @@
 extends Node2D
 
 const ActorScene: PackedScene = preload("res://act/scenary/actors/actor.tscn")
+const EmotionPoint = preload("res://act/hud/actors/actor_control/emotion_points/point.gd")
+
+# ActorN -> Scenary/Actors events listeners
+func _on_actor_died(actor: Actor) -> void:
+	handle_actor_died(actor)
+
+# ActorN -> Scenary/Actors events handlers
+func handle_actor_died(dead_actor: Actor) -> void:
+	for actor: Actor in get_team_actors(dead_actor.team):
+		actor.emotionalize(3, EmotionPoint.Types.NEGATIVE)
 
 func init(config: Dictionary) -> Array[Actor]:
 	var actors: Array[Actor]
@@ -13,6 +23,7 @@ func init(config: Dictionary) -> Array[Actor]:
 			actor_data['team'] = team
 			actor.init(actor_data)
 			add_child(actor)
+			actor.max_emotion_level = config['max_emotion_level'][team]
 			actor.position_marker2d = position_node
 			actor.global_position = position_node.global_position
 			actor.flip_h(team == 'right')
@@ -101,6 +112,12 @@ func refill_everyone_light() -> void:
 func everyone_draw_cards() -> void:
 	for actor: Actor in get_children():
 		actor.draw_cards()
+		actor.cards_used_count = 0
+
+## Actors count cards used
+func everyone_count_cards_used() -> void:
+	for actor: Actor in get_children():
+		actor.count_cards_used()
 
 ## Everyone clear Defensive Dice Queue
 func clear_everyone_defensive_dice_queue() -> void:

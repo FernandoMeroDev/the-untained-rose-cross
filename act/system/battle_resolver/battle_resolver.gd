@@ -61,6 +61,8 @@ func roll_dices() -> void:
 
 ## Resolve Event Queue
 func resolve_events() -> void:
+	# Actors count cards used
+	actors.everyone_count_cards_used()
 	# Hide Actors Dices and Light
 	actors.hide_everyone_ui_components()
 	# Order Event Queue
@@ -103,6 +105,8 @@ func resolve_event(event: Event) -> void:
 	actors_z_index['b'] = actor_b.z_index
 	actor_a.z_index = 1000
 	actor_b.z_index = 1000
+	actor_a.actor_control.focus()
+	actor_b.actor_control.focus()
 	# Checks if Actor's Speed Dice is Targeting the enemy Actor in this Event
 	var a_is_rushing: bool = check_if_is_targeting_enemy(speed_dice_a, actor_b, event)
 	var b_is_rushing: bool = check_if_is_targeting_enemy(speed_dice_b, actor_a, event)
@@ -129,7 +133,7 @@ func resolve_event(event: Event) -> void:
 			actor_b.rush_to_enemy(actor_a)
 			camera.zoom_into_battle_event(event)
 			await camera.zooming_finished
-			await handle_clash_approach(actor_a, actor_b)
+			await handle_clash_approach(event, actor_a, actor_b)
 		# Only A has dice
 		elif card_resolver_a.has_dice():
 			await handle_oneside_approach(event, actor_a, actor_b)
@@ -142,9 +146,12 @@ func resolve_event(event: Event) -> void:
 	actor_b.z_index = actors_z_index['b']
 	actor_b.idle()
 	actor_b.clear_card_resolver()
+	actor_a.actor_control.unfocus()
+	actor_b.actor_control.unfocus()
 
 ## Both has Dice
 func handle_clash_approach(
+	event: Event,
 	actor_a: Actor,
 	actor_b: Actor
 ) -> void:
@@ -181,6 +188,7 @@ func handle_clash_approach(
 			await player_confirmation()
 		card_resolver_b.play_dice()
 	await resolve_clash(
+		event,
 		card_resolver_a,
 		card_resolver_b,
 	)
@@ -226,14 +234,15 @@ func handle_oneside_approach(
 			card_resolver.discard_current_dice()
 	else:
 		target.use_defensive_dice_queue()
-		await handle_clash_approach(attacker, target)
+		await handle_clash_approach(event, attacker, target)
 
 ## Resolve Clash
 func resolve_clash(
+	event: Event,
 	card_resolver_a: CardResolver,
 	card_resolver_b: CardResolver
 ) -> void:
-	await clash_resolver.resolve(card_resolver_a, card_resolver_b)
+	await clash_resolver.resolve(event, card_resolver_a, card_resolver_b)
 
 ## Resolve Oneside
 func resolve_oneside(card_resolver: CardResolver, enemy: Actor) -> void:

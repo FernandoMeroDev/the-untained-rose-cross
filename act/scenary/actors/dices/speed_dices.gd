@@ -31,3 +31,8 @@ func get_ordered_by_speed(desc: bool = true) -> Array[SpeedDice]:
 ## Find fastest Speed Dice
 func get_fastest_speed_dice() -> SpeedDice:
 	return get_ordered_by_speed()[0]
+
+## Remove Speed Dices
+func remove_all() -> void:
+	for speed_dice: SpeedDice in get_children():
+		remove_child(speed_dice)

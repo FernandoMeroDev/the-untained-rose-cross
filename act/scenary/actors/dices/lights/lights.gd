@@ -9,9 +9,15 @@ var max_light: int
 ## Current Light value
 var value: int = 0
 
-## Set Max Value
-func set_max_value(count: int) -> void:
-	max_light = count
+## Increase Max Light
+func increase_max(count: int) -> void:
+	value = 0
+	max_light += count
+	refill_max_value()
+
+## Refill Max Value
+func refill_max_value() -> void:
+	remove_lights()
 	add_lights(max_light)
 
 ## Add light

@@ -3,6 +3,7 @@ extends RefCounted
 const CardResolver = preload("res://act/scenary/actors/card_resolver/card_resolver.gd")
 const BattleSFX = preload('res://act/music/sfx/battle.gd')
 const Camera = preload("res://act/scenary/camera/camera.gd")
+const EmotionPoint = preload("res://act/hud/actors/actor_control/emotion_points/point.gd")
 
 # Act Reference
 var act: Act
@@ -24,6 +25,7 @@ func _init(
 
 ## Resolve Clash
 func resolve(
+	event: Event,
 	card_resolver_a: CardResolver,
 	card_resolver_b: CardResolver
 ) -> void:
@@ -31,12 +33,26 @@ func resolve(
 	var actor_b: Actor = card_resolver_b.parent_actor
 	var a_value: int = card_resolver_a.get_dice_value()
 	var b_value: int = card_resolver_b.get_dice_value()
+	give_emotion(event)
 	if a_value > b_value:
 		await resolve_clash_win(actor_a, actor_b)
 	elif a_value < b_value:
 		await resolve_clash_win(actor_b, actor_a)
 	else:
 		await resolve_draw(actor_a, actor_b)
+
+## Add emotion points tying a clash against an offensive dice
+func give_emotion(
+	event: Event,
+) -> void:
+	if event is Interception:
+		var interceptor: Actor = event.interceptor_speed_dice.parent_actor
+		var target: Actor = event.target_speed_dice.parent_actor
+		var card_resolver = target.get_card_resolver()
+		if card_resolver.get_current_dice_resource().is_offensive():
+			interceptor.emotionalize(
+				1, EmotionPoint.Types.POSITIVE
+			)
 
 ## Resolve draw
 func resolve_draw(
@@ -175,6 +191,8 @@ func resolve_clash_win(
 	winner: Actor,
 	loser: Actor
 ) -> void:
+	winner.emotionalize(1, EmotionPoint.Types.POSITIVE)
+	loser.emotionalize(1, EmotionPoint.Types.NEGATIVE)
 	var winner_card_resolver: CardResolver = winner.get_card_resolver()
 	var winner_dice_resource: DiceResource = winner_card_resolver.get_current_dice_resource()
 	var loser_card_resolver: CardResolver = loser.get_card_resolver()

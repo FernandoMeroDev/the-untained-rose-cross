@@ -7,42 +7,17 @@
 [ext_resource type="Texture2D" uid="uid://cygnoa4prqsgy" path="res://media/actors/sprites/juline/default.png" id="4_vdlhc"]
 [ext_resource type="Texture2D" uid="uid://d14b2cgut24iu" path="res://media/hud/actors/portrait_cover.png" id="5_5hsfj"]
 [ext_resource type="Texture2D" uid="uid://cm81q8eof2n2t" path="res://media/hud/actors/ring.png" id="6_ara6v"]
+[ext_resource type="Script" uid="uid://cv7qbr0denrbr" path="res://act/hud/actors/actor_control/emotion_points/emotion_points.gd" id="8_enp3t"]
+[ext_resource type="Texture2D" uid="uid://64j7vhqkg757" path="res://media/hud/hand/light-slot.png" id="9_uyxk5"]
+[ext_resource type="PackedScene" uid="uid://b8flk5gc7uopf" path="res://act/hud/actors/actor_control/emotion_points/point.tscn" id="9_vwybf"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="10_vwybf"]
+[ext_resource type="Script" uid="uid://vfdtpshierlh" path="res://act/hud/actors/actor_control/emotion_level.gd" id="11_vwybf"]
 
 [node name="RightActorControl" type="TextureRect" unique_id=1819051264]
 self_modulate = Color(0, 0, 0, 1)
 mouse_filter = 2
 texture = ExtResource("1_5uh83")
 script = ExtResource("2_bsgni")
-
-[node name="Name" type="Label" parent="." unique_id=598882215]
-layout_mode = 0
-offset_left = 52.0
-offset_top = 43.0
-offset_right = 204.0
-offset_bottom = 66.0
-text = "Actor 1 Name Label"
-horizontal_alignment = 1
-
-[node name="HP" type="Label" parent="." unique_id=1793577950]
-layout_mode = 0
-offset_left = 63.0
-offset_top = 61.0
-offset_right = 100.0
-offset_bottom = 106.0
-theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
-theme_override_font_sizes/font_size = 28
-text = "30"
-
-[node name="HealthBar" type="TextureProgressBar" parent="." unique_id=455559696]
-layout_mode = 0
-offset_left = 105.0
-offset_top = 76.0
-offset_right = 203.0
-offset_bottom = 116.0
-value = 50.0
-fill_mode = 1
-texture_under = ExtResource("2_byt4e")
-texture_progress = ExtResource("3_byo5b")
 
 [node name="Portrait" type="Control" parent="." unique_id=1417575148]
 clip_contents = true
@@ -76,6 +51,36 @@ offset_bottom = 40.0
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("6_ara6v")
 
+[node name="Name" type="Label" parent="." unique_id=598882215]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 43.0
+offset_right = 204.0
+offset_bottom = 66.0
+text = "Actor 1 Name Label"
+horizontal_alignment = 1
+
+[node name="HP" type="Label" parent="." unique_id=1793577950]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 61.0
+offset_right = 100.0
+offset_bottom = 106.0
+theme_override_colors/font_color = Color(0, 0.09019608, 0.9019608, 1)
+theme_override_font_sizes/font_size = 28
+text = "30"
+
+[node name="HealthBar" type="TextureProgressBar" parent="." unique_id=455559696]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 76.0
+offset_right = 203.0
+offset_bottom = 116.0
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("2_byt4e")
+texture_progress = ExtResource("3_byo5b")
+
 [node name="Box" type="Button" parent="." unique_id=1503993392]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -91,6 +96,47 @@ offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
+
+[node name="EmotionPoints" type="HBoxContainer" parent="." unique_id=1014527060]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 86.0
+offset_right = 203.0
+offset_bottom = 95.0
+script = ExtResource("8_enp3t")
+
+[node name="Point" parent="EmotionPoints" unique_id=2045069861 instance=ExtResource("9_vwybf")]
+layout_mode = 2
+
+[node name="Point2" parent="EmotionPoints" unique_id=1030102834 instance=ExtResource("9_vwybf")]
+layout_mode = 2
+color = Color(1, 0, 0.21960784, 1)
+
+[node name="Point3" parent="EmotionPoints" unique_id=1573289819 instance=ExtResource("9_vwybf")]
+layout_mode = 2
+color = Color(0.21960784, 1, 1, 1)
+
+[node name="EmotionLevel" type="TextureRect" parent="." unique_id=511550891]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 71.0
+offset_right = 59.0
+offset_bottom = 98.0
+texture = ExtResource("9_uyxk5")
+expand_mode = 1
+script = ExtResource("11_vwybf")
+
+[node name="Level" type="Label" parent="EmotionLevel" unique_id=1853114216]
+layout_mode = 0
+offset_top = 1.0
+offset_right = 21.0
+offset_bottom = 24.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("10_vwybf")
+theme_override_font_sizes/font_size = 17
+text = "0"
+horizontal_alignment = 1
 
 [connection signal="mouse_entered" from="Box" to="." method="_on_box_mouse_entered"]
 [connection signal="mouse_exited" from="Box" to="." method="_on_box_mouse_exited"]

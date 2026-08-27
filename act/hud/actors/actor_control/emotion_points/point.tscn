@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b8flk5gc7uopf"]
+
+[ext_resource type="Script" uid="uid://cl7g1bcvqbeti" path="res://act/hud/actors/actor_control/emotion_points/point.gd" id="1_j8v7i"]
+
+[node name="Point" type="ColorRect" unique_id=2045069861]
+custom_minimum_size = Vector2(0, 9)
+custom_maximum_size = Vector2(101, 9)
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 0.34117648)
+script = ExtResource("1_j8v7i")

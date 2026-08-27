@@ -7,6 +7,10 @@
 		"left_team": "AI",
 		"right_team": "AI",
 	},
+	"max_emotion_level": {
+		"right": 5,
+		"left": 5,
+	},
 	"teams": {
 		"left": [
 			{
