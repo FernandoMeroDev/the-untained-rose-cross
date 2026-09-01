@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://bfh8i4db76mmi"]
+
+[ext_resource type="Script" uid="uid://byo52q1si1fft" path="res://main_menu/main_menu.gd" id="1_3f7m4"]
+[ext_resource type="Texture2D" uid="uid://byt3d0ikjp0fy" path="res://media/scenary/gloomy_castle.jpg" id="1_bws42"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="2_3f7m4"]
+[ext_resource type="AudioStream" uid="uid://bqasav0j71kl5" path="res://media/music/ost/main_menu/for_whom_do_wings_grow.mp3" id="3_6tl50"]
+[ext_resource type="Script" uid="uid://b1gw5nc22d4v3" path="res://main_menu/buttons/start.gd" id="4_t6bnd"]
+
+[node name="MainMenu" type="Control" unique_id=949873654]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3f7m4")
+
+[node name="Backgorund" type="TextureRect" parent="." unique_id=1626596708]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("1_bws42")
+
+[node name="Title" type="Label" parent="." unique_id=1767121011]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -843.5
+offset_right = 843.5
+offset_bottom = 252.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1.6749502e-05, 0.027755704, 0.48685008, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("2_3f7m4")
+theme_override_font_sizes/font_size = 200
+text = "The Untained Rose Cross"
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=1682984923]
+stream = ExtResource("3_6tl50")
+autoplay = true
+parameters/looping = true
+
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=2027907140]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.0
+offset_top = 179.5
+offset_right = 102.0
+offset_bottom = 388.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Start" type="Button" parent="Buttons" unique_id=1216334704]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("2_3f7m4")
+theme_override_font_sizes/font_size = 100
+text = "Start"
+flat = true
+script = ExtResource("4_t6bnd")
+
+[node name="Config" type="Button" parent="Buttons" unique_id=1682856466]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("2_3f7m4")
+theme_override_font_sizes/font_size = 50
+text = "Config"
+flat = true
+
+[connection signal="pressed" from="Buttons/Start" to="." method="_on_start_pressed"]
