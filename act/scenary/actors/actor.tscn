@@ -29,7 +29,7 @@
 [ext_resource type="Script" uid="uid://dmcjk7ejy0qg8" path="res://act/scenary/actors/gauges/health.gd" id="17_qw76x"]
 [ext_resource type="Script" uid="uid://bb8r5vyot2qop" path="res://act/scenary/actors/gauges/resist.gd" id="19_s36j8"]
 [ext_resource type="Texture2D" uid="uid://d2bdla4lxtxgd" path="res://media/battle/vfx/hit/critical.png" id="20_bl5pc"]
-[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="21_5ol5x"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="21_5ol5x"]
 [ext_resource type="Script" uid="uid://c1bqphr3j07vn" path="res://act/scenary/actors/vfx/critical.gd" id="21_hlq1d"]
 [ext_resource type="Script" uid="uid://4fmdm2i8e0og" path="res://act/scenary/actors/damage_tags/damage_tags.gd" id="23_q5ej8"]
 [ext_resource type="Script" uid="uid://bbpefkprg8qui" path="res://act/scenary/actors/recover_tags/recover_tags.gd" id="25_q5ej8"]

@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://cv7qbr0denrbr" path="res://act/hud/actors/actor_control/emotion_points/emotion_points.gd" id="8_enp3t"]
 [ext_resource type="Texture2D" uid="uid://64j7vhqkg757" path="res://media/hud/hand/light-slot.png" id="9_uyxk5"]
 [ext_resource type="PackedScene" uid="uid://b8flk5gc7uopf" path="res://act/hud/actors/actor_control/emotion_points/point.tscn" id="9_vwybf"]
-[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="10_vwybf"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="10_vwybf"]
 [ext_resource type="Script" uid="uid://vfdtpshierlh" path="res://act/hud/actors/actor_control/emotion_level.gd" id="11_vwybf"]
 
 [node name="RightActorControl" type="TextureRect" unique_id=1819051264]

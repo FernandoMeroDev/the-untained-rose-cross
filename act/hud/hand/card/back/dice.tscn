@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bgpkknghc7q0s"]
 
 [ext_resource type="Texture2D" uid="uid://cw3hpwqd8q2qv" path="res://media/icons/dice_types/slash.png" id="1_7as5g"]
-[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="2_kcmvp"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="2_kcmvp"]
 
 [node name="Dice" type="HBoxContainer" unique_id=205451696]
 

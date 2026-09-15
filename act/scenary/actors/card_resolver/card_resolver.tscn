@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b8n3rrhypbbi3" path="res://act/scenary/actors/card_resolver/card_resolver.gd" id="1_m6dfl"]
 [ext_resource type="Texture2D" uid="uid://bmp1kk605jmtr" path="res://media/actors/card/back_container.png" id="2_iqxfw"]
 [ext_resource type="Script" uid="uid://dt7kmdaq3btjm" path="res://act/scenary/actors/card_resolver/container/container.gd" id="3_803es"]
-[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="4_etw6n"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="4_etw6n"]
 [ext_resource type="Script" uid="uid://bdu1jk2q5d7uj" path="res://act/scenary/actors/card_resolver/container/dice_queue/dice_queue.gd" id="5_j2gpx"]
 [ext_resource type="Texture2D" uid="uid://cnsjt7v7fs8wk" path="res://media/actors/card/current_dice.png" id="6_mb6pa"]
 [ext_resource type="Script" uid="uid://c0ixe5cpvtmg4" path="res://act/scenary/actors/card_resolver/container/current_dice/current_dice.gd" id="7_7l4if"]

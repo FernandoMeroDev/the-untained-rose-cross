@@ -14,7 +14,7 @@ var act: Act
 var main_menu: Control
 
 ## Story instance
-var story: Control
+var story: Node
 
 # Turn on the lights
 func _ready() -> void:

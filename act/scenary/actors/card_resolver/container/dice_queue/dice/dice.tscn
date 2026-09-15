@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dj7hye6j87i5u" path="res://media/icons/dice_types/blunt.png" id="1_20r5j"]
 [ext_resource type="Script" uid="uid://l0hyhu66oax" path="res://act/scenary/actors/card_resolver/container/dice_queue/dice/dice.gd" id="2_yxdef"]
-[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="3_2qyu5"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="3_2qyu5"]
 
 [node name="Dice" type="TextureRect" unique_id=1571733551]
 texture = ExtResource("1_20r5j")

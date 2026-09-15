@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dsv7koyhcqq1h"
-path="res://.godot/imported/Caveat-VariableFont_wght.ttf-08d1aa500a6889f58d54cd5651f838b0.fontdata"
+path="res://.godot/imported/Caveat-VariableFont_wght.ttf-470dc12c4273fb3c5b7f02db3ca6a264.fontdata"
 
 [deps]
 
-source_file="res://fonts/Caveat-VariableFont_wght.ttf"
-dest_files=["res://.godot/imported/Caveat-VariableFont_wght.ttf-08d1aa500a6889f58d54cd5651f838b0.fontdata"]
+source_file="res://themes/Caveat-VariableFont_wght.ttf"
+dest_files=["res://.godot/imported/Caveat-VariableFont_wght.ttf-470dc12c4273fb3c5b7f02db3ca6a264.fontdata"]
 
 [params]
 

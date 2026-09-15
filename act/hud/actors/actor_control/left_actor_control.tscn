@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://cv7qbr0denrbr" path="res://act/hud/actors/actor_control/emotion_points/emotion_points.gd" id="7_wreko"]
 [ext_resource type="PackedScene" uid="uid://b8flk5gc7uopf" path="res://act/hud/actors/actor_control/emotion_points/point.tscn" id="8_l8kh0"]
 [ext_resource type="Texture2D" uid="uid://64j7vhqkg757" path="res://media/hud/hand/light-slot.png" id="8_rx8t4"]
-[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://fonts/Caveat-VariableFont_wght.ttf" id="9_l8kh0"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="9_l8kh0"]
 [ext_resource type="Script" uid="uid://vfdtpshierlh" path="res://act/hud/actors/actor_control/emotion_level.gd" id="10_gx8br"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nfu38"]

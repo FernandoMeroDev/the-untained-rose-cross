@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bgtn3ooq3b70y"]
+
+[ext_resource type="Script" uid="uid://bakbk81xduic5" path="res://story/presentation/presentation.gd" id="1_il02y"]
+[ext_resource type="Texture2D" uid="uid://cwta8cv7ems22" path="res://media/story/background/black.jpg" id="1_itbgo"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="2_il02y"]
+
+[node name="Presentation" type="Control" unique_id=224871231]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_il02y")
+
+[node name="Background" type="TextureRect" parent="." unique_id=82157401]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_itbgo")
+
+[node name="Text" type="Label" parent="." unique_id=917313436]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -520.25
+offset_top = -44.5
+offset_right = 520.25
+offset_bottom = 44.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_il02y")
+theme_override_font_sizes/font_size = 70
+horizontal_alignment = 1

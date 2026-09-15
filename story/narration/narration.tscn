@@ -1,0 +1,288 @@
+[gd_scene format=3 uid="uid://bwjivud3ycke5"]
+
+[ext_resource type="Script" uid="uid://cdbp35q8853q2" path="res://story/narration/narration.gd" id="1_e7ewk"]
+[ext_resource type="Texture2D" uid="uid://cnau7q6u1q622" path="res://media/story/background/juline_room.jpg" id="1_o3el0"]
+[ext_resource type="Texture2D" uid="uid://b4xfeoar5ussm" path="res://media/story/characters/juline/default.png" id="2_2ohqv"]
+[ext_resource type="AudioStream" uid="uid://c6em8kp5tp1pr" path="res://media/music/ost/story/new_chapter_awakes.mp3" id="2_un58w"]
+[ext_resource type="Texture2D" uid="uid://5it0j0e2g7o5" path="res://media/story/characters/juline/sleepy.png" id="3_hlvgm"]
+[ext_resource type="Texture2D" uid="uid://0eglypq7w14s" path="res://media/story/characters/lucine/default.png" id="4_e7ewk"]
+[ext_resource type="Script" uid="uid://cefio7x41kus1" path="res://story/narration/ui/fade.gd" id="6_0ipay"]
+[ext_resource type="Theme" uid="uid://bavqiu5bl5lhi" path="res://themes/narration.tres" id="6_5ijfb"]
+[ext_resource type="Texture2D" uid="uid://x1j1ay8nyj7a" path="res://media/story/narration/ui/dialog_box.png" id="7_vby8i"]
+[ext_resource type="Script" uid="uid://1244trj005dm" path="res://story/narration/ui/dialog/dialogs.gd" id="7_vghta"]
+[ext_resource type="Script" uid="uid://yrglinjnwhsw" path="res://story/narration/ui/dialog/normal/normal.gd" id="8_phqe6"]
+[ext_resource type="Texture2D" uid="uid://nwihqwqjsmxx" path="res://media/story/narration/ui/title_box.png" id="8_qn1hn"]
+[ext_resource type="Texture2D" uid="uid://dfugvm45pt1ah" path="res://media/story/narration/ui/dialog_center_box.png" id="9_5ijfb"]
+[ext_resource type="Script" uid="uid://dfcp3n4o78sae" path="res://story/narration/ui/dialog/normal/text.gd" id="10_611uq"]
+[ext_resource type="Texture2D" uid="uid://d1cwmy5c8c1d5" path="res://media/story/narration/ui/location_box.png" id="10_qn1hn"]
+[ext_resource type="Script" uid="uid://cak8x5s6ups5f" path="res://story/narration/ui/dialog/center/center.gd" id="12_6cl1f"]
+[ext_resource type="Texture2D" uid="uid://bbfntjw70evnr" path="res://media/story/narration/ui/i_dont_know_read.png" id="12_bmkrr"]
+[ext_resource type="Script" uid="uid://d3uov6e6y7yb6" path="res://story/narration/ui/dialog/center/text.gd" id="14_qj3xf"]
+[ext_resource type="Script" uid="uid://brt7phc0f1ocf" path="res://story/narration/ui/location.gd" id="16_c2sqp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tqu3q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2ohqv")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_hlvgm")
+}],
+"loop": 1,
+"name": &"sleepy",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ym10n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_e7ewk")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Narration" type="Node" unique_id=1847335710]
+script = ExtResource("1_e7ewk")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=934162331]
+position = Vector2(960, 540)
+texture = ExtResource("1_o3el0")
+
+[node name="Characters" type="Node2D" parent="." unique_id=1695212020]
+
+[node name="Juline" type="AnimatedSprite2D" parent="Characters" unique_id=659371529]
+visible = false
+position = Vector2(410, 719)
+sprite_frames = SubResource("SpriteFrames_tqu3q")
+animation = &"sleepy"
+
+[node name="Lucine" type="AnimatedSprite2D" parent="Characters" unique_id=1619422558]
+visible = false
+position = Vector2(1565, 720)
+sprite_frames = SubResource("SpriteFrames_ym10n")
+flip_h = true
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=162236665]
+
+[node name="UI" type="Control" parent="UILayer" unique_id=996783347]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("6_5ijfb")
+
+[node name="Dialogs" type="Control" parent="UILayer/UI" unique_id=827596563]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("7_vghta")
+
+[node name="Normal" type="Control" parent="UILayer/UI/Dialogs" unique_id=675636353]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("8_phqe6")
+
+[node name="Box" type="TextureRect" parent="UILayer/UI/Dialogs/Normal" unique_id=2049278898]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -408.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("7_vby8i")
+
+[node name="Title" type="TextureRect" parent="UILayer/UI/Dialogs/Normal/Box" unique_id=1910672967]
+layout_mode = 1
+offset_top = 30.0
+offset_right = 310.0
+offset_bottom = 274.4171
+rotation = -0.2617994
+mouse_filter = 2
+texture = ExtResource("8_qn1hn")
+
+[node name="Affiliation" type="Label" parent="UILayer/UI/Dialogs/Normal/Box/Title" unique_id=1761996117]
+custom_minimum_size = Vector2(300, 40)
+custom_maximum_size = Vector2(300, 80)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -155.0
+offset_right = 145.0
+offset_bottom = 61.0
+grow_horizontal = 2
+theme_override_constants/line_spacing = -15
+theme_override_font_sizes/font_size = 30
+text = "???"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Name" type="Label" parent="UILayer/UI/Dialogs/Normal/Box/Title" unique_id=1985889725]
+custom_minimum_size = Vector2(300, 170)
+custom_maximum_size = Vector2(300, 170)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -85.0
+offset_right = 150.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/line_spacing = -30
+theme_override_font_sizes/font_size = 60
+text = "???"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Text" type="RichTextLabel" parent="UILayer/UI/Dialogs/Normal/Box" unique_id=802990261]
+custom_minimum_size = Vector2(1500, 250)
+custom_maximum_size = Vector2(1500, 250)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.28
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 352.0
+offset_top = -5.239998
+offset_right = -68.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/line_separation = -20
+theme_override_font_sizes/normal_font_size = 60
+text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis cupiditate culpa accusantium expedita, nemo deserunt eaque ex. Similique cum, molestias voluptate illo et laudantium incidunt recusandae voluptatum odit, maxime nostrum. recusandae voluptatum odit, maxime no"
+autowrap_mode = 2
+script = ExtResource("10_611uq")
+
+[node name="Center" type="Control" parent="UILayer/UI/Dialogs" unique_id=1898166731]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("12_6cl1f")
+
+[node name="Box" type="TextureRect" parent="UILayer/UI/Dialogs/Center" unique_id=536669066]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -339.0
+offset_bottom = 339.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("9_5ijfb")
+
+[node name="Text" type="RichTextLabel" parent="UILayer/UI/Dialogs/Center/Box" unique_id=654108127]
+custom_minimum_size = Vector2(1500, 250)
+custom_maximum_size = Vector2(1500, 250)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -750.0
+offset_top = -125.0
+offset_right = 750.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/line_separation = -20
+theme_override_font_sizes/normal_font_size = 60
+text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis cupiditate culpa accusantium expedita, nemo deserunt eaque ex. Similique cum, molestias voluptate illo et laudantium incidunt recusandae voluptatum odit, maxime nostrum. recusandae voluptatum odit, maxime no"
+autowrap_mode = 2
+horizontal_alignment = 1
+script = ExtResource("14_qj3xf")
+
+[node name="Location" type="TextureRect" parent="UILayer/UI" unique_id=178477055]
+visible = false
+layout_mode = 0
+offset_right = 377.0
+offset_bottom = 102.0
+mouse_filter = 2
+texture = ExtResource("10_qn1hn")
+script = ExtResource("16_c2sqp")
+
+[node name="Label" type="Label" parent="UILayer/UI/Location" unique_id=566454038]
+custom_minimum_size = Vector2(375, 100)
+custom_maximum_size = Vector2(375, 100)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -51.0
+offset_right = -2.0
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/line_spacing = -25
+theme_override_font_sizes/font_size = 45
+text = "???"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Fade" type="ColorRect" parent="UILayer/UI" unique_id=1259003993]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("6_0ipay")
+
+[node name="IDontRead" type="TextureRect" parent="UILayer/UI" unique_id=1623063152]
+visible = false
+layout_mode = 1
+offset_left = 195.0
+offset_top = 235.0
+offset_right = 825.0
+offset_bottom = 413.0
+scale = Vector2(2.5, 2.5)
+mouse_filter = 2
+texture = ExtResource("12_bmkrr")
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=1304538442]
+stream = ExtResource("2_un58w")
+autoplay = true
+parameters/looping = true
