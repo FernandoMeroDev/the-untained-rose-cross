@@ -1,0 +1,10 @@
+{
+	"ai_voices": true,
+	"language": "en",
+	"sound": {
+		"Master": 100,
+		"Music": 100,
+		"SFX": 100,
+		"Voice": 100,
+	}
+}

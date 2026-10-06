@@ -1,0 +1,22 @@
+{
+	"juline": {
+		"en": {
+			"name": "Juline",
+			"affiliation": "Second Princess"
+		},
+		"es": {
+			"name": "Julinne",
+			"affiliation": "Segunda Princesa"
+		}
+	},
+	"lucine": {
+		"en": {
+			"name": "Lucine",
+			"affiliation": "First Princess"
+		},
+		"es": {
+			"name": "Lucinne",
+			"affiliation": "Primera Princesa"
+		}
+	},
+}

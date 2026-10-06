@@ -2,6 +2,9 @@ class_name Act extends Node
 
 const DetailsPanel = preload("res://act/hud/actor_details/panels/panel.gd")
 
+## Emitted when act finished
+signal finished(chapter_name: String, act_name: String)
+
 ## Act Phases
 enum Phases  { 
 	PRESENTATION,
@@ -9,6 +12,12 @@ enum Phases  {
 	PREPARATION,
 	BATTLE 
 }
+
+## Chapter Name
+var chapter_name: String
+
+## Act Name
+var act_name: String
 
 ## Act current Phase
 var phase: Phases = Phases.PRESENTATION
@@ -40,13 +49,9 @@ func _on_dice_roller_pressed() -> void:
 	roll_dices()
 	battle_resolver.handle_dice_roller_pressed()
 
-func _ready() -> void:
-	var config: Dictionary = JsonUtils.load_json(
-		'res://act/config.json',
-		#'res://act/debug_config.json',
-		#'res://act/battle_phase_config.json',
-		#'res://act/debug_battle_phase_config.json',
-	)
+func init(config: Dictionary) -> void:
+	chapter_name = config["chapter_name"]
+	act_name = config["act_name"]
 	# Init Input Manager
 	$InputManager.act = self
 	# Init Turn Manager
@@ -407,3 +412,5 @@ func end_act() -> void:
 	# Reset Camera Zoom
 	await $Scenary/Camera.reset_zoom()
 	$HUD/Result.presentate_result()
+	await get_tree().create_timer(3.0).timeout
+	finished.emit(chapter_name, act_name)

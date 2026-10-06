@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cdbp35q8853q2" path="res://story/narration/narration.gd" id="1_e7ewk"]
 [ext_resource type="Texture2D" uid="uid://cnau7q6u1q622" path="res://media/story/background/juline_room.jpg" id="1_o3el0"]
-[ext_resource type="Texture2D" uid="uid://b4xfeoar5ussm" path="res://media/story/characters/juline/default.png" id="2_2ohqv"]
-[ext_resource type="AudioStream" uid="uid://c6em8kp5tp1pr" path="res://media/music/ost/story/new_chapter_awakes.mp3" id="2_un58w"]
-[ext_resource type="Texture2D" uid="uid://5it0j0e2g7o5" path="res://media/story/characters/juline/sleepy.png" id="3_hlvgm"]
-[ext_resource type="Texture2D" uid="uid://0eglypq7w14s" path="res://media/story/characters/lucine/default.png" id="4_e7ewk"]
+[ext_resource type="AudioStream" uid="uid://c6em8kp5tp1pr" path="res://media/story/music/ost/new_chapter_awakes.mp3" id="2_un58w"]
+[ext_resource type="Script" uid="uid://cklutqsn0ter1" path="res://story/narration/characters/characters.gd" id="3_cosmd"]
 [ext_resource type="Script" uid="uid://cefio7x41kus1" path="res://story/narration/ui/fade.gd" id="6_0ipay"]
 [ext_resource type="Theme" uid="uid://bavqiu5bl5lhi" path="res://themes/narration.tres" id="6_5ijfb"]
 [ext_resource type="Texture2D" uid="uid://x1j1ay8nyj7a" path="res://media/story/narration/ui/dialog_box.png" id="7_vby8i"]
@@ -14,41 +12,14 @@
 [ext_resource type="Texture2D" uid="uid://nwihqwqjsmxx" path="res://media/story/narration/ui/title_box.png" id="8_qn1hn"]
 [ext_resource type="Texture2D" uid="uid://dfugvm45pt1ah" path="res://media/story/narration/ui/dialog_center_box.png" id="9_5ijfb"]
 [ext_resource type="Script" uid="uid://dfcp3n4o78sae" path="res://story/narration/ui/dialog/normal/text.gd" id="10_611uq"]
+[ext_resource type="AudioStream" uid="uid://cugemxfw1jviu" path="res://media/story/music/sfx/typing.mp3" id="10_cosmd"]
 [ext_resource type="Texture2D" uid="uid://d1cwmy5c8c1d5" path="res://media/story/narration/ui/location_box.png" id="10_qn1hn"]
 [ext_resource type="Script" uid="uid://cak8x5s6ups5f" path="res://story/narration/ui/dialog/center/center.gd" id="12_6cl1f"]
 [ext_resource type="Texture2D" uid="uid://bbfntjw70evnr" path="res://media/story/narration/ui/i_dont_know_read.png" id="12_bmkrr"]
 [ext_resource type="Script" uid="uid://d3uov6e6y7yb6" path="res://story/narration/ui/dialog/center/text.gd" id="14_qj3xf"]
 [ext_resource type="Script" uid="uid://brt7phc0f1ocf" path="res://story/narration/ui/location.gd" id="16_c2sqp"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_tqu3q"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_2ohqv")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_hlvgm")
-}],
-"loop": 1,
-"name": &"sleepy",
-"speed": 5.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ym10n"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_e7ewk")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 5.0
-}]
+[ext_resource type="Script" uid="uid://bfe8pntwh5in1" path="res://story/narration/music/voice_line/voice_line.gd" id="18_c2sqp"]
+[ext_resource type="Script" uid="uid://dtk3ftbyijy87" path="res://story/narration/music/sfx/sfx.gd" id="18_qj3xf"]
 
 [node name="Narration" type="Node" unique_id=1847335710]
 script = ExtResource("1_e7ewk")
@@ -58,18 +29,7 @@ position = Vector2(960, 540)
 texture = ExtResource("1_o3el0")
 
 [node name="Characters" type="Node2D" parent="." unique_id=1695212020]
-
-[node name="Juline" type="AnimatedSprite2D" parent="Characters" unique_id=659371529]
-visible = false
-position = Vector2(410, 719)
-sprite_frames = SubResource("SpriteFrames_tqu3q")
-animation = &"sleepy"
-
-[node name="Lucine" type="AnimatedSprite2D" parent="Characters" unique_id=1619422558]
-visible = false
-position = Vector2(1565, 720)
-sprite_frames = SubResource("SpriteFrames_ym10n")
-flip_h = true
+script = ExtResource("3_cosmd")
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=162236665]
 
@@ -80,7 +40,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
 theme = ExtResource("6_5ijfb")
 
 [node name="Dialogs" type="Control" parent="UILayer/UI" unique_id=827596563]
@@ -165,24 +125,30 @@ horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="Text" type="RichTextLabel" parent="UILayer/UI/Dialogs/Normal/Box" unique_id=802990261]
-custom_minimum_size = Vector2(1500, 250)
-custom_maximum_size = Vector2(1500, 250)
+custom_minimum_size = Vector2(1415, 250)
+custom_maximum_size = Vector2(1415, 250)
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.28
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 352.0
-offset_top = -5.239998
-offset_right = -68.0
-offset_bottom = -49.0
+offset_left = 440.0
+offset_top = -4.239998
+offset_right = -65.0
+offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 theme_override_constants/line_separation = -20
 theme_override_font_sizes/normal_font_size = 60
-text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis cupiditate culpa accusantium expedita, nemo deserunt eaque ex. Similique cum, molestias voluptate illo et laudantium incidunt recusandae voluptatum odit, maxime nostrum. recusandae voluptatum odit, maxime no"
+text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis cupiditate culpa accusantium expedita, nemo deserunt eaque ex. Similique cum, molestias voluptate illo et laudantium incidunt recusandae voluptatum odit, maxime nostrum. recusandae voluptatum"
 autowrap_mode = 2
 script = ExtResource("10_611uq")
+
+[node name="Typing" type="AudioStreamPlayer" parent="UILayer/UI/Dialogs/Normal/Box/Text" unique_id=1610301955]
+stream = ExtResource("10_cosmd")
+bus = &"SFX"
+parameters/looping = true
 
 [node name="Center" type="Control" parent="UILayer/UI/Dialogs" unique_id=1898166731]
 visible = false
@@ -223,12 +189,17 @@ offset_right = 750.0
 offset_bottom = 125.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/line_separation = -20
 theme_override_font_sizes/normal_font_size = 60
 text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis cupiditate culpa accusantium expedita, nemo deserunt eaque ex. Similique cum, molestias voluptate illo et laudantium incidunt recusandae voluptatum odit, maxime nostrum. recusandae voluptatum odit, maxime no"
 autowrap_mode = 2
 horizontal_alignment = 1
 script = ExtResource("14_qj3xf")
+
+[node name="Typing" type="AudioStreamPlayer" parent="UILayer/UI/Dialogs/Center/Box/Text" unique_id=1937735231]
+stream = ExtResource("10_cosmd")
+bus = &"SFX"
 
 [node name="Location" type="TextureRect" parent="UILayer/UI" unique_id=178477055]
 visible = false
@@ -285,4 +256,15 @@ texture = ExtResource("12_bmkrr")
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=1304538442]
 stream = ExtResource("2_un58w")
 autoplay = true
+bus = &"Music"
 parameters/looping = true
+
+[node name="VoiceLine" type="AudioStreamPlayer" parent="Music" unique_id=378390210]
+bus = &"Voice"
+script = ExtResource("18_c2sqp")
+
+[node name="SFX" type="AudioStreamPlayer" parent="Music" unique_id=1729298673]
+bus = &"SFX"
+script = ExtResource("18_qj3xf")
+
+[connection signal="gui_input" from="UILayer/UI" to="." method="_on_ui_gui_input"]

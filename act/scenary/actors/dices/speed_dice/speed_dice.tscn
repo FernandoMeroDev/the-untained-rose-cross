@@ -57,6 +57,7 @@ script = ExtResource("4_je2il")
 
 [node name="Selected" type="AudioStreamPlayer" parent="." unique_id=1654007460]
 stream = ExtResource("4_as2xm")
+bus = &"SFX"
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

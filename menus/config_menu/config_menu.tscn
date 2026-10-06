@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://d05xds1nvkqni"]
+
+[ext_resource type="Theme" uid="uid://cbdkglnbg54tm" path="res://themes/menus/config_menu/config_menu.tres" id="1_mtw0h"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="1_tdbpm"]
+[ext_resource type="Texture2D" uid="uid://bjewl7x4pk0g0" path="res://media/menus/config_menu/checked.png" id="2_ltwmj"]
+[ext_resource type="Script" uid="uid://v3v4mcoyqom1" path="res://menus/config_menu/config_menu.gd" id="2_u4723"]
+[ext_resource type="Texture2D" uid="uid://dw5at0hv7atj7" path="res://media/menus/config_menu/unchecked.png" id="3_mtw0h"]
+[ext_resource type="Script" uid="uid://byjbtc73duyaw" path="res://menus/config_menu/inputs/ai_voice/ai_voice.gd" id="6_d610l"]
+[ext_resource type="Script" uid="uid://bkrucxbcq6efb" path="res://menus/config_menu/inputs/language/language.gd" id="7_yk6g5"]
+[ext_resource type="Script" uid="uid://bvdc5t14mw2ih" path="res://menus/config_menu/inputs/sound/slider.gd" id="8_7n013"]
+
+[node name="ConfigMenu" type="Control" unique_id=1606165773]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mtw0h")
+script = ExtResource("2_u4723")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1156730002]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.02745098, 0.4862745, 0.63529414)
+
+[node name="Title" type="Label" parent="." unique_id=1365272046]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -843.5
+offset_right = 843.5
+offset_bottom = 252.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("1_tdbpm")
+theme_override_font_sizes/font_size = 200
+text = "Config"
+horizontal_alignment = 1
+
+[node name="Inputs" type="VBoxContainer" parent="." unique_id=1592816969]
+layout_mode = 0
+offset_left = 771.0
+offset_top = 274.5
+offset_right = 1149.0
+offset_bottom = 805.5
+
+[node name="AIVoice" type="CheckButton" parent="Inputs" unique_id=1708088615]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_tdbpm")
+theme_override_font_sizes/font_size = 64
+theme_override_icons/checked = ExtResource("2_ltwmj")
+theme_override_icons/unchecked = ExtResource("3_mtw0h")
+text = "AI Voices"
+script = ExtResource("6_d610l")
+
+[node name="Language" type="Label" parent="Inputs" unique_id=1852692698]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_tdbpm")
+theme_override_font_sizes/font_size = 48
+text = "Language"
+
+[node name="LanguageInput" type="OptionButton" parent="Inputs" unique_id=251426696]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_tdbpm")
+theme_override_font_sizes/font_size = 64
+selected = 0
+item_count = 2
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "Español"
+popup/item_1/id = 1
+script = ExtResource("7_yk6g5")
+
+[node name="Master" type="Label" parent="Inputs" unique_id=865976043]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_tdbpm")
+theme_override_font_sizes/font_size = 48
+text = "General Sound"
+
+[node name="MasterSound" type="HSlider" parent="Inputs" unique_id=837699786]
+layout_mode = 2
+value = 100.0
+script = ExtResource("8_7n013")
+
+[node name="Music" type="Label" parent="Inputs" unique_id=1059220063]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_tdbpm")
+theme_override_font_sizes/font_size = 32
+text = "Music Volume"
+
+[node name="MusicSound" type="HSlider" parent="Inputs" unique_id=709865263]
+layout_mode = 2
+value = 100.0
+script = ExtResource("8_7n013")
+bus_name = "Music"
+
+[node name="SFX" type="Label" parent="Inputs" unique_id=865403617]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_tdbpm")
+theme_override_font_sizes/font_size = 32
+text = "SFX Volume"
+
+[node name="SFXSound" type="HSlider" parent="Inputs" unique_id=1676620248]
+layout_mode = 2
+value = 100.0
+script = ExtResource("8_7n013")
+bus_name = "SFX"
+
+[node name="Voice" type="Label" parent="Inputs" unique_id=1190124318]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_tdbpm")
+theme_override_font_sizes/font_size = 32
+text = "Voice Volume"
+
+[node name="VoiceSound" type="HSlider" parent="Inputs" unique_id=1871934423]
+layout_mode = 2
+value = 100.0
+script = ExtResource("8_7n013")
+bus_name = "Voice"
+
+[connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
+[connection signal="toggled" from="Inputs/AIVoice" to="Inputs/AIVoice" method="_on_toggled"]
+[connection signal="item_selected" from="Inputs/LanguageInput" to="Inputs/LanguageInput" method="_on_item_selected"]
+[connection signal="drag_ended" from="Inputs/MasterSound" to="Inputs/MasterSound" method="_on_drag_ended"]
+[connection signal="drag_ended" from="Inputs/MusicSound" to="Inputs/MusicSound" method="_on_drag_ended"]
+[connection signal="drag_ended" from="Inputs/SFXSound" to="Inputs/SFXSound" method="_on_drag_ended"]
+[connection signal="drag_ended" from="Inputs/VoiceSound" to="Inputs/VoiceSound" method="_on_drag_ended"]

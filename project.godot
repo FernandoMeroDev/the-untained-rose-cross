@@ -19,10 +19,15 @@ run/main_scene="uid://bx582psw2wnac"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://dm6xms7ag6lpe"
+
 [autoload]
 
-JsonUtils="*res://utils/json_utils.gd"
+JsonUtils="*res://autoload/json_utils.gd"
 Helpers="*uid://ywidgxnasl8m"
+GameState="*uid://buxsxc6i60vuw"
 
 [display]
 
@@ -55,3 +60,7 @@ space={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":32,"location":0,"echo":false,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://translations/menus/config_menu/config_menu.en.translation", "res://translations/menus/config_menu/config_menu.es.translation", "res://translations/menus/main_menu/main_menu.en.translation", "res://translations/menus/main_menu/main_menu.es.translation", "res://translations/act/hud/scene_number/scene_number.en.translation", "res://translations/act/hud/scene_number/scene_number.es.translation", "res://translations/act/hud/actor_details/panels/panel.en.translation", "res://translations/act/hud/actor_details/panels/panel.es.translation", "res://translations/act/scenary/actors/vfx/vfx.en.translation", "res://translations/act/scenary/actors/vfx/vfx.es.translation", "res://translations/act/scenary/actors/damage_tags/damage_tags.en.translation", "res://translations/act/scenary/actors/damage_tags/damage_tags.es.translation", "res://translations/act/hud/result/finished.en.translation", "res://translations/act/hud/result/finished.es.translation")

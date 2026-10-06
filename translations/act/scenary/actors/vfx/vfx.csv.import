@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://7r8jdd4utexc"
+
+[deps]
+
+files=["res://translations/act/scenary/actors/vfx/vfx.en.translation", "res://translations/act/scenary/actors/vfx/vfx.es.translation"]
+
+source_file="res://translations/act/scenary/actors/vfx/vfx.csv"
+dest_files=["res://translations/act/scenary/actors/vfx/vfx.en.translation", "res://translations/act/scenary/actors/vfx/vfx.es.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

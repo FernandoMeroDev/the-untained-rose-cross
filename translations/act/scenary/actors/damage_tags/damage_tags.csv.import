@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://ll257llcujxt"
+
+[deps]
+
+files=["res://translations/act/scenary/actors/damage_tags/damage_tags.en.translation", "res://translations/act/scenary/actors/damage_tags/damage_tags.es.translation"]
+
+source_file="res://translations/act/scenary/actors/damage_tags/damage_tags.csv"
+dest_files=["res://translations/act/scenary/actors/damage_tags/damage_tags.en.translation", "res://translations/act/scenary/actors/damage_tags/damage_tags.es.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

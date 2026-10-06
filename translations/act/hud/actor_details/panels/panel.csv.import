@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://b84t2f8g5vqiv"
+
+[deps]
+
+files=["res://translations/act/hud/actor_details/panels/panel.en.translation", "res://translations/act/hud/actor_details/panels/panel.es.translation"]
+
+source_file="res://translations/act/hud/actor_details/panels/panel.csv"
+dest_files=["res://translations/act/hud/actor_details/panels/panel.en.translation", "res://translations/act/hud/actor_details/panels/panel.es.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

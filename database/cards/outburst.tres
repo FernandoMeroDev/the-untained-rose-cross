@@ -11,6 +11,10 @@ metadata/_custom_type_script = "uid://cprnyoijuhug1"
 [resource]
 script = ExtResource("2_yggsy")
 name = "Outburst"
+name_translations = Dictionary[String, String]({
+"en": "Outburst",
+"es": "Explosión"
+})
 code = "outburst"
 cost = 1
 dices = Array[ExtResource("1_yejju")]([SubResource("Resource_yejju")])

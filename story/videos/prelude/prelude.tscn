@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://dy2j16f83ydu5"]
+
+[ext_resource type="Script" uid="uid://8prx2ripq71o" path="res://story/videos/prelude/prelude.gd" id="1_l7b8l"]
+[ext_resource type="Texture2D" uid="uid://cwta8cv7ems22" path="res://media/story/background/black.jpg" id="2_fl5f8"]
+[ext_resource type="VideoStream" uid="uid://b70rrypyip158" path="res://media/videos/Prelude.ogv" id="3_fmtth"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="4_nwesc"]
+[ext_resource type="Script" uid="uid://oqlvrbn1rv6x" path="res://story/videos/prelude/subtitles.gd" id="5_ppb3x"]
+[ext_resource type="AudioStream" uid="uid://bpiqu1g6qf630" path="res://media/music/ost/pure_lapis_lazuli_rosenkreuz/1_prelude_rosenkreuz.mp3" id="6_e01nr"]
+
+[node name="Prelude" type="Control" unique_id=1026230697]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l7b8l")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1602036105]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_fl5f8")
+
+[node name="Movie" type="VideoStreamPlayer" parent="." unique_id=1339141267]
+propagate_maximum_size = true
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+stream = ExtResource("3_fmtth")
+
+[node name="Subtitles" type="RichTextLabel" parent="." unique_id=1022108900]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -520.25
+offset_top = -48.25
+offset_right = 520.25
+offset_bottom = 48.25
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("4_nwesc")
+theme_override_font_sizes/normal_font_size = 70
+fit_content = true
+script = ExtResource("5_ppb3x")
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=1036338616]
+stream = ExtResource("6_e01nr")
+autoplay = true
+bus = &"Music"

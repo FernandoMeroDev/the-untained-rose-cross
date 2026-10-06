@@ -1,7 +1,14 @@
 extends Control
 
+const Dialog = preload("res://story/narration/ui/dialog/dialog.gd")
+
 ## Current default dialog Node
-var dialog: Control
+var dialog: Dialog
+
+## Finish immediately
+func finish_immediately() -> void:
+	if dialog:
+		dialog.finish_immediately()
 
 ## Type text
 func type_text(locale: String, line: Dictionary) -> void:
@@ -19,14 +26,25 @@ func show_dialog(fade_in_time: float = 0.3) -> void:
 	else:
 		dialog.show()
 
+## Hide dialog
+func hide_dialog(fade_out_time: float = 0.3) -> void:
+	if fade_out_time > 0.0:
+		dialog.fade_out(fade_out_time)
+	else:
+		dialog.hide()
+
 ## Clear dialog
 func clear_dialog() -> void:
 	dialog.clear()
 
-## Set Title
-func set_title(
+## Set Title Name
+func set_title_name(
 	char_name: String = '', 
-	char_affiliation: String = '',
 ) -> void:
 	$Normal/Box/Title/Name.text = char_name
+
+## Set Title Affiliation
+func set_title_affiliation(
+	char_affiliation: String = '', 
+) -> void:
 	$Normal/Box/Title/Affiliation.text = char_affiliation

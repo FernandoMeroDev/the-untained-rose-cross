@@ -6,6 +6,9 @@ class_name CardResource extends Resource
 ## Card Name readable for user.
 @export var name: String
 
+## Card Name readable for user.
+@export var name_translations: Dictionary[String, String]
+
 ## Card Code identifier
 @export var code: String
 
@@ -21,7 +24,11 @@ class_name CardResource extends Resource
 func _init(
 	p_id = 0,
 	p_name = 'New Card',
+	p_name_translations: Dictionary[String, String] = {
+		'en': 'English Name',
+		'es': 'Nombre en Español',
+	},
 	p_code = 'new_card',
 	p_cost = 1,
 	p_dices: Array[DiceResource] = []
-): id = p_id; name = p_name ; code = p_code; cost = p_cost; dices = p_dices
+): id = p_id; name = p_name ; name_translations = p_name_translations ; code = p_code; cost = p_cost; dices = p_dices

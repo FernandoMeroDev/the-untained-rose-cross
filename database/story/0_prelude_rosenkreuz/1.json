@@ -1,0 +1,35 @@
+{
+	"character_titles": {},
+	"locations": {},
+	"narration_script": [
+		{ "action": "set_background('juline_room')" },
+		{ "action": "set_default_dialog('normal')" },
+		{ "action": "clear_dialog()" },
+		{ "action": "show_dialog()" },
+		{ "action": "set_title_tr('lucine')" },
+		{
+			"en": "Hello World 1",
+			"es": "Hola Mundo 1",
+		},
+		{ "action": "set_title_affiliation_tr('juline')" },
+		{
+			"en": "Hello World 1",
+			"es": "Hola Mundo 1",
+		},
+		{ "action": "set_title_tr('juline')" },
+		{
+			"en": "Hello World 1",
+			"es": "Hola Mundo 1",
+		},
+		{ "action": "set_location_tr('juline_room')" },
+		{ "action": "show_location()" },
+		{
+			"en": "Hello World 1",
+			"es": "Hola Mundo 1",
+		},
+		{
+			"en": "Hello World 1",
+			"es": "Hola Mundo 1",
+		}
+	]
+}

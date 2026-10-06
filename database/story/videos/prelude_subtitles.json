@@ -1,0 +1,51 @@
+[
+	{
+		"show_at": 2.5,
+		"content": {
+			"en": "Blessed with lapis-colored eyes and a lovely, delicate appearance, the First Princess Lucine—",
+			"es": "Bendecida con ojos color lapislázuli y una encantadora, delicada apariencia, la Primera Princesa Lucine-"
+		},
+	},
+	{
+		"show_at": 10.0,
+		"content": {
+			"en": "her silver hair seems to blend into the darkness, and her doll-like lips bear a rose-red hue.",
+			"es": "su cabello plateado parece mezclarse en la oscuridad, y sus labios de muñeca tienen un tono rojo como el de una rosa.",
+		},
+	},
+	{
+		"show_at": 18.8,
+		"content": {
+			"en": "People were captivated by such a princess, and marriage proposals from other nations never ceased.",
+			"es": "Las personas fueron cautivadas por aquella princesa, y propuestas de matrimonio de otras naciones nunca cesaron."
+		},
+	},
+	{
+		"show_at": 27.5,
+		"content": {
+			"en": "Her twin sister Juline was also breathtakingly beautiful, a perfect mirror of her appearance, and gifted with a beautiful singing voice, earning the love of the citizens.",
+			"es": "Su hermana gemela Juline fue también encantadoramente hermosa, un reflejo perfecto en apariencia, y bendecida con una hermosa voz cantante, obtuvo el amor de los ciudadanos.",
+		}
+	},
+	{
+		"show_at": 39.8,
+		"content": {
+			"en": "It was said that as long as the two of them existed, the nation would flourish beautifully, and many came to refer to Rufenburg as the City of Music.",
+			"es": "Se decía que siempre que ellas dos existieran, la nación florecería hermosamente, y muchos llegarían a referirse a Rufenburg como la Ciudad de la Música.",
+		},
+	},
+	{
+		"show_at": 53.5,
+		"content": {
+			"en": "This is the story of these two sisters and the land of Rufenburg.",
+			"es": "Esta es la historia de estas dos hermanas y la tierra de Rufenburg.",
+		},
+	},
+	{
+		"show_at": 61.3,
+		"content": {
+			"en": "",
+			"es": "",
+		},
+	},
+]

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://2er2ybhqx2ki"]
+
+[ext_resource type="Texture2D" uid="uid://dk7nvlmg00xui" path="res://media/story/characters/vfx/sleeping/cloud.png" id="1_c2bam"]
+[ext_resource type="Script" uid="uid://ccg87odxyel1o" path="res://story/narration/characters/vfx/sleeping/sleeping.gd" id="2_dahfc"]
+[ext_resource type="Texture2D" uid="uid://d0pfbd03vtbys" path="res://media/story/characters/vfx/sleeping/z1.png" id="3_ify04"]
+[ext_resource type="Texture2D" uid="uid://ohssxe124a27" path="res://media/story/characters/vfx/sleeping/z2.png" id="4_372j2"]
+[ext_resource type="Texture2D" uid="uid://dwec6dbr3u78p" path="res://media/story/characters/vfx/sleeping/z3.png" id="5_6qla8"]
+
+[node name="Sleeping" type="Sprite2D" unique_id=1748682111]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("1_c2bam")
+script = ExtResource("2_dahfc")
+
+[node name="Z1" type="Sprite2D" parent="." unique_id=2071104397]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("3_ify04")
+
+[node name="Z2" type="Sprite2D" parent="." unique_id=1948064339]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("4_372j2")
+
+[node name="Z3" type="Sprite2D" parent="." unique_id=201056848]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("5_6qla8")

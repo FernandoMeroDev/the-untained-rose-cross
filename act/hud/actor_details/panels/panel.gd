@@ -302,11 +302,15 @@ func fill_actor_details(actor: Actor):
 	$Portrait/Actor.texture = load('res://media/actors/sprites/' + actor.code + '/default.png')
 	# Resistences
 	for resistence: TextureRect in $Resistences.get_children():
-		var key = resistence.name.to_snake_case()
-		var resistence_name = actor.resistences[key] + '_' + key # weak_pierce_damage
-		resistence.tooltip_text = ''
-		for word in resistence_name.split('_'):
-			resistence.tooltip_text += word.capitalize() + ' '
+		var key: String = resistence.name.to_snake_case()
+		var resistence_name: String = actor.resistences[key] + '_' + key # weak_pierce_damage
+		#resistence.tooltip_text = ''
+		#for word in resistence_name.split('_'):
+			#resistence.tooltip_text += word.capitalize() + ' '
+		resistence.tooltip_text = tr(
+			'ACT_RESISTENCE_'
+			+ resistence_name.to_upper()
+		)
 		resistence.texture = load('res://media/icons/resistences/' + resistence_name + '.png')
 	# Name
 	$Name/Text.text = actor.actor_name

@@ -14,6 +14,10 @@ metadata/_custom_type_script = "uid://cprnyoijuhug1"
 [resource]
 script = ExtResource("2_exg2g")
 name = "Upper Slashes"
+name_translations = Dictionary[String, String]({
+"en": "Upper Slashes",
+"es": "Cortes Ascendentes"
+})
 code = "upper_slashes"
 cost = 2
 dices = Array[ExtResource("1_5hbb6")]([SubResource("Resource_5hbb6"), SubResource("Resource_exg2g")])

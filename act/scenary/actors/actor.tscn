@@ -168,7 +168,7 @@ theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 10
 theme_override_fonts/font = ExtResource("21_5ol5x")
 theme_override_font_sizes/font_size = 48
-text = "Staggered!"
+text = "ACT_ACTOR_VFX_STAGGERED"
 
 [node name="MaxDamage" type="Sprite2D" parent="VFX" unique_id=84827566]
 visible = false
@@ -196,7 +196,7 @@ theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 10
 theme_override_fonts/font = ExtResource("21_5ol5x")
 theme_override_font_sizes/font_size = 48
-text = "Max Damage!"
+text = "ACT_ACTOR_VFX_MAX_DAMAGE"
 
 [node name="HitTrail" type="Sprite2D" parent="VFX" unique_id=185043170]
 visible = false

@@ -102,7 +102,7 @@ func show_deflect_damage(value: int) -> void:
 	var colors = resistences_colors['resist']['normal']
 	add_child(damage_tag)
 	damage_tag.init(
-		value, 'Deflect', icon, colors
+		value, tr('ACT_ACTOR_DAMAGE_TAG_DEFLECT'), icon, colors
 	)
 	damage_tag.position = Vector2(
 		calc_random_offset(-150),

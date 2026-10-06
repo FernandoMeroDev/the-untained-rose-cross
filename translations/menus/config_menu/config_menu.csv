@@ -1,0 +1,8 @@
+keys,en,es
+CONFIG_MENU_TITLE,Config,Configuración
+CONFIG_MENU_AI_VOICE,AI Voices,Voces de IA
+CONFIG_MENU_LANGUAGE,Language,Idioma
+CONFIG_MENU_MASTER_SOUND,General Sound,Sonido General
+CONFIG_MENU_MUSIC_SOUND,Music Volume,Volumen de Musica
+CONFIG_MENU_SFX_SOUND,SFX Volume,Volumen de Efectos
+CONFIG_MENU_VOICE_SOUND,Voices Volume,Volumen de Voces

@@ -1,0 +1,5 @@
+[gd_resource type="Theme" format=3 uid="uid://cbdkglnbg54tm"]
+
+[resource]
+CheckButton/constants/outline_size = 10
+Label/constants/outline_size = 10

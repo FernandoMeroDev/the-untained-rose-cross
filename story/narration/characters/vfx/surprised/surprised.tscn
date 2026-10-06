@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://1frb55xk6ab"]
+
+[ext_resource type="Texture2D" uid="uid://kpne176dll2f" path="res://media/story/characters/vfx/surprised/surprised.png" id="1_0vqdn"]
+[ext_resource type="Script" uid="uid://c0w8morw4q25a" path="res://story/narration/characters/vfx/surprised/surprised.gd" id="1_lplbv"]
+
+[node name="Surprised" type="Sprite2D" unique_id=585076324]
+modulate = Color(1, 1, 1, 0)
+rotation = 0.2191401
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_0vqdn")
+script = ExtResource("1_lplbv")

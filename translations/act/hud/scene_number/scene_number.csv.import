@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://drkbl20sx2rli"
+
+[deps]
+
+files=["res://translations/act/hud/scene_number/scene_number.en.translation", "res://translations/act/hud/scene_number/scene_number.es.translation"]
+
+source_file="res://translations/act/hud/scene_number/scene_number.csv"
+dest_files=["res://translations/act/hud/scene_number/scene_number.en.translation", "res://translations/act/hud/scene_number/scene_number.es.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

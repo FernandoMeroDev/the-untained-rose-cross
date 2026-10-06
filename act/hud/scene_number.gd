@@ -7,7 +7,7 @@ var turn_manager: TurnManager
 var number: int = 1
 
 func init() -> void:
-	$Number.text = 'Scene ' + str(number)
+	set_number(number)
 	presentate_scene()
 
 ## Presentate Scene
@@ -17,14 +17,18 @@ func presentate_scene() -> void:
 	animate_fade($Number)
 	animate_shake($Number)
 	$Team.show()
-	$Team.text = turn_manager.get_readable_team() + ' team starts'
+	$Team.text = tr(
+		'ACT_SCENE_NUMBER_'
+		+ turn_manager.get_readable_team().to_upper()
+		+ '_TEAM_START'
+	)
 	animate_fade($Team)
 	animate_shake($Team)
 
 ## Set Scene Number
 func set_number(scene_number: int) -> void:
 	number = scene_number
-	$Number.text = 'Scene ' + str(number)
+	$Number.text = tr('ACT_SCENE_NUMBER_TITLE') + ' ' + str(number)
 
 ## Advance to next Scene
 func advance_next() -> void:

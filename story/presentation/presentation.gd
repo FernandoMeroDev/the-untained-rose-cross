@@ -3,8 +3,8 @@ extends Control
 ## Presentation is finished
 signal finished
 
-func _ready() -> void:
-	$Text.text = "I. Prelude - Rosenkreuz"
+func init(p_text: Dictionary) -> void:
+	$Text.text = p_text[GameState.config["language"]]
 	var tween: Tween = create_tween().set_parallel()
 	tween.tween_property(
 		$Text,

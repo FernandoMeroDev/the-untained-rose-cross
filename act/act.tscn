@@ -933,7 +933,7 @@ theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 2
 theme_override_fonts/font = ExtResource("20_k8d45")
 theme_override_font_sizes/font_size = 200
-text = "Finished"
+text = "ACT_RESULT_FINISHED"
 
 [node name="EndDown" type="AudioStreamPlayer" parent="HUD/Result" unique_id=177750970]
 stream = ExtResource("47_5misd")
@@ -941,6 +941,7 @@ stream = ExtResource("47_5misd")
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=2050507547]
 stream = ExtResource("34_22tc4")
 autoplay = true
+bus = &"Music"
 parameters/looping = true
 script = ExtResource("49_r8lvi")
 
@@ -948,12 +949,15 @@ script = ExtResource("49_r8lvi")
 
 [node name="Selected" type="AudioStreamPlayer" parent="Music/SFX" unique_id=2009444158]
 stream = ExtResource("33_1qlvn")
+bus = &"SFX"
 
 [node name="DiceRoll" type="AudioStreamPlayer" parent="Music/SFX" unique_id=547001003]
 stream = ExtResource("42_lskxy")
+bus = &"SFX"
 
 [node name="Cancel" type="AudioStreamPlayer" parent="Music/SFX" unique_id=2016705719]
 stream = ExtResource("46_82ofw")
+bus = &"SFX"
 
 [node name="Battle" type="Node" parent="Music/SFX" unique_id=721164329]
 script = ExtResource("48_7rfk8")
@@ -962,50 +966,64 @@ script = ExtResource("48_7rfk8")
 
 [node name="BlowHori" type="AudioStreamPlayer" parent="Music/SFX/Battle/Attack" unique_id=471554607]
 stream = ExtResource("48_5kcsk")
+bus = &"SFX"
 
 [node name="BlowStab" type="AudioStreamPlayer" parent="Music/SFX/Battle/Attack" unique_id=1982954254]
 stream = ExtResource("49_jutkt")
+bus = &"SFX"
 
 [node name="BlowVert" type="AudioStreamPlayer" parent="Music/SFX/Battle/Attack" unique_id=1182384343]
 stream = ExtResource("50_sp3pa")
+bus = &"SFX"
 
 [node name="SwordHori" type="AudioStreamPlayer" parent="Music/SFX/Battle/Attack" unique_id=17246677]
 stream = ExtResource("51_vhj7x")
+bus = &"SFX"
 
 [node name="SwordStab" type="AudioStreamPlayer" parent="Music/SFX/Battle/Attack" unique_id=546141062]
 stream = ExtResource("52_8txjm")
+bus = &"SFX"
 
 [node name="SwordVert" type="AudioStreamPlayer" parent="Music/SFX/Battle/Attack" unique_id=836603216]
 stream = ExtResource("53_ym1af")
+bus = &"SFX"
 
 [node name="Parry" type="AudioStreamPlayer" parent="Music/SFX/Battle/Attack" unique_id=743230542]
 stream = ExtResource("54_ocuck")
+bus = &"SFX"
 
 [node name="Block" type="Node" parent="Music/SFX/Battle" unique_id=365471882]
 
 [node name="DaeChi" type="AudioStreamPlayer" parent="Music/SFX/Battle/Block" unique_id=745262186]
 stream = ExtResource("56_03e83")
+bus = &"SFX"
 
 [node name="Guarded" type="AudioStreamPlayer" parent="Music/SFX/Battle/Block" unique_id=792066461]
 stream = ExtResource("55_sp3pa")
+bus = &"SFX"
 
 [node name="GuardedWin" type="AudioStreamPlayer" parent="Music/SFX/Battle/Block" unique_id=1664947628]
 stream = ExtResource("56_vhj7x")
+bus = &"SFX"
 
 [node name="Evade" type="Node" parent="Music/SFX/Battle" unique_id=468600988]
 
 [node name="Defense" type="AudioStreamPlayer" parent="Music/SFX/Battle/Evade" unique_id=43563521]
 stream = ExtResource("57_ocuck")
 volume_db = 10.0
+bus = &"SFX"
 
 [node name="Hori" type="AudioStreamPlayer" parent="Music/SFX/Battle/Evade" unique_id=686933248]
 stream = ExtResource("58_7rfk8")
+bus = &"SFX"
 
 [node name="Stab" type="AudioStreamPlayer" parent="Music/SFX/Battle/Evade" unique_id=1302885359]
 stream = ExtResource("59_03e83")
+bus = &"SFX"
 
 [node name="Vert" type="AudioStreamPlayer" parent="Music/SFX/Battle/Evade" unique_id=365084541]
 stream = ExtResource("60_c8g2i")
+bus = &"SFX"
 
 [connection signal="pressed" from="HUD/DiceRoller/Dices" to="HUD/DiceRoller" method="_on_dices_pressed"]
 [connection signal="timeout" from="HUD/SceneNumber/Presentation" to="." method="_on_scene_presentation_timeout"]

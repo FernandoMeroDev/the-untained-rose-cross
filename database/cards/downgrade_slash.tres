@@ -10,6 +10,10 @@ metadata/_custom_type_script = "uid://cprnyoijuhug1"
 [resource]
 script = ExtResource("1_ui8q6")
 name = "Downgrade Slash"
+name_translations = Dictionary[String, String]({
+"en": "Downgrade Slash",
+"es": "Corte Descendiente"
+})
 code = "downgrade_slash"
 cost = 1
 dices = Array[ExtResource("1_ai7vk")]([SubResource("Resource_ai7vk")])

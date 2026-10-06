@@ -239,6 +239,7 @@ func _process(delta: float) -> void:
 			status = States.IDLE
 
 func init(actor_data: Dictionary) -> void:
+	var lan: String = GameState.config['language']
 	team = (
 		turn_manager.Teams.LEFT if (
 			actor_data['team'] == 'left'
@@ -246,7 +247,7 @@ func init(actor_data: Dictionary) -> void:
 	)
 	id = int(actor_data['id'])
 	code = actor_data['code']
-	actor_name = actor_data["name"]
+	actor_name = actor_data["name"][lan]
 	sharp_weapon = actor_data["sharp_weapon"]
 	var stats: Dictionary = actor_data["stats"]
 	max_hp = int(stats["max_hp"]); max_resist = int(stats["max_resist"])
@@ -275,10 +276,12 @@ func init(actor_data: Dictionary) -> void:
 	#)
 
 func init_deck(deck_data: Array) -> void:
+	var lan: String = GameState.config['language']
 	var i: int = 1
 	for card_code: String in deck_data:
 		var card: CardResource = load('res://database/cards/' + card_code + '.tres')
 		card.id = i + (id * 100)
+		card.name = card.name_translations[lan]
 		deck.append(card)
 		i += 1
 	for j: int in 3:

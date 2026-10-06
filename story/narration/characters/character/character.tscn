@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b3psoxftqq5y8"]
+
+[ext_resource type="Script" uid="uid://cy85x7d6g1c6h" path="res://story/narration/characters/character/character.gd" id="1_ee3ja"]
+[ext_resource type="Script" uid="uid://ckypbh483f2oq" path="res://story/narration/characters/character/expression.gd" id="6_sfp1v"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2x58m"]
+animations = []
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v6cwc"]
+
+[node name="Character" type="AnimatedSprite2D" unique_id=1769666467]
+sprite_frames = SubResource("SpriteFrames_2x58m")
+animation = &""
+script = ExtResource("1_ee3ja")
+
+[node name="Expression" type="AnimatedSprite2D" parent="." unique_id=1488108128]
+sprite_frames = SubResource("SpriteFrames_v6cwc")
+script = ExtResource("6_sfp1v")
