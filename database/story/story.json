@@ -3,31 +3,9 @@
 		"chapter_name": "0_prelude_rosenkreuz",
 		"sequence": [
 			{
-				"type": "presentation",
-				"completed": false,
-				"content": { 
-					"text": {
-						"en": "I. Prelude - Rosenkreuz",
-						"es": "I. Preludio - Rosenkreuz",
-					}
-				}
-			},
-			{
-				"type": "video",
-				"completed": false,
-				"content": { 
-					"video_id": "prelude" 
-				}
-			},
-			{
 				"type": "narration",
 				"completed": false,
 				"content": { "n": 1 }
-			},
-			{
-				"type": "act",
-				"completed": false,
-				"content": { "name": "training_1" }
 			},
 		]
 	}

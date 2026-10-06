@@ -3,6 +3,9 @@ extends Node
 ## Narration is finished
 signal finished
 
+## Return to start requested
+signal return_to_start_requested
+
 ## Locale Language
 var locale: String
 
@@ -29,12 +32,30 @@ func _on_ui_gui_input(event: InputEvent) -> void:
 			$Characters.everyone_finish_immediately()
 			$Music/VoiceLine.finish_immediately()
 
+## Open Menu Request observers
+func _on_open_pause_menu_requested() -> void:
+	$UILayer/PauseMenu.show()
+
+## Close Menu Request observers
+func _on_exit_pause_menu_requested() -> void:
+	$UILayer/PauseMenu.hide()
+
+## Return to start via Pause Menu
+func _on_return_to_start_requested() -> void:
+	return_to_start_requested.emit()
+
 func init(p_narration_chapter: String, narration_data: Dictionary) -> void:
 	locale = GameState.config["language"]
 	narration_chapter = p_narration_chapter
 	narration_script = narration_data["narration_script"] 
 	init_locations(narration_data["locations"])
 	init_character_titles(narration_data["character_titles"])
+	$UILayer/UI.open_pause_menu_requested.connect(
+		_on_open_pause_menu_requested
+	)
+	$UILayer/PauseMenu.exit_pause_requested.connect(
+		_on_exit_pause_menu_requested
+	)
 	$Music/VoiceLine.narration_chapter = narration_chapter
 	# Text Boxes => VoiceLine Events
 	$UILayer/UI/Dialogs/Normal/Box/Text.voice_line_requested.connect(

@@ -30,6 +30,10 @@ func _on_act_finished(chapter_name: String, act_name: String) -> void:
 func _on_story_requested() -> void:
 	load_story()
 
+## Return to Start Screen Listeners
+func _on_return_to_start_requested() -> void:
+	load_main_menu()
+
 # Turn on the lights
 func _ready() -> void:
 	GameState.init()
@@ -44,9 +48,18 @@ func init_language() -> void:
 		GameState.config["language"]
 	)
 
+## Load Main Menu
+func load_main_menu() -> void:
+	main_menu = MainMenuScene.instantiate()
+	main_menu.story_requested.connect(_on_story_requested)
+	change_context(main_menu)
+
 ##  Load Story
 func load_story() -> void:
 	story = StoryScene.instantiate()
+	story.return_to_start_requested.connect(
+		_on_return_to_start_requested
+	)
 	story.act_requested.connect(_on_act_requested)
 	change_context(story)
 	story.init()

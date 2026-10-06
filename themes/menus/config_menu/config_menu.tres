@@ -1,5 +1,9 @@
 [gd_resource type="Theme" format=3 uid="uid://cbdkglnbg54tm"]
 
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="1_6ox88"]
+
 [resource]
+Button/font_sizes/font_size = 48
+Button/fonts/font = ExtResource("1_6ox88")
 CheckButton/constants/outline_size = 10
 Label/constants/outline_size = 10

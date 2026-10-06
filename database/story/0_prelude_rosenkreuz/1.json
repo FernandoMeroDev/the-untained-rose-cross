@@ -3,33 +3,83 @@
 	"locations": {},
 	"narration_script": [
 		{ "action": "set_background('juline_room')" },
-		{ "action": "set_default_dialog('normal')" },
+		{ "action": "fade_in()" },
+		{ "await": 1.0 },
+		{ "action": "set_default_dialog('center')" },
 		{ "action": "clear_dialog()" },
 		{ "action": "show_dialog()" },
-		{ "action": "set_title_tr('lucine')" },
 		{
-			"en": "Hello World 1",
-			"es": "Hola Mundo 1",
-		},
-		{ "action": "set_title_affiliation_tr('juline')" },
-		{
-			"en": "Hello World 1",
-			"es": "Hola Mundo 1",
-		},
-		{ "action": "set_title_tr('juline')" },
-		{
-			"en": "Hello World 1",
-			"es": "Hola Mundo 1",
-		},
-		{ "action": "set_location_tr('juline_room')" },
-		{ "action": "show_location()" },
-		{
-			"en": "Hello World 1",
-			"es": "Hola Mundo 1",
+			"en": "Sunlight filtered softly through the window.",
+			"es": "La luz del sol se filtraba suavemente por la ventana.",
 		},
 		{
-			"en": "Hello World 1",
-			"es": "Hola Mundo 1",
-		}
+			"en": "There, on the bed, lay a young woman asleep.",
+			"es": "Allí sobre la cama había una joven dormida.",
+		},
+		{ "action": "hide_dialog()" },
+		{ "action": "set_default_dialog('normal')" },
+		{ "action": "clear_dialog()" },
+		{ "action": "set_title('...')" },
+		{ "action": "show_dialog()" },
+		{ "action": "add_character('juline', 'juline')" },
+		{ "action": "change_char_animation('juline', 'sleepy')" },
+		{ "action": "simple_positionate_char('juline', 'left')" },
+		{ "action": "show_char('juline')" },
+		{ "action": "play_char_vfx('juline', 'sleeping')" },
+		{
+			"en": "Zzz...",
+			"es": "Zzz...",
+			"speed": 5,
+		},
+		{ "action": "add_character('lucine', 'lucine')" },
+		{ "action": "simple_positionate_char('lucine', 'right')" },
+		{ "action": "flip_h_char('lucine')" },
+		{ "action": "show_char('lucine')" },
+		{ "action": "deactivate_char('juline')" },
+		{
+			"en": "Juline.",
+			"es": "Julinne.",
+			"voice_line": 1,
+			"await_after": 0.3
+		},
+		{ "action": "deactivate_char('lucine')" },
+		{ "action": "activate_char('juline')" },
+		{ "action": "change_char_expression('juline', 'surprised')" },
+		{ "action": "play_char_vfx('juline', 'surprised')" },
+		{
+			"en": "Oh?!",
+			"es": "¡¿Oh?!",
+			"voice_line": 2,
+			"await_after": 1.0
+		},
+		{ "action": "change_char_expression('juline', 'open_eyes')" },
+		{ "action": "deactivate_char('juline')" },
+		{ "action": "activate_char('lucine')" },
+		{
+			"en": "Good morning little one.",
+			"es": "Buenos días pequeña.",
+			"voice_line": 3
+		},
+		{ "action": "deactivate_char('lucine')" },
+		{ "action": "activate_char('juline')" },
+		{
+			"en": "What happen big sis?",
+			"es": "¿Que pasó, hermana mayor?",
+			"voice_line": 4
+		},
+		{ "action": "deactivate_char('juline')" },
+		{ "action": "activate_char('lucine')" },
+		{
+			"en": "I just want to tell you that I love you very much!",
+			"es": "¡Solo queria decirte que te quiero mucho!",
+			"voice_line": 5
+		},
+		{ "action": "activate_char('juline')" },
+		{ "action": "change_char_expression('juline', 'default')" },
+		{
+			"en": "...",
+			"es": "...",
+		},
+		{ "await": 60.0 },
 	]
 }

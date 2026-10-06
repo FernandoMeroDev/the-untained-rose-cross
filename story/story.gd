@@ -6,6 +6,9 @@ const ActScene: PackedScene = preload("res://act/act.tscn")
 const NarrationScene: PackedScene = preload("res://story/narration/narration.tscn")
 const Narration = preload("res://story/narration/narration.gd")
 
+## Return to start requested
+signal return_to_start_requested
+
 ## Emitted when an Act is requested in the story
 signal act_requested(chapter_name: String, act_name: String)
 
@@ -46,6 +49,9 @@ func load_narration(chapter_name: String, n: int) -> void:
 		"res://database/story/" + narration_id + ".json"
 	)
 	var narration: Narration = NarrationScene.instantiate()
+	narration.return_to_start_requested.connect(
+		func(): return_to_start_requested.emit()
+	)
 	add_child(narration)
 	narration.init(narration_id, narration_data)
 	current_context = narration

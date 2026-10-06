@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://xmkvg1b3ern2"]
+
+[ext_resource type="Theme" uid="uid://cbdkglnbg54tm" path="res://themes/menus/config_menu/config_menu.tres" id="1_bbafy"]
+[ext_resource type="Script" uid="uid://1trtk6hcitop" path="res://menus/pause_menu/pause_menu.gd" id="2_xotp6"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="3_b6pfv"]
+[ext_resource type="Texture2D" uid="uid://bjewl7x4pk0g0" path="res://media/menus/config_menu/checked.png" id="4_c7gy2"]
+[ext_resource type="Texture2D" uid="uid://dw5at0hv7atj7" path="res://media/menus/config_menu/unchecked.png" id="5_ad52v"]
+[ext_resource type="Script" uid="uid://byjbtc73duyaw" path="res://menus/config_menu/inputs/ai_voice/ai_voice.gd" id="6_olfon"]
+[ext_resource type="Script" uid="uid://bvdc5t14mw2ih" path="res://menus/config_menu/inputs/sound/slider.gd" id="8_avhg4"]
+
+[node name="PauseMenu" type="Control" unique_id=1606165773]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_bbafy")
+script = ExtResource("2_xotp6")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1156730002]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.02745098, 0.4862745, 0.63529414)
+
+[node name="Inputs" type="VBoxContainer" parent="." unique_id=1592816969]
+layout_mode = 0
+offset_left = 771.0
+offset_top = 274.5
+offset_right = 1149.0
+offset_bottom = 805.5
+
+[node name="ReturnToStart" type="Button" parent="Inputs" unique_id=1914536906]
+layout_mode = 2
+text = "Reurn to Start Screen"
+
+[node name="AIVoice" type="CheckButton" parent="Inputs" unique_id=1708088615]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_b6pfv")
+theme_override_font_sizes/font_size = 64
+theme_override_icons/checked = ExtResource("4_c7gy2")
+theme_override_icons/unchecked = ExtResource("5_ad52v")
+text = "AI Voices"
+script = ExtResource("6_olfon")
+
+[node name="Master" type="Label" parent="Inputs" unique_id=865976043]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_b6pfv")
+theme_override_font_sizes/font_size = 48
+text = "General Sound"
+
+[node name="MasterSound" type="HSlider" parent="Inputs" unique_id=837699786]
+layout_mode = 2
+value = 100.0
+script = ExtResource("8_avhg4")
+
+[node name="Music" type="Label" parent="Inputs" unique_id=1059220063]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_b6pfv")
+theme_override_font_sizes/font_size = 32
+text = "Music Volume"
+
+[node name="MusicSound" type="HSlider" parent="Inputs" unique_id=709865263]
+layout_mode = 2
+value = 100.0
+script = ExtResource("8_avhg4")
+bus_name = "Music"
+
+[node name="SFX" type="Label" parent="Inputs" unique_id=865403617]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_b6pfv")
+theme_override_font_sizes/font_size = 32
+text = "SFX Volume"
+
+[node name="SFXSound" type="HSlider" parent="Inputs" unique_id=1676620248]
+layout_mode = 2
+value = 100.0
+script = ExtResource("8_avhg4")
+bus_name = "SFX"
+
+[node name="Voice" type="Label" parent="Inputs" unique_id=1190124318]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_b6pfv")
+theme_override_font_sizes/font_size = 32
+text = "Voice Volume"
+
+[node name="VoiceSound" type="HSlider" parent="Inputs" unique_id=1871934423]
+layout_mode = 2
+value = 100.0
+script = ExtResource("8_avhg4")
+bus_name = "Voice"
+
+[connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
+[connection signal="pressed" from="Inputs/ReturnToStart" to="." method="_on_return_to_start_pressed"]
+[connection signal="toggled" from="Inputs/AIVoice" to="Inputs/AIVoice" method="_on_toggled"]
+[connection signal="drag_ended" from="Inputs/MasterSound" to="Inputs/MasterSound" method="_on_drag_ended"]
+[connection signal="drag_ended" from="Inputs/MusicSound" to="Inputs/MusicSound" method="_on_drag_ended"]
+[connection signal="drag_ended" from="Inputs/SFXSound" to="Inputs/SFXSound" method="_on_drag_ended"]
+[connection signal="drag_ended" from="Inputs/VoiceSound" to="Inputs/VoiceSound" method="_on_drag_ended"]

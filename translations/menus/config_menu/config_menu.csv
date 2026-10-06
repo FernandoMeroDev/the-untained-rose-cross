@@ -1,5 +1,6 @@
 keys,en,es
 CONFIG_MENU_TITLE,Config,Configuración
+PAUSE_MENU_RETURN_TO_START,Reurn to Start Screen,Regresar al Inicio
 CONFIG_MENU_AI_VOICE,AI Voices,Voces de IA
 CONFIG_MENU_LANGUAGE,Language,Idioma
 CONFIG_MENU_MASTER_SOUND,General Sound,Sonido General
