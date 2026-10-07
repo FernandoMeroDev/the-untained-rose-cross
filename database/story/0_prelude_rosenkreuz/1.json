@@ -50,7 +50,6 @@
 			"en": "Oh?!",
 			"es": "¡¿Oh?!",
 			"voice_line": 2,
-			"await_after": 1.0
 		},
 		{ "action": "change_char_expression('juline', 'open_eyes')" },
 		{ "action": "deactivate_char('juline')" },

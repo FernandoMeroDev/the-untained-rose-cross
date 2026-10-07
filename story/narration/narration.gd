@@ -44,12 +44,19 @@ func _on_exit_pause_menu_requested() -> void:
 func _on_return_to_start_requested() -> void:
 	return_to_start_requested.emit()
 
+## Skip Narration
+func _on_skip_narration_pressed() -> void:
+	$UILayer/UI/IDontRead.tease()
+	await $UILayer/UI/IDontRead.teasing_finihed
+	finished.emit()
+
 func init(p_narration_chapter: String, narration_data: Dictionary) -> void:
 	locale = GameState.config["language"]
 	narration_chapter = p_narration_chapter
 	narration_script = narration_data["narration_script"] 
 	init_locations(narration_data["locations"])
 	init_character_titles(narration_data["character_titles"])
+	# Connect Signals
 	$UILayer/UI.open_pause_menu_requested.connect(
 		_on_open_pause_menu_requested
 	)
@@ -63,6 +70,10 @@ func init(p_narration_chapter: String, narration_data: Dictionary) -> void:
 	)
 	$UILayer/UI/Dialogs/Center/Box/Text.voice_line_requested.connect(
 		$Music/VoiceLine._on_voice_line_requested
+	)
+	# Skip Narration Listeners
+	$UILayer/UI/Skip/Confirmation/Buttons/Confirm.pressed.connect(
+		_on_skip_narration_pressed
 	)
 	# Execute Narration script
 	await execute_narration_script()

@@ -19,9 +19,13 @@
 [ext_resource type="Texture2D" uid="uid://bbfntjw70evnr" path="res://media/story/narration/ui/i_dont_know_read.png" id="12_bmkrr"]
 [ext_resource type="Script" uid="uid://d3uov6e6y7yb6" path="res://story/narration/ui/dialog/center/text.gd" id="14_qj3xf"]
 [ext_resource type="Script" uid="uid://brt7phc0f1ocf" path="res://story/narration/ui/location.gd" id="16_c2sqp"]
+[ext_resource type="Script" uid="uid://hnc40pe7vq52" path="res://story/narration/ui/skip/button.gd" id="18_363gs"]
 [ext_resource type="Script" uid="uid://bfe8pntwh5in1" path="res://story/narration/music/voice_line/voice_line.gd" id="18_c2sqp"]
+[ext_resource type="Texture2D" uid="uid://uilskx5xq6ch" path="res://media/icons/skip.png" id="18_f4kyf"]
 [ext_resource type="Script" uid="uid://dtk3ftbyijy87" path="res://story/narration/music/sfx/sfx.gd" id="18_qj3xf"]
 [ext_resource type="PackedScene" uid="uid://xmkvg1b3ern2" path="res://menus/pause_menu/pause_menu.tscn" id="19_gu4rw"]
+[ext_resource type="Script" uid="uid://cvvn030tb784h" path="res://story/narration/ui/skip/confirmation/confirmation.gd" id="19_xhvjy"]
+[ext_resource type="Script" uid="uid://c2041msxoix3n" path="res://story/narration/ui/i_dont_read.gd" id="22_im5os"]
 
 [node name="Narration" type="Node" unique_id=1847335710]
 script = ExtResource("1_e7ewk")
@@ -233,6 +237,81 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
+[node name="Skip" type="Control" parent="UILayer/UI" unique_id=1034870649]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Button" type="TextureButton" parent="UILayer/UI/Skip" unique_id=91709892]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -105.0
+offset_top = 30.0
+offset_right = -30.0
+offset_bottom = 80.0
+grow_horizontal = 0
+texture_normal = ExtResource("18_f4kyf")
+texture_pressed = ExtResource("18_f4kyf")
+script = ExtResource("18_363gs")
+
+[node name="Confirmation" type="ColorRect" parent="UILayer/UI/Skip" unique_id=882085189]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.02745098, 0.4862745, 0.63529414)
+script = ExtResource("19_xhvjy")
+
+[node name="Text" type="Label" parent="UILayer/UI/Skip/Confirmation" unique_id=455091948]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -339.5
+offset_top = -207.0
+offset_right = 339.5
+offset_bottom = -125.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Do you want to skip the story? "
+
+[node name="Buttons" type="HBoxContainer" parent="UILayer/UI/Skip/Confirmation" unique_id=1629122088]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.5
+offset_top = -45.0
+offset_right = 39.5
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 300
+
+[node name="Confirm" type="Button" parent="UILayer/UI/Skip/Confirmation/Buttons" unique_id=1962640753]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Yes"
+
+[node name="Cancel" type="Button" parent="UILayer/UI/Skip/Confirmation/Buttons" unique_id=1546405269]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Cancel"
+
 [node name="Fade" type="ColorRect" parent="UILayer/UI" unique_id=1259003993]
 visible = false
 layout_mode = 1
@@ -255,6 +334,7 @@ offset_bottom = 413.0
 scale = Vector2(2.5, 2.5)
 mouse_filter = 2
 texture = ExtResource("12_bmkrr")
+script = ExtResource("22_im5os")
 
 [node name="PauseMenu" parent="UILayer" unique_id=1606165773 instance=ExtResource("19_gu4rw")]
 visible = false
@@ -274,4 +354,7 @@ bus = &"SFX"
 script = ExtResource("18_qj3xf")
 
 [connection signal="gui_input" from="UILayer/UI" to="." method="_on_ui_gui_input"]
+[connection signal="pressed" from="UILayer/UI/Skip/Button" to="UILayer/UI/Skip/Button" method="_on_pressed"]
+[connection signal="gui_input" from="UILayer/UI/Skip/Confirmation" to="UILayer/UI/Skip/Confirmation" method="_on_gui_input"]
+[connection signal="pressed" from="UILayer/UI/Skip/Confirmation/Buttons/Cancel" to="UILayer/UI/Skip/Confirmation" method="_on_cancel_pressed"]
 [connection signal="return_to_start_requested" from="UILayer/PauseMenu" to="." method="_on_return_to_start_requested"]

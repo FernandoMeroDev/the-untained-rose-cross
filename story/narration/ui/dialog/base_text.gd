@@ -24,7 +24,7 @@ var default_typing_speed: float = 20
 var typing_speed: float
 
 ## Time to await after typing
-var await_after: float = 1.0
+var await_after: float = 0.5
 
 func _ready() -> void:
 	set_process(false)

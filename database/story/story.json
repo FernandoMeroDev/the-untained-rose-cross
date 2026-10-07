@@ -7,6 +7,26 @@
 				"completed": false,
 				"content": { "n": 1 }
 			},
+			{
+				"type": "narration",
+				"completed": false,
+				"content": { "n": 1 }
+			},
+			{
+				"type": "narration",
+				"completed": false,
+				"content": { "n": 1 }
+			},
+			{
+				"type": "narration",
+				"completed": false,
+				"content": { "n": 1 }
+			},
+			{
+				"type": "act",
+				"completed": false,
+				"content": { "name": "training_1" }
+			},
 		]
 	}
 ]

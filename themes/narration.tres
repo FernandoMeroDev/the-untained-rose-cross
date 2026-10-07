@@ -2,6 +2,50 @@
 
 [ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="1_gsljs"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rnr50"]
+bg_color = Color(0.42595553, 0.42595556, 0.42595538, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bb8ms"]
+bg_color = Color(0.42595553, 0.42595556, 0.42595538, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsljs"]
+bg_color = Color(0.14044744, 0.14044747, 0.14044738, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wjao7"]
+bg_color = Color(0.42595553, 0.42595556, 0.42595538, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gf3j"]
 content_margin_left = 4.0
 content_margin_top = 4.0
@@ -26,6 +70,11 @@ expand_margin_bottom = 2.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wjao7"]
 
 [resource]
+Button/fonts/font = ExtResource("1_gsljs")
+Button/styles/focus = SubResource("StyleBoxFlat_rnr50")
+Button/styles/hover = SubResource("StyleBoxFlat_bb8ms")
+Button/styles/normal = SubResource("StyleBoxFlat_gsljs")
+Button/styles/pressed = SubResource("StyleBoxFlat_wjao7")
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0)
