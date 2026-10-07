@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c0ejc7fhoc0l2"]
 
 [ext_resource type="Script" uid="uid://cxm8muctpeqvr" path="res://act/scenary/actors/recover_tags/recover_tag.gd" id="1_bnpe0"]
-[ext_resource type="Texture2D" uid="uid://nkr4psek6nfo" path="res://media/icons/recover/health.png" id="1_r7n4i"]
+[ext_resource type="Texture2D" uid="uid://nkr4psek6nfo" path="res://media/act/icons/recover/health.png" id="1_r7n4i"]
 [ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="2_bnpe0"]
 
 [node name="Health" type="Control" unique_id=587134211]

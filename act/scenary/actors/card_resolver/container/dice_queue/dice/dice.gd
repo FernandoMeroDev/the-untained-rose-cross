@@ -10,5 +10,5 @@ func init(p_dice_resource: DiceResource) -> void:
 		+ str(dice_resource.max_value)
 	)
 	texture = load(
-		'res://media/icons/dice_types/' + dice_resource.get_type_code() + '.png'
+		'res://media/act/icons/dice_types/' + dice_resource.get_type_code() + '.png'
 	)

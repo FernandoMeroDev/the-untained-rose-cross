@@ -303,7 +303,7 @@ func init_sprites() -> void:
 	# Here you can load more animations
 
 func load_animation(animation_name: String) ->void:
-	var texture: Resource = load('res://media/actors/sprites/' + code + '/' + animation_name + '.png')
+	var texture: Resource = load('res://media/act/actors/sprites/' + code + '/' + animation_name + '.png')
 	if not $Sprite.sprite_frames.has_animation(animation_name):
 		$Sprite.sprite_frames.add_animation(animation_name)
 	$Sprite.sprite_frames.add_frame(animation_name, texture)

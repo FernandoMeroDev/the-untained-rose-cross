@@ -2,9 +2,9 @@
 
 [ext_resource type="Theme" uid="uid://ik0xao6vs2kq" path="res://themes/menus/main_menu/main_menu.tres" id="1_f7ts8"]
 [ext_resource type="Script" uid="uid://byo52q1si1fft" path="res://menus/main_menu/main_menu.gd" id="1_oic2i"]
-[ext_resource type="Texture2D" uid="uid://byt3d0ikjp0fy" path="res://media/scenary/gloomy_castle.jpg" id="2_er5qh"]
+[ext_resource type="Texture2D" uid="uid://byt3d0ikjp0fy" path="res://media/act/scenary/gloomy_castle.jpg" id="2_er5qh"]
 [ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="3_f7ts8"]
-[ext_resource type="AudioStream" uid="uid://bqasav0j71kl5" path="res://media/music/ost/main_menu/for_whom_do_wings_grow.mp3" id="4_81su3"]
+[ext_resource type="AudioStream" uid="uid://bqasav0j71kl5" path="res://media/act/music/ost/main_menu/for_whom_do_wings_grow.mp3" id="4_81su3"]
 [ext_resource type="Script" uid="uid://b1gw5nc22d4v3" path="res://menus/main_menu/buttons/animation.gd" id="5_t7kvd"]
 [ext_resource type="PackedScene" uid="uid://d05xds1nvkqni" path="res://menus/config_menu/config_menu.tscn" id="6_er5qh"]
 [ext_resource type="Script" uid="uid://lax5u18bvq5k" path="res://menus/main_menu/new_game_confirmation/confirmation.gd" id="8_81su3"]

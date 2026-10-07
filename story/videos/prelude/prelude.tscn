@@ -5,7 +5,7 @@
 [ext_resource type="VideoStream" uid="uid://b70rrypyip158" path="res://media/videos/Prelude.ogv" id="3_fmtth"]
 [ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="4_nwesc"]
 [ext_resource type="Script" uid="uid://oqlvrbn1rv6x" path="res://story/videos/prelude/subtitles.gd" id="5_ppb3x"]
-[ext_resource type="AudioStream" uid="uid://bpiqu1g6qf630" path="res://media/music/ost/pure_lapis_lazuli_rosenkreuz/1_prelude_rosenkreuz.mp3" id="6_e01nr"]
+[ext_resource type="AudioStream" uid="uid://bpiqu1g6qf630" path="res://media/act/music/ost/pure_lapis_lazuli_rosenkreuz/1_prelude_rosenkreuz.mp3" id="6_e01nr"]
 
 [node name="Prelude" type="Control" unique_id=1026230697]
 layout_mode = 3

@@ -43,7 +43,7 @@ func handle_actor_died() -> void:
 func init(actor: Actor) -> void:
 	# Load Data
 	actor_id = int(actor.id)
-	$Portrait/Avatar.texture = load('res://media/actors/sprites/' + actor.code + '/' + 'default.png')
+	$Portrait/Avatar.texture = load('res://media/act/actors/sprites/' + actor.code + '/' + 'default.png')
 	$Name.text = actor.actor_name
 	$HP.text = str(actor.max_hp)
 	$HealthBar.max_value = actor.max_hp

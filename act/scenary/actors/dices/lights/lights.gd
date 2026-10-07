@@ -39,9 +39,9 @@ func create_lights() -> void:
 		var light: TextureRect = TextureRect.new()
 		match available:
 			var a when a > 0:
-				light.texture = preload('res://media/actors/light.png')
+				light.texture = preload('res://media/act/actors/light.png')
 			var a when a <= 0:
-				light.texture = preload('res://media/actors/used_light.png')
+				light.texture = preload('res://media/act/actors/used_light.png')
 		light.scale = Vector2(0.60, 0.60)
 		add_child(light)
 		var gap: float = 10.00

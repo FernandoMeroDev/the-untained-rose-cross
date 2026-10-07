@@ -6,18 +6,18 @@ var textures: Dictionary = {
 }
 
 func _ready() -> void:
-	textures["blunt"].append(preload("res://media/battle/vfx/hit/blunt_orange.png"))
-	textures["blunt"].append(preload("res://media/battle/vfx/hit/blunt_yellow.png"))
-	textures["blunt"].append(preload("res://media/battle/vfx/hit/blunt_white.png"))
-	textures["pierce"].append(preload("res://media/battle/vfx/hit/pierce_orange.png"))
-	textures["pierce"].append(preload("res://media/battle/vfx/hit/pierce_yellow.png"))
-	textures["pierce"].append(preload("res://media/battle/vfx/hit/blunt_white.png"))
-	textures["slash"].append(preload("res://media/battle/vfx/hit/slash_orange.png"))
-	textures["slash"].append(preload("res://media/battle/vfx/hit/slash_yellow.png"))
-	textures["slash"].append(preload("res://media/battle/vfx/hit/slash_white.png"))
-	textures["critical"].append(preload("res://media/battle/vfx/hit/critical_orange.png"))
-	textures["critical"].append(preload("res://media/battle/vfx/hit/critical_yellow.png"))
-	textures["critical"].append(preload("res://media/battle/vfx/hit/critical_white.png"))
+	textures["blunt"].append(preload("res://media/act/battle/vfx/hit/blunt_orange.png"))
+	textures["blunt"].append(preload("res://media/act/battle/vfx/hit/blunt_yellow.png"))
+	textures["blunt"].append(preload("res://media/act/battle/vfx/hit/blunt_white.png"))
+	textures["pierce"].append(preload("res://media/act/battle/vfx/hit/pierce_orange.png"))
+	textures["pierce"].append(preload("res://media/act/battle/vfx/hit/pierce_yellow.png"))
+	textures["pierce"].append(preload("res://media/act/battle/vfx/hit/blunt_white.png"))
+	textures["slash"].append(preload("res://media/act/battle/vfx/hit/slash_orange.png"))
+	textures["slash"].append(preload("res://media/act/battle/vfx/hit/slash_yellow.png"))
+	textures["slash"].append(preload("res://media/act/battle/vfx/hit/slash_white.png"))
+	textures["critical"].append(preload("res://media/act/battle/vfx/hit/critical_orange.png"))
+	textures["critical"].append(preload("res://media/act/battle/vfx/hit/critical_yellow.png"))
+	textures["critical"].append(preload("res://media/act/battle/vfx/hit/critical_white.png"))
 
 func hit(attack_type: String) -> void:
 	if attack_type == 'stab':

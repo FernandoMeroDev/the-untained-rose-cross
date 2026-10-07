@@ -22,7 +22,7 @@ func flip_h_vfx(flip: bool) -> void:
 ## Show Attack Trail of animation
 func show_attack_trail_of(animation: String) -> void:
 	var texture: Texture2D = load(
-		'res://media/actors/sprites/'
+		'res://media/act/actors/sprites/'
 		+ parent_actor.code
 		+ '/effects/' 
 		+ animation + '_trail.png'

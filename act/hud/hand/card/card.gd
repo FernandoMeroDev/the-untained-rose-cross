@@ -28,7 +28,7 @@ func _on_mouse_exited() -> void:
 
 func init(card_resource: CardResource, position_x: float) -> void:
 	$Front/Name.text = card_resource.name
-	var image: Texture2D = load('res://media/cards/' + card_resource.code + '.png')
+	var image: Texture2D = load('res://media/act/cards/' + card_resource.code + '.png')
 	$Front/Art.texture = image
 	init_dices(card_resource.dices)
 	$Back.init(card_resource)
@@ -42,7 +42,7 @@ func init_dices(dices: Array[DiceResource]) -> void:
 	for dice_resource in dices:
 		var dice: TextureRect = TextureRect.new()
 		dice.texture = load(
-			'res://media/icons/dice_types/' + dice_resource.get_type_code() + '.png'
+			'res://media/act/icons/dice_types/' + dice_resource.get_type_code() + '.png'
 		)
 		# Positionate
 		var dice_scale: Vector2 = Vector2(0.3, 0.3)

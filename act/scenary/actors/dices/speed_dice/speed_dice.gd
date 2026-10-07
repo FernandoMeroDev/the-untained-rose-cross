@@ -65,9 +65,9 @@ func init(speed, dice_id: int) -> void:
 
 func init_textures() -> void:
 	textures['normal'] = texture_normal
-	textures['targeting'] = preload("res://media/actors/dices/speed/targeting.png")
-	textures['focused'] = preload("res://media/actors/dices/speed/focused.png")
-	textures['destroyed'] = preload("res://media/actors/dices/speed/destroyed.png")
+	textures['targeting'] = preload("res://media/act/actors/dices/speed/targeting.png")
+	textures['focused'] = preload("res://media/act/actors/dices/speed/focused.png")
+	textures['destroyed'] = preload("res://media/act/actors/dices/speed/destroyed.png")
 
 ## Positionate dice relative to its siblings and parent Actor
 func self_positionate(

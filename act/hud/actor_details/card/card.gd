@@ -7,7 +7,7 @@ var resource: CardResource
 ## Load Card Resource
 func load_card_resource(card_resource: CardResource) -> void:
 	$Front/Name.text = card_resource.name
-	var image: Texture2D = load('res://media/cards/' + card_resource.code + '.png')
+	var image: Texture2D = load('res://media/act/cards/' + card_resource.code + '.png')
 	$Front/Art.texture = image
 	$Front/Light/Number.text = str(card_resource.cost)
 	init_dices(card_resource.dices)
@@ -32,7 +32,7 @@ func init_dices(dices: Array[DiceResource]) -> void:
 	for dice_resource in dices:
 		var dice: TextureRect = TextureRect.new()
 		dice.texture = load(
-			'res://media/icons/dice_types/' + dice_resource.get_type_code() + '.png'
+			'res://media/act/icons/dice_types/' + dice_resource.get_type_code() + '.png'
 		)
 		# Positionate
 		var dice_scale: Vector2 = Vector2(0.6, 0.6)
@@ -55,7 +55,7 @@ func init_back(card_resource: CardResource) -> void:
 		var dice: HBoxContainer = dice_scene.instantiate()
 		var icon: TextureRect = dice.get_node('Icon')
 		icon.texture = load(
-			'res://media/icons/dice_types/' + dice_resource.get_type_code() + '.png'
+			'res://media/act/icons/dice_types/' + dice_resource.get_type_code() + '.png'
 		)
 		var detail: Label = dice.get_node('Detail')
 		detail.text = (

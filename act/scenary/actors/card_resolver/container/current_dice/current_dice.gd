@@ -17,7 +17,7 @@ func set_dice(dice: DiceResource) -> void:
 	$Range.show()
 	$Icon.show()
 	$Icon.texture = load(
-		'res://media/icons/dice_types/' + dice.get_type_code() + '.png'
+		'res://media/act/icons/dice_types/' + dice.get_type_code() + '.png'
 	)
 
 ## Play Dice

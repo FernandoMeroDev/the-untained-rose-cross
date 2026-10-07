@@ -6,7 +6,7 @@ func init(card_resource: CardResource) -> void:
 		var dice: HBoxContainer = dice_scene.instantiate()
 		var icon: TextureRect = dice.get_node('Icon')
 		icon.texture = load(
-			'res://media/icons/dice_types/' + dice_resource.get_type_code() + '.png'
+			'res://media/act/icons/dice_types/' + dice_resource.get_type_code() + '.png'
 		)
 		var detail: Label = dice.get_node('Detail')
 		detail.text = (

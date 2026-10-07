@@ -21,7 +21,7 @@
 [ext_resource type="Script" uid="uid://brt7phc0f1ocf" path="res://story/narration/ui/location.gd" id="16_c2sqp"]
 [ext_resource type="Script" uid="uid://hnc40pe7vq52" path="res://story/narration/ui/skip/button.gd" id="18_363gs"]
 [ext_resource type="Script" uid="uid://bfe8pntwh5in1" path="res://story/narration/music/voice_line/voice_line.gd" id="18_c2sqp"]
-[ext_resource type="Texture2D" uid="uid://uilskx5xq6ch" path="res://media/icons/skip.png" id="18_f4kyf"]
+[ext_resource type="Texture2D" uid="uid://uilskx5xq6ch" path="res://media/act/icons/skip.png" id="18_f4kyf"]
 [ext_resource type="Script" uid="uid://dtk3ftbyijy87" path="res://story/narration/music/sfx/sfx.gd" id="18_qj3xf"]
 [ext_resource type="PackedScene" uid="uid://xmkvg1b3ern2" path="res://menus/pause_menu/pause_menu.tscn" id="19_gu4rw"]
 [ext_resource type="Script" uid="uid://cvvn030tb784h" path="res://story/narration/ui/skip/confirmation/confirmation.gd" id="19_xhvjy"]

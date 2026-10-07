@@ -2,7 +2,7 @@ extends Sprite2D
 
 func init(actor_code: String) -> void:
 	texture = load(
-		'res://media/actors/sprites/' + actor_code + '/effects/guarded.png'
+		'res://media/act/actors/sprites/' + actor_code + '/effects/guarded.png'
 	)
 
 func show_guarded_shock() -> void:

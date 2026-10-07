@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://daphnu6ej8ax2" path="res://act/scenary/actors/damage_tags/damage_tag.gd" id="1_1qxq8"]
 [ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="2_7lqjm"]
-[ext_resource type="Texture2D" uid="uid://cxohqu61buymg" path="res://media/icons/resistences/ineffective_blunt_damage.png" id="3_1qxq8"]
+[ext_resource type="Texture2D" uid="uid://cxohqu61buymg" path="res://media/act/icons/resistences/ineffective_blunt_damage.png" id="3_1qxq8"]
 
 [node name="NormalDamage" type="Control" unique_id=548379074]
 layout_mode = 3

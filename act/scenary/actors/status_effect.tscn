@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://47rg2wbc354j"]
+[gd_scene format=3 uid="uid://47rg2wbc354j"]
 
-[ext_resource type="Texture2D" uid="uid://buvw2wb1863bv" path="res://media/actors/status_effects/paralysis.png" id="1_744hg"]
+[ext_resource type="Texture2D" uid="uid://buvw2wb1863bv" path="res://media/act/actors/status_effects/paralysis.png" id="1_744hg"]
 
 [node name="StatusEffect" type="TextureRect"]
 offset_right = 64.0

@@ -4,9 +4,9 @@ extends Sprite2D
 var textures: Array[Texture] = []
 
 func _ready() -> void:
-	textures.append(preload("res://media/battle/vfx/blood/blood_1.png"))
-	textures.append(preload("res://media/battle/vfx/blood/blood_2.png"))
-	textures.append(preload("res://media/battle/vfx/blood/blood_3.png"))
+	textures.append(preload("res://media/act/battle/vfx/blood/blood_1.png"))
+	textures.append(preload("res://media/act/battle/vfx/blood/blood_2.png"))
+	textures.append(preload("res://media/act/battle/vfx/blood/blood_3.png"))
 
 func splash() -> void:
 	texture = textures.pick_random()

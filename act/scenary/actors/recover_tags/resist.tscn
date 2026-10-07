@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://qa4on0r01lmm"]
 
 [ext_resource type="Script" uid="uid://cxm8muctpeqvr" path="res://act/scenary/actors/recover_tags/recover_tag.gd" id="1_kvpym"]
-[ext_resource type="Texture2D" uid="uid://b6lms35bady0d" path="res://media/icons/recover/resist.png" id="1_na0n7"]
+[ext_resource type="Texture2D" uid="uid://b6lms35bady0d" path="res://media/act/icons/recover/resist.png" id="1_na0n7"]
 [ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="2_kvpym"]
 
 [node name="Resist" type="Control" unique_id=587134211]

@@ -299,7 +299,7 @@ func deselect_actor() -> void:
 ## Set Actor Data
 func fill_actor_details(actor: Actor):
 	# Texture
-	$Portrait/Actor.texture = load('res://media/actors/sprites/' + actor.code + '/default.png')
+	$Portrait/Actor.texture = load('res://media/act/actors/sprites/' + actor.code + '/default.png')
 	# Resistences
 	for resistence: TextureRect in $Resistences.get_children():
 		var key: String = resistence.name.to_snake_case()
@@ -311,7 +311,7 @@ func fill_actor_details(actor: Actor):
 			'ACT_RESISTENCE_'
 			+ resistence_name.to_upper()
 		)
-		resistence.texture = load('res://media/icons/resistences/' + resistence_name + '.png')
+		resistence.texture = load('res://media/act/icons/resistences/' + resistence_name + '.png')
 	# Name
 	$Name/Text.text = actor.actor_name
 	# HP Gauge
