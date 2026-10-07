@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://bfh8i4db76mmi"]
 
+[ext_resource type="Theme" uid="uid://ik0xao6vs2kq" path="res://themes/menus/main_menu/main_menu.tres" id="1_f7ts8"]
 [ext_resource type="Script" uid="uid://byo52q1si1fft" path="res://menus/main_menu/main_menu.gd" id="1_oic2i"]
 [ext_resource type="Texture2D" uid="uid://byt3d0ikjp0fy" path="res://media/scenary/gloomy_castle.jpg" id="2_er5qh"]
 [ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="3_f7ts8"]
 [ext_resource type="AudioStream" uid="uid://bqasav0j71kl5" path="res://media/music/ost/main_menu/for_whom_do_wings_grow.mp3" id="4_81su3"]
-[ext_resource type="Script" uid="uid://b1gw5nc22d4v3" path="res://menus/main_menu/buttons/start.gd" id="5_t7kvd"]
+[ext_resource type="Script" uid="uid://b1gw5nc22d4v3" path="res://menus/main_menu/buttons/animation.gd" id="5_t7kvd"]
 [ext_resource type="PackedScene" uid="uid://d05xds1nvkqni" path="res://menus/config_menu/config_menu.tscn" id="6_er5qh"]
+[ext_resource type="Script" uid="uid://lax5u18bvq5k" path="res://menus/main_menu/new_game_confirmation/confirmation.gd" id="8_81su3"]
 
 [node name="MainMenu" type="Control" unique_id=949873654]
 layout_mode = 3
@@ -14,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_f7ts8")
 script = ExtResource("1_oic2i")
 
 [node name="Backgorund" type="TextureRect" parent="." unique_id=1626596708]
@@ -58,27 +61,100 @@ offset_bottom = 388.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Start" type="Button" parent="Buttons" unique_id=1216334704]
+[node name="Continue" type="Button" parent="Buttons" unique_id=189967403]
 layout_mode = 2
 theme_override_constants/outline_size = 12
 theme_override_fonts/font = ExtResource("3_f7ts8")
 theme_override_font_sizes/font_size = 100
-text = "MAIN_MENU_START"
+text = "Continue"
 flat = true
 script = ExtResource("5_t7kvd")
+
+[node name="NewGame" type="Button" parent="Buttons" unique_id=1216334704]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("3_f7ts8")
+theme_override_font_sizes/font_size = 100
+text = "New Game"
+flat = true
 
 [node name="Config" type="Button" parent="Buttons" unique_id=1682856466]
 layout_mode = 2
 theme_override_constants/outline_size = 12
 theme_override_fonts/font = ExtResource("3_f7ts8")
 theme_override_font_sizes/font_size = 50
-text = "MAIN_MENU_CONFIG"
+text = "Config"
 flat = true
 
 [node name="ConfigMenu" parent="." unique_id=1606165773 instance=ExtResource("6_er5qh")]
 visible = false
 layout_mode = 1
 
-[connection signal="pressed" from="Buttons/Start" to="." method="_on_start_pressed"]
+[node name="NewGameConfirmation" type="Control" parent="." unique_id=1630005722]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("8_81su3")
+
+[node name="Background" type="ColorRect" parent="NewGameConfirmation" unique_id=2118388640]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.02745098, 0.4862745, 0.63529414)
+
+[node name="Text" type="Label" parent="NewGameConfirmation/Background" unique_id=261560946]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -339.5
+offset_top = -207.0
+offset_right = 339.5
+offset_bottom = -125.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Do you want to delete your current game? "
+
+[node name="Buttons" type="HBoxContainer" parent="NewGameConfirmation/Background" unique_id=1079422385]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.5
+offset_top = -45.0
+offset_right = 39.5
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 300
+
+[node name="Confirm" type="Button" parent="NewGameConfirmation/Background/Buttons" unique_id=249091931]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Yes"
+
+[node name="Cancel" type="Button" parent="NewGameConfirmation/Background/Buttons" unique_id=580237231]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Cancel"
+
+[connection signal="pressed" from="Buttons/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Buttons/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="Buttons/Config" to="." method="_on_config_pressed"]
 [connection signal="exit_config_requested" from="ConfigMenu" to="." method="_on_exit_config_menu_requested"]
+[connection signal="gui_input" from="NewGameConfirmation/Background" to="NewGameConfirmation" method="_on_background_gui_input"]
+[connection signal="pressed" from="NewGameConfirmation/Background/Buttons/Confirm" to="." method="_on_start_new_game_confirmed"]
+[connection signal="pressed" from="NewGameConfirmation/Background/Buttons/Cancel" to="NewGameConfirmation" method="_on_cancel_pressed"]

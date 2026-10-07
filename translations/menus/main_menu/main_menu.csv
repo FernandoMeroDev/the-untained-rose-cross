@@ -1,3 +1,5 @@
 keys,en,es
-MAIN_MENU_START,Start,Iniciar
+MAIN_MENU_CONTINUE_GAME,Continue,Continuar
+MAIN_MENU_NEW_GAME,New Game,Nueva Partida
+MAIN_MENU_NEW_GAME_CONFIRM,Do you want to delete your current game?,¿Quieres eliminar tu partida actual?
 MAIN_MENU_CONFIG,Config,Configuración

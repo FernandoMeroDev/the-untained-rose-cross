@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://d3iluwc6ov8y8"
+
+[deps]
+
+files=["res://translations/generals.en.translation", "res://translations/generals.es.translation"]
+
+source_file="res://translations/generals.csv"
+dest_files=["res://translations/generals.en.translation", "res://translations/generals.es.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

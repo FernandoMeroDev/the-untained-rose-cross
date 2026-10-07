@@ -28,6 +28,11 @@ func _on_act_finished(chapter_name: String, act_name: String) -> void:
 
 ## Story Listeners
 func _on_story_requested() -> void:
+	GameState.load_game()
+	load_story()
+
+func _on_new_game_requested() -> void:
+	GameState.create_new_game()
 	load_story()
 
 ## Return to Start Screen Listeners
@@ -38,10 +43,7 @@ func _on_return_to_start_requested() -> void:
 func _ready() -> void:
 	GameState.init()
 	init_language()
-	main_menu = MainMenuScene.instantiate()
-	main_menu.story_requested.connect(_on_story_requested)
-	add_child(main_menu)
-	current_context = main_menu
+	load_main_menu()
 
 func init_language() -> void:
 	TranslationServer.set_locale(
@@ -51,7 +53,10 @@ func init_language() -> void:
 ## Load Main Menu
 func load_main_menu() -> void:
 	main_menu = MainMenuScene.instantiate()
-	main_menu.story_requested.connect(_on_story_requested)
+	main_menu.continue_game_requested.connect(_on_story_requested)
+	main_menu.new_game_requested.connect(
+		_on_new_game_requested
+	)
 	change_context(main_menu)
 
 ##  Load Story
@@ -84,7 +89,8 @@ func load_act(chapter_name: String, act_name: String) -> void:
 
 ## Change Game Context
 func change_context(context: Node) -> void:
-	remove_child(current_context)
-	current_context.queue_free()
+	if current_context:
+		remove_child(current_context)
+		current_context.queue_free()
 	add_child(context)
 	current_context = context

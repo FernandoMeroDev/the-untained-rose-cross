@@ -18,11 +18,16 @@ func init() -> void:
 			JsonUtils.load_json("res://database/config.json")
 		)
 	load_config()
-	if not FileAccess.file_exists("user://save.json"):
-		save_manager.save_game({
-			"story": JsonUtils.load_json("res://database/story/story.json")
-		})
+
+func create_new_game() -> void:
+	save_manager.save_game({
+		"story": JsonUtils.load_json("res://database/story/story.json")
+	})
 	load_game()
+
+## Check if save exists
+func check_save_exists() -> bool:
+	return FileAccess.file_exists("user://save.json")
 
 ## Save Game State
 func save_game() -> void:
