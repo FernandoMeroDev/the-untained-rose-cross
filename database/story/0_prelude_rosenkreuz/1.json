@@ -1,8 +1,10 @@
 {
 	"character_titles": {},
 	"locations": {},
+	"conditioner_path": "default",
 	"narration_script": [
-		{ "action": "set_background('juline_room')" },
+		{ "action": "set_music('new_chapter_awakes.mp3')" },
+		{ "action": "set_background('juline_room.jpg')" },
 		{ "action": "fade_in()" },
 		{ "await": 1.0 },
 		{ "action": "set_default_dialog('center')" },
@@ -37,8 +39,8 @@
 		{ "action": "show_char('lucine')" },
 		{ "action": "deactivate_char('juline')" },
 		{
-			"en": "Juline.",
-			"es": "Julinne.",
+			"en": "Hey, wake up.",
+			"es": "Hey, despierta.",
 			"voice_line": 1,
 			"await_after": 0.3
 		},
@@ -55,30 +57,75 @@
 		{ "action": "deactivate_char('juline')" },
 		{ "action": "activate_char('lucine')" },
 		{
-			"en": "Good morning little one.",
-			"es": "Buenos días pequeña.",
+			"en": "Good morning, Juline.",
+			"es": "Buenos días, Juline.",
 			"voice_line": 3
 		},
+		{ "action": "set_location_tr('juline_room')" },
+		{ "action": "show_location()" },
+		{ "action": "set_title_name_tr('juline')" },
 		{ "action": "deactivate_char('lucine')" },
 		{ "action": "activate_char('juline')" },
 		{
-			"en": "What happen big sis?",
-			"es": "¿Que pasó, hermana mayor?",
+			"es": "¿Hermana mayor? ¿Qué haces aquí?",
 			"voice_line": 4
 		},
+		{ "action": "set_title_name_tr('lucine')" },
 		{ "action": "deactivate_char('juline')" },
 		{ "action": "activate_char('lucine')" },
 		{
-			"en": "I just want to tell you that I love you very much!",
-			"es": "¡Solo queria decirte que te quiero mucho!",
-			"voice_line": 5
+			"en": "",
+			"es": "Vine porque hoy es un día especial.",
 		},
+		{ "action": "set_title_name_tr('juline')" },
+		{ "action": "deactivate_char('lucine')" },
 		{ "action": "activate_char('juline')" },
-		{ "action": "change_char_expression('juline', 'default')" },
 		{
-			"en": "...",
-			"es": "...",
+			"en": "",
+			"es": "Estoy muy feliz de verte... pero ¿qué día especial es hoy?",
 		},
-		{ "await": 60.0 },
+		{ "action": "set_title_name_tr('lucine')" },
+		{ "action": "deactivate_char('juline')" },
+		{ "action": "activate_char('lucine')" },
+		{
+			"en": "",
+			"es": "Hoy es nuestro cumpleaños, ¿lo olvidaste?",
+		},
+		{ "action": "set_title_name_tr('juline')" },
+		{ "action": "deactivate_char('lucine')" },
+		{ "action": "activate_char('juline')" },
+		{ "action": "change_char_expression('juline', 'surprised')" },
+		{
+			"en": "",
+			"es": "¡¿Oh?! ¿Cómo pude olvidarlo? ¡Quería prepararte un regalo!",
+		},
+		{ "action": "change_char_expression('juline', 'open_eyes')" },
+		{ "action": "set_title_name_tr('lucine')" },
+		{ "action": "deactivate_char('juline')" },
+		{ "action": "activate_char('lucine')" },
+		{
+			"en": "",
+			"es": "Hehe, tranquila se que has estado muy ocupada últimamente.",
+		},
+		{
+			"en": "",
+			"es": "¿Qué te parece si me muestras lo que aprendiste en el entrenamiento?",
+		},
+		{ "action": "set_title_name_tr('juline')" },
+		{ "action": "deactivate_char('lucine')" },
+		{ "action": "activate_char('juline')" },
+		{
+			"en": "",
+			"es": "Esta bien. Ire a cambiarme y podemos hacerlo en la plaza ¿Te parece?",
+		},
+		{ "action": "set_title_name_tr('lucine')" },
+		{ "action": "deactivate_char('juline')" },
+		{ "action": "activate_char('lucine')" },
+		{
+			"en": "",
+			"es": "Okay.",
+		},
+		{ "action": "fade_out()" },
+		{ "await": 0.5 }
 	]
 }

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://47rg2wbc354j"]
+
+[ext_resource type="Texture2D" uid="uid://d3aje3ytw15f7" path="res://media/act/actors/status_effects/paralysis.png" id="1_4w0m1"]
+[ext_resource type="Theme" uid="uid://1p2xoekvltgl" path="res://themes/base.tres" id="1_wopay"]
+[ext_resource type="Script" uid="uid://dyylqwemyvw6r" path="res://act/scenary/actors/status_effects/status_effect/status_effect.gd" id="2_x1ldw"]
+
+[node name="StatusEffect" type="TextureRect" unique_id=1231943445]
+offset_right = 32.0
+offset_bottom = 32.0
+theme = ExtResource("1_wopay")
+texture = ExtResource("1_4w0m1")
+script = ExtResource("2_x1ldw")
+
+[node name="Stacks" type="Label" parent="." unique_id=1714727142]
+layout_mode = 0
+offset_left = -6.0
+offset_right = 8.0
+offset_bottom = 34.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "1"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

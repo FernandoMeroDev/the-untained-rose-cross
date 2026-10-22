@@ -1,0 +1,83 @@
+{
+	"act_number": 1,
+	"randomize_first_turn": false,
+	"first_turn_for": "right",
+	"toggle_each_turn": false,
+	"controllers": {
+		"left_team": "PLAYER",
+			"right_team": "PLAYER",
+	},
+	"max_emotion_level": {
+		"right": 1,
+		"left": 1,
+	},
+	"finalizer": "0_prelude_rosenkreuz/tutorial_finalizer",
+	"teams": {
+		"left": [
+			{
+				"id": 1,
+				"code": "juline",
+				"name": {
+					"en": "Juline",
+					"es": "Julinne"
+				},
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 25,
+					"max_resist": 10,
+					"speed": { "min": 1, "max": 3 },
+					"speed_dices": 1,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "fatal",
+					"slash_resist": "fatal",
+					"pierce_damage": "fatal",
+					"pierce_resist": "fatal",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
+				},
+				"deck": [
+					"downgrade_slash",
+					"upper_slashes",
+					"quick_thrust",
+				]
+			},
+		],
+		"right": [
+			{
+				"id": 2,
+				"code": "lucine",
+				"name": {
+					"en": "Lucine",
+					"es": "Lucinne"
+				},
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 30,
+					"max_resist": 15,
+					"speed": { "min": 2, "max": 4 },
+					"speed_dices": 1,
+					"light": 3,
+					"status_effects": [
+						{ "name": "trainer", "stacks": 0 },
+					]
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "normal",
+					"pierce_resist": "normal",
+					"blunt_damage": "normal",
+					"blunt_resist": "normal",
+				},
+				"deck": [
+					"outburst",
+					"penetrate",
+					"strategy",
+				]
+			},
+		]
+	}
+}

@@ -30,11 +30,11 @@ func init() -> void:
 					load_video(event["content"]["video_id"])
 				"narration":
 					load_narration(
-						chapter_name, event["content"]["n"]
+						chapter_name, event["name"]
 					)
 				"act":
 					act_requested.emit(
-						chapter_name, event["content"]["name"]
+						chapter_name, event["name"]
 					)
 					break
 			await current_context.finished
@@ -43,8 +43,8 @@ func init() -> void:
 			unload_context()
 
 ## Load Narration
-func load_narration(chapter_name: String, n: int) -> void:
-	var narration_id: String = chapter_name + "/" + str(n)
+func load_narration(chapter_name: String, narration_name: String) -> void:
+	var narration_id: String = chapter_name + "/" + narration_name
 	var narration_data: Variant = JsonUtils.load_json(
 		"res://database/story/" + narration_id + ".json"
 	)

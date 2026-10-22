@@ -3,6 +3,12 @@ extends Control
 const CardScene: PackedScene = preload('res://act/hud/hand/card/card.tscn')
 const Card = preload('res://act/hud/hand/card/card.gd')
 
+## Hand hidden
+signal hand_hidden
+
+## Hand Shown
+signal hand_shown
+
 ## Card Selected
 signal card_selected(card: Card, speed_dice: SpeedDice)
 
@@ -246,11 +252,13 @@ func show_hand(actor: Actor) -> void:
 		card.card_mouse_entered.connect(_on_card_mouse_entered)
 		card.card_mouse_exited.connect(_on_card_mouse_exited)
 		i += 1
+	hand_shown.emit()
 
 ## Hide current visible hand
 func hide_hand() -> void:
 	for card: Card in get_children():
 		remove_child(card)
+	hand_hidden.emit()
 
 ## Refresh Hand
 func refresh_hand(actor: Actor) -> void:

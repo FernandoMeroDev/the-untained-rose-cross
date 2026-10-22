@@ -1,0 +1,38 @@
+key,en,es
+TUTO_CARDS_TITLE,¿What are combat cards?,¿Qué son las cartas de combate?
+TUTO_CARDS_DESCRIPTION,"In combat 3 types of offensive dice exist, each corresponding to a different damage type.","En el combate existen 3 tipos de dados ofensivos, cada uno de los cuales corresponde a un tipo de daño distinto."
+TUTO_CARDS_SLASH,"This icon represents the 'Slash' damage type. When dice with this icon is played, is played, a Slash type attack will be peformed.","Este icono representa el tipo de daño «Corte». Cuando se juega un dado con este icono, se realiza un ataque de tipo corte."
+TUTO_CARDS_PIERCE,"Likewise, playing a an Offensive dice with the 'Pierce' icon will peform a Pierce-Type attack.","Asimismo, al jugar un dado de ataque con el icono de «Perforar», se realizará un ataque de tipo perforante."
+TUTO_CARDS_BLUNT,"Likewise, playing a an Offensive dice with the 'Blunt' icon will peform a Blunt-Type attack.","Asimismo, al jugar un dado de ataque con el icono de «contundente», se realizará un ataque de tipo contundente."
+TUTO_WILL,"During battle, using cards requires a resource called 'Will'. The amount of Will a character currently has is indicated by the number of blue icons above them.","Durante el combate, utilizar cartas requiere un recurso llamado «Voluntad». La cantidad de Voluntad que posee un personaje en ese momento se indica mediante el número de iconos azules que aparecen sobre él."
+TUTO_ROLL_SPEED,Press 'space' of  click the icon to roll 'Speed Dices',Pulsa la barra espaciadora o haz clic en el icono para lanzar los «Dados de Velocidad»
+TUTO_SELECT_DICE,Click character's speed dice,Haz clic en el Dado de Velocidad del personaje
+TUTO_SELECT_CARD,Select a Combat Card,Selecciona una carta de combate
+TUTO_SELECT_ENEMY_DICE,Clash against enemy card,Enfrentala contra una carta enemiga
+TUTO_START_BATTLE,Press 'space' of  click the icon to start battle!,¡Pulsa la barra espaciadora o haz clic en el icono para comenzar la batalla!
+TUTO_ONESIDE_TEXT1,"When only one of the two opposing characters has dice to play, a 'One-Sided Attack' occurs. This happens when a character targets an enemy that isn’t targeting them back nor defends itself.","Cuando solo uno de los dos personajes enfrentados tiene dados para jugar, se produce un «Ataque Unilateral». Esto sucede cuando un personaje ataca a un enemigo que no le devuelve el ataque ni se defiente."
+TUTO_ONESIDE_TEXT2,Only Offensive dice are played in one-sided attacks. The Defensive dice will be retained until the Scene ends or an enemy attempts a one-sided attack.,En los ataques unilaterales solo se utilizan dados de ataque. Los dados de defensa se conservan hasta que finaliza la escena o un enemigo intenta realizar un Ataque Unilateral.
+TUTO_CLASHI_TEXT1,"When both characters in an engagement have dice to play, a 'Clash' occurs. This usually occurs when the Speed dice of two characters target each other. (Retained Defensive Dice may also cause a clash).","Cuando ambos personajes en un enfrentamiento tienen dados para jugar, se produce un «Choque». Esto suele ocurrir cuando los Dados de Velocidad de dos personajes se dirigen el uno contra el otro. (Los dados defensivos retenidos también pueden provocar un Choque)."
+TUTO_CLASHI_TEXT2,"In clash, the results of actions are determined by comparing their rolls. Offensive dice can only deal damage equal to th roll by winning thye clash. Interactions between Defensive dice follow the rules of the next Tutorial page.","En un enfrentamiento, los resultados de las acciones se determinan comparando el valor de sus dados. Los dados Ofensivos solo pueden infligir una cantidad de daño igual al resultado de su tirada si ganan el enfrentamiento. Las interacciones entre dados defensivos se rigen por las reglas que aparecen en la siguiente página del tutorial."
+TUTO_CLASHII_TEXT1,<Winning a clash vs Offensive dice>,<Ganando un choque vs un dado ofensivo>
+TUTO_CLASHII_TEXT2,Completely blocks the damage.,Bloquea el daño por completo.
+TUTO_CLASHII_TEXT3,Deals stagger damage to the attacker by the difference in value.,Inflige al atacante daño de aturdimiento equivalente a la diferencia de valor.
+TUTO_CLASHII_TEXT4,<Losing a clash vs Offensive dice>,<Perdiendo un choque vs un dado ofensivo>
+TUTO_CLASHII_TEXT5,Mitigates incoming damage by the roll value.,Mitiga el daño recibido en una cantidad igual al valor de la tirada.
+TUTO_CLASHII_TEXT6,<Winning a clash vs Defensive dice>,<Ganando un choque vs un dado defensivo>
+TUTO_CLASHII_TEXT7,Deals stagger damage equal to the roll value.,Inflige daño de aturdimiento igual al valor de la tirada.
+TUTO_CLASHII_TEXT8,Completely negates damage.,Anula por completo el daño.
+TUTO_CLASHII_TEXT9,The Evade die is retained.,Se retiene el dado de Evasión.
+TUTO_CLASHII_TEXT10,<Drawing a clash vs Offesive dice>,<Igualando un choque vs un dado ofensivo>
+TUTO_CLASHII_TEXT11,The Evade die is lost.,Se pierde el dado de Evasión.
+TUTO_CLASHII_TEXT12,The character recovers stagger resist.,El personaje recupera resistencia al aturdimiento.
+TUTO_STAGGER_TEXT1,A character may inflict or receive two types of damage:,Un personaje puede infligir o recibir dos tipos de daño:
+TUTO_STAGGER_TEXT2,<Physical> damage and <Stagger> damage.,Daño <Físico> y daño de <Aturdimiento>.
+TUTO_STAGGER_TEXT3,Attacks with Stagger damage will reduce the target's Stagger Resist (white gauge) on hit.,Los ataques de daño de aturdimiento reducirán la resistencia al aturdimiento (barra blanca) del objetivo al impactar.
+TUTO_STAGGER_TEXT4,"When Stagger Resist hits 0, the character falls into 'Staggered' state. (This indicated by broken Speed dice.)","Cuando la Resistencia al Aturdimiento llega a 0, el personaje entra en estado de «Aturdido». (Esto se indica mediante dados de Velocidad rotos)."
+TUTO_STAGGER_TEXT5,A Staggered character:,Un personaje Aturdido:
+TUTO_STAGGER_TEXT6,- Will receive Fatal (x2) damage from all forms of attack.,- Recibirá daño Fatal (x2) de todo tipo de ataque.
+TUTO_STAGGER_TEXT7,- Cannot act for the rest of the current and next Scene.,- No puede actuar durante el resto de la Escena actual ni en la siguiente.
+TUTO_STAGGER_TEXT8,- Cannot restore Will at the beginning of the next Scene.,- No puede recuperar Voluntad al comienzo de la siguiente Escena.
+TUTO_STAGGER_TEXT9,- Cannot draw cards at the beginning of the next Scene.,- No puede tomar cartas al comienzo de la siguiente escena.
+TUTO_STAGGER_TEXT10,A character gains 1 Action after staggering an opponent.,Un personaje obtiene 1 Voluntad tras aturdir a un oponente.

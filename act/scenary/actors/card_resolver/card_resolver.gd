@@ -110,6 +110,10 @@ func play_dice() -> void:
 func destroy_current_dice() -> void:
 	$Container/CurrentDice.destroy_dice()
 
+## Is max dice roll?
+func is_max_roll() -> bool:
+	return get_dice_value() == get_current_dice_max_value()
+
 ## Get current dice value
 func get_dice_value() -> int:
 	return $Container/CurrentDice.value

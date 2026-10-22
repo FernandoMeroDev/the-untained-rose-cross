@@ -1,9 +1,15 @@
 class_name Act extends Node
 
 const DetailsPanel = preload("res://act/hud/actor_details/panels/panel.gd")
+const Finalizer = preload("res://database/acts/default_finalizer.gd")
+
+## Emitted when dices are rolled
+signal dices_rolled
 
 ## Emitted when act finished
-signal finished(chapter_name: String, act_name: String)
+signal finished(
+	chapter_name: String, act_name: String, results: Variant
+)
 
 ## Act Phases
 enum Phases  { 
@@ -40,6 +46,9 @@ var left_team_controller: TeamController
 ## Right team Controller instance
 var right_team_controller: TeamController
 
+## Act Finalizer
+var finalizer: Finalizer
+
 # --- Presentation Events Observers
 func _on_scene_presentation_timeout() -> void:
 	handle_scene_presentation_timeout()
@@ -52,6 +61,8 @@ func _on_dice_roller_pressed() -> void:
 func init(config: Dictionary) -> void:
 	chapter_name = config["chapter_name"]
 	act_name = config["act_name"]
+	# Load tutorial
+	#if act_name == 'tutorial': init_tutorial()
 	# Init Input Manager
 	$InputManager.act = self
 	# Init Turn Manager
@@ -79,6 +90,8 @@ func init(config: Dictionary) -> void:
 	$Scenary/Camera.darkness = $Scenary/Darkness
 	# Init Team Emotion Level
 	init_team_emotion_level()
+	# Set finalizer
+	init_finalizer(config['finalizer'])
 
 # --- Presentation Events Handlers
 func handle_scene_presentation_timeout() -> void:
@@ -86,10 +99,28 @@ func handle_scene_presentation_timeout() -> void:
 
 # --- Battle Resolver Events Handlers
 func handle_scene_finished() -> void:
-	if $Scenary/Actors.check_teams_can_continue():
-		reset_scene()
-	else:
+	# [OLD]
+	#if $Scenary/Actors.check_teams_can_continue():
+		#reset_scene()
+	#else:
+		#end_act()
+
+	if finalizer.is_act_finalized():
 		end_act()
+	else:
+		reset_scene()
+
+## Init Tutorial
+func init_tutorial() -> void:
+	var TutorialScene: PackedScene = load("res://act/tutorial/tutorial.tscn")
+	var tutorial = TutorialScene.instantiate()
+	add_child(tutorial)
+	tutorial.act = self
+	tutorial.presentation_timer = $HUD/SceneNumber/Presentation
+	tutorial.dice_roller = $HUD/DiceRoller
+	tutorial.actors = $Scenary/Actors
+	tutorial.hand = $HUD/Hand
+	tutorial.init()
 
 ## Init Turn Manager
 func init_turn_manager(config: Dictionary) -> void:
@@ -108,19 +139,19 @@ func init_actor_details() -> void:
 	$HUD/ActorDetails/Left.turn_manager = turn_manager
 	$HUD/ActorDetails/Left.team = turn_manager.Teams.LEFT
 	$HUD/ActorDetails/Left.act = self
+	$HUD/ActorDetails/Left.init()
 	$HUD/ActorDetails/Right.turn_manager = turn_manager
 	$HUD/ActorDetails/Right.team = turn_manager.Teams.RIGHT
 	$HUD/ActorDetails/Right.act = self
+	$HUD/ActorDetails/Right.init()
 
 ## Init Actors, ActorControls, SpeedDices and connect them
 func init_actors(config: Dictionary) -> void:
-	var actors: Array[Actor] = $Scenary/Actors.init(config)
+	var actors: Array[Actor] = $Scenary/Actors.init(config, self)
 	# Init Actor Controls
 	$HUD/Actors.init(actors)
 	# Connect Actor Signals
 	for actor: Actor in actors:
-		# Set Act reference
-		actor.act = self
 		# Set TurnManager reference
 		actor.turn_manager = turn_manager
 		# Find Actor panel
@@ -330,8 +361,20 @@ func init_team_emotion_level() -> void:
 			$HUD/EmotionLevel/Right._on_actor_emotionalized
 		)
 
+## Init finalizer
+func init_finalizer(finalizer_path: String) -> void:
+	if finalizer_path == 'default':
+		finalizer = Finalizer.new()
+	else:
+		finalizer = load(
+			"res://database/acts/" + finalizer_path + ".gd"
+		).new()
+	finalizer.act = self
+	finalizer.init()
+
 ## Roll Speed Dices to go next Phase
 func roll_dices() -> void:
+	dices_rolled.emit()
 	if phase == Phases.UNDETERMINED_SPEED:
 		$Scenary/Actors.roll_everyone_speed_dices()
 		$Music/SFX/DiceRoll.play()
@@ -411,6 +454,7 @@ func end_act() -> void:
 	$Music.end_smoothingly()
 	# Reset Camera Zoom
 	await $Scenary/Camera.reset_zoom()
-	$HUD/Result.presentate_result()
+	var results: Variant = finalizer.get_act_results()
+	$HUD/Result.presentate_result(results)
 	await get_tree().create_timer(3.0).timeout
-	finished.emit(chapter_name, act_name)
+	finished.emit(chapter_name, act_name, results)

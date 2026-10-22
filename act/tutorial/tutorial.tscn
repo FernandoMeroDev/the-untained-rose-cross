@@ -1,0 +1,655 @@
+[gd_scene format=3 uid="uid://8per6nwavkrw"]
+
+[ext_resource type="Script" uid="uid://cpr1ctvhr7hh3" path="res://act/tutorial/tutorial.gd" id="1_lbpdp"]
+[ext_resource type="Theme" uid="uid://4m6brk4col8d" path="res://themes/tutorial/tutorial.tres" id="2_2vl56"]
+[ext_resource type="Script" uid="uid://b8vqps1o0nmt0" path="res://act/tutorial/page.gd" id="3_2vl56"]
+[ext_resource type="Texture2D" uid="uid://gtpw0tbnrenb" path="res://media/act/tutorial/card_1.png" id="3_t6vpi"]
+[ext_resource type="Texture2D" uid="uid://cw3hpwqd8q2qv" path="res://media/act/icons/dice_types/slash.png" id="4_507gh"]
+[ext_resource type="Texture2D" uid="uid://bgqp40p0w3svr" path="res://media/act/icons/dice_types/pierce.png" id="5_gtc82"]
+[ext_resource type="Texture2D" uid="uid://dj7hye6j87i5u" path="res://media/act/icons/dice_types/blunt.png" id="6_36igc"]
+[ext_resource type="Texture2D" uid="uid://dcj6cwavm2nll" path="res://media/act/tutorial/light_1.png" id="7_pau6p"]
+[ext_resource type="Texture2D" uid="uid://dju3u2o8vtdfp" path="res://media/act/tutorial/circle_1.png" id="8_2arf0"]
+[ext_resource type="Script" uid="uid://33csxtu1egae" path="res://act/tutorial/pulsar.gd" id="9_2f1t1"]
+[ext_resource type="Texture2D" uid="uid://c0j2swjvu1wft" path="res://media/act/tutorial/circle_2.png" id="10_c5mtc"]
+[ext_resource type="Texture2D" uid="uid://cs4lomk2l03hh" path="res://media/act/tutorial/rectangle_1.png" id="11_lk26x"]
+[ext_resource type="Texture2D" uid="uid://drdvy40mscw8b" path="res://media/act/tutorial/oneside_1.png" id="12_bvdin"]
+[ext_resource type="Texture2D" uid="uid://y6iy25egtxf0" path="res://media/act/tutorial/clash_1.png" id="13_7d8m6"]
+[ext_resource type="Texture2D" uid="uid://c2x537j2qkab4" path="res://media/act/icons/dice_types/block.png" id="14_ehxga"]
+[ext_resource type="Texture2D" uid="uid://bfx3h50unsbpy" path="res://media/act/icons/dice_types/evade.png" id="15_xdtw5"]
+[ext_resource type="Texture2D" uid="uid://cwruqgt8imb0y" path="res://media/act/tutorial/staggered_1.png" id="16_ai1lr"]
+
+[node name="Tutorial" type="CanvasLayer" unique_id=996320433]
+script = ExtResource("1_lbpdp")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1384713039]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.02745098, 0.4862745, 0.63529414)
+
+[node name="Page1" type="CenterContainer" parent="." unique_id=56153389]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_2vl56")
+script = ExtResource("3_2vl56")
+
+[node name="Cards" type="HBoxContainer" parent="Page1" unique_id=1869238187]
+layout_mode = 2
+
+[node name="Card" type="CenterContainer" parent="Page1/Cards" unique_id=1612087983]
+layout_mode = 2
+
+[node name="Texture" type="TextureRect" parent="Page1/Cards/Card" unique_id=1624896318]
+custom_minimum_size = Vector2(443, 297)
+custom_maximum_size = Vector2(443, 297)
+layout_mode = 2
+texture = ExtResource("3_t6vpi")
+
+[node name="Text" type="VBoxContainer" parent="Page1/Cards" unique_id=78065640]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Page1/Cards/Text" unique_id=798279790]
+layout_mode = 2
+text = "TUTO_CARDS_TITLE"
+
+[node name="Description" type="Label" parent="Page1/Cards/Text" unique_id=1708852201]
+custom_minimum_size = Vector2(1448, 10)
+custom_maximum_size = Vector2(1448, 500)
+layout_mode = 2
+text = "TUTO_CARDS_DESCRIPTION"
+autowrap_mode = 2
+
+[node name="Slash" type="HBoxContainer" parent="Page1/Cards/Text" unique_id=1522089664]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Page1/Cards/Text/Slash" unique_id=333387889]
+custom_minimum_size = Vector2(74, 85)
+custom_maximum_size = Vector2(74, 85)
+layout_mode = 2
+texture = ExtResource("4_507gh")
+
+[node name="Description" type="Label" parent="Page1/Cards/Text/Slash" unique_id=1016733678]
+custom_minimum_size = Vector2(1370, 0)
+layout_mode = 2
+text = "TUTO_CARDS_SLASH"
+autowrap_mode = 2
+
+[node name="Pierce" type="HBoxContainer" parent="Page1/Cards/Text" unique_id=1987394293]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Page1/Cards/Text/Pierce" unique_id=704888864]
+custom_minimum_size = Vector2(74, 85)
+custom_maximum_size = Vector2(74, 85)
+layout_mode = 2
+texture = ExtResource("5_gtc82")
+
+[node name="Description" type="Label" parent="Page1/Cards/Text/Pierce" unique_id=1427418572]
+custom_minimum_size = Vector2(1370, 0)
+layout_mode = 2
+text = "TUTO_CARDS_PIERCE"
+autowrap_mode = 2
+
+[node name="Blunt" type="HBoxContainer" parent="Page1/Cards/Text" unique_id=487960322]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Page1/Cards/Text/Blunt" unique_id=1203388229]
+custom_minimum_size = Vector2(74, 85)
+custom_maximum_size = Vector2(74, 85)
+layout_mode = 2
+texture = ExtResource("6_36igc")
+
+[node name="Description" type="Label" parent="Page1/Cards/Text/Blunt" unique_id=72917942]
+custom_minimum_size = Vector2(1370, 0)
+layout_mode = 2
+text = "TUTO_CARDS_BLUNT"
+autowrap_mode = 2
+
+[node name="Page2" type="CenterContainer" parent="." unique_id=2097962145]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_2vl56")
+script = ExtResource("3_2vl56")
+
+[node name="Will" type="VBoxContainer" parent="Page2" unique_id=1753346562]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="Page2/Will" unique_id=64876011]
+custom_minimum_size = Vector2(1500, 200)
+custom_maximum_size = Vector2(1500, 200)
+layout_mode = 2
+text = "TUTO_WILL"
+autowrap_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Page2/Will" unique_id=696054891]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Page2/Will/CenterContainer" unique_id=1023846654]
+custom_minimum_size = Vector2(345, 549)
+custom_maximum_size = Vector2(345, 549)
+layout_mode = 2
+texture = ExtResource("7_pau6p")
+
+[node name="RollSpeed" type="Control" parent="." unique_id=1794463041]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_2vl56")
+
+[node name="Indicator" type="TextureRect" parent="RollSpeed" unique_id=773273684]
+layout_mode = 0
+offset_left = 872.0
+offset_top = -5.0
+offset_right = 1046.0
+offset_bottom = 174.0
+offset_transform_enabled = true
+mouse_filter = 2
+texture = ExtResource("8_2arf0")
+script = ExtResource("9_2f1t1")
+
+[node name="Text" type="Label" parent="RollSpeed" unique_id=1203192123]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -405.0
+offset_top = -357.5
+offset_right = 403.0
+offset_bottom = -295.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "TUTO_ROLL_SPEED"
+script = ExtResource("9_2f1t1")
+
+[node name="SelectDice" type="Control" parent="." unique_id=665033399]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_2vl56")
+
+[node name="Indicator" type="TextureRect" parent="SelectDice" unique_id=23437099]
+layout_mode = 0
+offset_left = 573.0
+offset_top = 516.0
+offset_right = 660.0
+offset_bottom = 605.0
+mouse_filter = 2
+texture = ExtResource("10_c5mtc")
+script = ExtResource("9_2f1t1")
+
+[node name="Text" type="Label" parent="SelectDice" unique_id=1375347830]
+layout_mode = 0
+offset_left = 409.0
+offset_top = 604.0
+offset_right = 891.0
+offset_bottom = 666.0
+text = "TUTO_SELECT_DICE"
+script = ExtResource("9_2f1t1")
+
+[node name="SelectCard" type="Control" parent="." unique_id=1457940624]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_2vl56")
+
+[node name="Indicator" type="TextureRect" parent="SelectCard" unique_id=1136431815]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -202.5
+offset_top = -189.0
+offset_right = 202.5
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("11_lk26x")
+script = ExtResource("9_2f1t1")
+
+[node name="Text" type="Label" parent="SelectCard" unique_id=1492562957]
+layout_mode = 0
+offset_left = 774.0
+offset_top = 770.0
+offset_right = 1142.0
+offset_bottom = 832.0
+text = "TUTO_SELECT_CARD"
+script = ExtResource("9_2f1t1")
+
+[node name="SelectEnemyDice" type="Control" parent="." unique_id=44308660]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_2vl56")
+
+[node name="Indicator" type="TextureRect" parent="SelectEnemyDice" unique_id=1197144418]
+layout_mode = 0
+offset_left = 1067.0
+offset_top = 511.0
+offset_right = 1154.0
+offset_bottom = 600.0
+mouse_filter = 2
+texture = ExtResource("10_c5mtc")
+script = ExtResource("9_2f1t1")
+
+[node name="Text" type="Label" parent="SelectEnemyDice" unique_id=1339306059]
+layout_mode = 0
+offset_left = 903.0
+offset_top = 599.0
+offset_right = 1339.0
+offset_bottom = 661.0
+text = "TUTO_SELECT_ENEMY_DICE"
+script = ExtResource("9_2f1t1")
+
+[node name="StartBattle" type="Control" parent="." unique_id=241992434]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_2vl56")
+
+[node name="Indicator" type="TextureRect" parent="StartBattle" unique_id=2109165611]
+layout_mode = 0
+offset_left = 872.0
+offset_top = -5.0
+offset_right = 1046.0
+offset_bottom = 174.0
+offset_transform_enabled = true
+mouse_filter = 2
+texture = ExtResource("8_2arf0")
+script = ExtResource("9_2f1t1")
+
+[node name="Text" type="Label" parent="StartBattle" unique_id=1005329382]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -368.0
+offset_top = -360.0
+offset_right = 415.0
+offset_bottom = -298.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "TUTO_START_BATTLE"
+script = ExtResource("9_2f1t1")
+
+[node name="Page3" type="CenterContainer" parent="." unique_id=870250896]
+process_mode = 3
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_2vl56")
+script = ExtResource("3_2vl56")
+
+[node name="Oneside" type="VBoxContainer" parent="Page3" unique_id=1992157624]
+layout_mode = 2
+
+[node name="Image" type="CenterContainer" parent="Page3/Oneside" unique_id=2056294055]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Page3/Oneside/Image" unique_id=2002849566]
+layout_mode = 2
+texture = ExtResource("12_bvdin")
+
+[node name="Text" type="Label" parent="Page3/Oneside" unique_id=377579541]
+custom_minimum_size = Vector2(1500, 100)
+custom_maximum_size = Vector2(1500, 500)
+layout_mode = 2
+text = "TUTO_ONESIDE_TEXT1"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Text2" type="Label" parent="Page3/Oneside" unique_id=2016758416]
+custom_minimum_size = Vector2(1500, 100)
+custom_maximum_size = Vector2(1500, 500)
+layout_mode = 2
+text = "TUTO_ONESIDE_TEXT2"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Page4" type="CenterContainer" parent="." unique_id=1504337959]
+process_mode = 3
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_2vl56")
+script = ExtResource("3_2vl56")
+
+[node name="ClashI" type="VBoxContainer" parent="Page4" unique_id=468575697]
+layout_mode = 2
+
+[node name="Image" type="CenterContainer" parent="Page4/ClashI" unique_id=1476250478]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Page4/ClashI/Image" unique_id=1619417740]
+layout_mode = 2
+texture = ExtResource("13_7d8m6")
+
+[node name="Text" type="Label" parent="Page4/ClashI" unique_id=355050240]
+custom_minimum_size = Vector2(1500, 100)
+custom_maximum_size = Vector2(1500, 500)
+layout_mode = 2
+text = "TUTO_CLASHI_TEXT1"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Text2" type="Label" parent="Page4/ClashI" unique_id=1533012740]
+custom_minimum_size = Vector2(1500, 100)
+custom_maximum_size = Vector2(1500, 500)
+layout_mode = 2
+text = "TUTO_CLASHI_TEXT2"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Page5" type="CenterContainer" parent="." unique_id=1951463656]
+process_mode = 3
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_2vl56")
+script = ExtResource("3_2vl56")
+
+[node name="ClashII2" type="HBoxContainer" parent="Page5" unique_id=371956363]
+layout_mode = 2
+
+[node name="BlockDice" type="HBoxContainer" parent="Page5/ClashII2" unique_id=1753503108]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Page5/ClashII2/BlockDice" unique_id=1754555880]
+custom_minimum_size = Vector2(74, 86)
+custom_maximum_size = Vector2(74, 86)
+layout_mode = 2
+texture = ExtResource("14_ehxga")
+
+[node name="VBox" type="VBoxContainer" parent="Page5/ClashII2/BlockDice" unique_id=1442539951]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Page5/ClashII2/BlockDice/VBox" unique_id=270999472]
+layout_mode = 2
+text = "BLOCK"
+
+[node name="Text1" type="Label" parent="Page5/ClashII2/BlockDice/VBox" unique_id=1247981988]
+custom_minimum_size = Vector2(700, 30)
+custom_maximum_size = Vector2(700, 600)
+layout_mode = 2
+text = "TUTO_CLASHII_TEXT1"
+autowrap_mode = 2
+
+[node name="Text2" type="Label" parent="Page5/ClashII2/BlockDice/VBox" unique_id=269723265]
+custom_minimum_size = Vector2(700, 30)
+custom_maximum_size = Vector2(700, 600)
+layout_mode = 2
+text = "TUTO_CLASHII_TEXT2"
+autowrap_mode = 2
+
+[node name="Text3" type="Label" parent="Page5/ClashII2/BlockDice/VBox" unique_id=2000634468]
+custom_minimum_size = Vector2(700, 30)
+custom_maximum_size = Vector2(700, 600)
+layout_mode = 2
+text = "TUTO_CLASHII_TEXT3"
+autowrap_mode = 2
+
+[node name="Text4" type="Label" parent="Page5/ClashII2/BlockDice/VBox" unique_id=1160343710]
+custom_minimum_size = Vector2(700, 30)
+custom_maximum_size = Vector2(700, 600)
+layout_mode = 2
+text = "TUTO_CLASHII_TEXT4"
+autowrap_mode = 2
+
+[node name="Text5" type="Label" parent="Page5/ClashII2/BlockDice/VBox" unique_id=1697714212]
+custom_minimum_size = Vector2(700, 30)
+custom_maximum_size = Vector2(700, 600)
+layout_mode = 2
+text = "TUTO_CLASHII_TEXT5"
+autowrap_mode = 2
+
+[node name="Text6" type="Label" parent="Page5/ClashII2/BlockDice/VBox" unique_id=1631642585]
+custom_minimum_size = Vector2(700, 30)
+custom_maximum_size = Vector2(700, 600)
+layout_mode = 2
+text = "TUTO_CLASHII_TEXT6"
+autowrap_mode = 2
+
+[node name="Text7" type="Label" parent="Page5/ClashII2/BlockDice/VBox" unique_id=1801010225]
+custom_minimum_size = Vector2(700, 30)
+custom_maximum_size = Vector2(700, 600)
+layout_mode = 2
+text = "TUTO_CLASHII_TEXT7"
+autowrap_mode = 2
+
+[node name="EvadeDice" type="HBoxContainer" parent="Page5/ClashII2" unique_id=1835307013]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Page5/ClashII2/EvadeDice" unique_id=530043636]
+custom_minimum_size = Vector2(74, 86)
+custom_maximum_size = Vector2(74, 86)
+layout_mode = 2
+texture = ExtResource("15_xdtw5")
+
+[node name="VBox" type="VBoxContainer" parent="Page5/ClashII2/EvadeDice" unique_id=2035821239]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Page5/ClashII2/EvadeDice/VBox" unique_id=217903418]
+layout_mode = 2
+text = "EVADE"
+
+[node name="Text1" type="Label" parent="Page5/ClashII2/EvadeDice/VBox" unique_id=2054002437]
+custom_minimum_size = Vector2(700, 30)
+custom_maximum_size = Vector2(700, 600)
+layout_mode = 2
+text = "TUTO_CLASHII_TEXT1"
+autowrap_mode = 2
+
+[node name="Text2" type="Label" parent="Page5/ClashII2/EvadeDice/VBox" unique_id=1018252613]
+custom_minimum_size = Vector2(700, 30)
+custom_maximum_size = Vector2(700, 600)
+layout_mode = 2
+text = "TUTO_CLASHII_TEXT8"
+autowrap_mode = 2
+
+[node name="Text3" type="Label" parent="Page5/ClashII2/EvadeDice/VBox" unique_id=1859357491]
+custom_minimum_size = Vector2(700, 30)
+custom_maximum_size = Vector2(700, 600)
+layout_mode = 2
+text = "TUTO_CLASHII_TEXT9"
+autowrap_mode = 2
+
+[node name="Text4" type="Label" parent="Page5/ClashII2/EvadeDice/VBox" unique_id=1055832793]
+custom_minimum_size = Vector2(700, 30)
+custom_maximum_size = Vector2(700, 600)
+layout_mode = 2
+text = "TUTO_CLASHII_TEXT10"
+autowrap_mode = 2
+
+[node name="Text5" type="Label" parent="Page5/ClashII2/EvadeDice/VBox" unique_id=94883976]
+custom_minimum_size = Vector2(700, 30)
+custom_maximum_size = Vector2(700, 600)
+layout_mode = 2
+text = "TUTO_CLASHII_TEXT8"
+autowrap_mode = 2
+
+[node name="Text6" type="Label" parent="Page5/ClashII2/EvadeDice/VBox" unique_id=735157833]
+custom_minimum_size = Vector2(700, 30)
+custom_maximum_size = Vector2(700, 600)
+layout_mode = 2
+text = "TUTO_CLASHII_TEXT11"
+autowrap_mode = 2
+
+[node name="Text7" type="Label" parent="Page5/ClashII2/EvadeDice/VBox" unique_id=1148821553]
+custom_minimum_size = Vector2(700, 30)
+custom_maximum_size = Vector2(700, 600)
+layout_mode = 2
+text = "TUTO_CLASHII_TEXT6"
+autowrap_mode = 2
+
+[node name="Text8" type="Label" parent="Page5/ClashII2/EvadeDice/VBox" unique_id=1937425537]
+custom_minimum_size = Vector2(700, 30)
+custom_maximum_size = Vector2(700, 600)
+layout_mode = 2
+text = "TUTO_CLASHII_TEXT12"
+autowrap_mode = 2
+
+[node name="Page6" type="CenterContainer" parent="." unique_id=91666470]
+process_mode = 3
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_2vl56")
+script = ExtResource("3_2vl56")
+
+[node name="Stagger" type="VBoxContainer" parent="Page6" unique_id=285102123]
+layout_mode = 2
+
+[node name="Image" type="CenterContainer" parent="Page6/Stagger" unique_id=1615257379]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Page6/Stagger/Image" unique_id=1682830824]
+layout_mode = 2
+texture = ExtResource("16_ai1lr")
+
+[node name="HBox" type="HBoxContainer" parent="Page6/Stagger" unique_id=939172334]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Page6/Stagger/HBox" unique_id=1973054866]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="Page6/Stagger/HBox/VBox" unique_id=1682917027]
+custom_minimum_size = Vector2(900, 50)
+custom_maximum_size = Vector2(900, 1000)
+layout_mode = 2
+text = "TUTO_STAGGER_TEXT1"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Text2" type="Label" parent="Page6/Stagger/HBox/VBox" unique_id=2115059990]
+custom_minimum_size = Vector2(900, 50)
+custom_maximum_size = Vector2(900, 1000)
+layout_mode = 2
+text = "TUTO_STAGGER_TEXT2"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Text3" type="Label" parent="Page6/Stagger/HBox/VBox" unique_id=119070766]
+custom_minimum_size = Vector2(900, 50)
+custom_maximum_size = Vector2(900, 1000)
+layout_mode = 2
+text = "TUTO_STAGGER_TEXT3"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Text4" type="Label" parent="Page6/Stagger/HBox/VBox" unique_id=298690698]
+custom_minimum_size = Vector2(900, 50)
+custom_maximum_size = Vector2(900, 1000)
+layout_mode = 2
+text = "TUTO_STAGGER_TEXT4"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="VBox2" type="VBoxContainer" parent="Page6/Stagger/HBox" unique_id=1074306727]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="Page6/Stagger/HBox/VBox2" unique_id=2062876153]
+custom_minimum_size = Vector2(980, 50)
+custom_maximum_size = Vector2(980, 1000)
+layout_mode = 2
+text = "TUTO_STAGGER_TEXT5"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Text2" type="Label" parent="Page6/Stagger/HBox/VBox2" unique_id=56634524]
+custom_minimum_size = Vector2(980, 50)
+custom_maximum_size = Vector2(980, 1000)
+layout_mode = 2
+text = "TUTO_STAGGER_TEXT6"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Text3" type="Label" parent="Page6/Stagger/HBox/VBox2" unique_id=528631601]
+custom_minimum_size = Vector2(980, 50)
+custom_maximum_size = Vector2(980, 1000)
+layout_mode = 2
+text = "TUTO_STAGGER_TEXT7"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Text4" type="Label" parent="Page6/Stagger/HBox/VBox2" unique_id=1146478682]
+custom_minimum_size = Vector2(980, 50)
+custom_maximum_size = Vector2(980, 1000)
+layout_mode = 2
+text = "TUTO_STAGGER_TEXT8"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Text5" type="Label" parent="Page6/Stagger/HBox/VBox2" unique_id=1941839613]
+custom_minimum_size = Vector2(980, 50)
+custom_maximum_size = Vector2(980, 1000)
+layout_mode = 2
+text = "TUTO_STAGGER_TEXT9"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Text6" type="Label" parent="Page6/Stagger/HBox/VBox2" unique_id=1506595959]
+custom_minimum_size = Vector2(980, 50)
+custom_maximum_size = Vector2(980, 1000)
+layout_mode = 2
+text = "TUTO_STAGGER_TEXT10"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[connection signal="gui_input" from="Page1" to="Page1" method="_on_gui_input"]
+[connection signal="gui_input" from="Page2" to="Page2" method="_on_gui_input"]
+[connection signal="gui_input" from="Page3" to="Page3" method="_on_gui_input"]
+[connection signal="gui_input" from="Page4" to="Page4" method="_on_gui_input"]
+[connection signal="gui_input" from="Page5" to="Page5" method="_on_gui_input"]
+[connection signal="gui_input" from="Page6" to="Page6" method="_on_gui_input"]

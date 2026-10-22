@@ -1,0 +1,39 @@
+{
+	"character_titles": {},
+	"locations": {},
+	"conditioner_path": "0_prelude_rosenkreuz/3_conditioner",
+	"narration_script": [
+		{ "action": "set_background('castle_plaza.png')" },
+		{ "action": "fade_in(0.5)" },
+		{ "await": 1.0 },
+		{ "action": "set_location_tr('castle_plaza')" },
+		{ "action": "show_location()" },
+		{ "action": "set_default_dialog('normal')" },
+		{ "action": "clear_dialog()" },
+		{ "action": "set_title_affiliation('')" },
+		{ "action": "set_title_name_tr('juline')" },
+		{ "action": "show_dialog()" },
+		{ "action": "add_character('juline', 'juline')" },
+		{ "action": "simple_positionate_char('juline', 'left')" },
+		{ "action": "show_char('juline')" },
+		{ 
+			"branch": {
+				"condition_name": "have_won_previous_act",
+				"condition_args": [],
+				"true": [
+					{
+						"en": "",
+						"es": "Gane!",
+					},
+				],
+				"false": [
+					{
+						"en": "",
+						"es": "Perdi :(",
+					},
+				],
+			}
+		},
+		{ "await": 60.0 }
+	]
+}

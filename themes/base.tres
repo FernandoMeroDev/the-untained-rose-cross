@@ -1,0 +1,8 @@
+[gd_resource type="Theme" format=3 uid="uid://1p2xoekvltgl"]
+
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="1_rkdcq"]
+
+[resource]
+Label/constants/outline_size = 3
+Label/fonts/font = ExtResource("1_rkdcq")
+RichTextLabel/fonts/normal_font = ExtResource("1_rkdcq")

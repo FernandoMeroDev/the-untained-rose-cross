@@ -1,4 +1,7 @@
+# class Story/Narration
 extends Node
+
+const Conditioner = preload("res://database/story/default_conditioner.gd")
 
 ## Narration is finished
 signal finished
@@ -23,6 +26,9 @@ var locations: Dictionary
 
 ## Narration dialog Titles
 var character_titles: Dictionary
+
+## Narration Conditioner instance
+var conditioner: Conditioner
 
 ## UI event Handler
 func _on_ui_gui_input(event: InputEvent) -> void:
@@ -56,6 +62,7 @@ func init(p_narration_chapter: String, narration_data: Dictionary) -> void:
 	narration_script = narration_data["narration_script"] 
 	init_locations(narration_data["locations"])
 	init_character_titles(narration_data["character_titles"])
+	init_conditioner(narration_data['conditioner_path'])
 	# Connect Signals
 	$UILayer/UI.open_pause_menu_requested.connect(
 		_on_open_pause_menu_requested
@@ -91,15 +98,39 @@ func init_character_titles(narration_char_titles: Dictionary) -> void:
 	)
 	character_titles.merge(narration_char_titles, true)
 
+func init_conditioner(conditioner_path: String) -> void:
+	if conditioner_path == 'default':
+		conditioner = Conditioner.new()
+	else:
+		conditioner = load(
+			'res://database/story/' + conditioner_path + '.gd'
+		).new()
+	conditioner.chapter_name = narration_chapter.get_slice('/', 0)
+
 ## Execute Narration Script
 func execute_narration_script() -> void:
-	for line: Dictionary in narration_script:
-		if line.keys().has('action'):
+	await execute_story_script(narration_script)
+
+## Execute Story Script
+func execute_story_script(script: Array) -> void:
+	for line: Dictionary in script:
+		if line.keys().has('branch'):
+			await execute_branch(line['branch'])
+		elif line.keys().has('action'):
 			execute_action(line)
 		elif line.keys().has('await'):
 			await timeout(float(line['await']))
 		elif line.keys().has(locale):
 			await type_text(line)
+
+## Execute Narration Branch
+func execute_branch(branch: Dictionary) -> void:
+	var result: Variant = conditioner.evaluate_condition(
+		branch['condition_name'],
+		branch['condition_args']
+	)
+	var script: Array = branch[result]
+	await execute_story_script(script)
 
 ## Execute Action
 func execute_action(line: Dictionary) -> void:
@@ -125,7 +156,7 @@ func add_character(id: String, code: String) -> void:
 	$Characters.add_character(id, code)
 
 ## Show Character
-func show_char(id: String, fade_in_time: float = 0.1) -> void:
+func show_char(id: String, fade_in_time: float = 0.3) -> void:
 	$Characters.show_char(id, fade_in_time)
 
 ## Activate Character
@@ -163,14 +194,25 @@ func flip_h_char(id: String, flip: bool = true) -> void:
 # ------------------------------------
 # --- --- --- Narration Actions
 # ------------------------------------
+
+## Set Music
+func set_music(music_name: String) -> void:
+	$Music.stream = load("res://media/story/music/ost/" + music_name)
+	$Music.play()
+
 ## Set Background
 func set_background(image_name: String) -> void:
-	$Background.texture = load("res://media/story/background/" + image_name + ".jpg")
+	$Background.texture = load("res://media/story/background/" + image_name)
 
 ## Fade in effect for the Narration
-func fade_in() -> void:
+func fade_in(time_sec: float = 3.0) -> void:
 	$UILayer/UI/Fade.show()
-	$UILayer/UI/Fade.fade_out()
+	$UILayer/UI/Fade.fade_out(time_sec)
+
+## Fade out effect for the Narration
+func fade_out(time_sec: float = 0.5) -> void:
+	$UILayer/UI/Fade.show()
+	$UILayer/UI/Fade.fade_in(time_sec)
 
 ## Play SFX
 func play_sfx(sfx_name: String) -> void:

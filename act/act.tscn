@@ -48,6 +48,7 @@
 [ext_resource type="Script" uid="uid://cyaaciqn0d5ij" path="res://act/hud/scene_number.gd" id="35_5kprs"]
 [ext_resource type="AudioStream" uid="uid://cftn8qk84rin8" path="res://media/act/music/sfx/act_start.wav" id="35_rkifs"]
 [ext_resource type="Texture2D" uid="uid://cu4q4pq5mwei7" path="res://media/act/hud/emotion_level/gauge.png" id="41_5misd"]
+[ext_resource type="Script" uid="uid://pnt0ofsmqjkp" path="res://act/hud/actor_details/panels/status_effects.gd" id="41_l3sox"]
 [ext_resource type="Script" uid="uid://bvf4jlnutvh6l" path="res://act/hud/hand/hand.gd" id="41_uykt8"]
 [ext_resource type="AudioStream" uid="uid://c3xrn2r12b4na" path="res://media/act/music/sfx/dice_roll.wav" id="42_lskxy"]
 [ext_resource type="Texture2D" uid="uid://cx2xfbt66pacv" path="res://media/act/hud/end.png" id="45_kqoxe"]
@@ -61,6 +62,7 @@
 [ext_resource type="AudioStream" uid="uid://bs52g852r3kwj" path="res://media/act/music/sfx/battle/attack/blow_vert.wav" id="50_sp3pa"]
 [ext_resource type="AudioStream" uid="uid://btmk4ocafvgdj" path="res://media/act/music/sfx/battle/attack/sword_hori.wav" id="51_vhj7x"]
 [ext_resource type="AudioStream" uid="uid://dbpolk21dkte5" path="res://media/act/music/sfx/battle/attack/sword_stab.wav" id="52_8txjm"]
+[ext_resource type="PackedScene" uid="uid://cw8jke7spg3ji" path="res://act/hud/popovers/status_effect/status_effect.tscn" id="52_w2e63"]
 [ext_resource type="AudioStream" uid="uid://b645rxk66gmap" path="res://media/act/music/sfx/battle/attack/sword_vert.wav" id="53_ym1af"]
 [ext_resource type="AudioStream" uid="uid://cqysmngrbfwpm" path="res://media/act/music/sfx/battle/attack/parry.wav" id="54_ocuck"]
 [ext_resource type="AudioStream" uid="uid://4m0oe645mcnh" path="res://media/act/music/sfx/battle/block/guarded.wav" id="55_sp3pa"]
@@ -197,7 +199,8 @@ offset_right = 49.5
 offset_bottom = 47.5
 grow_horizontal = 2
 grow_vertical = 2
-tooltip_text = "Click to Start the Battle"
+tooltip_text = "ACT_DICE_ROLLER_TOOLTIP"
+focus_mode = 0
 texture_normal = ExtResource("32_x5nus")
 
 [node name="EmotionLevel" type="Control" parent="HUD" unique_id=1542644232]
@@ -527,6 +530,17 @@ offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="StatusEffects" type="HFlowContainer" parent="HUD/ActorDetails/Left" unique_id=1282150835]
+custom_minimum_size = Vector2(240, 0)
+custom_maximum_size = Vector2(240, 600)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 180.0
+offset_top = 250.0
+offset_right = 420.0
+offset_bottom = 290.0
+script = ExtResource("41_l3sox")
+
 [node name="ActorSelected" type="AudioStreamPlayer" parent="HUD/ActorDetails/Left" unique_id=1218712455]
 stream = ExtResource("33_1qlvn")
 
@@ -818,7 +832,18 @@ offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ActorSelected" type="AudioStreamPlayer" parent="HUD/ActorDetails/Right" unique_id=1820224283]
+[node name="StatusEffects" type="HFlowContainer" parent="HUD/ActorDetails/Right" unique_id=859376422]
+custom_minimum_size = Vector2(240, 0)
+custom_maximum_size = Vector2(240, 600)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 180.0
+offset_top = 250.0
+offset_right = 420.0
+offset_bottom = 290.0
+script = ExtResource("41_l3sox")
+
+[node name="ActorSelected" type="AudioStreamPlayer" parent="HUD/ActorDetails/Right" unique_id=1802737271]
 stream = ExtResource("33_1qlvn")
 
 [node name="SceneNumber" type="TextureRect" parent="HUD" unique_id=1927978684]
@@ -938,7 +963,13 @@ text = "ACT_RESULT_FINISHED"
 [node name="EndDown" type="AudioStreamPlayer" parent="HUD/Result" unique_id=177750970]
 stream = ExtResource("47_5misd")
 
+[node name="Popovers" type="CanvasLayer" parent="." unique_id=351354019]
+layer = 2
+
+[node name="StatusEffect" parent="Popovers" unique_id=353154149 instance=ExtResource("52_w2e63")]
+
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=2050507547]
+process_mode = 3
 stream = ExtResource("34_22tc4")
 autoplay = true
 bus = &"Music"

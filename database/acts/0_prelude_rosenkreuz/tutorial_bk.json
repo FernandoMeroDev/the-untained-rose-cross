@@ -1,15 +1,15 @@
 {
 	"act_number": 1,
 	"randomize_first_turn": false,
-	"first_turn_for": "left",
+	"first_turn_for": "right",
 	"toggle_each_turn": false,
 	"controllers": {
 		"left_team": "PLAYER",
-		"right_team": "PLAYER"
+		"right_team": "AI",
 	},
 	"max_emotion_level": {
-		"right": 5,
-		"left": 5,
+		"right": 1,
+		"left": 1,
 	},
 	"teams": {
 		"left": [
@@ -41,7 +41,6 @@
 					"downgrade_slash",
 					"upper_slashes",
 					"quick_thrust",
-					"multi_attack_0",
 				]
 			},
 		],
@@ -60,7 +59,9 @@
 					"speed": { "min": 2, "max": 4 },
 					"speed_dices": 1,
 					"light": 3,
-					"status_effects": []
+					"status_effects": [
+						{ "name": "trainer", "stacks": 0 },
+					]
 				},
 				"resistences": {
 					"slash_damage": "normal",

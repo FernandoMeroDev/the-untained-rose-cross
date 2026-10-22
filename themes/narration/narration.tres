@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://bavqiu5bl5lhi"]
 
-[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="1_gsljs"]
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="1_pjjhd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rnr50"]
 bg_color = Color(0.42595553, 0.42595556, 0.42595538, 1)
@@ -70,7 +70,7 @@ expand_margin_bottom = 2.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wjao7"]
 
 [resource]
-Button/fonts/font = ExtResource("1_gsljs")
+Button/fonts/font = ExtResource("1_pjjhd")
 Button/styles/focus = SubResource("StyleBoxFlat_rnr50")
 Button/styles/hover = SubResource("StyleBoxFlat_bb8ms")
 Button/styles/normal = SubResource("StyleBoxFlat_gsljs")
@@ -84,7 +84,7 @@ Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
 Label/constants/shadow_outline_size = 1
 Label/font_sizes/font_size = 16
-Label/fonts/font = ExtResource("1_gsljs")
+Label/fonts/font = ExtResource("1_pjjhd")
 Label/styles/focus = SubResource("StyleBoxFlat_1gf3j")
 Label/styles/normal = SubResource("StyleBoxEmpty_wjao7")
-RichTextLabel/fonts/normal_font = ExtResource("1_gsljs")
+RichTextLabel/fonts/normal_font = ExtResource("1_pjjhd")

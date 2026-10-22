@@ -23,8 +23,11 @@ var default_typing_speed: float = 20
 ## Typing speed
 var typing_speed: float
 
+## Default time to await after typing
+var default_await_after: float = 1.5
+
 ## Time to await after typing
-var await_after: float = 0.5
+var await_after: float
 
 func _ready() -> void:
 	set_process(false)
@@ -48,7 +51,10 @@ func type_text(locale: String, line: Dictionary) -> void:
 		typing_speed = line['speed']
 	else:
 		typing_speed = default_typing_speed
-	if line.keys().has('await_after'): await_after = line['await_after']
+	if line.keys().has('await_after'): 
+		await_after = line['await_after']
+	else:
+		await_after = default_await_after
 	visible_characters = 0
 	text = content
 	var duration: float = text.length() / typing_speed
@@ -81,11 +87,11 @@ func create_timer(time: float = 1.0) -> void:
 
 ## Finish typing immediately
 func finish_immediately() -> void:
+	if $Typing.playing:
+		$Typing.stop()
 	if tween:
 		tween.kill()
 		visible_characters = text.length()
 		typing_finished.emit()
 	elif timer:
 		timer.timeout.emit()
-	if $Typing.playing:
-		$Typing.stop()

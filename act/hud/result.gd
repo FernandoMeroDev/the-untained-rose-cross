@@ -1,9 +1,13 @@
 extends TextureRect
 
 ## Presentate Result
-func presentate_result() -> void:
+func presentate_result(results: Variant) -> void:
 	$EndDown.play()
 	animate_fade(self)
+	if results['victory']:
+		$Finished.text = 'ACT_RESULT_VICTORY'
+	else:
+		$Finished.text = 'ACT_RESULT_DEFEAT'
 
 func animate_fade(node: Control) -> void:
 	node.modulate.a = 0.0

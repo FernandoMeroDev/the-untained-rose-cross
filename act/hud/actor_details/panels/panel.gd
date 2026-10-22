@@ -47,6 +47,9 @@ var panel_blocked: bool = false
 func _ready():
 	original_position = position
 
+func init() -> void:
+	$StatusEffects.popover = act.get_node("Popovers/StatusEffect")
+
 # --- Actor Events Observers
 func _on_actor_pressed(actor: Actor) -> void:
 	handle_actor_pressed(actor)
@@ -322,6 +325,8 @@ func fill_actor_details(actor: Actor):
 	$Gauges/Resist.max_value = actor.max_resist
 	$Gauges/Resist.value = actor.resist
 	$Gauges/Resist/Number.text = str(actor.resist)
+	# Status Effects
+	$StatusEffects.set_content(actor.get_status_effects())
 
 ## Hide panel
 func hide_panel(current_actor: Actor) -> void:

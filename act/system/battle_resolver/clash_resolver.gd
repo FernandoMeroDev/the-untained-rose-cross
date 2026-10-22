@@ -333,6 +333,7 @@ func handle_offensive_wins(
 	var y_dice_resource: DiceResource = card_resolver_y.get_current_dice_resource()
 	var x_value: int = card_resolver_x.get_dice_value()
 	var y_value: int = card_resolver_y.get_dice_value()
+	# Animations
 	camera.shake()
 	var attack_animation: String = actor_x.play_attack_animation()
 	battle_sfx.play_attack(actor_x.sharp_weapon, attack_animation)
@@ -341,7 +342,7 @@ func handle_offensive_wins(
 	if y_dice_resource.type == DiceResource.Types.BLOCK:
 		x_value -= y_value
 	await actor_y.handle_hit(
-		x_value, 
+		x_value,
 		x_dice_resource.get_type_code(), 
 		attack_animation,
 		actor_x

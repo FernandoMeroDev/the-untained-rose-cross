@@ -22,9 +22,18 @@ var story: Story
 func _on_act_requested(chapter_name: String, act_name: String) -> void:
 	load_act(chapter_name, act_name)
 
-func _on_act_finished(chapter_name: String, act_name: String) -> void:
-	GameState.set_act_completed(chapter_name, act_name)
-	load_story()
+func _on_act_finished(
+	chapter_name: String, act_name: String, results: Variant
+) -> void:
+	if results['is_mortal_act'] and not results['victory']:
+		# Fallen in combat ending
+		pass
+	else:
+		# Continue the story, saving the act result
+		GameState.set_act_completed(
+			chapter_name, act_name, results['victory']
+		)
+		load_story()
 
 ## Story Listeners
 func _on_story_requested() -> void:

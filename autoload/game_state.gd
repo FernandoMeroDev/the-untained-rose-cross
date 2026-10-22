@@ -50,11 +50,27 @@ func load_config() -> void:
 	config = config_state
 
 ## Set Act as Completed
-func set_act_completed(chapter_name: String, act_name: String) -> void:
+func set_act_completed(
+	chapter_name: String, act_name: String, victory: bool
+) -> void:
+	var event: Dictionary = find_story_act(chapter_name, act_name)
+	event["completed"] = true
+	event["content"]["results"]["victory"] = victory
+	save_game()
+
+## Find Story Act
+func find_story_act(chapter_name: String, act_name: String) -> Dictionary:
+	return find_story_event(chapter_name, act_name, 'act')
+
+## Find Story Event
+func find_story_event(
+	chapter_name: String, event_name: String, type_name: String
+) -> Dictionary:
+	var result: Dictionary = {}
 	for chapter in story:
 		if chapter["chapter_name"] == chapter_name:
 			for event in chapter["sequence"]:
-				if event["type"] == "act":
-					if event["content"]["name"] == act_name:
-						event["completed"] = true
-						save_game()
+				if event["type"] == type_name:
+					if event["name"] == event_name:
+						result = event
+	return result

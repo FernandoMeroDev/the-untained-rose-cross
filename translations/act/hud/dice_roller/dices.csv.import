@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cl0s3i1xx3cp"
+
+[deps]
+
+files=["res://translations/act/hud/dice_roller/dices.en.translation", "res://translations/act/hud/dice_roller/dices.es.translation"]
+
+source_file="res://translations/act/hud/dice_roller/dices.csv"
+dest_files=["res://translations/act/hud/dice_roller/dices.en.translation", "res://translations/act/hud/dice_roller/dices.es.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

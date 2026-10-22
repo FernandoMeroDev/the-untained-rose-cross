@@ -12,7 +12,7 @@ func handle_actor_died(dead_actor: Actor) -> void:
 	for actor: Actor in get_team_actors(dead_actor.team):
 		actor.emotionalize(3, EmotionPoint.Types.NEGATIVE)
 
-func init(config: Dictionary) -> Array[Actor]:
+func init(config: Dictionary, act: Act) -> Array[Actor]:
 	var actors: Array[Actor]
 	for team: String in ['left', 'right']:
 		var positions: Array[Marker2D] = get_team_positions(team)
@@ -21,6 +21,7 @@ func init(config: Dictionary) -> Array[Actor]:
 			var actor: Actor = ActorScene.instantiate() as Actor
 			var position_node: Marker2D = positions[i]
 			actor_data['team'] = team
+			actor.act = act
 			actor.init(actor_data)
 			add_child(actor)
 			actor.max_emotion_level = config['max_emotion_level'][team]
@@ -34,19 +35,28 @@ func init(config: Dictionary) -> Array[Actor]:
 	#print('Inited Actors')
 	return actors
 
+## Find actor by ID
+func find_by_id(id) -> Actor:
+	var result: Actor
+	for actor in get_children():
+		if actor.id == id: result = actor
+	return result
+
 ## Checksif teams can continue the fight
 func check_teams_can_continue() -> bool:
-	var left_can_continue: bool = false
-	var right_can_continue: bool = false
-	for left_actor: Actor in get_team_actors(TurnManager.Teams.LEFT):
-		if left_actor.alive:
-			left_can_continue = true
+	return (
+		check_team_can_continue(TurnManager.Teams.LEFT)
+		and check_team_can_continue(TurnManager.Teams.RIGHT)
+	)
+
+## Check team can continue the fight
+func check_team_can_continue(team: TurnManager.Teams) -> bool:
+	var result: bool = false
+	for actor: Actor in get_team_actors(team):
+		if actor.alive:
+			result = true
 			break
-	for right_actor: Actor in get_team_actors(TurnManager.Teams.RIGHT):
-		if right_actor.alive:
-			right_can_continue = true
-			break
-	return left_can_continue and right_can_continue
+	return result
 
 ## Repositionate Actors in theirs Markers 2D
 func repositionate_everyone() -> void:

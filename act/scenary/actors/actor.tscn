@@ -33,6 +33,7 @@
 [ext_resource type="Script" uid="uid://c1bqphr3j07vn" path="res://act/scenary/actors/vfx/critical.gd" id="21_hlq1d"]
 [ext_resource type="Script" uid="uid://4fmdm2i8e0og" path="res://act/scenary/actors/damage_tags/damage_tags.gd" id="23_q5ej8"]
 [ext_resource type="Script" uid="uid://bbpefkprg8qui" path="res://act/scenary/actors/recover_tags/recover_tags.gd" id="25_q5ej8"]
+[ext_resource type="Script" uid="uid://crtufjfgc2kqa" path="res://act/scenary/actors/status_effects/status_effects.gd" id="31_hlq1d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f7i5f"]
 size = Vector2(113, 159)
@@ -217,28 +218,27 @@ trail_sections = 2
 trail_section_subdivisions = 1
 process_material = SubResource("ParticleProcessMaterial_tqu3q")
 
-[node name="Gauges" type="Control" parent="." unique_id=1212697300]
+[node name="Gauges" type="Control" parent="." unique_id=738305562]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_left = -120.0
+offset_top = 40.0
+offset_right = 120.0
+offset_bottom = 109.0
 mouse_filter = 2
 script = ExtResource("14_e81nf")
 
 [node name="Health" type="TextureProgressBar" parent="Gauges" unique_id=480929265]
 layout_mode = 0
-offset_left = -111.0
-offset_top = 29.0
-offset_right = 9.0
-offset_bottom = 98.0
-scale = Vector2(2, 1)
+offset_right = 240.0
+offset_bottom = 70.0
+size_flags_horizontal = 3
 mouse_filter = 2
 value = 50.0
 fill_mode = 4
 radial_initial_angle = 180.0
 radial_fill_degrees = 90.0
+nine_patch_stretch = true
 texture_under = ExtResource("2_0bn6f")
 texture_progress = ExtResource("2_8j2rx")
 tint_under = Color(0.06666667, 0, 0, 1)
@@ -254,7 +254,6 @@ offset_top = -8.0
 offset_right = 10.0
 offset_bottom = 15.0
 grow_vertical = 0
-scale = Vector2(0.5, 1)
 theme_override_colors/font_color = Color(0.33333334, 0.49019608, 0.8509804, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 30
@@ -262,16 +261,14 @@ text = "1"
 
 [node name="Resist" type="TextureProgressBar" parent="Gauges" unique_id=319148645]
 layout_mode = 0
-offset_left = -111.0
-offset_top = 29.0
-offset_right = 9.0
-offset_bottom = 98.0
-scale = Vector2(2, 1)
+offset_right = 240.0
+offset_bottom = 70.0
 mouse_filter = 2
 value = 50.0
 fill_mode = 5
 radial_initial_angle = 180.0
 radial_fill_degrees = 90.0
+nine_patch_stretch = true
 texture_under = ExtResource("4_f7i5f")
 texture_progress = ExtResource("2_8j2rx")
 tint_under = Color(0.06666667, 0, 0, 1)
@@ -289,19 +286,23 @@ offset_top = -8.0
 offset_bottom = 15.0
 grow_horizontal = 0
 grow_vertical = 0
-scale = Vector2(0.5, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 30
 text = "1"
 
-[node name="StatusEffects" type="Control" parent="." unique_id=1396506898]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="StatusEffects" type="HFlowContainer" parent="." unique_id=404486796]
+custom_minimum_size = Vector2(240, 0)
+custom_maximum_size = Vector2(240, 600)
+anchors_preset = -1
+offset_left = -120.0
+offset_top = 110.0
+offset_right = 120.0
+offset_bottom = 178.0
 grow_horizontal = 2
-grow_vertical = 2
 mouse_filter = 2
+alignment = 1
+last_wrap_alignment = 2
+script = ExtResource("31_hlq1d")
 
 [node name="CardResolver" parent="." unique_id=1253637074 instance=ExtResource("17_j8dxc")]
 

@@ -1,6 +1,10 @@
 {
 	"juline_room": {
 		"en": "Juline's room",
-		"es": "Habitacion de Juline"
+		"es": "Habitación de Juline"
+	},
+	"castle_plaza": {
+		"en": "Castle Plaza",
+		"es": "Plaza del Castillo"
 	}
 }

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" format=3 uid="uid://bv71c6jij7vtr"]
+
+[ext_resource type="Script" uid="uid://pqwwuai7j8bx" path="res://database/resources/status_effects/trainer/trainer.gd" id="1_84kge"]
+
+[resource]
+script = ExtResource("1_84kge")
+code = "trainer"
+name = {
+"en": "Trainer",
+"es": "Entrenador"
+}
+description = {
+"en": "Character doesn't inflict physical damage.",
+"es": "El personaje no inflinje daño físico."
+}

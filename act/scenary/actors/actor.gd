@@ -4,6 +4,8 @@ const SpeedDiceScene: PackedScene = preload('res://act/scenary/actors/dices/spee
 const ActorControl = preload('res://act/hud/actors/actor_control/actor_control.gd')
 const CardResolver = preload("res://act/scenary/actors/card_resolver/card_resolver.gd")
 const EmotionPoint = preload("res://act/hud/actors/actor_control/emotion_points/point.gd")
+const StatusEffects = preload("res://act/scenary/actors/status_effects/status_effects.gd")
+const StatusEffectPopover = preload("res://act/hud/popovers/status_effect/status_effect.gd")
 
 signal actor_mouse_entered(actor: Actor)
 
@@ -86,8 +88,7 @@ var staggered_remain: int = 0
 ## For example: { "min": 2, "max": 4 }
 var speed: Dictionary[String, int]
 
-## Actor Status Effects [TODO: transform into Resource]
-## Temporally: [ { "id": 1, "name": "Paralysis", "code": "paralysis", "stacks": 4 }, ... ]
+## Actor Status Effects
 var status_effects: Array
 
 ## Actor current Resistences. [TODO: Improve this]
@@ -143,9 +144,10 @@ func handle_hit(
 ) -> void:
 	# Take Damage logic
 	take_damage(
-		value, 
+		enemy.compute_physical_damage(value),
+		enemy.compute_stagger_damage(value),
 		damage_type, 
-		enemy.get_card_resolver().get_current_dice_max_value()
+		enemy.get_card_resolver().is_max_roll()
 	)
 	# Knockback
 	knockback(
@@ -332,18 +334,9 @@ func init_gauges() -> void:
 	$Gauges/Resist/RP.text = str(max_resist)
 
 func init_status_effects() -> void:
-	var i: int = 0
-	for effect_data in status_effects:
-		var effect: TextureRect = preload("res://act/scenary/actors/status_effect.tscn").instantiate()
-		effect.texture = load("res://media/actors/status_effects/" + effect_data['code'] + ".png")
-		effect.get_node("Stacks").text = str(int(effect_data["stacks"]))
-		$StatusEffects.add_child(effect)
-		effect.scale = Vector2(0.50, 0.50)
-		effect.position.y += 113
-		var total_width: float = effect.get_rect().size.x * status_effects.size()
-		effect.position.x -= total_width / 2
-		effect.position.x += effect.get_rect().size.x * i
-		i += 1
+	var popover: StatusEffectPopover = act.get_node("Popovers/StatusEffect")
+	$StatusEffects.popover = popover
+	$StatusEffects.init(status_effects)
 
 func init_card_resolver() -> void:
 	$CardResolver.parent_actor = self
@@ -351,6 +344,16 @@ func init_card_resolver() -> void:
 func init_vfx() -> void:
 	$VFX.parent_actor = self
 	$VFX.init()
+
+## Compute physical damage
+func compute_physical_damage(damage: int) -> int:
+	damage = $StatusEffects.alter_physical_damage(damage)
+	return damage
+
+## Compute stagger damage
+func compute_stagger_damage(damage: int) -> int:
+	damage = $StatusEffects.alter_stagger_damage(damage)
+	return damage
 
 ## Checks for light for use a card.
 ## Extra light is when the actor is already holding a card
@@ -558,16 +561,17 @@ func die() -> void:
 
 ## Take Damage
 func take_damage(
-	value: int, 
+	physcal_value: int, 
+	stagger_value: int, 
 	damage_type: String,
-	max_possible_value: int
+	max_enemy_roll: bool
 ) -> void:
 	# Calc damage in function of resistences
 	var normal_damage: int = int(
-		value * calc_resistence(damage_type + '_damage')
+		physcal_value * calc_resistence(damage_type + '_damage')
 	)
 	var stagger_damage: int = int(
-		value * calc_resistence(damage_type + '_resist')
+		stagger_value * calc_resistence(damage_type + '_resist')
 	)
 	hp -= normal_damage
 	resist -= stagger_damage
@@ -579,7 +583,7 @@ func take_damage(
 		calc_blood_amount()
 	)
 	# Max Damage
-	if value == max_possible_value:
+	if max_enemy_roll:
 		$VFX.show_max_damage_vfx()
 	# Damage Tags
 	$DamageTags.show_damage('normal', normal_damage, damage_type)
@@ -738,3 +742,10 @@ func increase_emotion_level(
 	if spare_points > 0:
 		actor_control.add_emotion_points(spare_points, type)
 	actor_emotionalized.emit()
+
+## Get Status effects
+func get_status_effects() -> Array:
+	var result = []
+	for node in $StatusEffects.get_children():
+		result.append(node.resource)
+	return result
