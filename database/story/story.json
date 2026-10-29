@@ -45,7 +45,11 @@
 				"type": "narration",
 				"name": "3",
 				"completed": false,
-				"content": {}
+				"content": {
+					"question_answers": {
+						"repeat_tutorial": "no-repeat"
+					}
+				}
 			},
 		]
 	}

@@ -86,7 +86,9 @@ func show_damage(category: String, value: int, damage_type: String) -> void:
 	icon = resistences_icons[resistence + '_' + damage_type + '_' + category]
 	add_child(damage_tag)
 	damage_tag.init(
-		value, resistence.capitalize(), icon, colors
+		value, 
+		'ACT_ACTOR_DAMAGE_TAG_' + resistence.to_upper(), 
+		icon, colors
 	)
 	damage_tag.position = Vector2(
 		calc_random_offset(-150),

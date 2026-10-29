@@ -12,6 +12,9 @@ signal return_to_start_requested
 ## Emitted when an Act is requested in the story
 signal act_requested(chapter_name: String, act_name: String)
 
+## Reload Story Request for go back
+signal reload_story_requested
+
 ## Current Story Context
 var current_context: Node
 
@@ -38,8 +41,14 @@ func init() -> void:
 					)
 					break
 			await current_context.finished
-			event["completed"] = true
-			GameState.save_game()
+			if current_context.get('finalizer'):
+				current_context.finalizer.finalize(event)
+				if current_context.finalizer.request_reload_story:
+					reload_story_requested.emit()
+					break
+			else:
+				event["completed"] = true
+				GameState.save_game()
 			unload_context()
 
 ## Load Narration

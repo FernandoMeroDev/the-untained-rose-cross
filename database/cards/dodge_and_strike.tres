@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://bxd2owht5tcer"]
+
+[ext_resource type="Script" uid="uid://cprnyoijuhug1" path="res://database/resources/dice_resource.gd" id="1_m7otd"]
+[ext_resource type="Script" uid="uid://tl3k1itad7g0" path="res://database/resources/card_resource.gd" id="2_5jdcp"]
+
+[sub_resource type="Resource" id="Resource_v4jjf"]
+script = ExtResource("1_m7otd")
+type = 4
+min_value = 1
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_okuu4"]
+script = ExtResource("1_m7otd")
+min_value = 1
+max_value = 2
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[resource]
+script = ExtResource("2_5jdcp")
+name = "Dodge and Strike"
+name_translations = Dictionary[String, String]({
+"en": "Dodge and Strike",
+"es": "Esquivar y Golpear"
+})
+code = "dodge_and_strike"
+dices = Array[ExtResource("1_m7otd")]([SubResource("Resource_v4jjf"), SubResource("Resource_okuu4")])
+metadata/_custom_type_script = "uid://tl3k1itad7g0"

@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://c3n183aimbj2l"]
+
+[ext_resource type="Script" uid="uid://cprnyoijuhug1" path="res://database/resources/dice_resource.gd" id="1_f7sy0"]
+[ext_resource type="Script" uid="uid://tl3k1itad7g0" path="res://database/resources/card_resource.gd" id="2_p08pn"]
+
+[sub_resource type="Resource" id="Resource_x1tmm"]
+script = ExtResource("1_f7sy0")
+min_value = 1
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_0wf1k"]
+script = ExtResource("1_f7sy0")
+type = 4
+min_value = 1
+max_value = 6
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[resource]
+script = ExtResource("2_p08pn")
+name = "Quickness"
+name_translations = Dictionary[String, String]({
+"en": "Quickness",
+"es": "Rápidez"
+})
+code = "quickness"
+cost = 1
+dices = Array[ExtResource("1_f7sy0")]([SubResource("Resource_x1tmm"), SubResource("Resource_0wf1k")])
+metadata/_custom_type_script = "uid://tl3k1itad7g0"

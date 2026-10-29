@@ -80,6 +80,7 @@
 		{ "action": "set_title_name_tr('juline')" },
 		{ "action": "deactivate_char('lucine')" },
 		{ "action": "activate_char('juline')" },
+		{ "action": "change_char_expression('juline', 'smile')" },
 		{
 			"en": "",
 			"es": "Estoy muy feliz de verte... pero ¿qué día especial es hoy?",
@@ -100,6 +101,7 @@
 			"es": "¡¿Oh?! ¿Cómo pude olvidarlo? ¡Quería prepararte un regalo!",
 		},
 		{ "action": "change_char_expression('juline', 'open_eyes')" },
+		{ "action": "change_char_expression('lucine', 'smile')" },
 		{ "action": "set_title_name_tr('lucine')" },
 		{ "action": "deactivate_char('juline')" },
 		{ "action": "activate_char('lucine')" },
@@ -118,6 +120,7 @@
 			"en": "",
 			"es": "Esta bien. Ire a cambiarme y podemos hacerlo en la plaza ¿Te parece?",
 		},
+		{ "action": "change_char_expression('lucine', 'default')" },
 		{ "action": "set_title_name_tr('lucine')" },
 		{ "action": "deactivate_char('juline')" },
 		{ "action": "activate_char('lucine')" },

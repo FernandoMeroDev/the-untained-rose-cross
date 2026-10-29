@@ -26,7 +26,7 @@ func _on_act_finished(
 	chapter_name: String, act_name: String, results: Variant
 ) -> void:
 	if results['is_mortal_act'] and not results['victory']:
-		# Fallen in combat ending
+		# [TODO] Fallen in combat ending
 		pass
 	else:
 		# Continue the story, saving the act result
@@ -75,6 +75,7 @@ func load_story() -> void:
 		_on_return_to_start_requested
 	)
 	story.act_requested.connect(_on_act_requested)
+	story.reload_story_requested.connect(load_story)
 	change_context(story)
 	story.init()
 

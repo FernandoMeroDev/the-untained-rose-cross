@@ -2,6 +2,7 @@
 extends Node
 
 const Conditioner = preload("res://database/story/default_conditioner.gd")
+const Finalizer = preload("res://database/story/default_finalizer.gd")
 
 ## Narration is finished
 signal finished
@@ -30,6 +31,9 @@ var character_titles: Dictionary
 ## Narration Conditioner instance
 var conditioner: Conditioner
 
+## Narration Finalizer instance
+var finalizer: Finalizer
+
 ## UI event Handler
 func _on_ui_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -40,11 +44,11 @@ func _on_ui_gui_input(event: InputEvent) -> void:
 
 ## Open Menu Request observers
 func _on_open_pause_menu_requested() -> void:
-	$UILayer/PauseMenu.show()
+	$UILayer/PauseMenu.pause()
 
 ## Close Menu Request observers
 func _on_exit_pause_menu_requested() -> void:
-	$UILayer/PauseMenu.hide()
+	$UILayer/PauseMenu.play()
 
 ## Return to start via Pause Menu
 func _on_return_to_start_requested() -> void:
@@ -63,6 +67,8 @@ func init(p_narration_chapter: String, narration_data: Dictionary) -> void:
 	init_locations(narration_data["locations"])
 	init_character_titles(narration_data["character_titles"])
 	init_conditioner(narration_data['conditioner_path'])
+	init_finalizer(narration_data)
+	init_question()
 	# Connect Signals
 	$UILayer/UI.open_pause_menu_requested.connect(
 		_on_open_pause_menu_requested
@@ -107,6 +113,20 @@ func init_conditioner(conditioner_path: String) -> void:
 		).new()
 	conditioner.chapter_name = narration_chapter.get_slice('/', 0)
 
+func init_finalizer(narration_data: Dictionary) -> void:
+	if narration_data.keys().has('finalizer_path'):
+		var path: String = narration_data['finalizer_path']
+		finalizer = load(
+			'res://database/story/' + path + '.gd'
+		).new()
+	else:
+		finalizer = Finalizer.new()
+	finalizer.chapter_name = narration_chapter.get_slice('/', 0)
+
+func init_question() -> void:
+	$UILayer/UI/Question.narration_chapter = narration_chapter
+	$UILayer/UI/Question.dialogs = $UILayer/UI/Dialogs
+
 ## Execute Narration Script
 func execute_narration_script() -> void:
 	await execute_story_script(narration_script)
@@ -114,7 +134,11 @@ func execute_narration_script() -> void:
 ## Execute Story Script
 func execute_story_script(script: Array) -> void:
 	for line: Dictionary in script:
-		if line.keys().has('branch'):
+		if get_tree().paused:
+			await $UILayer/PauseMenu.exit_pause_requested
+		if line.keys().has('question'):
+			await execute_question(line['question'])
+		elif line.keys().has('branch'):
 			await execute_branch(line['branch'])
 		elif line.keys().has('action'):
 			execute_action(line)
@@ -122,6 +146,13 @@ func execute_story_script(script: Array) -> void:
 			await timeout(float(line['await']))
 		elif line.keys().has(locale):
 			await type_text(line)
+
+## Execute Narration Question
+func execute_question(question: Dictionary) -> void:
+	hide_dialog()
+	$UILayer/UI/Question.show_question(question)
+	await $UILayer/UI/Question.question_answered
+	show_dialog()
 
 ## Execute Narration Branch
 func execute_branch(branch: Dictionary) -> void:

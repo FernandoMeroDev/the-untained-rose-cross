@@ -6,6 +6,8 @@
 [sub_resource type="Resource" id="Resource_xejso"]
 script = ExtResource("1_xejso")
 type = 1
+min_value = 5
+max_value = 12
 metadata/_custom_type_script = "uid://cprnyoijuhug1"
 
 [resource]
@@ -16,6 +18,6 @@ name_translations = Dictionary[String, String]({
 "es": "Penetrar"
 })
 code = "penetrate"
-cost = 1
+cost = 3
 dices = Array[ExtResource("1_xejso")]([SubResource("Resource_xejso")])
 metadata/_custom_type_script = "uid://tl3k1itad7g0"

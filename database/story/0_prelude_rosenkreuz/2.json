@@ -35,8 +35,9 @@
 		{ "action": "set_title_name_tr('juline')" },
 		{
 			"en": "",
-			"es": "Si, hermana.",
+			"es": "¡Si!",
 		},
+		{ "action": "change_char_expression('lucine', 'smile')" },
 		{ "action": "deactivate_char('juline')" },
 		{ "action": "activate_char('lucine')" },
 		{ "action": "set_title_name_tr('lucine')" },

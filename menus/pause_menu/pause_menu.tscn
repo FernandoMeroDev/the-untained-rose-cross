@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bvdc5t14mw2ih" path="res://menus/config_menu/inputs/sound/slider.gd" id="8_avhg4"]
 
 [node name="PauseMenu" type="Control" unique_id=1606165773]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,6 +20,7 @@ theme = ExtResource("1_bbafy")
 script = ExtResource("2_xotp6")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1156730002]
+process_mode = 3
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,6 +30,7 @@ grow_vertical = 2
 color = Color(0, 0.02745098, 0.4862745, 0.63529414)
 
 [node name="Inputs" type="VBoxContainer" parent="." unique_id=1592816969]
+process_mode = 3
 layout_mode = 0
 offset_left = 771.0
 offset_top = 274.5

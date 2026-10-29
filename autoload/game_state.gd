@@ -62,6 +62,10 @@ func set_act_completed(
 func find_story_act(chapter_name: String, act_name: String) -> Dictionary:
 	return find_story_event(chapter_name, act_name, 'act')
 
+## Find Story Narration
+func find_story_narration(chapter_name: String, narration_name: String) -> Dictionary:
+	return find_story_event(chapter_name, narration_name, 'narration')
+
 ## Find Story Event
 func find_story_event(
 	chapter_name: String, event_name: String, type_name: String

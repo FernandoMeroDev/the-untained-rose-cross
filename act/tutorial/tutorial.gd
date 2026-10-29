@@ -42,6 +42,7 @@ func _on_page_mouse_pressed(page) -> void:
 			guide_select_dice,
 			Object.ConnectFlags.CONNECT_ONE_SHOT
 		)
+		act.block_roll_dices = false
 	elif page.name == 'Page6':
 		hide_page(current_page)
 		get_tree().paused = false
@@ -49,6 +50,7 @@ func _on_page_mouse_pressed(page) -> void:
 		go_to_next_page()
 
 func init() -> void:
+	act.block_roll_dices = true
 	presentation_timer.timeout.connect(
 		_on_act_presentation_timeout,
 		Object.ConnectFlags.CONNECT_ONE_SHOT
@@ -96,12 +98,14 @@ func guide_select_enemy_dice(_juline_card_p) -> void:
 
 ## Guide Start Battle
 func guide_start_battle(_lucine_speed_dice_p) -> void:
-	hand.hand_shown.disconnect(connect_hand_signals)
+	if hand.hand_shown.is_connected(connect_hand_signals):
+		hand.hand_shown.disconnect(connect_hand_signals)
 	guide_step($StartBattle)
-	act.dices_rolled.connect(
-		return_to_pages,
-		Object.ConnectFlags.CONNECT_ONE_SHOT
-	)
+	if not act.dices_rolled.is_connected(return_to_pages):
+		act.dices_rolled.connect(
+			return_to_pages,
+			Object.ConnectFlags.CONNECT_ONE_SHOT
+		)
 
 ## Return to tutorial remaining pages
 func return_to_pages() -> void:

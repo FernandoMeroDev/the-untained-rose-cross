@@ -5,15 +5,22 @@
 
 [sub_resource type="Resource" id="Resource_cjgy4"]
 script = ExtResource("1_cjgy4")
+type = 2
+min_value = 2
+max_value = 8
 metadata/_custom_type_script = "uid://cprnyoijuhug1"
 
 [sub_resource type="Resource" id="Resource_n568i"]
 script = ExtResource("1_cjgy4")
+type = 2
+min_value = 2
+max_value = 8
 metadata/_custom_type_script = "uid://cprnyoijuhug1"
 
 [sub_resource type="Resource" id="Resource_6esn0"]
 script = ExtResource("1_cjgy4")
-type = 3
+min_value = 2
+max_value = 7
 metadata/_custom_type_script = "uid://cprnyoijuhug1"
 
 [resource]

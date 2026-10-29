@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dppp2h4lp12wf"]
+
+[ext_resource type="Texture2D" uid="uid://bfxcmrhgk4a48" path="res://media/story/characters/vfx/gloomy/1.png" id="1_2hmtx"]
+[ext_resource type="Script" uid="uid://r43am40a2v55" path="res://story/narration/characters/vfx/gloomy/gloomy.gd" id="1_8sjoj"]
+[ext_resource type="Texture2D" uid="uid://bt58cpjpn70v1" path="res://media/story/characters/vfx/gloomy/2.png" id="2_lwdls"]
+[ext_resource type="Texture2D" uid="uid://skc01uyqt8fe" path="res://media/story/characters/vfx/gloomy/3.png" id="3_np5td"]
+[ext_resource type="Texture2D" uid="uid://bija7s3bstdag" path="res://media/story/characters/vfx/gloomy/4.png" id="4_ttsbj"]
+[ext_resource type="Texture2D" uid="uid://c0qgxf0hmm1nk" path="res://media/story/characters/vfx/gloomy/5.png" id="5_epxbw"]
+[ext_resource type="Texture2D" uid="uid://7vnxsgvabnd0" path="res://media/story/characters/vfx/gloomy/6.png" id="6_3uu58"]
+[ext_resource type="Texture2D" uid="uid://baxsfkon2qv10" path="res://media/story/characters/vfx/gloomy/7.png" id="7_3bvp4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tqu3q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_2hmtx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_lwdls")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_np5td")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ttsbj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_epxbw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3uu58")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3bvp4")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Gloomy" type="AnimatedSprite2D" unique_id=568107290]
+sprite_frames = SubResource("SpriteFrames_tqu3q")
+frame_progress = 0.80048406
+script = ExtResource("1_8sjoj")

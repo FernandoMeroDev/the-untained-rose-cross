@@ -648,7 +648,7 @@ func play_evade_animation(attacker_position: Vector2) -> void:
 
 ## Recovers Stagger Resist
 func recover_resist(value: int) -> void:
-	resist += value
+	resist = clamp(resist + value, 0, max_resist)
 	$Gauges/Resist.recover(value)
 	$RecoverTags.show_resist(value)
 

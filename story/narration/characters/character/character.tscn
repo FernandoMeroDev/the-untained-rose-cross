@@ -6,7 +6,7 @@
 [sub_resource type="SpriteFrames" id="SpriteFrames_2x58m"]
 animations = []
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_v6cwc"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_j5oa4"]
 
 [node name="Character" type="AnimatedSprite2D" unique_id=1769666467]
 sprite_frames = SubResource("SpriteFrames_2x58m")
@@ -14,5 +14,5 @@ animation = &""
 script = ExtResource("1_ee3ja")
 
 [node name="Expression" type="AnimatedSprite2D" parent="." unique_id=1488108128]
-sprite_frames = SubResource("SpriteFrames_v6cwc")
+sprite_frames = SubResource("SpriteFrames_j5oa4")
 script = ExtResource("6_sfp1v")

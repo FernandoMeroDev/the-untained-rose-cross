@@ -2,6 +2,7 @@
 	"character_titles": {},
 	"locations": {},
 	"conditioner_path": "0_prelude_rosenkreuz/3_conditioner",
+	"finalizer_path": "0_prelude_rosenkreuz/3_finalizer",
 	"narration_script": [
 		{ "action": "set_background('castle_plaza.png')" },
 		{ "action": "fade_in(0.5)" },
@@ -16,24 +17,88 @@
 		{ "action": "add_character('juline', 'juline')" },
 		{ "action": "simple_positionate_char('juline', 'left')" },
 		{ "action": "show_char('juline')" },
+		{ "action": "add_character('lucine', 'lucine')" },
+		{ "action": "simple_positionate_char('lucine', 'right')" },
+		{ "action": "deactivate_char('lucine')" },
+		{ "action": "show_char('lucine')" },
+		{ "action": "flip_h_char('lucine')" },
 		{ 
 			"branch": {
 				"condition_name": "have_won_previous_act",
 				"condition_args": [],
 				"true": [
+					
+					{ "action": "play_char_vfx('juline', 'happy')" },
 					{
 						"en": "",
-						"es": "Gane!",
+						"es": "Hehe~ ¡Te gané!",
+					},
+					{
+						"en": "",
+						"es": "¿Estoy más hábil, hermana?",
+					},
+					{ "action": "change_char_expression('lucine', 'smile')" },
+					{ "action": "deactivate_char('juline')" },
+					{ "action": "activate_char('lucine')" },
+					{ "action": "set_title_name_tr('lucine')" },
+					{
+						"en": "",
+						"es": "Has mejorado mucho. Elaina parece estar haciendo un buen trabajo contigo.",
 					},
 				],
 				"false": [
+					{ "action": "play_char_vfx('juline', 'gloomy')" },
+					{ "action": "change_char_expression('juline', 'gloomy')" },
 					{
 						"en": "",
-						"es": "Perdi :(",
+						"es": "Ughhh, perdí. Eres muy fuerte, hermana.",
+					},
+					{ "action": "change_char_expression('lucine', 'smile')" },
+					{ "action": "deactivate_char('juline')" },
+					{ "action": "activate_char('lucine')" },
+					{ "action": "set_title_name_tr('lucine')" },
+					{
+						"en": "",
+						"es": "Aún hay muchas cosas en las que puedes mejorar, al igual que yo. Pero has aprendido mucho Juline. No te desanimes.",
 					},
 				],
 			}
 		},
-		{ "await": 60.0 }
+		{ "action": "change_char_expression('juline', 'neutral')" },
+		{
+			"en": "",
+			"es": "¿Quieres seguir prácticando?",
+		},
+		{
+			"question": {
+				"code": "repeat_tutorial",
+				"text": {
+					"en": "",
+					"es": "¿Juline lo intenta nuevamente?",
+				},
+				"options": [
+					{
+						"code": "repeat",
+						"text": {
+							"en": "",
+							"es": "Si, ¡quiero volver a intentarlo!",
+						}
+					},
+					{
+						"code": "no-repeat",
+						"text": {
+							"en": "",
+							"es": "No, ya estoy cansada.",
+						}
+					}
+				]
+			}
+		},
+		{
+			"en": "",
+			"es": "Bien.",
+		},
+		{ "action": "fade_out()" },
+		{ "await": 0.5 },
 	]
 }

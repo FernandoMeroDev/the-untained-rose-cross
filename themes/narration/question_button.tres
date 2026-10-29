@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://c2u2208g2grn8"]
+
+[ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="1_t0pl3"]
+
+[resource]
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("1_t0pl3")

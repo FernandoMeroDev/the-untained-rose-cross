@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://eva2rahr77kd"]
+
+[ext_resource type="Script" uid="uid://cprnyoijuhug1" path="res://database/resources/dice_resource.gd" id="1_ro3ed"]
+[ext_resource type="Script" uid="uid://tl3k1itad7g0" path="res://database/resources/card_resource.gd" id="2_yntuy"]
+
+[sub_resource type="Resource" id="Resource_e8o6x"]
+script = ExtResource("1_ro3ed")
+min_value = 3
+max_value = 5
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_yyxae"]
+script = ExtResource("1_ro3ed")
+min_value = 3
+max_value = 5
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_0vo1w"]
+script = ExtResource("1_ro3ed")
+type = 1
+min_value = 1
+max_value = 3
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[resource]
+script = ExtResource("2_yntuy")
+name = "Focused Strikes"
+name_translations = Dictionary[String, String]({
+"en": "Focused Strikes",
+"es": "Golpes Enfocados"
+})
+code = "focused_strikes"
+cost = 3
+dices = Array[ExtResource("1_ro3ed")]([SubResource("Resource_e8o6x"), SubResource("Resource_yyxae"), SubResource("Resource_0vo1w")])
+metadata/_custom_type_script = "uid://tl3k1itad7g0"

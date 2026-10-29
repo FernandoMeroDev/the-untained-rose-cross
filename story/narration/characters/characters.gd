@@ -49,7 +49,7 @@ func simple_positionate_char(id: String, p_position: String) -> void:
 
 ## Flip Horizontally Character
 func flip_h_char(id: String, flip: bool = true) -> void:
-	find_character(id).flip_h = flip
+	find_character(id).flip_h_char(flip)
 
 ## Find Character
 func find_character(id: String) -> Character:

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://cjwo81uvukktg"]
+
+[ext_resource type="Script" uid="uid://cprnyoijuhug1" path="res://database/resources/dice_resource.gd" id="1_ehpf2"]
+[ext_resource type="Script" uid="uid://tl3k1itad7g0" path="res://database/resources/card_resource.gd" id="2_no0ne"]
+
+[sub_resource type="Resource" id="Resource_mywr0"]
+script = ExtResource("1_ehpf2")
+type = 1
+min_value = 2
+max_value = 3
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_imfqq"]
+script = ExtResource("1_ehpf2")
+type = 2
+min_value = 1
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[resource]
+script = ExtResource("2_no0ne")
+name = "Light Attack"
+name_translations = Dictionary[String, String]({
+"en": "Light Attack",
+"es": "Ataque Ligero"
+})
+code = "light_attack"
+cost = 1
+dices = Array[ExtResource("1_ehpf2")]([SubResource("Resource_mywr0"), SubResource("Resource_imfqq")])
+metadata/_custom_type_script = "uid://tl3k1itad7g0"

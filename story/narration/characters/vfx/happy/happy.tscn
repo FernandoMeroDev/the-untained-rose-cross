@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://sd5orn8ydk1g"]
+
+[ext_resource type="Texture2D" uid="uid://lxijmdf0q21" path="res://media/story/characters/vfx/happy/happy.png" id="1_44jif"]
+[ext_resource type="Script" uid="uid://ckgh7qaymo2sk" path="res://story/narration/characters/vfx/happy/happy.gd" id="2_3fahp"]
+
+[node name="Happy" type="Sprite2D" unique_id=211136164]
+texture = ExtResource("1_44jif")
+script = ExtResource("2_3fahp")

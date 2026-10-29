@@ -17,7 +17,9 @@
 [ext_resource type="Script" uid="uid://cak8x5s6ups5f" path="res://story/narration/ui/dialog/center/center.gd" id="12_6cl1f"]
 [ext_resource type="Texture2D" uid="uid://bbfntjw70evnr" path="res://media/story/narration/ui/i_dont_know_read.png" id="12_bmkrr"]
 [ext_resource type="Script" uid="uid://d3uov6e6y7yb6" path="res://story/narration/ui/dialog/center/text.gd" id="14_qj3xf"]
+[ext_resource type="Theme" uid="uid://c2u2208g2grn8" path="res://themes/narration/question_button.tres" id="15_im5os"]
 [ext_resource type="Script" uid="uid://brt7phc0f1ocf" path="res://story/narration/ui/location.gd" id="16_c2sqp"]
+[ext_resource type="Script" uid="uid://boxo6p1jt0xkd" path="res://story/narration/ui/question/question.gd" id="16_masne"]
 [ext_resource type="Script" uid="uid://hnc40pe7vq52" path="res://story/narration/ui/skip/button.gd" id="18_363gs"]
 [ext_resource type="Script" uid="uid://bfe8pntwh5in1" path="res://story/narration/music/voice_line/voice_line.gd" id="18_c2sqp"]
 [ext_resource type="Texture2D" uid="uid://uilskx5xq6ch" path="res://media/act/icons/skip.png" id="18_f4kyf"]
@@ -206,6 +208,70 @@ script = ExtResource("14_qj3xf")
 [node name="Typing" type="AudioStreamPlayer" parent="UILayer/UI/Dialogs/Center/Box/Text" unique_id=1937735231]
 stream = ExtResource("10_cosmd")
 bus = &"SFX"
+
+[node name="Question" type="Control" parent="UILayer/UI" unique_id=2090980647]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("15_im5os")
+script = ExtResource("16_masne")
+
+[node name="Background" type="TextureRect" parent="UILayer/UI/Question" unique_id=1685716784]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("15_im5os")
+texture = ExtResource("9_5ijfb")
+
+[node name="VBox" type="VBoxContainer" parent="UILayer/UI/Question" unique_id=934534562]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextMargin" type="MarginContainer" parent="UILayer/UI/Question/VBox" unique_id=221075168]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="Center" type="CenterContainer" parent="UILayer/UI/Question/VBox/TextMargin" unique_id=855317569]
+layout_mode = 2
+
+[node name="Text" type="RichTextLabel" parent="UILayer/UI/Question/VBox/TextMargin/Center" unique_id=1279838047]
+custom_minimum_size = Vector2(1500, 250)
+custom_maximum_size = Vector2(1500, 250)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/line_separation = -20
+theme_override_font_sizes/normal_font_size = 60
+text = "Quieres¿Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis cupiditate culpa accusantium expedita, nemo deserunt eaque ex. Similique cum, molestias voluptate illo et laudantium"
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Options" type="MarginContainer" parent="UILayer/UI/Question/VBox" unique_id=1602025454]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="HFlow" type="HFlowContainer" parent="UILayer/UI/Question/VBox/Options" unique_id=348368771]
+layout_mode = 2
+theme_override_constants/h_separation = 100
+theme_override_constants/v_separation = 100
+alignment = 1
 
 [node name="Location" type="TextureRect" parent="UILayer/UI" unique_id=178477055]
 visible = false

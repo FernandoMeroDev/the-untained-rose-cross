@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://cvg1jhpfyotjo"]
+
+[ext_resource type="Script" uid="uid://cprnyoijuhug1" path="res://database/resources/dice_resource.gd" id="1_3mtor"]
+[ext_resource type="Script" uid="uid://tl3k1itad7g0" path="res://database/resources/card_resource.gd" id="2_eluwb"]
+
+[sub_resource type="Resource" id="Resource_xc4fo"]
+script = ExtResource("1_3mtor")
+type = 4
+min_value = 1
+max_value = 5
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_s7rgy"]
+script = ExtResource("1_3mtor")
+type = 3
+min_value = 2
+max_value = 3
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_l1j7x"]
+script = ExtResource("1_3mtor")
+min_value = 1
+max_value = 2
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[resource]
+script = ExtResource("2_eluwb")
+name = "Light Defense"
+name_translations = Dictionary[String, String]({
+"en": "Light Defense",
+"es": "Defensa Ligera"
+})
+code = "light_defense"
+cost = 1
+dices = Array[ExtResource("1_3mtor")]([SubResource("Resource_xc4fo"), SubResource("Resource_s7rgy"), SubResource("Resource_l1j7x")])
+metadata/_custom_type_script = "uid://tl3k1itad7g0"

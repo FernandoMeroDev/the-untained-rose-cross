@@ -15,4 +15,5 @@ func change_expression(expression_name: String) -> void:
 		show()
 		play(expression_name)
 	else:
+		push_error("Character Expression not found: " + expression_name)
 		hide()

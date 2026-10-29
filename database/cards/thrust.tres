@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://864yjc7rg8p3"]
+
+[ext_resource type="Script" uid="uid://cprnyoijuhug1" path="res://database/resources/dice_resource.gd" id="1_fm4tt"]
+[ext_resource type="Script" uid="uid://tl3k1itad7g0" path="res://database/resources/card_resource.gd" id="2_fnt8w"]
+
+[sub_resource type="Resource" id="Resource_gtmhy"]
+script = ExtResource("1_fm4tt")
+type = 1
+min_value = 1
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_wx8ee"]
+script = ExtResource("1_fm4tt")
+type = 1
+min_value = 1
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[resource]
+script = ExtResource("2_fnt8w")
+name = "Thrust"
+name_translations = Dictionary[String, String]({
+"en": "Thrust",
+"es": "Estocada"
+})
+code = "thrust"
+cost = 1
+dices = Array[ExtResource("1_fm4tt")]([SubResource("Resource_gtmhy"), SubResource("Resource_wx8ee")])
+metadata/_custom_type_script = "uid://tl3k1itad7g0"

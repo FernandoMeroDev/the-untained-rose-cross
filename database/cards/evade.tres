@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://bfankef8x6oae"]
+
+[ext_resource type="Script" uid="uid://cprnyoijuhug1" path="res://database/resources/dice_resource.gd" id="1_u606e"]
+[ext_resource type="Script" uid="uid://tl3k1itad7g0" path="res://database/resources/card_resource.gd" id="2_ubflm"]
+
+[sub_resource type="Resource" id="Resource_ix3bp"]
+script = ExtResource("1_u606e")
+type = 4
+min_value = 1
+max_value = 4
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[resource]
+script = ExtResource("2_ubflm")
+name = "Evade"
+name_translations = Dictionary[String, String]({
+"en": "Evade",
+"es": "Evasión"
+})
+code = "evade"
+dices = Array[ExtResource("1_u606e")]([SubResource("Resource_ix3bp")])
+metadata/_custom_type_script = "uid://tl3k1itad7g0"

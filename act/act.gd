@@ -19,6 +19,9 @@ enum Phases  {
 	BATTLE 
 }
 
+## Should Act block roll dices action temporally?
+var block_roll_dices: bool = false
+
 ## Chapter Name
 var chapter_name: String
 
@@ -62,7 +65,7 @@ func init(config: Dictionary) -> void:
 	chapter_name = config["chapter_name"]
 	act_name = config["act_name"]
 	# Load tutorial
-	#if act_name == 'tutorial': init_tutorial()
+	if act_name == 'tutorial': init_tutorial()
 	# Init Input Manager
 	$InputManager.act = self
 	# Init Turn Manager
@@ -72,6 +75,7 @@ func init(config: Dictionary) -> void:
 	# Init Actors
 	init_actors(config)
 	# Init Scene Number
+	$HUD/SceneNumber.act = self
 	$HUD/SceneNumber.turn_manager = turn_manager
 	$HUD/SceneNumber.init()
 	# Init Dice Roller
@@ -99,12 +103,6 @@ func handle_scene_presentation_timeout() -> void:
 
 # --- Battle Resolver Events Handlers
 func handle_scene_finished() -> void:
-	# [OLD]
-	#if $Scenary/Actors.check_teams_can_continue():
-		#reset_scene()
-	#else:
-		#end_act()
-
 	if finalizer.is_act_finalized():
 		end_act()
 	else:
@@ -374,6 +372,7 @@ func init_finalizer(finalizer_path: String) -> void:
 
 ## Roll Speed Dices to go next Phase
 func roll_dices() -> void:
+	if block_roll_dices: return
 	dices_rolled.emit()
 	if phase == Phases.UNDETERMINED_SPEED:
 		$Scenary/Actors.roll_everyone_speed_dices()

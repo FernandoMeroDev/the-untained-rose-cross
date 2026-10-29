@@ -22,4 +22,15 @@ func _on_background_gui_input(event: InputEvent) -> void:
 
 
 func _on_return_to_start_pressed() -> void:
+	play()
 	return_to_start_requested.emit()
+
+## Pause
+func pause() -> void:
+	show()
+	get_tree().paused = true
+
+## Play
+func play() -> void:
+	get_tree().paused = false
+	hide()

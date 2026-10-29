@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://cchaxr54rc7yx"]
+
+[ext_resource type="Script" uid="uid://cprnyoijuhug1" path="res://database/resources/dice_resource.gd" id="1_crsqt"]
+[ext_resource type="Script" uid="uid://tl3k1itad7g0" path="res://database/resources/card_resource.gd" id="2_0v8ab"]
+
+[sub_resource type="Resource" id="Resource_71r0d"]
+script = ExtResource("1_crsqt")
+min_value = 3
+max_value = 5
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[sub_resource type="Resource" id="Resource_r5u8t"]
+script = ExtResource("1_crsqt")
+type = 4
+min_value = 1
+max_value = 8
+metadata/_custom_type_script = "uid://cprnyoijuhug1"
+
+[resource]
+script = ExtResource("2_0v8ab")
+name = "Preemptive Strike"
+name_translations = Dictionary[String, String]({
+"en": "Preemptive Strike",
+"es": "Golpe Preventivo"
+})
+code = "preemptive_strike"
+cost = 2
+dices = Array[ExtResource("1_crsqt")]([SubResource("Resource_71r0d"), SubResource("Resource_r5u8t")])
+metadata/_custom_type_script = "uid://tl3k1itad7g0"

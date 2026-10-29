@@ -1,5 +1,8 @@
 extends TextureRect
 
+## Act Reference
+var act: Act
+
 ## Turn Manager Reference
 var turn_manager: TurnManager
 

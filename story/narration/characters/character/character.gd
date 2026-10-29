@@ -4,6 +4,10 @@ const SleepingVFXScene: PackedScene = preload("res://story/narration/characters/
 const SleepingVFX = preload("res://story/narration/characters/vfx/sleeping/sleeping.gd")
 const SurprisedVFXScene: PackedScene = preload("res://story/narration/characters/vfx/surprised/surprised.tscn")
 const SurprisedVFX = preload("res://story/narration/characters/vfx/surprised/surprised.gd")
+const HappyVFXScene: PackedScene = preload("res://story/narration/characters/vfx/happy/happy.tscn")
+const HappyVFX = preload("res://story/narration/characters/vfx/happy/happy.gd")
+const GloomyVFXScene: PackedScene = preload("res://story/narration/characters/vfx/gloomy/gloomy.tscn")
+const GloomyVFX = preload("res://story/narration/characters/vfx/gloomy/gloomy.gd")
 
 ## Character ID
 var id: String
@@ -27,6 +31,7 @@ func init(p_id: String, p_code: String) -> void:
 
 ## Load Animations
 func load_animations() -> void:
+	$Expression.init()
 	var path: String = "res://media/story/characters/" + code
 	var dir: DirAccess = DirAccess.open(path)
 	if dir:
@@ -52,7 +57,6 @@ func load_animation(animation_name: String, texture: Texture2D) -> void:
 ## Load Expressions
 func load_expressions(path: String, dir_name: String) -> void:
 	# Search for expressions
-	$Expression.init()
 	var sprites: DirAccess = DirAccess.open(path + "/" + dir_name)
 	sprites.list_dir_begin()
 	var file_name: String = sprites.get_next()
@@ -105,6 +109,18 @@ func play_vfx(vfx_name: String) -> void:
 			surprised_vfx.character = self
 			surprised_vfx.init()
 			current_vfx = surprised_vfx
+		'happy':
+			var happy_vfx: HappyVFX = HappyVFXScene.instantiate()
+			add_child(happy_vfx)
+			happy_vfx.character = self
+			happy_vfx.init()
+			current_vfx = happy_vfx
+		'gloomy':
+			var gloomy_vfx: GloomyVFX = GloomyVFXScene.instantiate()
+			add_child(gloomy_vfx)
+			gloomy_vfx.character = self
+			gloomy_vfx.init()
+			current_vfx = gloomy_vfx
 
 ## Simple Positionate Character
 func simple_positionate(p_position: String) -> void:
@@ -125,6 +141,11 @@ func show_character(fade_in_time: float = 0.3) -> void:
 	show()
 	var tween: Tween = create_tween()
 	tween.tween_property(self, 'modulate:a', 1.0, fade_in_time)
+
+## Flip Character Horizontally
+func flip_h_char(flip: bool = true) -> void:
+	flip_h = flip
+	$Expression.flip_h = flip
 
 ## Activate Character
 func activate_char() -> void:
