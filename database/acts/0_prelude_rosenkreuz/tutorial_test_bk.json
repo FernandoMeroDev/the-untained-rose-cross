@@ -1,0 +1,381 @@
+{
+	"act_number": 1,
+	"randomize_first_turn": false,
+	"first_turn_for": "right",
+	"toggle_each_turn": false,
+	"controllers": {
+		"left_team": "PLAYER",
+		"right_team": "AI",
+	},
+	"max_emotion_level": {
+		"right": 5,
+		"left": 5
+	},
+	"finalizer": "default",
+	"teams": {
+		"left": [
+			{
+				"id": 1,
+				"code": "juline",
+				"name": {
+					"en": "Juline 1",
+					"es": "Juline 1"
+				},
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 30,
+					"max_resist": 15,
+					"speed": { "min": 1, "max": 4 },
+					"speed_dices": 1,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "weak",
+					"pierce_resist": "weak",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
+				},
+				"deck": [
+					"evade",
+					"light_attack",
+					"light_defense",
+					"charge_and_cover",
+					"focused_strikes",
+					"dodge_and_strike",
+					"thrust",
+					"preemptive_strike",
+					"quickness"
+				]
+			},
+			{
+				"id": 2,
+				"code": "juline",
+				"name": {
+					"en": "Juline 2",
+					"es": "Juline 2"
+				},
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 30,
+					"max_resist": 15,
+					"speed": { "min": 1, "max": 4 },
+					"speed_dices": 1,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "weak",
+					"pierce_resist": "weak",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
+				},
+				"deck": [
+					"evade",
+					"light_attack",
+					"light_defense",
+					"charge_and_cover",
+					"focused_strikes",
+					"dodge_and_strike",
+					"thrust",
+					"preemptive_strike",
+					"quickness"
+				]
+			},
+			{
+				"id": 3,
+				"code": "juline",
+				"name": {
+					"en": "Juline 3",
+					"es": "Juline 3"
+				},
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 30,
+					"max_resist": 15,
+					"speed": { "min": 1, "max": 4 },
+					"speed_dices": 1,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "weak",
+					"pierce_resist": "weak",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
+				},
+				"deck": [
+					"evade",
+					"light_attack",
+					"light_defense",
+					"charge_and_cover",
+					"focused_strikes",
+					"dodge_and_strike",
+					"thrust",
+					"preemptive_strike",
+					"quickness"
+				]
+			},
+			{
+				"id": 4,
+				"code": "juline",
+				"name": {
+					"en": "Juline 4",
+					"es": "Juline 4"
+				},
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 30,
+					"max_resist": 15,
+					"speed": { "min": 1, "max": 4 },
+					"speed_dices": 1,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "weak",
+					"pierce_resist": "weak",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
+				},
+				"deck": [
+					"evade",
+					"light_attack",
+					"light_defense",
+					"charge_and_cover",
+					"focused_strikes",
+					"dodge_and_strike",
+					"thrust",
+					"preemptive_strike",
+					"quickness"
+				]
+			},
+			{
+				"id": 5,
+				"code": "juline",
+				"name": {
+					"en": "Juline 5",
+					"es": "Juline 5"
+				},
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 30,
+					"max_resist": 15,
+					"speed": { "min": 1, "max": 4 },
+					"speed_dices": 1,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "weak",
+					"pierce_resist": "weak",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
+				},
+				"deck": [
+					"evade",
+					"light_attack",
+					"light_defense",
+					"charge_and_cover",
+					"focused_strikes",
+					"dodge_and_strike",
+					"thrust",
+					"preemptive_strike",
+					"quickness"
+				]
+			},
+		],
+		"right": [
+			{
+				"id": 6,
+				"code": "lucine",
+				"name": {
+					"en": "Lucine 1",
+					"es": "Lucine 1"
+				},
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 30,
+					"max_resist": 15,
+					"speed": { "min": 1, "max": 4 },
+					"speed_dices": 1,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "weak",
+					"pierce_resist": "weak",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
+				},
+				"deck": [
+					"evade",
+					"light_attack",
+					"light_defense",
+					"charge_and_cover",
+					"focused_strikes",
+					"dodge_and_strike",
+					"thrust",
+					"preemptive_strike",
+					"quickness"
+				]
+			},
+			{
+				"id": 7,
+				"code": "lucine",
+				"name": {
+					"en": "Lucine 2",
+					"es": "Lucine 2"
+				},
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 30,
+					"max_resist": 15,
+					"speed": { "min": 1, "max": 4 },
+					"speed_dices": 1,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "weak",
+					"pierce_resist": "weak",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
+				},
+				"deck": [
+					"evade",
+					"light_attack",
+					"light_defense",
+					"charge_and_cover",
+					"focused_strikes",
+					"dodge_and_strike",
+					"thrust",
+					"preemptive_strike",
+					"quickness"
+				]
+			},
+			{
+				"id": 8,
+				"code": "lucine",
+				"name": {
+					"en": "Lucine 3",
+					"es": "Lucine 3"
+				},
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 30,
+					"max_resist": 15,
+					"speed": { "min": 1, "max": 4 },
+					"speed_dices": 1,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "weak",
+					"pierce_resist": "weak",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
+				},
+				"deck": [
+					"evade",
+					"light_attack",
+					"light_defense",
+					"charge_and_cover",
+					"focused_strikes",
+					"dodge_and_strike",
+					"thrust",
+					"preemptive_strike",
+					"quickness"
+				]
+			},
+			{
+				"id": 9,
+				"code": "lucine",
+				"name": {
+					"en": "Lucine 4",
+					"es": "Lucine 4"
+				},
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 30,
+					"max_resist": 15,
+					"speed": { "min": 1, "max": 4 },
+					"speed_dices": 1,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "weak",
+					"pierce_resist": "weak",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
+				},
+				"deck": [
+					"evade",
+					"light_attack",
+					"light_defense",
+					"charge_and_cover",
+					"focused_strikes",
+					"dodge_and_strike",
+					"thrust",
+					"preemptive_strike",
+					"quickness"
+				]
+			},
+			{
+				"id": 10,
+				"code": "lucine",
+				"name": {
+					"en": "Lucine 5",
+					"es": "Lucine 5"
+				},
+				"sharp_weapon": true,
+				"stats": {
+					"max_hp": 30,
+					"max_resist": 15,
+					"speed": { "min": 1, "max": 4 },
+					"speed_dices": 1,
+					"light": 3,
+					"status_effects": []
+				},
+				"resistences": {
+					"slash_damage": "normal",
+					"slash_resist": "normal",
+					"pierce_damage": "weak",
+					"pierce_resist": "weak",
+					"blunt_damage": "fatal",
+					"blunt_resist": "fatal",
+				},
+				"deck": [
+					"evade",
+					"light_attack",
+					"light_defense",
+					"charge_and_cover",
+					"focused_strikes",
+					"dodge_and_strike",
+					"thrust",
+					"preemptive_strike",
+					"quickness"
+				]
+			},
+		]
+	}
+}

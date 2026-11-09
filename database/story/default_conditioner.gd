@@ -1,6 +1,9 @@
 # class Database/Story/DefaultConditioner
 extends RefCounted
 
+## Game State Event reference for save in disk
+var event: Dictionary
+
 ## Narration Chapter Name
 var chapter_name: String
 

@@ -41,7 +41,6 @@
 		{
 			"en": "Hey, wake up.",
 			"es": "Hey, despierta.",
-			"voice_line": 1,
 			"await_after": 0.3
 		},
 		{ "action": "deactivate_char('lucine')" },
@@ -51,7 +50,6 @@
 		{
 			"en": "Oh?!",
 			"es": "¡¿Oh?!",
-			"voice_line": 2,
 		},
 		{ "action": "change_char_expression('juline', 'open_eyes')" },
 		{ "action": "deactivate_char('juline')" },
@@ -59,7 +57,6 @@
 		{
 			"en": "Good morning, Juline.",
 			"es": "Buenos días, Juline.",
-			"voice_line": 3
 		},
 		{ "action": "set_location_tr('juline_room')" },
 		{ "action": "show_location()" },
@@ -67,30 +64,30 @@
 		{ "action": "deactivate_char('lucine')" },
 		{ "action": "activate_char('juline')" },
 		{
-			"es": "¿Hermana mayor? ¿Qué haces aquí?",
-			"voice_line": 4
+			"en": "",
+			"es": "¿Hermana Lucine?",
 		},
 		{ "action": "set_title_name_tr('lucine')" },
 		{ "action": "deactivate_char('juline')" },
 		{ "action": "activate_char('lucine')" },
 		{
 			"en": "",
-			"es": "Vine porque hoy es un día especial.",
+			"es": "Regresé al palacio porque hoy es un día especial.",
 		},
+		{ "action": "change_char_expression('juline', 'smile')" },
 		{ "action": "set_title_name_tr('juline')" },
 		{ "action": "deactivate_char('lucine')" },
 		{ "action": "activate_char('juline')" },
-		{ "action": "change_char_expression('juline', 'smile')" },
 		{
 			"en": "",
-			"es": "Estoy muy feliz de verte... pero ¿qué día especial es hoy?",
+			"es": "Estoy muy feliz de verte, hermana. ¿Qué día especial es hoy?",
 		},
 		{ "action": "set_title_name_tr('lucine')" },
 		{ "action": "deactivate_char('juline')" },
 		{ "action": "activate_char('lucine')" },
 		{
 			"en": "",
-			"es": "Hoy es nuestro cumpleaños, ¿lo olvidaste?",
+			"es": "Hoy nuestro cumpleaños, ¿lo olvidaste?",
 		},
 		{ "action": "set_title_name_tr('juline')" },
 		{ "action": "deactivate_char('lucine')" },
@@ -107,18 +104,22 @@
 		{ "action": "activate_char('lucine')" },
 		{
 			"en": "",
-			"es": "Hehe, tranquila se que has estado muy ocupada últimamente.",
+			"es": "Hehe~ tranquila se que has estado ocupada estudiando con Elaina.",
 		},
 		{
 			"en": "",
-			"es": "¿Qué te parece si me muestras lo que aprendiste en el entrenamiento?",
+			"es": "¿Le muestras a tu hermana lo que has aprendido en estos tres meses?",
 		},
 		{ "action": "set_title_name_tr('juline')" },
 		{ "action": "deactivate_char('lucine')" },
 		{ "action": "activate_char('juline')" },
 		{
 			"en": "",
-			"es": "Esta bien. Ire a cambiarme y podemos hacerlo en la plaza ¿Te parece?",
+			"es": "Ummm, no lo sé... no creo que logre hacerte ni un rasguño",
+		},
+		{
+			"en": "",
+			"es": "Porque eres muy fuerte y puedes usar la magia de apoyo físico.",
 		},
 		{ "action": "change_char_expression('lucine', 'default')" },
 		{ "action": "set_title_name_tr('lucine')" },
@@ -126,7 +127,18 @@
 		{ "action": "activate_char('lucine')" },
 		{
 			"en": "",
-			"es": "Okay.",
+			"es": "Lo que quiero es ver lo que has aprendido, Juline.",
+		},
+		{
+			"en": "",
+			"es": "Para ser justas no utilizaré magia ni te haré daño con el filo, ¿te parece?",
+		},
+		{ "action": "set_title_name_tr('juline')" },
+		{ "action": "deactivate_char('lucine')" },
+		{ "action": "activate_char('juline')" },
+		{
+			"en": "",
+			"es": "Está bien ¡pero no creas que por eso te dejaré ganar fácil!.",
 		},
 		{ "action": "fade_out()" },
 		{ "await": 0.5 }

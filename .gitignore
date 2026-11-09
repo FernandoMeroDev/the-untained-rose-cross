@@ -3,4 +3,4 @@
 /android/
 
 # Ignore videos while project is in development process
-/media/videos/
+# /media/videos/

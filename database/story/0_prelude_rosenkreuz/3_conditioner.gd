@@ -15,3 +15,7 @@ func have_won_previous_act() -> String:
 		return 'true'
 	else: 
 		return 'false'
+
+## Evaluate Condition: Lucine repeats tutotial act?
+func repeat_tutorial() -> String:
+	return event['content']['question_answers']["repeat_tutorial"]

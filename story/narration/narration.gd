@@ -10,6 +10,9 @@ signal finished
 ## Return to start requested
 signal return_to_start_requested
 
+## Game State Event Reference
+var event: Dictionary
+
 ## Locale Language
 var locale: String
 
@@ -35,9 +38,9 @@ var conditioner: Conditioner
 var finalizer: Finalizer
 
 ## UI event Handler
-func _on_ui_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+func _on_ui_gui_input(in_event: InputEvent) -> void:
+	if in_event is InputEventMouseButton:
+		if in_event.button_index == MOUSE_BUTTON_LEFT and in_event.pressed:
 			$UILayer/UI/Dialogs.finish_immediately()
 			$Characters.everyone_finish_immediately()
 			$Music/VoiceLine.finish_immediately()
@@ -111,6 +114,7 @@ func init_conditioner(conditioner_path: String) -> void:
 		conditioner = load(
 			'res://database/story/' + conditioner_path + '.gd'
 		).new()
+	conditioner.event = event
 	conditioner.chapter_name = narration_chapter.get_slice('/', 0)
 
 func init_finalizer(narration_data: Dictionary) -> void:

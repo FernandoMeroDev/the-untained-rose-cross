@@ -1,6 +1,6 @@
 {
-	"ai_voices": true,
-	"language": "en",
+	"ai_voices": false,
+	"language": "es",
 	"sound": {
 		"Master": 100,
 		"Music": 100,

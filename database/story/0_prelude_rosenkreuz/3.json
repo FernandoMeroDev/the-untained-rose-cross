@@ -33,9 +33,15 @@
 						"en": "",
 						"es": "Hehe~ ¡Te gané!",
 					},
+					{ "action": "play_char_vfx('juline', 'surprised')" },
+					{ "action": "change_char_expression('juline', 'gloomy')" },
 					{
 						"en": "",
-						"es": "¿Estoy más hábil, hermana?",
+						"es": "¡No puede ser!",
+					},
+					{
+						"en": "",
+						"es": "Lo siento... te hice daño, hermana.",
 					},
 					{ "action": "change_char_expression('lucine', 'smile')" },
 					{ "action": "deactivate_char('juline')" },
@@ -43,8 +49,45 @@
 					{ "action": "set_title_name_tr('lucine')" },
 					{
 						"en": "",
-						"es": "Has mejorado mucho. Elaina parece estar haciendo un buen trabajo contigo.",
+						"es": "Tranquila, le pedí a Elaina que prepare este lugar para practicar.",
 					},
+					{
+						"en": "",
+						"es": "Es una magia muy sorprendente.",
+					},
+					{
+						"en": "",
+						"es": "Dentro de este pequeño círculo las heridas están atrapadas en el tiempo y se curarán.",
+					},
+					{ "action": "deactivate_char('lucine')" },
+					{ "action": "activate_char('juline')" },
+					{ "action": "set_title_name_tr('juline')" },
+					{
+						"en": "",
+						"es": "...",
+					},
+					{ "action": "deactivate_char('juline')" },
+					{ "action": "activate_char('lucine')" },
+					{ "action": "set_title_name_tr('lucine')" },
+					{
+						"en": "",
+						"es": "Estoy muy feliz de que hayas aprendido tanto en estos tres meses.",
+					},
+					{
+						"en": "",
+						"es": "No debe haber sido fácil.",
+					},
+					{ "action": "change_char_expression('juline', 'default')" },
+					{ "action": "deactivate_char('lucine')" },
+					{ "action": "activate_char('juline')" },
+					{ "action": "set_title_name_tr('juline')" },
+					{
+						"en": "",
+						"es": "Gracias por reconocerlo, hermana.",
+					},
+					{ "action": "deactivate_char('juline')" },
+					{ "action": "activate_char('lucine')" },
+					{ "action": "set_title_name_tr('lucine')" },
 				],
 				"false": [
 					{ "action": "play_char_vfx('juline', 'gloomy')" },
@@ -64,7 +107,6 @@
 				],
 			}
 		},
-		{ "action": "change_char_expression('juline', 'neutral')" },
 		{
 			"en": "",
 			"es": "¿Quieres seguir prácticando?",
@@ -94,9 +136,23 @@
 				]
 			}
 		},
-		{
-			"en": "",
-			"es": "Bien.",
+		{ 
+			"branch": {
+				"condition_name": "repeat_tutorial",
+				"condition_args": [],
+				"repeat": [
+					{
+						"en": "",
+						"es": "Bien repitamos.",
+					},
+				],
+				"no-repeat": [
+					{
+						"en": "",
+						"es": "Entonces vamos  descansar un momento al jardín.",
+					},
+				]
+			}
 		},
 		{ "action": "fade_out()" },
 		{ "await": 0.5 },
