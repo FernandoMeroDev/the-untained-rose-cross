@@ -25,6 +25,10 @@ func init() -> void:
 		for event: Dictionary in chapter["sequence"]:
 			if event["completed"]: continue
 			match event["type"]:
+				"end_of_story":
+					GameState.delete_game()
+					return_to_start_requested.emit()
+					break
 				"presentation":
 					load_presentation(
 						event["content"]["text"]

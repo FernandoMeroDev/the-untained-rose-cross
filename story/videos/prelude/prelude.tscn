@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="4_nwesc"]
 [ext_resource type="Script" uid="uid://oqlvrbn1rv6x" path="res://story/videos/prelude/subtitles.gd" id="5_ppb3x"]
 [ext_resource type="AudioStream" uid="uid://bpiqu1g6qf630" path="res://media/act/music/ost/pure_lapis_lazuli_rosenkreuz/1_prelude_rosenkreuz.mp3" id="6_e01nr"]
+[ext_resource type="Texture2D" uid="uid://uilskx5xq6ch" path="res://media/act/icons/skip.png" id="7_fl5f8"]
 
 [node name="Prelude" type="Control" unique_id=1026230697]
 layout_mode = 3
@@ -52,3 +53,19 @@ script = ExtResource("5_ppb3x")
 stream = ExtResource("6_e01nr")
 autoplay = true
 bus = &"Music"
+
+[node name="Skip" type="TextureButton" parent="." unique_id=1691281549]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -153.0
+offset_top = 57.0
+offset_right = -78.0
+offset_bottom = 107.0
+grow_horizontal = 0
+offset_transform_enabled = true
+texture_normal = ExtResource("7_fl5f8")
+texture_pressed = ExtResource("7_fl5f8")
+
+[connection signal="pressed" from="Skip" to="." method="_on_skip_pressed"]

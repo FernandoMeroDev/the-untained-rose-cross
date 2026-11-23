@@ -7,6 +7,10 @@ func save_game(game_state: Dictionary) -> void:
 ## Load Game State
 func load_game() -> Dictionary:
 	return read_file("save.json")
+	
+## Delete Game State
+func delete_game() -> void:
+	remove_file("save.json")
 
 ## Save Config State
 func save_config(config_state: Dictionary) -> void:
@@ -23,6 +27,10 @@ func store_file(path: String, content: Variant) -> void:
 	)
 	file.store_string(JSON.stringify(content))
 	file.close()
+
+## Remove File in user storage
+func remove_file(path: String) -> void:
+	DirAccess.remove_absolute('user://' + path)
 
 ## Read File in user storage
 func read_file(path: String) -> Variant:

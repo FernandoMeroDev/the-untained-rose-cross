@@ -61,8 +61,8 @@
 				},
 				"sharp_weapon": true,
 				"stats": {
-					"max_hp": 30,
-					"max_resist": 15,
+					"max_hp": 90,
+					"max_resist": 35,
 					"speed": { "min": 1, "max": 4 },
 					"speed_dices": 1,
 					"light": 3,

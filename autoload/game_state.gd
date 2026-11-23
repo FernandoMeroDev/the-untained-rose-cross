@@ -40,6 +40,10 @@ func load_game() -> void:
 	var game_state: Dictionary = save_manager.load_game()
 	story = game_state["story"]
 
+## Delete Game State
+func delete_game() -> void:
+	save_manager.delete_game()
+
 ## Save Config State
 func save_config() -> void:
 	save_manager.save_config(config)
