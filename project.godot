@@ -37,6 +37,7 @@ window/size/mode=4
 window/size/resizable=false
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
+window/handheld/orientation=4
 
 [editor]
 

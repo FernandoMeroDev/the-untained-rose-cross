@@ -164,6 +164,9 @@ func handle_card_pressed(card: Card) -> void:
 				right_card_selected.emit(card, speed_dice_focused)
 		# Change Status
 		status = States.CARD_SELECTED
+	elif status == States.CARD_SELECTED:
+		if card == current_card_selected:
+			back_action()
 
 func handle_card_mouse_entered(card: Card) -> void:
 	if status == States.FOCUSING_DICE:
