@@ -30,51 +30,18 @@
 					
 					{ "action": "play_char_vfx('juline', 'happy')" },
 					{
-						"en": "",
+						"en": "Hehe~ I beat you!",
 						"es": "Hehe~ ¡Te gané!",
 					},
-					{ "action": "play_char_vfx('juline', 'surprised')" },
-					{ "action": "change_char_expression('juline', 'gloomy')" },
-					{
-						"en": "",
-						"es": "¡No puede ser!",
-					},
-					{
-						"en": "",
-						"es": "Lo siento... te hice daño, hermana.",
-					},
-					{ "action": "change_char_expression('lucine', 'smile')" },
 					{ "action": "deactivate_char('juline')" },
 					{ "action": "activate_char('lucine')" },
 					{ "action": "set_title_name_tr('lucine')" },
 					{
-						"en": "",
-						"es": "Tranquila, le pedí a Elaina que prepare este lugar para practicar.",
-					},
-					{
-						"en": "",
-						"es": "Es una magia muy sorprendente.",
-					},
-					{
-						"en": "",
-						"es": "Dentro de este pequeño círculo las heridas están atrapadas en el tiempo y se curarán.",
-					},
-					{ "action": "deactivate_char('lucine')" },
-					{ "action": "activate_char('juline')" },
-					{ "action": "set_title_name_tr('juline')" },
-					{
-						"en": "",
-						"es": "...",
-					},
-					{ "action": "deactivate_char('juline')" },
-					{ "action": "activate_char('lucine')" },
-					{ "action": "set_title_name_tr('lucine')" },
-					{
-						"en": "",
+						"en": "I am very happy that you have learned so much in these three months.",
 						"es": "Estoy muy feliz de que hayas aprendido tanto en estos tres meses.",
 					},
 					{
-						"en": "",
+						"en": "It couldn't have been easy.",
 						"es": "No debe haber sido fácil.",
 					},
 					{ "action": "change_char_expression('juline', 'default')" },
@@ -82,7 +49,7 @@
 					{ "action": "activate_char('juline')" },
 					{ "action": "set_title_name_tr('juline')" },
 					{
-						"en": "",
+						"en": "Thanks for acknowledging it, sister.",
 						"es": "Gracias por reconocerlo, hermana.",
 					},
 					{ "action": "deactivate_char('juline')" },
@@ -93,7 +60,7 @@
 					{ "action": "play_char_vfx('juline', 'gloomy')" },
 					{ "action": "change_char_expression('juline', 'gloomy')" },
 					{
-						"en": "",
+						"en": "Ugh, I lost. You’re really strong, sister.",
 						"es": "Ughhh, perdí. Eres muy fuerte, hermana.",
 					},
 					{ "action": "change_char_expression('lucine', 'smile')" },
@@ -101,35 +68,35 @@
 					{ "action": "activate_char('lucine')" },
 					{ "action": "set_title_name_tr('lucine')" },
 					{
-						"en": "",
+						"en": "There are still many things you can improve upon, just as there are for me. But you have learned a lot, Juline. Don’t get discouraged.",
 						"es": "Aún hay muchas cosas en las que puedes mejorar, al igual que yo. Pero has aprendido mucho Juline. No te desanimes.",
 					},
 				],
 			}
 		},
 		{
-			"en": "",
+			"en": "Do you want to keep practicing?",
 			"es": "¿Quieres seguir prácticando?",
 		},
 		{
 			"question": {
 				"code": "repeat_tutorial",
 				"text": {
-					"en": "",
+					"en": "Is Juline trying again?",
 					"es": "¿Juline lo intenta nuevamente?",
 				},
 				"options": [
 					{
 						"code": "repeat",
 						"text": {
-							"en": "",
+							"en": "Yes, I want to try again!",
 							"es": "Si, ¡quiero volver a intentarlo!",
 						}
 					},
 					{
 						"code": "no-repeat",
 						"text": {
-							"en": "",
+							"en": "No, I’m tired now.",
 							"es": "No, ya estoy cansada.",
 						}
 					}
@@ -142,13 +109,13 @@
 				"condition_args": [],
 				"repeat": [
 					{
-						"en": "",
+						"en": "Alright, let’s repeat.",
 						"es": "Bien repitamos.",
 					},
 				],
 				"no-repeat": [
 					{
-						"en": "",
+						"en": "So, let’s go rest in the garden for a moment.",
 						"es": "Entonces vamos  descansar un momento al jardín.",
 					},
 				]

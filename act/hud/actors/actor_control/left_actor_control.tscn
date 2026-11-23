@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cvxubrjvufsi6" path="res://media/act/hud/actors/under.png" id="2_edsvy"]
 [ext_resource type="Script" uid="uid://dsls45k80kx1k" path="res://act/hud/actors/actor_control/actor_control.gd" id="2_xwfkh"]
 [ext_resource type="Texture2D" uid="uid://dtuh3qyj4evb1" path="res://media/act/hud/actors/progress.png" id="3_t7n7r"]
+[ext_resource type="Texture2D" uid="uid://cygnoa4prqsgy" path="res://media/act/actors/sprites/juline/default.png" id="3_vwrjb"]
 [ext_resource type="Texture2D" uid="uid://d14b2cgut24iu" path="res://media/act/hud/actors/portrait_cover.png" id="4_6l1pi"]
 [ext_resource type="Texture2D" uid="uid://cm81q8eof2n2t" path="res://media/act/hud/actors/ring.png" id="5_uyepq"]
 [ext_resource type="Script" uid="uid://cv7qbr0denrbr" path="res://act/hud/actors/actor_control/emotion_points/emotion_points.gd" id="7_wreko"]
@@ -11,9 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://64j7vhqkg757" path="res://media/act/hud/hand/light-slot.png" id="8_rx8t4"]
 [ext_resource type="FontFile" uid="uid://dsv7koyhcqq1h" path="res://themes/Caveat-VariableFont_wght.ttf" id="9_l8kh0"]
 [ext_resource type="Script" uid="uid://vfdtpshierlh" path="res://act/hud/actors/actor_control/emotion_level.gd" id="10_gx8br"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nfu38"]
-load_path = "res://.godot/imported/default.png-e3a13022060083fd5c97beea4f39b26b.ctex"
 
 [node name="LeftActorControl" type="TextureRect" unique_id=1415523283]
 self_modulate = Color(0, 0, 0, 1)
@@ -35,7 +33,7 @@ layout_mode = 1
 offset_right = 438.0
 offset_bottom = 677.0
 scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_nfu38")
+texture = ExtResource("3_vwrjb")
 
 [node name="Cover" type="TextureRect" parent="Portrait" unique_id=670382699]
 self_modulate = Color(0, 0, 0, 1)

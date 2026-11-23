@@ -33,20 +33,16 @@ func init(p_id: String, p_code: String) -> void:
 func load_animations() -> void:
 	$Expression.init()
 	var path: String = "res://media/story/characters/" + code
-	var dir: DirAccess = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var dir_name: String = dir.get_next()
-		while dir_name != "":
-			if dir.current_is_dir():
-				# Load Main Sprite
-				load_animation(
-					dir_name,
-					load(path + '/' + dir_name + '/sprite.png')
-				)
-				load_expressions(path, dir_name)
-			dir_name = dir.get_next()
-		dir.list_dir_end()
+	for sprite_name: String in ResourceLoader.list_directory(path):
+		sprite_name = sprite_name.get_slice('/', 0)
+		load_animation(
+			sprite_name,
+			load(path + '/' + sprite_name + '/sprite.png')
+		)
+		load_expressions(
+			sprite_name,
+			path + '/' + sprite_name,
+		)
 
 ## Load Animation
 func load_animation(animation_name: String, texture: Texture2D) -> void:
@@ -55,30 +51,20 @@ func load_animation(animation_name: String, texture: Texture2D) -> void:
 	sprite_frames.add_frame(animation_name, texture)
 
 ## Load Expressions
-func load_expressions(path: String, dir_name: String) -> void:
-	# Search for expressions
-	var sprites: DirAccess = DirAccess.open(path + "/" + dir_name)
-	sprites.list_dir_begin()
-	var file_name: String = sprites.get_next()
-	while file_name != "":
-		if not sprites.current_is_dir():
-			if(
-				file_name != 'sprite.png'
-				and file_name.ends_with('.png')
-			):
-				var expression_name: String = (
-					dir_name + '_' + file_name.replace('.png', '')
-				)
-				$Expression.load_expression(
-					# name format: <animation>_<expression_name>
-					# name example: sleepy_open_eyes
-					expression_name,
-					load(path + "/" + dir_name + "/" + file_name)
-				)
-				if file_name == 'default.png' and dir_name == 'default':
-					$Expression.play(expression_name)
-		file_name = sprites.get_next()
-	sprites.list_dir_end()
+func load_expressions(animation_name: String, path: String) -> void:
+	for expression_file_name: String in ResourceLoader.list_directory(path):
+		if expression_file_name != 'sprite.png':
+			var expression_name: String = (
+				animation_name + '_' + expression_file_name.replace('.png', '')
+			)
+			$Expression.load_expression(
+				# name format: <animation>_<expression_name>
+				# name example: sleepy_open_eyes
+				expression_name,
+				load(path + "/" + expression_file_name)
+			)
+			if expression_name == 'default_default':
+				$Expression.play(expression_name)
 
 ## Finish Immeditely
 func finish_immediately() -> void:

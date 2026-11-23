@@ -14,3 +14,6 @@ func _ready() -> void:
 			await get_tree().create_timer(await_after).timeout
 			finished.emit()
 	)
+
+func _on_skip_pressed() -> void:
+	finished.emit()
